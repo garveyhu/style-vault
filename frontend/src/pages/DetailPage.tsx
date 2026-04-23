@@ -14,7 +14,7 @@ import {
   ExpandOutlined,
 } from '@ant-design/icons';
 import { useRegistry, useItem, isRegistryMissing } from '../data/useRegistry';
-import { typeLabel, typeColor } from '../utils/i18n';
+import { typeLabel, typeColor, platformLabel, themeLabel } from '../utils/i18n';
 import { zh } from '../utils/tagI18n';
 import { buildPrompt } from '../utils/prompt';
 import { TopBar } from '../components/TopBar';
@@ -189,11 +189,25 @@ export default function DetailPage() {
               </p>
             </div>
 
+            {/* 平台 + 主题（顶层元数据） */}
+            <div className="flex flex-wrap items-center gap-1.5">
+              {item.platforms.map((p) => (
+                <span
+                  key={p}
+                  className="rounded-md bg-slate-900 px-2 py-0.5 text-[11px] font-medium text-white"
+                >
+                  {platformLabel[p] ?? p}
+                </span>
+              ))}
+              <span className="rounded-md border border-slate-200 bg-white px-2 py-0.5 text-[11px] text-slate-600">
+                {themeLabel[item.theme] ?? item.theme}
+              </span>
+            </div>
+
             {/* Tags 紧凑网格 */}
             <div className="space-y-3">
               <TagRow label="风格" values={item.tags.aesthetic} group="aesthetic" />
               <TagRow label="氛围" values={item.tags.mood} group="mood" />
-              <TagRow label="主题" values={item.tags.theme} group="theme" />
               <TagRow label="技术栈" values={item.tags.stack} group="stack" />
             </div>
 
@@ -387,7 +401,7 @@ function TagRow({
 }: {
   label: string;
   values: string[];
-  group: 'aesthetic' | 'mood' | 'theme' | 'stack';
+  group: 'aesthetic' | 'mood' | 'stack';
 }) {
   if (values.length === 0) return null;
   return (
