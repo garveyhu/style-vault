@@ -71,6 +71,7 @@ export function StyleCard({
 }) {
   const previewRef = useRef<HTMLDivElement | null>(null);
   const [scale, setScale] = useState(0.28);
+  const [hovered, setHovered] = useState(false);
   const { user } = useAuth();
   const { isFavorited, toggleFavorite } = useFavorites();
   const favorited = isFavorited(item.id);
@@ -109,6 +110,9 @@ export function StyleCard({
   return (
     <article
       onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      data-hover={hovered}
       className="sv-card group relative mb-6 block w-full cursor-pointer overflow-hidden rounded-2xl border border-slate-200/80 bg-white [break-inside:avoid]"
     >
       {/* Preview 区（height 固定，width 跟卡片自适应） */}
@@ -135,9 +139,17 @@ export function StyleCard({
           </div>
         )}
 
-        {/* hover overlay（z-10，高于 preview 容器） */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-black/55 via-black/15 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 translate-y-2 p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+        {/* hover overlay（state 驱动，不依赖 CSS :hover） */}
+        <div
+          className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-black/55 via-black/15 to-transparent transition-opacity duration-300 ${
+            hovered ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+        <div
+          className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 p-4 transition-all duration-300 ${
+            hovered ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
+          }`}
+        >
           <div className="flex items-end justify-between gap-3">
             <div className="min-w-0 flex-1">
               <div className="text-[11px] uppercase tracking-[0.12em] text-white/70">
@@ -164,7 +176,9 @@ export function StyleCard({
               ${
                 favorited
                   ? 'bg-emerald-500 text-white opacity-100 hover:bg-emerald-600'
-                  : 'bg-white/95 text-slate-500 opacity-0 hover:bg-white hover:text-emerald-500 group-hover:opacity-100'
+                  : `bg-white/95 text-slate-500 hover:bg-white hover:text-emerald-500 ${
+                      hovered ? 'opacity-100' : 'opacity-0'
+                    }`
               }`}
           >
             {favorited ? <HeartFilled /> : <HeartOutlined />}
@@ -178,7 +192,9 @@ export function StyleCard({
                 window.open(item.preview!, '_blank');
               }}
               title="全屏预览"
-              className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg bg-white/95 text-slate-600 opacity-0 shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-white group-hover:opacity-100"
+              className={`pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg bg-white/95 text-slate-600 shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-white ${
+                hovered ? 'opacity-100' : 'opacity-0'
+              }`}
             >
               <FullscreenOutlined />
             </button>

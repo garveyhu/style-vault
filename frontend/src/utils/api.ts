@@ -11,7 +11,16 @@ export function setToken(t: string | null) {
   else localStorage.removeItem(TOKEN_KEY);
 }
 
-export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
+/**
+ * 并发 & 短期去重缓存：同一 URL+method 的 in-flight 请求合并，
+ * 完成后 200ms 内的相同请求直接复用结果（抗 React StrictMode /
+ * Vite HMR / 多个消费者同时 mount 导致的重复 fetch）。
+ */
+type CacheEntry = { promise: Promise<unknown>; expireAt: number };
+const fetchCache = new Map<string, CacheEntry>();
+const DEDUP_TTL_MS = 200;
+
+async function doFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...(init?.headers as Record<string, string> | undefined),
@@ -32,6 +41,40 @@ export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> 
     throw err;
   }
   return json.data as T;
+}
+
+export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
+  const method = (init?.method ?? 'GET').toUpperCase();
+  // 只对幂等方法做 dedup
+  const cacheable = method === 'GET';
+  const key = `${method} ${path}`;
+
+  if (cacheable) {
+    const existing = fetchCache.get(key);
+    if (existing && existing.expireAt > Date.now()) {
+      return existing.promise as Promise<T>;
+    }
+  }
+
+  const promise = doFetch<T>(path, init);
+
+  if (cacheable) {
+    fetchCache.set(key, { promise, expireAt: Date.now() + DEDUP_TTL_MS });
+    promise
+      .then(() => {
+        // 保留短暂 TTL 内的结果，过期后自动失效
+        setTimeout(() => {
+          const curr = fetchCache.get(key);
+          if (curr?.promise === promise) fetchCache.delete(key);
+        }, DEDUP_TTL_MS);
+      })
+      .catch(() => {
+        // 失败立即失效，允许重试
+        fetchCache.delete(key);
+      });
+  }
+
+  return promise;
 }
 
 /**
