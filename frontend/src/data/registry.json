@@ -1,0 +1,98 @@
+{
+  "version": "2026-04-23T06:56:43.104Z",
+  "items": [
+    {
+      "id": "composites/display/table",
+      "type": "composite",
+      "name": "Admin Table",
+      "description": "管理后台无边框表格，统一分页、中文本地化、行 hover 减淡",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "theme": [
+          "light"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/composites/display/table",
+      "usedBy": [
+        "composites/layout/toolbar-bar"
+      ],
+      "hasPreviewFile": false,
+      "skillPath": "composites/display/table.md"
+    },
+    {
+      "id": "composites/layout/toolbar-bar",
+      "type": "composite",
+      "name": "Admin Toolbar Bar",
+      "description": "表格顶部工具栏，搜索+筛选左对齐，功能按钮右对齐",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "theme": [
+          "light"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "composites/display/table"
+      ],
+      "preview": "/preview/composites/layout/toolbar-bar",
+      "usedBy": [],
+      "hasPreviewFile": false,
+      "skillPath": "composites/layout/toolbar-bar.md"
+    }
+  ],
+  "tagDict": {
+    "aesthetic": [
+      "minimal",
+      "maximal",
+      "brutalist",
+      "editorial",
+      "glass",
+      "neumorph",
+      "claymorph",
+      "bento",
+      "retro",
+      "organic",
+      "industrial",
+      "playful",
+      "luxe",
+      "raw"
+    ],
+    "mood": [
+      "cold",
+      "warm",
+      "serious",
+      "playful",
+      "calm",
+      "energetic",
+      "dark-academia"
+    ],
+    "theme": [
+      "light",
+      "dark"
+    ],
+    "stack": [
+      "react-antd-tailwind",
+      "html-tailwind",
+      "shadcn-radix",
+      "vanilla-css"
+    ]
+  }
+}
