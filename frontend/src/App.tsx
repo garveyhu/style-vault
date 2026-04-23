@@ -4,6 +4,7 @@ import { Suspense, lazy } from 'react';
 import BrowsePage from './pages/BrowsePage';
 import DetailPage from './pages/DetailPage';
 import NotInstalledPage from './pages/NotInstalledPage';
+import { AuthProvider } from './auth/AuthContext';
 
 // 动态收集 preview 页（排除 _layout / _templates）
 const previewModules = import.meta.glob('./preview/**/*.tsx');
@@ -19,20 +20,22 @@ const previewRoutes = Object.entries(previewModules)
 export default function App() {
   return (
     <ConfigProvider>
-      <Suspense fallback={<div className="p-8">Loading…</div>}>
-        <Routes>
-          <Route path="/" element={<BrowsePage />} />
-          <Route path="/item/*" element={<DetailPage />} />
-          <Route path="/not-installed" element={<NotInstalledPage />} />
-          {previewRoutes.map(({ relId, Element }) => (
-            <Route
-              key={relId}
-              path={`/preview/${relId}`}
-              element={<Element />}
-            />
-          ))}
-        </Routes>
-      </Suspense>
+      <AuthProvider>
+        <Suspense fallback={<div className="p-8">Loading…</div>}>
+          <Routes>
+            <Route path="/" element={<BrowsePage />} />
+            <Route path="/item/*" element={<DetailPage />} />
+            <Route path="/not-installed" element={<NotInstalledPage />} />
+            {previewRoutes.map(({ relId, Element }) => (
+              <Route
+                key={relId}
+                path={`/preview/${relId}`}
+                element={<Element />}
+              />
+            ))}
+          </Routes>
+        </Suspense>
+      </AuthProvider>
     </ConfigProvider>
   );
 }
