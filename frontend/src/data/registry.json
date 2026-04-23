@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-23T06:56:43.104Z",
+  "version": "2026-04-23T07:11:10.960Z",
   "items": [
     {
       "id": "composites/display/table",
@@ -56,6 +56,35 @@
       "usedBy": [],
       "hasPreviewFile": false,
       "skillPath": "composites/layout/toolbar-bar.md"
+    },
+    {
+      "id": "primitives/palettes/slate-cyan-ice",
+      "type": "primitive",
+      "name": "Slate × Cyan Ice",
+      "description": "冷感留白、深 slate 底 + cyan 高亮的工具型界面基础色",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "theme": [
+          "dark",
+          "light"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "preview": "/preview/primitives/palettes/slate-cyan-ice",
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "primitives/palettes/slate-cyan-ice.md"
     }
   ],
   "tagDict": {
