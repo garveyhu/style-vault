@@ -92,12 +92,12 @@ export default function BrowsePage() {
     <div className="min-h-screen bg-[#fafafa]">
       <TopBar search={search} onSearchChange={setSearch} />
 
-      {/* ===================== Hero（占满首屏，分类栏需滑下才见） ===================== */}
-      <section className="relative flex min-h-[calc(100vh-72px)] items-center overflow-hidden border-b border-slate-100 bg-white">
+      {/* ===================== Hero（占满首屏；内容集中上半区，底部自然过渡到 Nav） ===================== */}
+      <section className="relative flex min-h-[calc(100vh-72px)] flex-col overflow-hidden bg-white">
         <div className="pointer-events-none absolute -left-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-gradient-to-br from-slate-100/60 via-emerald-100/40 to-transparent blur-3xl" />
         <div className="pointer-events-none absolute -right-48 top-0 h-[36rem] w-[36rem] rounded-full bg-gradient-to-br from-emerald-100/50 via-emerald-50/30 to-transparent blur-3xl" />
 
-        <div className="relative mx-auto grid w-full max-w-[1600px] grid-cols-1 gap-14 px-8 py-16 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:py-20">
+        <div className="relative mx-auto grid w-full max-w-[1600px] flex-1 grid-cols-1 items-center gap-14 px-8 py-16 lg:grid-cols-[1.1fr_1fr]">
           {/* 左：标题 + 副 */}
           <div>
             <h1 className="sv-anim-fade-up sv-delay-0 font-display text-[64px] font-extrabold leading-[1.02] tracking-[-0.04em] text-slate-900 md:text-[80px] lg:text-[96px]">
