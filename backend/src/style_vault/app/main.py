@@ -16,6 +16,7 @@ from style_vault.complex.config.request_context import RequestContext
 from style_vault.complex.response.code import ResultCode
 from style_vault.complex.response.exception import CustomException
 from style_vault.complex.response.result import Result
+from style_vault.complex.storage.minio_client import ensure_bucket
 
 # 日志配置
 logger.remove()
@@ -60,6 +61,11 @@ def _register_routers(app: FastAPI) -> None:
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     run_migrations()
+    # MinIO bucket 自检：连不上不阻塞启动，只打 warning
+    try:
+        ensure_bucket()
+    except Exception as e:
+        logger.warning(f"[minio] 启动时 bucket 检查失败（非致命）: {e}")
     logger.info("Application started.")
     yield
     logger.info("Application shutting down.")
