@@ -56,6 +56,15 @@ export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
           </span>
         </Link>
 
+        <nav className="hidden items-center gap-6 md:flex">
+          <Link
+            to="/products"
+            className="text-[13px] font-medium text-slate-600 transition hover:text-slate-900"
+          >
+            Products
+          </Link>
+        </nav>
+
         {/* 中间留白（editorial 感，保留未来横向 nav 位置） */}
         <div className="flex-1" />
 

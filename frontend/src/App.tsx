@@ -4,6 +4,8 @@ import { Suspense, lazy } from 'react';
 import BrowsePage from './pages/BrowsePage';
 import DetailPage from './pages/DetailPage';
 import NotInstalledPage from './pages/NotInstalledPage';
+import ProductListPage from './pages/ProductListPage';
+import ProductDetailPage from './pages/ProductDetailPage';
 import { AuthProvider } from './auth/AuthContext';
 import { FavoritesProvider } from './auth/FavoritesContext';
 import { ScrollToTop } from './components/ScrollToTop';
@@ -30,6 +32,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<BrowsePage />} />
             <Route path="/item/*" element={<DetailPage />} />
+            <Route path="/products" element={<ProductListPage />} />
+            <Route path="/products/:slug" element={<ProductDetailPage />} />
             <Route path="/not-installed" element={<NotInstalledPage />} />
             {previewRoutes.map(({ relId, Element }) => (
               <Route
