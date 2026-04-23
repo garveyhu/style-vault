@@ -20,7 +20,7 @@ export function parseEntry(content: string, relativePath: string): {
   }
 
   const tags = fm.tags as Frontmatter['tags'];
-  for (const key of ['aesthetic', 'mood', 'theme', 'stack'] as const) {
+  for (const key of ['aesthetic', 'mood', 'stack'] as const) {
     if (!Array.isArray(tags[key])) {
       throw new Error(`tags.${key} must be array (got ${typeof tags[key]})`);
     }
