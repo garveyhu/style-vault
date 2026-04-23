@@ -142,7 +142,9 @@ export default function DetailPage() {
                 {typeLabel[item.type]}
               </Tag>
             </div>
-            <h1 className="mt-2 text-2xl font-semibold text-slate-900">{item.name}</h1>
+            <h1 className="mt-2 font-display text-[32px] font-medium leading-tight tracking-tight text-slate-900">
+              {item.name}
+            </h1>
             <p className="mt-2 text-[14px] leading-relaxed text-slate-600">
               {item.description}
             </p>
