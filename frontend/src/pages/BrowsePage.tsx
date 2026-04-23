@@ -1,27 +1,33 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
-import { HeartFilled } from '@ant-design/icons';
-import { useRegistry, isRegistryMissing } from '../data/useRegistry';
-import { typePlural } from '../utils/i18n';
-import { StyleCard } from '../components/StyleCard';
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate, Navigate } from "react-router-dom";
+import { HeartFilled } from "@ant-design/icons";
+import { useRegistry, isRegistryMissing } from "../data/useRegistry";
+import { typePlural } from "../utils/i18n";
+import { StyleCard } from "../components/StyleCard";
 import {
   TagFilterBar,
   emptyFilterValue,
   type FilterValue,
-} from '../components/TagFilterBar';
-import { TopBar } from '../components/TopBar';
-import { GlossaryDrawer } from '../components/GlossaryDrawer';
-import { useAuth } from '../auth/AuthContext';
-import { useFavorites } from '../auth/FavoritesContext';
+} from "../components/TagFilterBar";
+import { TopBar } from "../components/TopBar";
+import { GlossaryDrawer } from "../components/GlossaryDrawer";
+import { useAuth } from "../auth/AuthContext";
+import { useFavorites } from "../auth/FavoritesContext";
 import type {
   EntryType,
   RegistryItem,
-} from '../../scripts/sync-from-skill/types';
+} from "../../scripts/sync-from-skill/types";
 
-type ViewKey = EntryType | 'favorites';
+type ViewKey = EntryType | "favorites";
 
-const ORDER: EntryType[] = ['vibe', 'archetype', 'composite', 'atom', 'primitive'];
-const GROUP_KEYS = ['aesthetic', 'mood', 'theme', 'stack'] as const;
+const ORDER: EntryType[] = [
+  "vibe",
+  "archetype",
+  "composite",
+  "atom",
+  "primitive",
+];
+const GROUP_KEYS = ["aesthetic", "mood", "theme", "stack"] as const;
 
 const PREVIEW_VIRTUAL_WIDTH = 1440;
 const PREVIEW_VIRTUAL_HEIGHT = 900;
@@ -30,14 +36,14 @@ export default function BrowsePage() {
   const reg = useRegistry();
   const { user } = useAuth();
   const { set: favSet } = useFavorites();
-  const [view, setView] = useState<ViewKey>('composite');
+  const [view, setView] = useState<ViewKey>("composite");
   const [filters, setFilters] = useState<FilterValue>(emptyFilterValue);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [glossaryOpen, setGlossaryOpen] = useState(false);
   const nav = useNavigate();
 
   useEffect(() => {
-    if (!user && view === 'favorites') setView('composite');
+    if (!user && view === "favorites") setView("composite");
   }, [user, view]);
 
   const counts = useMemo<Record<EntryType, number>>(() => {
@@ -58,7 +64,7 @@ export default function BrowsePage() {
     if (!reg?.items) return [];
     const q = search.trim().toLowerCase();
     const base =
-      view === 'favorites'
+      view === "favorites"
         ? reg.items.filter((i) => favSet.has(i.id))
         : reg.items.filter((i) => i.type === view);
     return base
@@ -101,9 +107,9 @@ export default function BrowsePage() {
             </h1>
 
             <p className="sv-anim-fade-up sv-delay-150 mt-10 max-w-xl text-[17px] leading-[1.7] text-slate-600">
-              发现你欣赏的前端设计风格，浏览实时预览，收藏反复用到的那几种。
+              探索设计风格，实时预览，收藏分享。
               <br />
-              下次想做同款页面？复制提示词，交给 AI 几秒钟生成。
+              想做同款页面？复制提示词，瞬间复刻！
             </p>
           </div>
 
@@ -114,32 +120,32 @@ export default function BrowsePage() {
         </div>
       </section>
 
-      {/* ===================== Nav：分类 + 筛选 ===================== */}
-      <div className="sticky top-[72px] z-40 border-b border-slate-100 bg-white/95 backdrop-blur-xl">
+      {/* ===================== Nav：分类 + 筛选（不 sticky，滑到才看见） ===================== */}
+      <div className="border-b border-slate-100 bg-white">
         <div className="mx-auto max-w-[1600px] px-8">
-          <div className="flex flex-wrap items-center gap-3 py-4">
+          <div className="flex flex-wrap items-center gap-3 py-5">
             {/* 收藏 tab */}
             {user && (
               <button
                 type="button"
-                onClick={() => setView('favorites')}
+                onClick={() => setView("favorites")}
                 className={`flex h-10 items-center gap-2 rounded-full px-5 text-[14px] font-medium transition ${
-                  view === 'favorites'
-                    ? 'bg-slate-900 text-white shadow-sm'
-                    : 'bg-white text-slate-600 hover:bg-slate-100'
+                  view === "favorites"
+                    ? "bg-slate-900 text-white shadow-sm"
+                    : "bg-white text-slate-600 hover:bg-slate-100"
                 }`}
               >
                 <HeartFilled
                   className={
-                    view === 'favorites' ? 'text-white' : 'text-slate-400'
+                    view === "favorites" ? "text-white" : "text-slate-400"
                   }
                 />
                 我的收藏
                 <span
                   className={`rounded-full px-1.5 text-[11px] font-semibold tabular-nums ${
-                    view === 'favorites'
-                      ? 'bg-white/15 text-white'
-                      : 'bg-slate-100 text-slate-400'
+                    view === "favorites"
+                      ? "bg-white/15 text-white"
+                      : "bg-slate-100 text-slate-400"
                   }`}
                 >
                   {favCount}
@@ -156,14 +162,16 @@ export default function BrowsePage() {
                   onClick={() => setView(t)}
                   className={`flex h-10 items-center gap-2 rounded-full px-5 text-[14px] font-medium transition ${
                     active
-                      ? 'bg-slate-900 text-white shadow-sm'
-                      : 'bg-white text-slate-600 hover:bg-slate-100'
+                      ? "bg-slate-900 text-white shadow-sm"
+                      : "bg-white text-slate-600 hover:bg-slate-100"
                   }`}
                 >
                   {typePlural[t]}
                   <span
                     className={`rounded-full px-1.5 text-[11px] font-semibold tabular-nums ${
-                      active ? 'bg-white/15 text-white' : 'bg-slate-100 text-slate-400'
+                      active
+                        ? "bg-white/15 text-white"
+                        : "bg-slate-100 text-slate-400"
                     }`}
                   >
                     {counts[t]}
@@ -188,14 +196,14 @@ export default function BrowsePage() {
       <main className="mx-auto max-w-[1600px] px-8 py-10">
         <div className="mb-6 flex items-end justify-between">
           <div className="text-[13px] text-slate-500">
-            {view === 'favorites'
+            {view === "favorites"
               ? `共 ${favCount} 个收藏 · 当前显示 ${filtered.length}`
               : `共 ${counts[view]} 个条目 · 当前显示 ${filtered.length}`}
           </div>
           {search && (
             <button
               type="button"
-              onClick={() => setSearch('')}
+              onClick={() => setSearch("")}
               className="text-sm text-slate-500 hover:text-slate-900"
             >
               清除搜索「{search}」
@@ -204,13 +212,13 @@ export default function BrowsePage() {
         </div>
 
         {filtered.length === 0 ? (
-          view === 'favorites' && favCount === 0 ? (
-            <FavoritesEmpty onExplore={() => setView('composite')} />
+          view === "favorites" && favCount === 0 ? (
+            <FavoritesEmpty onExplore={() => setView("composite")} />
           ) : (
             <EmptyState
               onReset={() => {
                 setFilters(emptyFilterValue);
-                setSearch('');
+                setSearch("");
               }}
             />
           )
@@ -268,9 +276,9 @@ export default function BrowsePage() {
 function HeroStackDecor({ items }: { items: RegistryItem[] }) {
   const picks = useMemo(() => {
     const withPreview = items.filter((i) => i.hasPreviewFile && i.preview);
-    const vibe = withPreview.find((i) => i.type === 'vibe');
-    const arche = withPreview.find((i) => i.type === 'archetype');
-    const comp = withPreview.find((i) => i.type === 'composite');
+    const vibe = withPreview.find((i) => i.type === "vibe");
+    const arche = withPreview.find((i) => i.type === "archetype");
+    const comp = withPreview.find((i) => i.type === "composite");
     return [vibe, arche, comp].filter(Boolean) as RegistryItem[];
   }, [items]);
 
@@ -283,9 +291,9 @@ function HeroStackDecor({ items }: { items: RegistryItem[] }) {
   }
 
   const positions = [
-    'left-0 top-6 rotate-[-6deg]',
-    'left-24 top-20 rotate-[3deg]',
-    'left-12 top-48 rotate-[-2deg]',
+    "left-0 top-6 rotate-[-6deg]",
+    "left-24 top-20 rotate-[3deg]",
+    "left-12 top-48 rotate-[-2deg]",
   ];
 
   return (
@@ -293,7 +301,7 @@ function HeroStackDecor({ items }: { items: RegistryItem[] }) {
       {picks.map((p, idx) => (
         <div
           key={p.id}
-          className={`sv-anim-fade-up absolute aspect-[16/10] w-[400px] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_24px_60px_-20px_rgba(15,23,42,0.3)] ${positions[idx]} sv-delay-${idx === 0 ? '300' : idx === 1 ? '500' : '600'}`}
+          className={`sv-anim-fade-up absolute aspect-[16/10] w-[400px] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_24px_60px_-20px_rgba(15,23,42,0.3)] ${positions[idx]} sv-delay-${idx === 0 ? "300" : idx === 1 ? "500" : "600"}`}
           style={{ zIndex: 10 - idx }}
         >
           <StaticPreviewFrame item={p} />
@@ -304,7 +312,9 @@ function HeroStackDecor({ items }: { items: RegistryItem[] }) {
 }
 
 function StaticPreviewFrame({ item }: { item: RegistryItem }) {
-  const previewUrl = item.preview ? `${window.location.origin}${item.preview}` : null;
+  const previewUrl = item.preview
+    ? `${window.location.origin}${item.preview}`
+    : null;
   const CARD_WIDTH = 400;
   const scale = CARD_WIDTH / PREVIEW_VIRTUAL_WIDTH;
   if (!previewUrl) return null;

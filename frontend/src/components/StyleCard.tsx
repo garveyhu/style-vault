@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState, type ComponentType } from 'react';
 import {
   FullscreenOutlined,
   ArrowRightOutlined,
@@ -15,28 +15,53 @@ const PREVIEW_VIRTUAL_WIDTH = 1440;
 const PREVIEW_VIRTUAL_HEIGHT = 900;
 
 /**
- * masonry / varied 卡片尺寸控制。
- * - vibe: 最大（近似整页 hero 预览）
- * - archetype: 较大
- * - composite: 中等
- * - atom: 中等偏小
- * - primitive: 最小
- *
- * aspect 用于 iframe 容器比例。columns-* 外层按 break-inside-avoid，
- * 不同卡片高度差异天然形成 masonry 视觉。
+ * Eager 收集所有 preview 模块的 lazy loader（排除 _layout / _templates）。
+ * 卡片直接 mount React 组件缩略展示，不走 iframe——避免 iframe 加载慢 / 多 bundle
+ * 复制的白屏问题，且同源性能最好。
  */
+const previewModules = import.meta.glob('../preview/**/*.tsx');
+
+const previewLoaders: Record<string, () => Promise<{ default: ComponentType }>> = {};
+for (const [path, loader] of Object.entries(previewModules)) {
+  if (path.includes('/_layout') || path.includes('/_templates/')) continue;
+  // '../preview/composites/display/table.tsx' → 'composites/display/table'
+  const id = path.replace(/^\.\.\/preview\//, '').replace(/\.tsx$/, '');
+  previewLoaders[id] = loader as () => Promise<{ default: ComponentType }>;
+}
+
 /**
- * 固定像素 height 替代 aspect-ratio（在 CSS columns 多列布局里，
- * aspect-ratio 可能解析为 0 高度导致 iframe 不可见）。
- * 尺寸按 type 分 L/M/S 三档，自然形成 masonry。
+ * 固定像素 height 替代 aspect-ratio（CSS columns 多列布局里 aspect 会解析为 0）。
  */
-const SIZE_BY_TYPE: Record<string, { h: string; label: 'L' | 'M' | 'S' }> = {
-  vibe: { h: 'h-[260px]', label: 'L' },
-  archetype: { h: 'h-[260px]', label: 'L' },
-  composite: { h: 'h-[220px]', label: 'M' },
-  atom: { h: 'h-[200px]', label: 'M' },
-  primitive: { h: 'h-[200px]', label: 'S' },
+const SIZE_BY_TYPE: Record<string, { h: number }> = {
+  vibe: { h: 260 },
+  archetype: { h: 260 },
+  composite: { h: 220 },
+  atom: { h: 200 },
+  primitive: { h: 200 },
 };
+
+function typeDotColor(type: string): string {
+  switch (type) {
+    case 'vibe':
+      return 'bg-rose-500';
+    case 'archetype':
+      return 'bg-indigo-500';
+    case 'composite':
+      return 'bg-cyan-500';
+    case 'atom':
+      return 'bg-emerald-500';
+    case 'primitive':
+      return 'bg-amber-500';
+    default:
+      return 'bg-slate-400';
+  }
+}
+
+function getPreviewId(item: RegistryItem): string | null {
+  if (!item.preview) return null;
+  // preview 字段形如 '/preview/composites/display/table'
+  return item.preview.replace(/^\/preview\//, '');
+}
 
 export function StyleCard({
   item,
@@ -45,10 +70,8 @@ export function StyleCard({
   item: RegistryItem;
   onClick: () => void;
 }) {
-  const previewUrl = item.preview ? `${window.location.origin}${item.preview}` : null;
   const previewRef = useRef<HTMLDivElement | null>(null);
   const [scale, setScale] = useState(0.28);
-  const [iframeReady, setIframeReady] = useState(false);
   const { user } = useAuth();
   const { isFavorited, toggleFavorite } = useFavorites();
   const favorited = isFavorited(item.id);
@@ -56,14 +79,13 @@ export function StyleCard({
   const handleToggleFav = async (e: React.MouseEvent) => {
     e.stopPropagation();
     if (!user) {
-      // 未登录时，点击回到 click 路径让外层处理（跳详情页弹 LoginModal）
       onClick();
       return;
     }
     try {
       await toggleFavorite(item.id);
     } catch {
-      /* 失败由 FavoritesContext 回滚，这里静默 */
+      /* 失败由 FavoritesContext 回滚 */
     }
   };
 
@@ -81,6 +103,9 @@ export function StyleCard({
   }, []);
 
   const sizing = SIZE_BY_TYPE[item.type] ?? SIZE_BY_TYPE.composite;
+  const previewId = getPreviewId(item);
+  const loader = previewId ? previewLoaders[previewId] : null;
+  const PreviewComp = loader ? lazy(loader) : null;
 
   return (
     <article
@@ -90,50 +115,44 @@ export function StyleCard({
       {/* Preview 区 */}
       <div
         ref={previewRef}
-        className={`relative overflow-hidden bg-slate-50 ${sizing.h}`}
+        className="relative overflow-hidden bg-slate-50"
+        style={{ height: sizing.h }}
       >
-        {previewUrl && item.hasPreviewFile ? (
-          <>
-            {/* 加载占位 skeleton（iframe 加载完成前） */}
-            {!iframeReady && (
+        {item.hasPreviewFile && PreviewComp ? (
+          <Suspense
+            fallback={
               <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100" />
-            )}
+            }
+          >
             <div
               className="sv-card-preview-inner absolute left-0 top-0 origin-top-left will-change-transform"
               style={{
                 width: `${PREVIEW_VIRTUAL_WIDTH}px`,
                 height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
                 transform: `scale(${scale})`,
-                opacity: iframeReady ? 1 : 0,
-                transition: 'opacity 400ms ease-out',
               }}
             >
-              <iframe
-                src={previewUrl}
-                title={item.name}
-                className="pointer-events-none block h-full w-full border-0"
-                loading="eager"
-                onLoad={() => setIframeReady(true)}
-              />
+              <div className="pointer-events-none h-full w-full">
+                <PreviewComp />
+              </div>
             </div>
-          </>
+          </Suspense>
         ) : (
           <div className="flex h-full items-center justify-center text-sm text-slate-400">
             暂无预览
           </div>
         )}
 
-        {/* 底部渐变 overlay，文字悬浮 */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 via-black/15 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        {/* hover overlay：底部黑色渐变 + 元信息滑入。全部用 group-hover 稳定生效 */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 via-black/15 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-        {/* 元信息 overlay——从底部滑入 */}
-        <div className="sv-card-meta-overlay pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 p-4 opacity-0">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
           <div className="flex items-end justify-between gap-3">
             <div className="min-w-0 flex-1">
               <div className="text-[11px] uppercase tracking-[0.12em] text-white/70">
                 {typeLabel[item.type]}
               </div>
-              <div className="mt-0.5 truncate font-display text-[20px] font-medium leading-tight text-white drop-shadow-sm">
+              <div className="mt-0.5 truncate font-display text-[18px] font-semibold leading-tight text-white drop-shadow-sm">
                 {item.name}
               </div>
             </div>
@@ -143,26 +162,23 @@ export function StyleCard({
           </div>
         </div>
 
-        {/* 右上角按钮区：收藏 + 全屏 */}
+        {/* 右上：收藏 + 全屏 */}
         <div className="pointer-events-none absolute right-3 top-3 flex items-center gap-1.5">
-          {/* 收藏：已收藏时常驻紫色显示；未收藏时 hover 浮出 */}
           <button
             type="button"
             onClick={handleToggleFav}
             title={favorited ? '取消收藏' : '收藏'}
             aria-label={favorited ? '取消收藏' : '收藏'}
-            className={`pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg shadow-sm backdrop-blur-sm transition duration-300
+            className={`pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg shadow-sm backdrop-blur-sm transition-all duration-300
               ${
                 favorited
                   ? 'bg-emerald-500 text-white opacity-100 hover:bg-emerald-600'
                   : 'bg-white/95 text-slate-500 opacity-0 hover:bg-white hover:text-emerald-500 group-hover:opacity-100'
-              }
-            `}
+              }`}
           >
             {favorited ? <HeartFilled /> : <HeartOutlined />}
           </button>
 
-          {/* 全屏 */}
           {item.hasPreviewFile && item.preview && (
             <button
               type="button"
@@ -171,18 +187,16 @@ export function StyleCard({
                 window.open(item.preview!, '_blank');
               }}
               title="全屏预览"
-              className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg bg-white/95 text-slate-600 opacity-0 shadow-sm backdrop-blur-sm transition duration-300 hover:bg-white group-hover:opacity-100"
+              className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg bg-white/95 text-slate-600 opacity-0 shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-white group-hover:opacity-100"
             >
               <FullscreenOutlined />
             </button>
           )}
         </div>
 
-        {/* 类型角标 (始终可见，低调) */}
+        {/* 左上：type 角标 */}
         <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full border border-white/40 bg-white/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-slate-700 shadow-sm backdrop-blur-sm">
-          <span
-            className={`h-1.5 w-1.5 rounded-full ${typeDotColor(item.type)}`}
-          />
+          <span className={`h-1.5 w-1.5 rounded-full ${typeDotColor(item.type)}`} />
           {typeLabel[item.type]}
         </div>
       </div>
@@ -216,23 +230,6 @@ export function StyleCard({
       </div>
     </article>
   );
-}
-
-function typeDotColor(type: string): string {
-  switch (type) {
-    case 'vibe':
-      return 'bg-rose-500';
-    case 'archetype':
-      return 'bg-emerald-500';
-    case 'composite':
-      return 'bg-cyan-500';
-    case 'atom':
-      return 'bg-emerald-500';
-    case 'primitive':
-      return 'bg-amber-500';
-    default:
-      return 'bg-slate-400';
-  }
 }
 
 export default StyleCard;
