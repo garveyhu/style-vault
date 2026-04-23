@@ -1,36 +1,45 @@
 export const typeLabel: Record<string, string> = {
-  vibe: '整站风格',
-  archetype: '页面样板',
-  composite: '场景组合',
-  atom: '原子组件',
-  primitive: '设计原语',
+  product: '产品',
+  style: '风格',
+  page: '页面',
+  block: '模块',
+  component: '组件',
+  token: '原语',
 };
 
 export const typePlural: Record<string, string> = {
-  vibe: '整站风格',
-  archetype: '页面样板',
-  composite: '场景组合',
-  atom: '原子组件',
-  primitive: '设计原语',
+  product: '产品',
+  style: '风格',
+  page: '页面',
+  block: '模块',
+  component: '组件',
+  token: '原语',
 };
 
 export const tagGroupLabel = {
   aesthetic: '风格',
   mood: '氛围',
-  theme: '主题',
   stack: '技术栈',
 } as const;
 
 export const themeLabel: Record<string, string> = {
   light: '浅色',
   dark: '深色',
+  both: '双主题',
 };
 
-// type → Antd Tag color
+export const platformLabel: Record<string, string> = {
+  web: 'Web',
+  ios: 'iOS',
+  android: 'Android',
+  any: '通用',
+};
+
 export const typeColor: Record<string, string> = {
-  vibe: 'magenta',
-  archetype: 'geekblue',
-  composite: 'cyan',
-  atom: 'green',
-  primitive: 'orange',
+  product: 'purple',
+  style: 'magenta',
+  page: 'geekblue',
+  block: 'cyan',
+  component: 'green',
+  token: 'orange',
 };
