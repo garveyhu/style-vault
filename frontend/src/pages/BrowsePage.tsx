@@ -5,6 +5,7 @@ import type { TabsProps } from 'antd';
 import { isRegistryMissing, useRegistry } from '../data/useRegistry';
 import { StyleCard } from '../components/StyleCard';
 import { TagFilter, emptyFilterValue, type FilterValue } from '../components/TagFilter';
+import { TopBar } from '../components/TopBar';
 import type { EntryType, RegistryItem } from '../../scripts/sync-from-skill/types';
 
 const tabs: { key: EntryType; label: string }[] = [
@@ -60,9 +61,7 @@ export default function BrowsePage() {
 
   return (
     <div className="h-full flex flex-col">
-      <div className="h-14 border-b flex items-center px-6 bg-white">
-        <span className="text-lg font-semibold">Style Vault</span>
-      </div>
+      <TopBar />
       <div className="flex-1 flex min-h-0">
         <aside className="w-64 border-r p-4 bg-white overflow-auto">
           <TagFilter tagDict={registry.tagDict} value={filter} onChange={setFilter} />

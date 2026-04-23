@@ -4,6 +4,7 @@ import { Button, Empty, Result, Tag, Typography, message } from 'antd';
 import { useItem, useRegistry } from '../data/useRegistry';
 import { ViewportSwitcher, type ViewportValue } from '../components/ViewportSwitcher';
 import { PromptCopyButton } from '../components/PromptCopyButton';
+import { TopBar } from '../components/TopBar';
 import type { EntryType, RegistryItem } from '../../scripts/sync-from-skill/types';
 
 const typeColorMap: Record<EntryType, string> = {
@@ -77,12 +78,15 @@ export default function DetailPage() {
   return (
     <div className="h-full flex flex-col bg-gray-50">
       {contextHolder}
-      <div className="h-14 border-b flex items-center px-6 bg-white gap-3">
-        <Button onClick={() => navigate('/')}>返回</Button>
+      <TopBar />
+      <div className="h-12 border-b flex items-center px-6 bg-white gap-3 shrink-0">
+        <Button size="small" onClick={() => navigate('/')}>
+          返回
+        </Button>
         <Tag color={typeColorMap[item.type]} className="m-0">
           {item.type}
         </Tag>
-        <span className="text-lg font-semibold truncate">{item.name}</span>
+        <span className="text-base font-semibold truncate">{item.name}</span>
         <span className="text-gray-400 text-sm ml-2 truncate">{item.id}</span>
       </div>
 
