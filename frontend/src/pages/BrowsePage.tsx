@@ -9,10 +9,15 @@ import { FiltersPanel } from "../components/FiltersPanel";
 import { emptyFilterValue, type FilterValue } from "../components/TagFilterBar";
 import { TopBar } from "../components/TopBar";
 import { GlossaryDrawer } from "../components/GlossaryDrawer";
+import {
+  PlatformThemeBar,
+  emptyPlatformTheme,
+  type PlatformThemeValue,
+} from "../components/PlatformThemeBar";
 import { getPreviewComponent } from "../preview/registry";
 import { useAuth } from "../auth/AuthContext";
 import { useFavorites } from "../auth/FavoritesContext";
-import type { RegistryItem } from "../../scripts/sync-from-skill/types";
+import type { Platform, RegistryItem } from "../../scripts/sync-from-skill/types";
 
 type NewEntryType = 'style' | 'page' | 'block' | 'component' | 'token';
 type ViewKey = NewEntryType | 'favorites';
@@ -35,6 +40,7 @@ export default function BrowsePage() {
   const { set: favSet } = useFavorites();
   const [view, setView] = useState<ViewKey>("block");
   const [filters, setFilters] = useState<FilterValue>(emptyFilterValue);
+  const [ptf, setPtf] = useState<PlatformThemeValue>(emptyPlatformTheme);
   const [search, setSearch] = useState("");
   const [glossaryOpen, setGlossaryOpen] = useState(false);
   const nav = useNavigate();
@@ -60,10 +66,10 @@ export default function BrowsePage() {
   }, [reg]);
 
   const favCount = favSet.size;
-  const activeFilterCount = GROUP_KEYS.reduce(
-    (acc, k) => acc + filters[k].length,
-    0,
-  );
+  const activeFilterCount =
+    GROUP_KEYS.reduce((acc, k) => acc + filters[k].length, 0) +
+    (ptf.platform !== "all" ? 1 : 0) +
+    (ptf.theme !== "any" ? 1 : 0);
 
   const filtered = useMemo(() => {
     if (!reg?.items) return [];
@@ -86,8 +92,23 @@ export default function BrowsePage() {
           if (filters[k].length === 0) return true;
           return item.tags[k].some((t) => filters[k].includes(t));
         }),
-      );
-  }, [reg, view, filters, search, favSet]);
+      )
+      .filter((item) => {
+        if (ptf.platform !== "all") {
+          // match if the item's platforms include the selected platform OR include 'any'
+          if (
+            !item.platforms.includes(ptf.platform as Platform) &&
+            !item.platforms.includes("any")
+          )
+            return false;
+        }
+        if (ptf.theme !== "any") {
+          // match if item.theme equals selected, OR item.theme === 'both' (matches both)
+          if (item.theme !== ptf.theme && item.theme !== "both") return false;
+        }
+        return true;
+      });
+  }, [reg, view, filters, ptf, search, favSet]);
 
   if (isRegistryMissing(reg)) return <Navigate to="/not-installed" replace />;
 
@@ -196,6 +217,11 @@ export default function BrowsePage() {
               </Popover>
             </div>
           </div>
+
+          {/* 一级筛选：Platform / Theme */}
+          <div className="border-t border-slate-100 py-4">
+            <PlatformThemeBar value={ptf} onChange={setPtf} />
+          </div>
         </div>
       </nav>
 
@@ -225,6 +251,7 @@ export default function BrowsePage() {
             <EmptyState
               onReset={() => {
                 setFilters(emptyFilterValue);
+                setPtf(emptyPlatformTheme);
                 setSearch("");
               }}
             />
