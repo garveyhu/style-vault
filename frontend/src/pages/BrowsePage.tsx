@@ -1,75 +1,88 @@
 import { useMemo, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { Tabs } from 'antd';
-import type { TabsProps } from 'antd';
-import { isRegistryMissing, useRegistry } from '../data/useRegistry';
+import { useRegistry, isRegistryMissing } from '../data/useRegistry';
+import { typePlural } from '../utils/i18n';
 import { StyleCard } from '../components/StyleCard';
-import { TagFilter, emptyFilterValue, type FilterValue } from '../components/TagFilter';
+import { TagFilterBar, emptyFilterValue, type FilterValue } from '../components/TagFilterBar';
 import { TopBar } from '../components/TopBar';
-import type { EntryType, RegistryItem } from '../../scripts/sync-from-skill/types';
+import type { EntryType } from '../../scripts/sync-from-skill/types';
 
-const tabs: { key: EntryType; label: string }[] = [
-  { key: 'vibe', label: 'Vibes' },
-  { key: 'archetype', label: 'Archetypes' },
-  { key: 'composite', label: 'Composites' },
-  { key: 'atom', label: 'Atoms' },
-  { key: 'primitive', label: 'Primitives' },
-];
-
-const groupKeys: (keyof FilterValue)[] = ['aesthetic', 'mood', 'theme', 'stack'];
-
-function matchFilter(item: RegistryItem, value: FilterValue): boolean {
-  return groupKeys.every((key) => {
-    const selected = value[key];
-    if (selected.length === 0) return true;
-    const itemTags = item.tags[key] ?? [];
-    return itemTags.some((t) => selected.includes(t));
-  });
-}
-
-function Grid({ items }: { items: RegistryItem[] }) {
-  if (items.length === 0) {
-    return <div className="p-6 text-gray-400">当前分类下暂无条目</div>;
-  }
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 p-6">
-      {items.map((item) => (
-        <StyleCard key={item.id} item={item} />
-      ))}
-    </div>
-  );
-}
+const ORDER: EntryType[] = ['vibe', 'archetype', 'composite', 'atom', 'primitive'];
+const GROUP_KEYS = ['aesthetic', 'mood', 'theme', 'stack'] as const;
 
 export default function BrowsePage() {
-  const registry = useRegistry();
-  const [filter, setFilter] = useState<FilterValue>(emptyFilterValue);
+  const reg = useRegistry();
+  const [activeType, setActiveType] = useState<EntryType>('composite');
+  const [filters, setFilters] = useState<FilterValue>(emptyFilterValue);
+  const nav = useNavigate();
 
-  const filteredItems = useMemo(
-    () => registry.items.filter((item) => matchFilter(item, filter)),
-    [registry.items, filter],
-  );
+  const counts = useMemo<Record<EntryType, number>>(() => {
+    const c: Record<EntryType, number> = {
+      vibe: 0,
+      archetype: 0,
+      composite: 0,
+      atom: 0,
+      primitive: 0,
+    };
+    if (reg?.items) for (const i of reg.items) c[i.type]++;
+    return c;
+  }, [reg]);
 
-  if (isRegistryMissing(registry)) {
-    return <Navigate to="/not-installed" replace />;
-  }
+  const filtered = useMemo(() => {
+    if (!reg?.items) return [];
+    return reg.items
+      .filter((i) => i.type === activeType)
+      .filter((item) =>
+        GROUP_KEYS.every((k) => {
+          if (filters[k].length === 0) return true;
+          return item.tags[k].some((t) => filters[k].includes(t));
+        }),
+      );
+  }, [reg, activeType, filters]);
 
-  const tabItems: TabsProps['items'] = tabs.map(({ key, label }) => ({
-    key,
-    label,
-    children: <Grid items={filteredItems.filter((i) => i.type === key)} />,
-  }));
+  if (isRegistryMissing(reg)) return <Navigate to="/not-installed" replace />;
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="min-h-screen bg-[#fafafa]">
       <TopBar />
-      <div className="flex-1 flex min-h-0">
-        <aside className="w-64 border-r p-4 bg-white overflow-auto">
-          <TagFilter tagDict={registry.tagDict} value={filter} onChange={setFilter} />
-        </aside>
-        <main className="flex-1 min-w-0 overflow-auto">
-          <Tabs defaultActiveKey="composite" items={tabItems} className="px-6 pt-2" />
-        </main>
+
+      {/* 筛选区 */}
+      <div className="sticky top-16 z-40 border-b border-slate-200/60 bg-white/70 backdrop-blur-xl">
+        <div className="mx-auto max-w-[1600px] px-8">
+          <Tabs
+            activeKey={activeType}
+            onChange={(k) => setActiveType(k as EntryType)}
+            items={ORDER.map((t) => ({
+              key: t,
+              label: (
+                <span className="text-[14px]">
+                  {typePlural[t]}
+                  <span className="ml-2 text-[11px] text-slate-400">{counts[t]}</span>
+                </span>
+              ),
+            }))}
+          />
+          <TagFilterBar dict={reg.tagDict} value={filters} onChange={setFilters} />
+        </div>
       </div>
+
+      {/* 网格 */}
+      <main className="mx-auto max-w-[1600px] px-8 py-8">
+        {filtered.length === 0 ? (
+          <div className="py-24 text-center text-slate-400">没有匹配的风格</div>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {filtered.map((item) => (
+              <StyleCard
+                key={item.id}
+                item={item}
+                onClick={() => nav(`/item/${item.id}`)}
+              />
+            ))}
+          </div>
+        )}
+      </main>
     </div>
   );
 }

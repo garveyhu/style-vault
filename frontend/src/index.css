@@ -6,15 +6,25 @@ html,
 body,
 #root {
   height: 100%;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
 body {
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei",
+    "Segoe UI", "Inter", sans-serif;
+  background: #fafafa;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* iframe 容器的稳定性 */
 iframe {
   border: 0;
   display: block;
   background: #fff;
+}
+
+/* Antd Tag 收紧一档 */
+.ant-tag {
+  font-size: 12px;
 }

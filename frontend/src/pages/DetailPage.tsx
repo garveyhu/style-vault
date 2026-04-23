@@ -1,153 +1,317 @@
 import { useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { Button, Empty, Result, Tag, Typography, message } from 'antd';
-import { useItem, useRegistry } from '../data/useRegistry';
-import { ViewportSwitcher, type ViewportValue } from '../components/ViewportSwitcher';
-import { PromptCopyButton } from '../components/PromptCopyButton';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
+import { Tag, Descriptions, Button, Empty, message } from 'antd';
+import {
+  ArrowLeftOutlined,
+  CopyOutlined,
+  CodeOutlined,
+  MobileOutlined,
+  TabletOutlined,
+  DesktopOutlined,
+  ExpandOutlined,
+} from '@ant-design/icons';
+import { useRegistry, useItem, isRegistryMissing } from '../data/useRegistry';
+import { typeLabel, typeColor, tagGroupLabel, themeLabel } from '../utils/i18n';
+import { buildPrompt } from '../utils/prompt';
 import { TopBar } from '../components/TopBar';
-import type { EntryType, RegistryItem } from '../../scripts/sync-from-skill/types';
+import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 
-const typeColorMap: Record<EntryType, string> = {
-  vibe: 'magenta',
-  archetype: 'geekblue',
-  composite: 'cyan',
-  atom: 'green',
-  primitive: 'orange',
-};
+type ViewportKey = 375 | 768 | 1024 | 1440 | 'full';
 
-const TAG_GROUPS = ['aesthetic', 'mood', 'theme', 'stack'] as const;
+const VIEWPORTS: { key: ViewportKey; label: string; icon: React.ReactNode }[] = [
+  { key: 375, label: '手机', icon: <MobileOutlined /> },
+  { key: 768, label: '平板', icon: <TabletOutlined /> },
+  { key: 1024, label: '桌面', icon: <DesktopOutlined /> },
+  { key: 1440, label: '大屏', icon: <DesktopOutlined /> },
+  { key: 'full', label: '全宽', icon: <ExpandOutlined /> },
+];
 
-function ItemLinks({ ids, registry }: { ids: string[]; registry: RegistryItem[] }) {
-  if (ids.length === 0) return <div className="text-gray-400 text-sm">无</div>;
+function LinkedItemButton({
+  item,
+  onClick,
+}: {
+  item: RegistryItem;
+  onClick: () => void;
+}) {
   return (
-    <ul className="list-disc pl-5 m-0 text-sm">
-      {ids.map((id) => {
-        const found = registry.find((i) => i.id === id);
-        return (
-          <li key={id}>
-            <Link to={`/item/${id}`} className="text-blue-600 hover:underline">
-              {found ? `${found.name} (${id})` : id}
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
+    <button
+      type="button"
+      onClick={onClick}
+      className="group flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-sm transition hover:bg-violet-50"
+    >
+      <span className="flex items-center gap-2">
+        <Tag color={typeColor[item.type]} bordered={false} className="!mr-0">
+          {typeLabel[item.type]}
+        </Tag>
+        <span className="text-slate-900">{item.name}</span>
+      </span>
+      <ArrowLeftOutlined
+        rotate={180}
+        className="text-slate-300 transition group-hover:text-violet-500"
+      />
+    </button>
   );
 }
 
 export default function DetailPage() {
+  const reg = useRegistry();
   const params = useParams();
+  const nav = useNavigate();
+  const [viewport, setViewport] = useState<ViewportKey>(1024);
+  const [messageApi, ctx] = message.useMessage();
+
   const id = params['*'] ?? '';
-  const navigate = useNavigate();
   const item = useItem(id);
-  const registry = useRegistry();
-  const [messageApi, contextHolder] = message.useMessage();
-  const [viewport, setViewport] = useState<ViewportValue>('full');
+
+  if (isRegistryMissing(reg)) return <Navigate to="/not-installed" replace />;
 
   if (!item) {
     return (
-      <div className="h-full flex items-center justify-center">
-        <Result
-          status="404"
-          title="找不到条目"
-          subTitle={`id: ${id || '(empty)'}`}
-          extra={
-            <Button type="primary" onClick={() => navigate('/')}>
-              回到首页
-            </Button>
-          }
-        />
+      <div className="min-h-screen bg-[#fafafa]">
+        <TopBar />
+        <div className="p-8 text-slate-500">找不到条目：{id}</div>
       </div>
     );
   }
 
-  const previewSrc = item.hasPreviewFile && item.preview ? item.preview : undefined;
+  const usesItems = item.uses
+    .map((u) => reg.items.find((i) => i.id === u))
+    .filter((x): x is RegistryItem => Boolean(x));
+  const usedByItems = item.usedBy
+    .map((u) => reg.items.find((i) => i.id === u))
+    .filter((x): x is RegistryItem => Boolean(x));
+  const previewUrl = item.preview ? `${window.location.origin}${item.preview}` : null;
 
-  const handleCopyPath = async () => {
-    const full = `~/.agents/skills/style-vault/references/${item.skillPath}`;
+  const handleCopyPrompt = async () => {
     try {
-      await navigator.clipboard.writeText(full);
-      messageApi.success('路径已复制');
+      await navigator.clipboard.writeText(buildPrompt(item));
+      messageApi.success({ content: 'Prompt 已复制', duration: 2 });
     } catch {
-      messageApi.error('复制失败，请手动复制');
+      messageApi.error({ content: '复制失败，请手动复制', duration: 2 });
+    }
+  };
+  const handleCopySkillPath = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        `~/.agents/skills/style-vault/references/${item.skillPath}`,
+      );
+      messageApi.success({ content: '源码路径已复制', duration: 2 });
+    } catch {
+      messageApi.error({ content: '复制失败，请手动复制', duration: 2 });
     }
   };
 
   const iframeMaxWidth = viewport === 'full' ? '100%' : `${viewport}px`;
 
   return (
-    <div className="h-full flex flex-col bg-gray-50">
-      {contextHolder}
+    <div className="min-h-screen bg-[#fafafa]">
+      {ctx}
       <TopBar />
-      <div className="h-12 border-b flex items-center px-6 bg-white gap-3 shrink-0">
-        <Button size="small" onClick={() => navigate('/')}>
-          返回
-        </Button>
-        <Tag color={typeColorMap[item.type]} className="m-0">
-          {item.type}
-        </Tag>
-        <span className="text-base font-semibold truncate">{item.name}</span>
-        <span className="text-gray-400 text-sm ml-2 truncate">{item.id}</span>
+
+      {/* 面包屑 */}
+      <div className="border-b border-slate-200/60 bg-white">
+        <div className="mx-auto flex max-w-[1600px] items-center gap-4 px-8 py-3 text-sm">
+          <button
+            type="button"
+            onClick={() => nav(-1)}
+            className="flex items-center gap-1 text-slate-500 transition hover:text-slate-900"
+          >
+            <ArrowLeftOutlined /> 返回
+          </button>
+          <span className="text-slate-300">/</span>
+          <span className="text-slate-500">{typeLabel[item.type]}</span>
+          <span className="text-slate-300">/</span>
+          <span className="font-medium text-slate-900">{item.name}</span>
+        </div>
       </div>
 
-      <div className="flex-1 flex min-h-0">
-        <aside className="basis-[40%] shrink-0 border-r bg-white overflow-auto p-6">
-          <Typography.Paragraph>{item.description}</Typography.Paragraph>
-
-          <Typography.Title level={5}>Tags</Typography.Title>
-          <div className="flex flex-col gap-1 mb-4 text-sm">
-            {TAG_GROUPS.map((k) => (
-              <div key={k}>
-                <span className="text-gray-500 mr-2">{k}:</span>
-                {item.tags[k].length === 0 ? (
-                  <span className="text-gray-300">-</span>
-                ) : (
-                  item.tags[k].map((t) => (
-                    <Tag key={`${k}-${t}`} className="m-0 mr-1">
-                      {t}
-                    </Tag>
-                  ))
-                )}
-              </div>
-            ))}
+      <div className="mx-auto flex max-w-[1600px] gap-8 px-8 py-8">
+        {/* 左列 */}
+        <aside className="w-[360px] shrink-0 space-y-6">
+          <div>
+            <div className="flex items-center gap-2">
+              <Tag color={typeColor[item.type]} bordered={false}>
+                {typeLabel[item.type]}
+              </Tag>
+            </div>
+            <h1 className="mt-2 text-2xl font-semibold text-slate-900">{item.name}</h1>
+            <p className="mt-2 text-[14px] leading-relaxed text-slate-600">
+              {item.description}
+            </p>
           </div>
 
-          <Typography.Title level={5}>Uses</Typography.Title>
-          <ItemLinks ids={item.uses} registry={registry.items} />
+          <Descriptions
+            column={1}
+            size="small"
+            labelStyle={{ width: 72, color: '#64748b' }}
+            items={[
+              {
+                key: 'id',
+                label: 'ID',
+                children: <code className="text-xs text-slate-500">{item.id}</code>,
+              },
+              {
+                key: 'aesthetic',
+                label: tagGroupLabel.aesthetic,
+                children:
+                  item.tags.aesthetic.length === 0 ? (
+                    <span className="text-slate-300">-</span>
+                  ) : (
+                    item.tags.aesthetic.map((t) => (
+                      <Tag key={t} bordered={false}>
+                        {t}
+                      </Tag>
+                    ))
+                  ),
+              },
+              {
+                key: 'mood',
+                label: tagGroupLabel.mood,
+                children:
+                  item.tags.mood.length === 0 ? (
+                    <span className="text-slate-300">-</span>
+                  ) : (
+                    item.tags.mood.map((t) => (
+                      <Tag key={t} color="purple" bordered={false}>
+                        {t}
+                      </Tag>
+                    ))
+                  ),
+              },
+              {
+                key: 'theme',
+                label: tagGroupLabel.theme,
+                children:
+                  item.tags.theme.length === 0 ? (
+                    <span className="text-slate-300">-</span>
+                  ) : (
+                    item.tags.theme.map((t) => (
+                      <Tag
+                        key={t}
+                        color={t === 'dark' ? 'default' : 'gold'}
+                        bordered={false}
+                      >
+                        {themeLabel[t] ?? t}
+                      </Tag>
+                    ))
+                  ),
+              },
+              {
+                key: 'stack',
+                label: tagGroupLabel.stack,
+                children:
+                  item.tags.stack.length === 0 ? (
+                    <span className="text-slate-300">-</span>
+                  ) : (
+                    item.tags.stack.map((t) => (
+                      <Tag key={t} color="geekblue" bordered={false}>
+                        {t}
+                      </Tag>
+                    ))
+                  ),
+              },
+            ]}
+          />
 
-          <Typography.Title level={5} style={{ marginTop: 16 }}>
-            Used By
-          </Typography.Title>
-          <ItemLinks ids={item.usedBy} registry={registry.items} />
+          {usesItems.length > 0 && (
+            <div>
+              <h3 className="mb-2 text-[13px] font-medium text-slate-500">依赖</h3>
+              <ul className="m-0 list-none space-y-1.5 p-0">
+                {usesItems.map((u) => (
+                  <li key={u.id}>
+                    <LinkedItemButton item={u} onClick={() => nav(`/item/${u.id}`)} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-          <div className="mt-6 flex flex-wrap gap-2">
-            <PromptCopyButton item={item} />
-            <Button onClick={handleCopyPath}>看代码：{item.skillPath}</Button>
+          {usedByItems.length > 0 && (
+            <div>
+              <h3 className="mb-2 text-[13px] font-medium text-slate-500">被引用</h3>
+              <ul className="m-0 list-none space-y-1.5 p-0">
+                {usedByItems.map((u) => (
+                  <li key={u.id}>
+                    <LinkedItemButton item={u} onClick={() => nav(`/item/${u.id}`)} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div className="flex flex-col gap-2 pt-2">
+            <Button
+              type="primary"
+              size="large"
+              icon={<CopyOutlined />}
+              onClick={handleCopyPrompt}
+              className="!border-0 !bg-gradient-to-br !from-violet-500 !to-indigo-600 !shadow-md !shadow-violet-500/20 hover:!shadow-lg"
+            >
+              复制 Prompt
+            </Button>
+            <Button icon={<CodeOutlined />} onClick={handleCopySkillPath} size="large">
+              复制源码路径
+            </Button>
           </div>
         </aside>
 
-        <main className="basis-[60%] shrink-0 overflow-auto p-6 flex flex-col gap-4 min-w-0">
-          <div className="flex items-center gap-3">
-            <ViewportSwitcher value={viewport} onChange={setViewport} />
-            <span className="text-sm text-gray-400">preview</span>
+        {/* 右列 preview */}
+        <main className="min-w-0 flex-1 space-y-4">
+          {/* ViewportSwitcher */}
+          <div className="flex flex-wrap items-center gap-2">
+            {VIEWPORTS.map((v) => (
+              <button
+                key={String(v.key)}
+                type="button"
+                onClick={() => setViewport(v.key)}
+                className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition
+                  ${
+                    viewport === v.key
+                      ? 'border-violet-400 bg-violet-50 text-violet-700'
+                      : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
+                  }`}
+              >
+                {v.icon}
+                <span>{v.label}</span>
+                {typeof v.key === 'number' && (
+                  <span className="text-[11px] text-slate-400">{v.key}</span>
+                )}
+              </button>
+            ))}
           </div>
 
-          <div
-            className="bg-white border rounded overflow-hidden mx-auto w-full flex-1 min-h-[400px]"
-            style={{ maxWidth: iframeMaxWidth }}
-          >
-            {previewSrc ? (
-              <iframe
-                src={`${window.location.origin}${previewSrc}`}
-                title={item.id}
-                className="w-full h-full"
-                style={{ border: 0, minHeight: 400 }}
-              />
-            ) : (
-              <div className="h-full flex items-center justify-center">
-                <Empty description="Preview not built yet" />
+          {/* 浏览器 chrome 装饰外框 */}
+          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+            <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50 px-4 py-2.5">
+              <div className="flex gap-1.5">
+                <div className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+                <div className="h-3 w-3 rounded-full bg-[#febc2e]" />
+                <div className="h-3 w-3 rounded-full bg-[#28c840]" />
               </div>
-            )}
+              <div className="flex-1 truncate text-center text-[12px] text-slate-400">
+                {item.preview}
+              </div>
+              <div className="w-16" />
+            </div>
+            <div className="flex justify-center bg-slate-50 p-4">
+              <div
+                style={{
+                  maxWidth: iframeMaxWidth,
+                  width: '100%',
+                  transition: 'max-width 200ms ease',
+                }}
+              >
+                {item.hasPreviewFile && previewUrl ? (
+                  <iframe
+                    src={previewUrl}
+                    title={item.name}
+                    className="h-[70vh] w-full rounded-md border border-slate-200 bg-white"
+                  />
+                ) : (
+                  <Empty description="暂无预览" className="py-16" />
+                )}
+              </div>
+            </div>
           </div>
         </main>
       </div>

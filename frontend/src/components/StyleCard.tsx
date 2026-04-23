@@ -1,79 +1,106 @@
-import { Card, Tag } from 'antd';
-import { useNavigate } from 'react-router-dom';
-import type { RegistryItem, EntryType } from '../../scripts/sync-from-skill/types';
+import { useEffect, useRef, useState } from 'react';
+import { Tag } from 'antd';
+import { ArrowRightOutlined } from '@ant-design/icons';
+import type { RegistryItem } from '../../scripts/sync-from-skill/types';
+import { typeLabel, typeColor } from '../utils/i18n';
 
-const typeColorMap: Record<EntryType, string> = {
-  vibe: 'magenta',
-  archetype: 'geekblue',
-  composite: 'cyan',
-  atom: 'green',
-  primitive: 'orange',
-};
+const PREVIEW_VIRTUAL_WIDTH = 1440;
+const PREVIEW_VIRTUAL_HEIGHT = 900;
 
-export function StyleCard({ item }: { item: RegistryItem }) {
-  const navigate = useNavigate();
-  const previewSrc = item.hasPreviewFile ? item.preview : undefined;
-  const aestheticTags = item.tags.aesthetic ?? [];
-  const moodTags = item.tags.mood ?? [];
+export function StyleCard({
+  item,
+  onClick,
+}: {
+  item: RegistryItem;
+  onClick: () => void;
+}) {
+  const previewUrl = item.preview ? `${window.location.origin}${item.preview}` : null;
+  const previewRef = useRef<HTMLDivElement | null>(null);
+  const [scale, setScale] = useState(0.28);
 
-  const handleClick = () => {
-    navigate(`/item/${item.id}`);
-  };
+  useEffect(() => {
+    const el = previewRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const w = entry.contentRect.width;
+        if (w > 0) setScale(w / PREVIEW_VIRTUAL_WIDTH);
+      }
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   return (
-    <Card
-      hoverable
-      onClick={handleClick}
-      className="w-full h-[360px] cursor-pointer transition-shadow"
-      styles={{ body: { padding: 16, height: '100%', display: 'flex', flexDirection: 'column' } }}
+    <article
+      onClick={onClick}
+      className="group relative cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all duration-300
+                 hover:-translate-y-1 hover:border-violet-200 hover:shadow-[0_12px_40px_-12px_rgba(99,102,241,0.25)]"
     >
-      <div className="flex items-center gap-2 mb-2">
-        <Tag color={typeColorMap[item.type]} className="m-0">
-          {item.type}
-        </Tag>
-        <h3 className="text-base font-semibold truncate flex-1 m-0">{item.name}</h3>
-      </div>
-
-      <p
-        className="text-sm text-gray-500 mb-3"
-        style={{
-          display: '-webkit-box',
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: 'vertical',
-          overflow: 'hidden',
-        }}
+      {/* Preview 区——固定 16:10 比例，iframe 用 scale 缩略整页 */}
+      <div
+        ref={previewRef}
+        className="relative aspect-[16/10] overflow-hidden bg-slate-50"
       >
-        {item.description}
-      </p>
-
-      <div className="flex flex-wrap gap-1 mb-3">
-        {aestheticTags.map((t) => (
-          <Tag key={`a-${t}`} color="blue" className="m-0">
-            {t}
-          </Tag>
-        ))}
-        {moodTags.map((t) => (
-          <Tag key={`m-${t}`} color="purple" className="m-0">
-            {t}
-          </Tag>
-        ))}
-      </div>
-
-      <div className="flex-1 min-h-0 rounded border border-gray-200 overflow-hidden bg-gray-50">
-        {previewSrc ? (
-          <iframe
-            src={previewSrc}
-            title={item.id}
-            className="w-full h-full"
-            style={{ border: 0 }}
-          />
+        {previewUrl && item.hasPreviewFile ? (
+          <div
+            className="absolute left-0 top-0 origin-top-left"
+            style={{
+              width: `${PREVIEW_VIRTUAL_WIDTH}px`,
+              height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
+              transform: `scale(${scale})`,
+            }}
+          >
+            <iframe
+              src={previewUrl}
+              title={item.name}
+              className="pointer-events-none block h-full w-full border-0"
+              loading="lazy"
+            />
+          </div>
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-sm text-gray-400">
-            No preview yet
+          <div className="flex h-full items-center justify-center text-sm text-slate-400">
+            暂无预览
           </div>
         )}
+        {/* 渐变遮罩让信息区衔接更柔和 */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/10 to-transparent" />
       </div>
-    </Card>
+
+      {/* 信息区 */}
+      <div className="space-y-2 p-5">
+        <div className="flex items-center gap-2">
+          <Tag color={typeColor[item.type]} bordered={false}>
+            {typeLabel[item.type]}
+          </Tag>
+          <h3 className="m-0 flex-1 truncate text-[16px] font-semibold text-slate-900">
+            {item.name}
+          </h3>
+          <ArrowRightOutlined className="text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:text-violet-500" />
+        </div>
+        <p className="line-clamp-2 min-h-[40px] text-[13px] text-slate-500">
+          {item.description}
+        </p>
+        <div className="flex flex-wrap gap-1.5 pt-1">
+          {item.tags.aesthetic.slice(0, 3).map((t) => (
+            <span
+              key={`a-${t}`}
+              className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] text-slate-600"
+            >
+              {t}
+            </span>
+          ))}
+          {item.tags.mood.slice(0, 2).map((t) => (
+            <span
+              key={`m-${t}`}
+              className="rounded-md bg-violet-50 px-2 py-0.5 text-[11px] text-violet-600"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </article>
   );
 }
 
