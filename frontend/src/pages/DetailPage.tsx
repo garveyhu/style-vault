@@ -9,9 +9,11 @@ import {
   TabletOutlined,
   DesktopOutlined,
   ExpandOutlined,
+  FullscreenOutlined,
 } from '@ant-design/icons';
 import { useRegistry, useItem, isRegistryMissing } from '../data/useRegistry';
-import { typeLabel, typeColor, tagGroupLabel, themeLabel } from '../utils/i18n';
+import { typeLabel, typeColor, tagGroupLabel } from '../utils/i18n';
+import { zh } from '../utils/tagI18n';
 import { buildPrompt } from '../utils/prompt';
 import { TopBar } from '../components/TopBar';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
@@ -101,6 +103,12 @@ export default function DetailPage() {
     }
   };
 
+  const openFullscreen = () => {
+    if (item.preview && item.hasPreviewFile) {
+      window.open(item.preview, '_blank');
+    }
+  };
+
   const iframeMaxWidth = viewport === 'full' ? '100%' : `${viewport}px`;
 
   return (
@@ -159,7 +167,7 @@ export default function DetailPage() {
                   ) : (
                     item.tags.aesthetic.map((t) => (
                       <Tag key={t} bordered={false}>
-                        {t}
+                        {zh('aesthetic', t)}
                       </Tag>
                     ))
                   ),
@@ -173,7 +181,7 @@ export default function DetailPage() {
                   ) : (
                     item.tags.mood.map((t) => (
                       <Tag key={t} color="purple" bordered={false}>
-                        {t}
+                        {zh('mood', t)}
                       </Tag>
                     ))
                   ),
@@ -191,7 +199,7 @@ export default function DetailPage() {
                         color={t === 'dark' ? 'default' : 'gold'}
                         bordered={false}
                       >
-                        {themeLabel[t] ?? t}
+                        {zh('theme', t)}
                       </Tag>
                     ))
                   ),
@@ -205,7 +213,7 @@ export default function DetailPage() {
                   ) : (
                     item.tags.stack.map((t) => (
                       <Tag key={t} color="geekblue" bordered={false}>
-                        {t}
+                        {zh('stack', t)}
                       </Tag>
                     ))
                   ),
@@ -257,7 +265,7 @@ export default function DetailPage() {
 
         {/* 右列 preview */}
         <main className="min-w-0 flex-1 space-y-4">
-          {/* ViewportSwitcher */}
+          {/* ViewportSwitcher + 全屏 */}
           <div className="flex flex-wrap items-center gap-2">
             {VIEWPORTS.map((v) => (
               <button
@@ -278,6 +286,18 @@ export default function DetailPage() {
                 )}
               </button>
             ))}
+
+            <div className="mx-2 h-5 w-px bg-slate-200" />
+
+            <button
+              type="button"
+              onClick={openFullscreen}
+              disabled={!item.hasPreviewFile}
+              className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-600 transition hover:border-violet-400 hover:bg-violet-50 hover:text-violet-700 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <FullscreenOutlined />
+              <span>全屏预览</span>
+            </button>
           </div>
 
           {/* 浏览器 chrome 装饰外框 */}

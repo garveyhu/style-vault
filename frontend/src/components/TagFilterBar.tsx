@@ -1,7 +1,8 @@
 import { Dropdown } from 'antd';
-import { DownOutlined, CheckOutlined } from '@ant-design/icons';
+import { DownOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import type { TagDict } from '../../scripts/sync-from-skill/types';
-import { tagGroupLabel, themeLabel } from '../utils/i18n';
+import { tagGroupLabel } from '../utils/i18n';
+import { zh, type TagGroup } from '../utils/tagI18n';
 
 export type FilterValue = {
   aesthetic: string[];
@@ -20,7 +21,6 @@ export const emptyFilterValue: FilterValue = {
 type GroupConfig = {
   key: keyof FilterValue;
   options: string[];
-  labelMap?: Record<string, string>;
 };
 
 export function TagFilterBar({
@@ -43,63 +43,83 @@ export function TagFilterBar({
   const groups: GroupConfig[] = [
     { key: 'aesthetic', options: dict.aesthetic },
     { key: 'mood', options: dict.mood },
-    { key: 'theme', options: dict.theme, labelMap: themeLabel },
+    { key: 'theme', options: dict.theme },
     { key: 'stack', options: dict.stack },
   ];
 
-  const hasAnyActive = (['aesthetic', 'mood', 'theme', 'stack'] as const).some(
-    (k) => value[k].length > 0,
-  );
+  const groupKeys = ['aesthetic', 'mood', 'theme', 'stack'] as const;
+  const hasAnyActive = groupKeys.some((k) => value[k].length > 0);
 
   return (
-    <div className="flex flex-wrap items-center gap-3 py-3">
-      {groups.map(({ key, options, labelMap }) => (
-        <Dropdown
-          key={key}
-          trigger={['click']}
-          menu={{
-            items: options.map((v) => ({
-              key: v,
-              label: (
-                <span className="flex min-w-[120px] items-center justify-between text-sm">
-                  <span>{labelMap?.[v] ?? v}</span>
-                  {value[key].includes(v) && (
-                    <CheckOutlined className="text-violet-500" />
-                  )}
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-wrap items-center gap-3 py-2">
+        {groups.map(({ key, options }) => (
+          <Dropdown
+            key={key}
+            trigger={['click']}
+            menu={{
+              items: options.map((v) => ({
+                key: v,
+                label: (
+                  <span className="flex min-w-[140px] items-center justify-between text-sm">
+                    <span>{zh(key as TagGroup, v)}</span>
+                    {value[key].includes(v) && (
+                      <CheckOutlined className="text-violet-500" />
+                    )}
+                  </span>
+                ),
+                onClick: () => toggle(key, v),
+              })),
+            }}
+          >
+            <button
+              type="button"
+              className={`group flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-sm transition
+                ${
+                  activeCount(key) > 0
+                    ? 'border-violet-400 bg-violet-50 text-violet-700'
+                    : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                }`}
+            >
+              <span>{tagGroupLabel[key]}</span>
+              {activeCount(key) > 0 && (
+                <span className="rounded-full bg-violet-500 px-1.5 text-[11px] leading-4 text-white">
+                  {activeCount(key)}
                 </span>
-              ),
-              onClick: () => toggle(key, v),
-            })),
-          }}
-        >
+              )}
+              <DownOutlined className="text-[10px] opacity-60 transition group-hover:opacity-100" />
+            </button>
+          </Dropdown>
+        ))}
+
+        {hasAnyActive && (
           <button
             type="button"
-            className={`group flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-sm transition
-              ${
-                activeCount(key) > 0
-                  ? 'border-violet-400 bg-violet-50 text-violet-700'
-                  : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
-              }`}
+            onClick={() => onChange(emptyFilterValue)}
+            className="ml-2 text-xs text-slate-500 underline-offset-2 hover:underline"
           >
-            <span>{tagGroupLabel[key]}</span>
-            {activeCount(key) > 0 && (
-              <span className="rounded-full bg-violet-500 px-1.5 text-[11px] leading-4 text-white">
-                {activeCount(key)}
-              </span>
-            )}
-            <DownOutlined className="text-[10px] opacity-60 transition group-hover:opacity-100" />
+            清除筛选
           </button>
-        </Dropdown>
-      ))}
+        )}
+      </div>
 
       {hasAnyActive && (
-        <button
-          type="button"
-          onClick={() => onChange(emptyFilterValue)}
-          className="ml-2 text-xs text-slate-500 underline-offset-2 hover:underline"
-        >
-          清除筛选
-        </button>
+        <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 pb-3 pt-2">
+          <span className="text-xs text-slate-400">已选：</span>
+          {groupKeys.flatMap((k) =>
+            value[k].map((v) => (
+              <button
+                key={`${k}-${v}`}
+                type="button"
+                onClick={() => toggle(k, v)}
+                className="group flex items-center gap-1 rounded-full border border-violet-200 bg-violet-50 px-2.5 py-0.5 text-[12px] text-violet-700 transition hover:border-violet-300 hover:bg-violet-100"
+              >
+                <span>{zh(k as TagGroup, v)}</span>
+                <CloseOutlined className="text-[10px] text-violet-400 group-hover:text-violet-600" />
+              </button>
+            )),
+          )}
+        </div>
       )}
     </div>
   );

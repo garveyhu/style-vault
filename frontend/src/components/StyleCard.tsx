@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Tag } from 'antd';
-import { ArrowRightOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, FullscreenOutlined } from '@ant-design/icons';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 import { typeLabel, typeColor } from '../utils/i18n';
+import { zh } from '../utils/tagI18n';
 
 const PREVIEW_VIRTUAL_WIDTH = 1440;
 const PREVIEW_VIRTUAL_HEIGHT = 900;
@@ -65,6 +66,21 @@ export function StyleCard({
         )}
         {/* 渐变遮罩让信息区衔接更柔和 */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/10 to-transparent" />
+
+        {/* 全屏按钮，hover 时浮出 */}
+        {item.hasPreviewFile && item.preview && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              window.open(item.preview!, '_blank');
+            }}
+            title="全屏预览"
+            className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg bg-white/90 opacity-0 shadow-sm backdrop-blur-sm transition hover:bg-white group-hover:opacity-100"
+          >
+            <FullscreenOutlined className="text-slate-600" />
+          </button>
+        )}
       </div>
 
       {/* 信息区 */}
@@ -87,7 +103,7 @@ export function StyleCard({
               key={`a-${t}`}
               className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] text-slate-600"
             >
-              {t}
+              {zh('aesthetic', t)}
             </span>
           ))}
           {item.tags.mood.slice(0, 2).map((t) => (
@@ -95,7 +111,7 @@ export function StyleCard({
               key={`m-${t}`}
               className="rounded-md bg-violet-50 px-2 py-0.5 text-[11px] text-violet-600"
             >
-              {t}
+              {zh('mood', t)}
             </span>
           ))}
         </div>
