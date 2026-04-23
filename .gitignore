@@ -1,1 +1,13 @@
 .DS_Store
+
+# Python / backend
+backend/.venv/
+backend/**/__pycache__/
+backend/**/*.pyc
+backend/data.db
+backend/*.log
+backend/logs/
+backend/config/.env
+backend/config/app.json
+backend/config/component.json
+!backend/config/*.json.example
