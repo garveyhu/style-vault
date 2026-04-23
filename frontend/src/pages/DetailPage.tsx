@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, useNavigate, Navigate } from 'react-router-dom';
-import { Tag, Descriptions, Button, Empty, message } from 'antd';
+import { Tag, Descriptions, Button, Empty, Tabs, message } from 'antd';
 import {
   ArrowLeftOutlined,
   CopyOutlined,
@@ -10,12 +10,17 @@ import {
   DesktopOutlined,
   ExpandOutlined,
   FullscreenOutlined,
+  EyeOutlined,
+  EditOutlined,
 } from '@ant-design/icons';
 import { useRegistry, useItem, isRegistryMissing } from '../data/useRegistry';
 import { typeLabel, typeColor, tagGroupLabel } from '../utils/i18n';
 import { zh } from '../utils/tagI18n';
 import { buildPrompt } from '../utils/prompt';
 import { TopBar } from '../components/TopBar';
+import { FavoriteButton } from '../components/FavoriteButton';
+import { NoteEditor } from '../components/NoteEditor';
+import { ScreenshotGallery } from '../components/ScreenshotGallery';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 
 type ViewportKey = 375 | 768 | 1024 | 1440 | 'full';
@@ -137,10 +142,11 @@ export default function DetailPage() {
         {/* 左列 */}
         <aside className="w-[360px] shrink-0 space-y-6">
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between gap-2">
               <Tag color={typeColor[item.type]} bordered={false}>
                 {typeLabel[item.type]}
               </Tag>
+              <FavoriteButton entryId={item.id} size="sm" variant="icon" />
             </div>
             <h1 className="mt-2 font-display text-[32px] font-medium leading-tight tracking-tight text-slate-900">
               {item.name}
@@ -263,78 +269,111 @@ export default function DetailPage() {
               复制源码路径
             </Button>
           </div>
+
+          {/* 截图画廊 */}
+          <div className="pt-2">
+            <h3 className="mb-2 text-[13px] font-medium text-slate-500">应用截图</h3>
+            <ScreenshotGallery entryId={item.id} />
+          </div>
         </aside>
 
-        {/* 右列 preview */}
-        <main className="min-w-0 flex-1 space-y-4">
-          {/* ViewportSwitcher + 全屏 */}
-          <div className="flex flex-wrap items-center gap-2">
-            {VIEWPORTS.map((v) => (
-              <button
-                key={String(v.key)}
-                type="button"
-                onClick={() => setViewport(v.key)}
-                className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition
-                  ${
-                    viewport === v.key
-                      ? 'border-violet-400 bg-violet-50 text-violet-700'
-                      : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
-                  }`}
-              >
-                {v.icon}
-                <span>{v.label}</span>
-                {typeof v.key === 'number' && (
-                  <span className="text-[11px] text-slate-400">{v.key}</span>
-                )}
-              </button>
-            ))}
+        {/* 右列 preview / 笔记 */}
+        <main className="min-w-0 flex-1">
+          <Tabs
+            defaultActiveKey="preview"
+            size="large"
+            items={[
+              {
+                key: 'preview',
+                label: (
+                  <span className="flex items-center gap-1.5">
+                    <EyeOutlined /> 预览
+                  </span>
+                ),
+                children: (
+                  <div className="space-y-4">
+                    {/* ViewportSwitcher + 全屏 */}
+                    <div className="flex flex-wrap items-center gap-2">
+                      {VIEWPORTS.map((v) => (
+                        <button
+                          key={String(v.key)}
+                          type="button"
+                          onClick={() => setViewport(v.key)}
+                          className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition
+                            ${
+                              viewport === v.key
+                                ? 'border-violet-400 bg-violet-50 text-violet-700'
+                                : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
+                            }`}
+                        >
+                          {v.icon}
+                          <span>{v.label}</span>
+                          {typeof v.key === 'number' && (
+                            <span className="text-[11px] text-slate-400">{v.key}</span>
+                          )}
+                        </button>
+                      ))}
 
-            <div className="mx-2 h-5 w-px bg-slate-200" />
+                      <div className="mx-2 h-5 w-px bg-slate-200" />
 
-            <button
-              type="button"
-              onClick={openFullscreen}
-              disabled={!item.hasPreviewFile}
-              className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-600 transition hover:border-violet-400 hover:bg-violet-50 hover:text-violet-700 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              <FullscreenOutlined />
-              <span>全屏预览</span>
-            </button>
-          </div>
+                      <button
+                        type="button"
+                        onClick={openFullscreen}
+                        disabled={!item.hasPreviewFile}
+                        className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-600 transition hover:border-violet-400 hover:bg-violet-50 hover:text-violet-700 disabled:cursor-not-allowed disabled:opacity-40"
+                      >
+                        <FullscreenOutlined />
+                        <span>全屏预览</span>
+                      </button>
+                    </div>
 
-          {/* 浏览器 chrome 装饰外框 */}
-          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-            <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50 px-4 py-2.5">
-              <div className="flex gap-1.5">
-                <div className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-                <div className="h-3 w-3 rounded-full bg-[#febc2e]" />
-                <div className="h-3 w-3 rounded-full bg-[#28c840]" />
-              </div>
-              <div className="flex-1 truncate text-center text-[12px] text-slate-400">
-                {item.preview}
-              </div>
-              <div className="w-16" />
-            </div>
-            <div className="flex justify-center bg-slate-50 p-4">
-              <div
-                style={{
-                  maxWidth: iframeMaxWidth,
-                  width: '100%',
-                  transition: 'max-width 200ms ease',
-                }}
-              >
-                {item.hasPreviewFile && previewUrl ? (
-                  <iframe
-                    src={previewUrl}
-                    title={item.name}
-                    className="h-[70vh] w-full rounded-md border border-slate-200 bg-white"
-                  />
-                ) : (
-                  <Empty description="暂无预览" className="py-16" />
-                )}
-              </div>
-            </div>
-          </div>
+                    {/* 浏览器 chrome 装饰外框 */}
+                    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+                      <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50 px-4 py-2.5">
+                        <div className="flex gap-1.5">
+                          <div className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+                          <div className="h-3 w-3 rounded-full bg-[#febc2e]" />
+                          <div className="h-3 w-3 rounded-full bg-[#28c840]" />
+                        </div>
+                        <div className="flex-1 truncate text-center text-[12px] text-slate-400">
+                          {item.preview}
+                        </div>
+                        <div className="w-16" />
+                      </div>
+                      <div className="flex justify-center bg-slate-50 p-4">
+                        <div
+                          style={{
+                            maxWidth: iframeMaxWidth,
+                            width: '100%',
+                            transition: 'max-width 200ms ease',
+                          }}
+                        >
+                          {item.hasPreviewFile && previewUrl ? (
+                            <iframe
+                              src={previewUrl}
+                              title={item.name}
+                              className="h-[70vh] w-full rounded-md border border-slate-200 bg-white"
+                            />
+                          ) : (
+                            <Empty description="暂无预览" className="py-16" />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ),
+              },
+              {
+                key: 'notes',
+                label: (
+                  <span className="flex items-center gap-1.5">
+                    <EditOutlined /> 我的笔记
+                  </span>
+                ),
+                children: <NoteEditor entryId={item.id} />,
+              },
+            ]}
+          />
         </main>
       </div>
     </div>
