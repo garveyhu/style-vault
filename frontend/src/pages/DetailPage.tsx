@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Button, Empty, Result, Tag, Typography, message } from 'antd';
 import { useItem, useRegistry } from '../data/useRegistry';
 import { ViewportSwitcher, type ViewportValue } from '../components/ViewportSwitcher';
-import { buildPrompt } from '../utils/prompt';
+import { PromptCopyButton } from '../components/PromptCopyButton';
 import type { EntryType, RegistryItem } from '../../scripts/sync-from-skill/types';
 
 const typeColorMap: Record<EntryType, string> = {
@@ -72,15 +72,6 @@ export default function DetailPage() {
     }
   };
 
-  const handleCopyPrompt = async () => {
-    try {
-      await navigator.clipboard.writeText(buildPrompt(item));
-      messageApi.success('Prompt 已复制');
-    } catch {
-      messageApi.error('复制失败，请手动复制');
-    }
-  };
-
   const iframeMaxWidth = viewport === 'full' ? '100%' : `${viewport}px`;
 
   return (
@@ -126,9 +117,7 @@ export default function DetailPage() {
           <ItemLinks ids={item.usedBy} registry={registry.items} />
 
           <div className="mt-6 flex flex-wrap gap-2">
-            <Button type="primary" onClick={handleCopyPrompt}>
-              复制 Prompt
-            </Button>
+            <PromptCopyButton item={item} />
             <Button onClick={handleCopyPath}>看代码：{item.skillPath}</Button>
           </div>
         </aside>
