@@ -86,8 +86,8 @@ export default function BrowsePage() {
 
       {/* ===================== Hero（极简，无 stats / featured） ===================== */}
       <section className="relative overflow-hidden border-b border-slate-100 bg-white">
-        <div className="pointer-events-none absolute -left-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-gradient-to-br from-indigo-100/60 via-violet-100/40 to-transparent blur-3xl" />
-        <div className="pointer-events-none absolute -right-48 top-0 h-[36rem] w-[36rem] rounded-full bg-gradient-to-br from-violet-100/50 via-indigo-50/30 to-transparent blur-3xl" />
+        <div className="pointer-events-none absolute -left-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-gradient-to-br from-slate-100/60 via-emerald-100/40 to-transparent blur-3xl" />
+        <div className="pointer-events-none absolute -right-48 top-0 h-[36rem] w-[36rem] rounded-full bg-gradient-to-br from-emerald-100/50 via-emerald-50/30 to-transparent blur-3xl" />
 
         <div className="relative mx-auto grid max-w-[1600px] grid-cols-1 gap-14 px-8 py-20 md:py-24 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           {/* 左：标题 + 副 */}
@@ -95,15 +95,15 @@ export default function BrowsePage() {
             <h1 className="sv-anim-fade-up sv-delay-0 font-display text-[64px] font-extrabold leading-[1.02] tracking-[-0.04em] text-slate-900 md:text-[80px] lg:text-[96px]">
               Discover your
               <br />
-              <span className="bg-gradient-to-br from-indigo-600 to-slate-900 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-br from-emerald-700 via-slate-800 to-slate-900 bg-clip-text text-transparent">
                 style vault.
               </span>
             </h1>
 
             <p className="sv-anim-fade-up sv-delay-150 mt-10 max-w-xl text-[17px] leading-[1.7] text-slate-600">
-              沉淀你满意的前端设计风格，下次做项目一键复刻。
+              发现你欣赏的前端设计风格，浏览实时预览，收藏反复用到的那几种。
               <br />
-              按层级浏览、按氛围筛选，点「复制 Prompt」让 AI 直接用上。
+              下次想做同款页面？复制提示词，交给 AI 几秒钟生成。
             </p>
           </div>
 
@@ -277,7 +277,7 @@ function HeroStackDecor({ items }: { items: RegistryItem[] }) {
   if (picks.length === 0) {
     return (
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="h-64 w-64 rounded-full bg-gradient-to-br from-indigo-300/40 to-violet-300/40 blur-2xl" />
+        <div className="h-64 w-64 rounded-full bg-gradient-to-br from-slate-300/40 to-emerald-300/40 blur-2xl" />
       </div>
     );
   }
@@ -293,7 +293,7 @@ function HeroStackDecor({ items }: { items: RegistryItem[] }) {
       {picks.map((p, idx) => (
         <div
           key={p.id}
-          className={`sv-anim-fade-up absolute aspect-[16/10] w-[400px] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_24px_60px_-20px_rgba(79,70,229,0.3)] ${positions[idx]} sv-delay-${idx === 0 ? '300' : idx === 1 ? '500' : '600'}`}
+          className={`sv-anim-fade-up absolute aspect-[16/10] w-[400px] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_24px_60px_-20px_rgba(15,23,42,0.3)] ${positions[idx]} sv-delay-${idx === 0 ? '300' : idx === 1 ? '500' : '600'}`}
           style={{ zIndex: 10 - idx }}
         >
           <StaticPreviewFrame item={p} />
@@ -330,9 +330,9 @@ function StaticPreviewFrame({ item }: { item: RegistryItem }) {
 function FavoritesEmpty({ onExplore }: { onExplore: () => void }) {
   return (
     <div className="relative flex flex-col items-center gap-5 py-28">
-      <div className="pointer-events-none absolute left-1/2 top-8 h-48 w-48 -translate-x-1/2 rounded-full bg-gradient-to-br from-violet-200/60 to-pink-200/50 blur-3xl sv-anim-breathe" />
-      <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_-8px_rgba(124,58,237,0.2)]">
-        <HeartFilled className="text-[32px] text-violet-400" />
+      <div className="pointer-events-none absolute left-1/2 top-8 h-48 w-48 -translate-x-1/2 rounded-full bg-gradient-to-br from-emerald-200/60 to-pink-200/50 blur-3xl sv-anim-breathe" />
+      <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_-8px_rgba(16,185,129,0.2)]">
+        <HeartFilled className="text-[32px] text-emerald-400" />
       </div>
       <div className="relative text-center">
         <div className="font-display text-[22px] font-semibold text-slate-900">
@@ -356,7 +356,7 @@ function FavoritesEmpty({ onExplore }: { onExplore: () => void }) {
 function EmptyState({ onReset }: { onReset: () => void }) {
   return (
     <div className="relative flex flex-col items-center gap-5 py-28">
-      <div className="pointer-events-none absolute left-1/2 top-8 h-48 w-48 -translate-x-1/2 rounded-full bg-gradient-to-br from-slate-200/60 to-indigo-200/50 blur-3xl sv-anim-breathe" />
+      <div className="pointer-events-none absolute left-1/2 top-8 h-48 w-48 -translate-x-1/2 rounded-full bg-gradient-to-br from-slate-200/60 to-emerald-200/50 blur-3xl sv-anim-breathe" />
       <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_-8px_rgba(15,23,42,0.15)]">
         <svg
           viewBox="0 0 24 24"

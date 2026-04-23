@@ -59,8 +59,8 @@ export function FavoriteButton({
           ${dims[size]}
           ${
             active
-              ? 'border-violet-300 bg-violet-50 text-violet-600 shadow-[0_2px_12px_-4px_rgba(124,58,237,0.35)]'
-              : 'border-slate-200 bg-white text-slate-500 hover:border-violet-200 hover:text-violet-500'
+              ? 'border-emerald-300 bg-emerald-50 text-emerald-600 shadow-[0_2px_12px_-4px_rgba(16,185,129,0.35)]'
+              : 'border-slate-200 bg-white text-slate-500 hover:border-emerald-200 hover:text-emerald-500'
           }
           ${bump ? 'scale-110' : 'scale-100'}
         `}

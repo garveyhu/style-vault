@@ -125,7 +125,7 @@ export function NoteEditor({ entryId }: { entryId: string }) {
         onChange={onChange}
         placeholder="记录使用心得 / 改造点 / 搭配建议…（支持 Markdown）"
         rows={16}
-        className="w-full resize-y rounded-xl border border-slate-200 bg-white p-4 text-[14px] leading-relaxed text-slate-800 shadow-sm outline-none transition focus:border-violet-300 focus:shadow-[0_0_0_3px_rgba(167,139,250,0.15)]"
+        className="w-full resize-y rounded-xl border border-slate-200 bg-white p-4 text-[14px] leading-relaxed text-slate-800 shadow-sm outline-none transition focus:border-emerald-300 focus:shadow-[0_0_0_3px_rgba(16,185,129,0.15)]"
       />
       <div className="flex items-center justify-between text-[11px] text-slate-400">
         <div>{content.length} 字 · 自动保存</div>

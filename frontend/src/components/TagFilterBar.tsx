@@ -64,7 +64,7 @@ export function TagFilterBar({
                   <span className="flex min-w-[140px] items-center justify-between text-sm">
                     <span>{zh(key as TagGroup, v)}</span>
                     {value[key].includes(v) && (
-                      <CheckOutlined className="text-violet-500" />
+                      <CheckOutlined className="text-emerald-500" />
                     )}
                   </span>
                 ),
@@ -77,13 +77,13 @@ export function TagFilterBar({
               className={`group flex items-center gap-1.5 rounded-full border px-4 py-1.5 text-sm transition
                 ${
                   activeCount(key) > 0
-                    ? 'border-violet-400 bg-violet-50 text-violet-700'
+                    ? 'border-emerald-400 bg-emerald-50 text-emerald-700'
                     : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
                 }`}
             >
               <span>{tagGroupLabel[key]}</span>
               {activeCount(key) > 0 && (
-                <span className="rounded-full bg-violet-500 px-1.5 text-[11px] leading-4 text-white">
+                <span className="rounded-full bg-emerald-500 px-1.5 text-[11px] leading-4 text-white">
                   {activeCount(key)}
                 </span>
               )}
@@ -112,10 +112,10 @@ export function TagFilterBar({
                 key={`${k}-${v}`}
                 type="button"
                 onClick={() => toggle(k, v)}
-                className="group flex items-center gap-1 rounded-full border border-violet-200 bg-violet-50 px-2.5 py-0.5 text-[12px] text-violet-700 transition hover:border-violet-300 hover:bg-violet-100"
+                className="group flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-0.5 text-[12px] text-emerald-700 transition hover:border-emerald-300 hover:bg-emerald-100"
               >
                 <span>{zh(k as TagGroup, v)}</span>
-                <CloseOutlined className="text-[10px] text-violet-400 group-hover:text-violet-600" />
+                <CloseOutlined className="text-[10px] text-emerald-400 group-hover:text-emerald-600" />
               </button>
             )),
           )}

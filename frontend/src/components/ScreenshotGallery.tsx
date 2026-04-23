@@ -129,9 +129,9 @@ export function ScreenshotGallery({
       >
         <p className="ant-upload-drag-icon !mb-3">
           {uploading ? (
-            <LoadingOutlined className="text-indigo-500" />
+            <LoadingOutlined className="text-emerald-500" />
           ) : (
-            <InboxOutlined className="text-indigo-400" />
+            <InboxOutlined className="text-emerald-400" />
           )}
         </p>
         <p

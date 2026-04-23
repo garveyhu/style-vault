@@ -73,9 +73,9 @@ function RelatedItem({
 function typeDotColor(type: string): string {
   switch (type) {
     case 'vibe':
-      return 'bg-fuchsia-500';
+      return 'bg-rose-500';
     case 'archetype':
-      return 'bg-indigo-500';
+      return 'bg-emerald-500';
     case 'composite':
       return 'bg-cyan-500';
     case 'atom':

@@ -48,6 +48,7 @@ export function StyleCard({
   const previewUrl = item.preview ? `${window.location.origin}${item.preview}` : null;
   const previewRef = useRef<HTMLDivElement | null>(null);
   const [scale, setScale] = useState(0.28);
+  const [iframeReady, setIframeReady] = useState(false);
   const { user } = useAuth();
   const { isFavorited, toggleFavorite } = useFavorites();
   const favorited = isFavorited(item.id);
@@ -92,21 +93,30 @@ export function StyleCard({
         className={`relative overflow-hidden bg-slate-50 ${sizing.h}`}
       >
         {previewUrl && item.hasPreviewFile ? (
-          <div
-            className="sv-card-preview-inner absolute left-0 top-0 origin-top-left will-change-transform"
-            style={{
-              width: `${PREVIEW_VIRTUAL_WIDTH}px`,
-              height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
-              transform: `scale(${scale})`,
-            }}
-          >
-            <iframe
-              src={previewUrl}
-              title={item.name}
-              className="pointer-events-none block h-full w-full border-0"
-              loading="lazy"
-            />
-          </div>
+          <>
+            {/* 加载占位 skeleton（iframe 加载完成前） */}
+            {!iframeReady && (
+              <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100" />
+            )}
+            <div
+              className="sv-card-preview-inner absolute left-0 top-0 origin-top-left will-change-transform"
+              style={{
+                width: `${PREVIEW_VIRTUAL_WIDTH}px`,
+                height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
+                transform: `scale(${scale})`,
+                opacity: iframeReady ? 1 : 0,
+                transition: 'opacity 400ms ease-out',
+              }}
+            >
+              <iframe
+                src={previewUrl}
+                title={item.name}
+                className="pointer-events-none block h-full w-full border-0"
+                loading="eager"
+                onLoad={() => setIframeReady(true)}
+              />
+            </div>
+          </>
         ) : (
           <div className="flex h-full items-center justify-center text-sm text-slate-400">
             暂无预览
@@ -144,8 +154,8 @@ export function StyleCard({
             className={`pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg shadow-sm backdrop-blur-sm transition duration-300
               ${
                 favorited
-                  ? 'bg-violet-500 text-white opacity-100 hover:bg-violet-600'
-                  : 'bg-white/95 text-slate-500 opacity-0 hover:bg-white hover:text-violet-500 group-hover:opacity-100'
+                  ? 'bg-emerald-500 text-white opacity-100 hover:bg-emerald-600'
+                  : 'bg-white/95 text-slate-500 opacity-0 hover:bg-white hover:text-emerald-500 group-hover:opacity-100'
               }
             `}
           >
@@ -211,9 +221,9 @@ export function StyleCard({
 function typeDotColor(type: string): string {
   switch (type) {
     case 'vibe':
-      return 'bg-fuchsia-500';
+      return 'bg-rose-500';
     case 'archetype':
-      return 'bg-indigo-500';
+      return 'bg-emerald-500';
     case 'composite':
       return 'bg-cyan-500';
     case 'atom':
