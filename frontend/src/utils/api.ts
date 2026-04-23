@@ -33,3 +33,107 @@ export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> 
   }
   return json.data as T;
 }
+
+/**
+ * multipart/form-data 上传。与 apiFetch 共用 Result 解包，只是不设 JSON header。
+ */
+async function apiFetchForm<T>(path: string, form: FormData): Promise<T> {
+  const headers: Record<string, string> = {};
+  const token = getToken();
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+
+  const res = await fetch(`${API_BASE}${path}`, {
+    method: 'POST',
+    body: form,
+    headers,
+  });
+  const json = await res
+    .json()
+    .catch(() => ({ code: res.status, message: 'bad json', data: null }));
+  if (!res.ok || json.code !== 0) {
+    const err: Error & { code?: number; status?: number } = new Error(
+      json.message || `HTTP ${res.status}`,
+    );
+    err.code = json.code;
+    err.status = res.status;
+    throw err;
+  }
+  return json.data as T;
+}
+
+/* ============================================================
+ * 业务 API 封装
+ * entry_id 带斜杠，直接拼接；后端用 :path converter 接住。
+ * ============================================================ */
+
+export const favoritesApi = {
+  async list(): Promise<string[]> {
+    const d = await apiFetch<{ items: string[] }>('/api/favorites');
+    return d.items ?? [];
+  },
+  toggle(entryId: string): Promise<{ favorited: boolean }> {
+    return apiFetch<{ favorited: boolean }>(`/api/favorites/${entryId}`, {
+      method: 'POST',
+    });
+  },
+};
+
+export const notesApi = {
+  get(entryId: string): Promise<{ content: string }> {
+    return apiFetch<{ content: string }>(`/api/notes/${entryId}`);
+  },
+  async upsert(entryId: string, content: string): Promise<void> {
+    await apiFetch<{ content: string }>(`/api/notes/${entryId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ content }),
+    });
+  },
+};
+
+export type Screenshot = {
+  id: number;
+  entry_id: string;
+  object_name: string;
+  url: string;
+  caption: string | null;
+  created_at: string | null;
+};
+
+export type ScreenshotCreatePayload = {
+  object_name: string;
+  url: string;
+  caption?: string | null;
+};
+
+export const screenshotsApi = {
+  async list(entryId: string): Promise<Screenshot[]> {
+    const d = await apiFetch<{ items: Screenshot[] }>(
+      `/api/screenshots/${entryId}`,
+    );
+    return d.items ?? [];
+  },
+  create(entryId: string, payload: ScreenshotCreatePayload): Promise<Screenshot> {
+    return apiFetch<Screenshot>(`/api/screenshots/${entryId}`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  },
+  async remove(id: number): Promise<void> {
+    await apiFetch<null>(`/api/screenshots/${id}`, { method: 'DELETE' });
+  },
+};
+
+export type UploadedFile = {
+  object_name: string;
+  url: string;
+  size: number;
+  content_type: string;
+};
+
+export const filesApi = {
+  upload(file: File): Promise<UploadedFile> {
+    const form = new FormData();
+    form.append('file', file);
+    return apiFetchForm<UploadedFile>('/api/files/upload', form);
+  },
+};
