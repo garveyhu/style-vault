@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-23T07:12:48.756Z",
+  "version": "2026-04-23T07:13:35.661Z",
   "items": [
     {
       "id": "atoms/buttons/ghost-button",
@@ -57,7 +57,7 @@
       "usedBy": [
         "composites/layout/toolbar-bar"
       ],
-      "hasPreviewFile": false,
+      "hasPreviewFile": true,
       "skillPath": "composites/display/table.md"
     },
     {
@@ -85,7 +85,7 @@
       ],
       "preview": "/preview/composites/layout/toolbar-bar",
       "usedBy": [],
-      "hasPreviewFile": false,
+      "hasPreviewFile": true,
       "skillPath": "composites/layout/toolbar-bar.md"
     },
     {
