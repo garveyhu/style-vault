@@ -7,6 +7,7 @@ import NotInstalledPage from './pages/NotInstalledPage';
 import { AuthProvider } from './auth/AuthContext';
 import { FavoritesProvider } from './auth/FavoritesContext';
 import { ScrollToTop } from './components/ScrollToTop';
+import { GlobalLoading } from './components/GlobalLoading';
 
 // 动态收集 preview 页（排除 _layout / _templates）
 const previewModules = import.meta.glob('./preview/**/*.tsx');
@@ -25,7 +26,7 @@ export default function App() {
       <AuthProvider>
         <FavoritesProvider>
         <ScrollToTop />
-        <Suspense fallback={<div className="p-8">Loading…</div>}>
+        <Suspense fallback={<GlobalLoading />}>
           <Routes>
             <Route path="/" element={<BrowsePage />} />
             <Route path="/item/*" element={<DetailPage />} />
