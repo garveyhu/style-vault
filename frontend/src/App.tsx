@@ -14,7 +14,7 @@ const previewModules = import.meta.glob('./preview/**/*.tsx');
 const previewRoutes = Object.entries(previewModules)
   .filter(([k]) => !k.includes('/_layout') && !k.includes('/_templates/'))
   .map(([k, loader]) => {
-    // './preview/atoms/buttons/ghost-button.tsx' → 'atoms/buttons/ghost-button'
+    // './preview/components/buttons/ghost-button.tsx' → 'components/buttons/ghost-button'
     const relId = k.replace(/^\.\/preview\//, '').replace(/\.tsx$/, '');
     const Lazy = lazy(loader as any);
     return { relId, Element: Lazy };
