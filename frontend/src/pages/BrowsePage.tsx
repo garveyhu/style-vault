@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
-import { useRegistry } from '../data/useRegistry';
+import { isRegistryMissing, useRegistry } from '../data/useRegistry';
 import { StyleCard } from '../components/StyleCard';
 import { TagFilter, emptyFilterValue, type FilterValue } from '../components/TagFilter';
 import type { EntryType, RegistryItem } from '../../scripts/sync-from-skill/types';
@@ -46,6 +47,10 @@ export default function BrowsePage() {
     () => registry.items.filter((item) => matchFilter(item, filter)),
     [registry.items, filter],
   );
+
+  if (isRegistryMissing(registry)) {
+    return <Navigate to="/not-installed" replace />;
+  }
 
   const tabItems: TabsProps['items'] = tabs.map(({ key, label }) => ({
     key,
