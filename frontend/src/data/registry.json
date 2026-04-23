@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-23T07:11:10.960Z",
+  "version": "2026-04-23T07:12:01.562Z",
   "items": [
     {
       "id": "composites/display/table",
@@ -85,6 +85,35 @@
       "usedBy": [],
       "hasPreviewFile": true,
       "skillPath": "primitives/palettes/slate-cyan-ice.md"
+    },
+    {
+      "id": "primitives/typography/pairs/ibm-plex-duo",
+      "type": "primitive",
+      "name": "IBM Plex Duo",
+      "description": "IBM Plex Sans + IBM Plex Mono，技术感与中性感兼具的字体搭配",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious",
+          "calm"
+        ],
+        "theme": [
+          "light",
+          "dark"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "preview": "/preview/primitives/typography/pairs/ibm-plex-duo",
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "primitives/typography/pairs/ibm-plex-duo.md"
     }
   ],
   "tagDict": {
