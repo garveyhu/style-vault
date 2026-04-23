@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState, type ComponentType } from 'react';
+import { useState } from 'react';
 import {
   FullscreenOutlined,
   ArrowRightOutlined,
@@ -14,30 +14,13 @@ import { useAuth } from '../auth/AuthContext';
 const PREVIEW_VIRTUAL_WIDTH = 1440;
 const PREVIEW_VIRTUAL_HEIGHT = 900;
 
-/**
- * Eager 收集所有 preview 模块的 lazy loader（排除 _layout / _templates）。
- * 卡片直接 mount React 组件缩略展示，不走 iframe——避免 iframe 加载慢 / 多 bundle
- * 复制的白屏问题，且同源性能最好。
- */
-const previewModules = import.meta.glob('../preview/**/*.tsx');
-
-const previewLoaders: Record<string, () => Promise<{ default: ComponentType }>> = {};
-for (const [path, loader] of Object.entries(previewModules)) {
-  if (path.includes('/_layout') || path.includes('/_templates/')) continue;
-  // '../preview/composites/display/table.tsx' → 'composites/display/table'
-  const id = path.replace(/^\.\.\/preview\//, '').replace(/\.tsx$/, '');
-  previewLoaders[id] = loader as () => Promise<{ default: ComponentType }>;
-}
-
-/**
- * 固定像素 height 替代 aspect-ratio（CSS columns 多列布局里 aspect 会解析为 0）。
- */
-const SIZE_BY_TYPE: Record<string, { h: number }> = {
-  vibe: { h: 260 },
-  archetype: { h: 260 },
-  composite: { h: 220 },
-  atom: { h: 200 },
-  primitive: { h: 200 },
+/** 固定像素 height + 固定 scale（与 Hero 的 HeroStackDecor 同构，稳定可见）。 */
+const SIZE_BY_TYPE: Record<string, { h: number; w: number }> = {
+  vibe: { h: 260, w: 420 },
+  archetype: { h: 260, w: 420 },
+  composite: { h: 220, w: 360 },
+  atom: { h: 200, w: 320 },
+  primitive: { h: 200, w: 320 },
 };
 
 function typeDotColor(type: string): string {
@@ -57,12 +40,6 @@ function typeDotColor(type: string): string {
   }
 }
 
-function getPreviewId(item: RegistryItem): string | null {
-  if (!item.preview) return null;
-  // preview 字段形如 '/preview/composites/display/table'
-  return item.preview.replace(/^\/preview\//, '');
-}
-
 export function StyleCard({
   item,
   onClick,
@@ -70,8 +47,8 @@ export function StyleCard({
   item: RegistryItem;
   onClick: () => void;
 }) {
-  const previewRef = useRef<HTMLDivElement | null>(null);
-  const [scale, setScale] = useState(0.28);
+  const previewUrl = item.preview ? `${window.location.origin}${item.preview}` : null;
+  const [iframeReady, setIframeReady] = useState(false);
   const { user } = useAuth();
   const { isFavorited, toggleFavorite } = useFavorites();
   const favorited = isFavorited(item.id);
@@ -85,27 +62,13 @@ export function StyleCard({
     try {
       await toggleFavorite(item.id);
     } catch {
-      /* 失败由 FavoritesContext 回滚 */
+      /* 回滚由 FavoritesContext 处理 */
     }
   };
 
-  useEffect(() => {
-    const el = previewRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const w = entry.contentRect.width;
-        if (w > 0) setScale(w / PREVIEW_VIRTUAL_WIDTH);
-      }
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
   const sizing = SIZE_BY_TYPE[item.type] ?? SIZE_BY_TYPE.composite;
-  const previewId = getPreviewId(item);
-  const loader = previewId ? previewLoaders[previewId] : null;
-  const PreviewComp = loader ? lazy(loader) : null;
+  // 按卡片实际容器宽度取 scale，保证 1440 虚拟画布缩略填满
+  const scale = sizing.w / PREVIEW_VIRTUAL_WIDTH;
 
   return (
     <article
@@ -114,38 +77,41 @@ export function StyleCard({
     >
       {/* Preview 区 */}
       <div
-        ref={previewRef}
         className="relative overflow-hidden bg-slate-50"
         style={{ height: sizing.h }}
       >
-        {item.hasPreviewFile && PreviewComp ? (
-          <Suspense
-            fallback={
+        {previewUrl && item.hasPreviewFile ? (
+          <>
+            {!iframeReady && (
               <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100" />
-            }
-          >
+            )}
             <div
-              className="sv-card-preview-inner absolute left-0 top-0 origin-top-left will-change-transform"
+              className="absolute left-0 top-0 origin-top-left"
               style={{
                 width: `${PREVIEW_VIRTUAL_WIDTH}px`,
                 height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
                 transform: `scale(${scale})`,
+                opacity: iframeReady ? 1 : 0,
+                transition: 'opacity 300ms ease-out',
               }}
             >
-              <div className="pointer-events-none h-full w-full">
-                <PreviewComp />
-              </div>
+              <iframe
+                src={previewUrl}
+                title={item.name}
+                className="pointer-events-none block h-full w-full border-0"
+                loading="eager"
+                onLoad={() => setIframeReady(true)}
+              />
             </div>
-          </Suspense>
+          </>
         ) : (
           <div className="flex h-full items-center justify-center text-sm text-slate-400">
             暂无预览
           </div>
         )}
 
-        {/* hover overlay：底部黑色渐变 + 元信息滑入。全部用 group-hover 稳定生效 */}
+        {/* hover overlay */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 via-black/15 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
         <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
           <div className="flex items-end justify-between gap-3">
             <div className="min-w-0 flex-1">
@@ -194,7 +160,7 @@ export function StyleCard({
           )}
         </div>
 
-        {/* 左上：type 角标 */}
+        {/* 左上 type 角标 */}
         <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full border border-white/40 bg-white/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-slate-700 shadow-sm backdrop-blur-sm">
           <span className={`h-1.5 w-1.5 rounded-full ${typeDotColor(item.type)}`} />
           {typeLabel[item.type]}
