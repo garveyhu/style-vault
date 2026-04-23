@@ -172,13 +172,11 @@ export function StyleCard({
             onClick={handleToggleFav}
             title={favorited ? '取消收藏' : '收藏'}
             aria-label={favorited ? '取消收藏' : '收藏'}
-            className={`pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg shadow-sm backdrop-blur-sm transition-all duration-300
+            className={`pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg shadow-sm backdrop-blur-sm transition-all duration-200
               ${
                 favorited
-                  ? 'bg-emerald-500 text-white opacity-100 hover:bg-emerald-600'
-                  : `bg-white/95 text-slate-500 hover:bg-white hover:text-emerald-500 ${
-                      hovered ? 'opacity-100' : 'opacity-0'
-                    }`
+                  ? 'bg-emerald-500 text-white hover:bg-emerald-600'
+                  : 'bg-white/90 text-slate-600 hover:bg-white hover:text-emerald-500'
               }`}
           >
             {favorited ? <HeartFilled /> : <HeartOutlined />}
@@ -192,9 +190,7 @@ export function StyleCard({
                 window.open(item.preview!, '_blank');
               }}
               title="全屏预览"
-              className={`pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg bg-white/95 text-slate-600 shadow-sm backdrop-blur-sm transition-all duration-300 hover:bg-white ${
-                hovered ? 'opacity-100' : 'opacity-0'
-              }`}
+              className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg bg-white/90 text-slate-600 shadow-sm backdrop-blur-sm transition-all duration-200 hover:bg-white hover:text-slate-900"
             >
               <FullscreenOutlined />
             </button>

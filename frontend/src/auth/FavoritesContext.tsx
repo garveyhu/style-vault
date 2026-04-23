@@ -4,7 +4,6 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useRef,
   useState,
   type ReactNode,
 } from 'react';
@@ -25,22 +24,35 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   const [set, setSet] = useState<Set<string>>(() => new Set());
 
   // 登录态变化 → 拉取列表；登出清空。
-  // 用 lastUid 守卫避免 user 对象引用频繁变化导致的重复请求（StrictMode / HMR）
-  const lastUid = useRef<number | null>(null);
+  // 用 window 级缓存做跨 HMR / 组件重建的守卫
   useEffect(() => {
     if (authLoading) return;
+    type W = Window & {
+      __sv_fav_loaded_uid?: number | null;
+      __sv_fav_set?: string[];
+    };
+    const w = window as W;
+
     if (!user) {
-      lastUid.current = null;
+      w.__sv_fav_loaded_uid = null;
       setSet(new Set());
       return;
     }
-    if (lastUid.current === user.id) return;
-    lastUid.current = user.id;
+
+    // 已经为同一用户加载过：直接复用缓存
+    if (w.__sv_fav_loaded_uid === user.id && w.__sv_fav_set) {
+      setSet(new Set(w.__sv_fav_set));
+      return;
+    }
+
+    w.__sv_fav_loaded_uid = user.id;
     let cancelled = false;
     favoritesApi
       .list()
       .then((items) => {
-        if (!cancelled) setSet(new Set(items));
+        if (cancelled) return;
+        w.__sv_fav_set = items;
+        setSet(new Set(items));
       })
       .catch(() => {
         if (!cancelled) setSet(new Set());
@@ -65,11 +77,13 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
       });
       try {
         const r = await favoritesApi.toggle(id);
-        // 以服务端为准（极端情况下 drift）
+        // 以服务端为准（极端情况下 drift）；同时同步 window 缓存
         setSet((prev) => {
           const next = new Set(prev);
           if (r.favorited) next.add(id);
           else next.delete(id);
+          (window as Window & { __sv_fav_set?: string[] }).__sv_fav_set =
+            Array.from(next);
           return next;
         });
         return r.favorited;

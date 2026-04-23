@@ -2,7 +2,6 @@ import {
   createContext,
   useContext,
   useEffect,
-  useRef,
   useState,
   useCallback,
   type ReactNode,
@@ -32,18 +31,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [loggingIn, setLoggingIn] = useState(false);
 
-  // 初始若本地有 token，尝试恢复会话（guard 防止 StrictMode / HMR 双发）
-  const bootFetched = useRef(false);
+  // 初始若本地有 token，尝试恢复会话。
+  // 用 window 级 flag 做跨 HMR / StrictMode 的一次性守卫——Vite 模块重新
+  // eval 时，useRef 会重置但 window 不会（只有浏览器真刷新才清）。
   useEffect(() => {
-    if (bootFetched.current) return;
-    bootFetched.current = true;
+    type W = Window & { __sv_auth_booted?: boolean; __sv_auth_user?: User | null };
+    const w = window as W;
+    if (w.__sv_auth_booted) {
+      if (w.__sv_auth_user) setUser(w.__sv_auth_user);
+      setLoading(false);
+      return;
+    }
+    w.__sv_auth_booted = true;
+
     const token = getToken();
     if (!token) {
       setLoading(false);
       return;
     }
     apiFetch<{ user: User }>('/api/auth/me')
-      .then((d) => setUser(d.user))
+      .then((d) => {
+        w.__sv_auth_user = d.user;
+        setUser(d.user);
+      })
       .catch(() => setToken(null))
       .finally(() => setLoading(false));
   }, []);
@@ -61,6 +71,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       );
       setToken(data.token);
       setUser(data.user);
+      (window as Window & { __sv_auth_user?: User }).__sv_auth_user = data.user;
     } finally {
       setLoggingIn(false);
     }
@@ -74,6 +85,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     setToken(null);
     setUser(null);
+    const w = window as Window & {
+      __sv_auth_user?: User | null;
+      __sv_fav_loaded_uid?: number | null;
+    };
+    w.__sv_auth_user = null;
+    w.__sv_fav_loaded_uid = null;
   }, []);
 
   return (
