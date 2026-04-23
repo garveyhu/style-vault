@@ -17,24 +17,27 @@ const PREVIEW_VIRTUAL_HEIGHT = 900;
 
 /** 按 type 分 L/M/S 三档高度（CSS columns 多列里必须固定像素高度） */
 const SIZE_BY_TYPE: Record<string, { h: number; w: number }> = {
-  vibe: { h: 260, w: 420 },
-  archetype: { h: 260, w: 420 },
-  composite: { h: 220, w: 360 },
-  atom: { h: 200, w: 320 },
-  primitive: { h: 200, w: 320 },
+  product: { h: 260, w: 420 },
+  style: { h: 260, w: 420 },
+  page: { h: 260, w: 420 },
+  block: { h: 220, w: 360 },
+  component: { h: 200, w: 320 },
+  token: { h: 200, w: 320 },
 };
 
 function typeDotColor(type: string): string {
   switch (type) {
-    case 'vibe':
+    case 'product':
+      return 'bg-purple-500';
+    case 'style':
       return 'bg-rose-500';
-    case 'archetype':
+    case 'page':
       return 'bg-indigo-500';
-    case 'composite':
+    case 'block':
       return 'bg-cyan-500';
-    case 'atom':
+    case 'component':
       return 'bg-emerald-500';
-    case 'primitive':
+    case 'token':
       return 'bg-amber-500';
     default:
       return 'bg-slate-400';
@@ -82,7 +85,7 @@ export function StyleCard({
     return () => ro.disconnect();
   }, []);
 
-  const sizing = SIZE_BY_TYPE[item.type] ?? SIZE_BY_TYPE.composite;
+  const sizing = SIZE_BY_TYPE[item.type] ?? SIZE_BY_TYPE.block;
   const PreviewComp = getPreviewComponent(item.preview);
 
   return (

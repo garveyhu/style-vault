@@ -16,6 +16,17 @@ const groupLabel: Record<string, string> = {
   stack: '技术栈',
 };
 
+const typeDescription: Record<string, string> = {
+  product:
+    'Products（产品）：一个完整的网站/应用聚合 — 绑定一个 Style + 若干 Pages / Blocks / Components / Tokens。',
+  style: 'Styles（风格）：整套设计语言。',
+  page: 'Pages（页面）：可独立渲染的整页样板。',
+  block: 'Blocks（模块）：页面里可复用的 section。',
+  component: 'Components（组件）：单一可复用的交互原子。',
+  token:
+    'Tokens（原语）：没有交互形态的设计资源（调色板、字体对、动效、边框…）。',
+};
+
 export function GlossaryDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const entries = allTagEntries();
 
@@ -38,11 +49,16 @@ export function GlossaryDrawer({ open, onClose }: { open: boolean; onClose: () =
           size="small"
           pagination={false}
           rowKey="en"
-          dataSource={Object.entries(typeLabel).map(([en, zh]) => ({ en, zh }))}
+          dataSource={Object.entries(typeLabel).map(([en, zh]) => ({
+            en,
+            zh,
+            desc: typeDescription[en] ?? '',
+          }))}
           columns={[
             {
               title: 'English',
               dataIndex: 'en',
+              width: 110,
               render: (v: string) => (
                 <code className="text-[12px] text-slate-500">{v}</code>
               ),
@@ -50,7 +66,15 @@ export function GlossaryDrawer({ open, onClose }: { open: boolean; onClose: () =
             {
               title: '中文',
               dataIndex: 'zh',
+              width: 70,
               render: (v: string) => <b>{v}</b>,
+            },
+            {
+              title: '说明',
+              dataIndex: 'desc',
+              render: (v: string) => (
+                <span className="text-[12px] leading-relaxed text-slate-600">{v}</span>
+              ),
             },
           ]}
         />
