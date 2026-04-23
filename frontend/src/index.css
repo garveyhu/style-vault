@@ -11,3 +11,10 @@ body,
 body {
   margin: 0;
 }
+
+/* iframe 容器的稳定性 */
+iframe {
+  border: 0;
+  display: block;
+  background: #fff;
+}
