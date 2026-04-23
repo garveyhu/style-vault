@@ -21,6 +21,7 @@ import { TopBar } from '../components/TopBar';
 import { FavoriteButton } from '../components/FavoriteButton';
 import { NoteEditor } from '../components/NoteEditor';
 import { ScreenshotGallery } from '../components/ScreenshotGallery';
+import { getPreviewComponent } from '../preview/registry';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 
 type ViewportKey = 375 | 768 | 1024 | 1440 | 'full';
@@ -114,7 +115,7 @@ export default function DetailPage() {
   const usedByItems = item.usedBy
     .map((u) => reg.items.find((i) => i.id === u))
     .filter((x): x is RegistryItem => Boolean(x));
-  const previewUrl = item.preview ? `${window.location.origin}${item.preview}` : null;
+  const PreviewComp = getPreviewComponent(item.preview);
 
   const handleCopyPrompt = async () => {
     try {
@@ -167,9 +168,9 @@ export default function DetailPage() {
       </div>
 
       <div className="mx-auto flex max-w-[1600px] gap-10 px-8 py-10">
-        {/* ===================== 左列：元信息 ===================== */}
+        {/* ===================== 左列：元信息（不 sticky，避免粘粘感） ===================== */}
         <aside className="w-[340px] shrink-0">
-          <div className="sticky top-[108px] space-y-8">
+          <div className="space-y-8">
             {/* 标题块 */}
             <div>
               <div className="flex items-center justify-between gap-2">
@@ -324,18 +325,18 @@ export default function DetailPage() {
                       </div>
                       <div className="flex justify-center bg-slate-50 p-4">
                         <div
+                          className="relative overflow-hidden rounded-md border border-slate-200 bg-white"
                           style={{
                             maxWidth: iframeMaxWidth,
                             width: '100%',
+                            height: '72vh',
                             transition: 'max-width 240ms ease',
                           }}
                         >
-                          {item.hasPreviewFile && previewUrl ? (
-                            <iframe
-                              src={previewUrl}
-                              title={item.name}
-                              className="h-[72vh] w-full rounded-md border border-slate-200 bg-white"
-                            />
+                          {PreviewComp ? (
+                            <div className="h-full w-full overflow-auto">
+                              <PreviewComp />
+                            </div>
                           ) : (
                             <Empty description="暂无预览" className="py-16" />
                           )}
