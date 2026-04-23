@@ -1,6 +1,37 @@
 {
-  "version": "2026-04-23T07:12:01.562Z",
+  "version": "2026-04-23T07:12:48.756Z",
   "items": [
+    {
+      "id": "atoms/buttons/ghost-button",
+      "type": "atom",
+      "name": "Ghost Button",
+      "description": "幽灵按钮——透明底 + 1px 描边，只在 hover 时显色",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "theme": [
+          "light",
+          "dark"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "uses": [
+        "primitives/palettes/slate-cyan-ice"
+      ],
+      "preview": "/preview/atoms/buttons/ghost-button",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "atoms/buttons/ghost-button.md"
+    },
     {
       "id": "composites/display/table",
       "type": "composite",
@@ -82,7 +113,9 @@
       },
       "preview": "/preview/primitives/palettes/slate-cyan-ice",
       "uses": [],
-      "usedBy": [],
+      "usedBy": [
+        "atoms/buttons/ghost-button"
+      ],
       "hasPreviewFile": true,
       "skillPath": "primitives/palettes/slate-cyan-ice.md"
     },
