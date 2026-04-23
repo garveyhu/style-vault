@@ -1,12 +1,16 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
-import { ArrowRightOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, HeartFilled } from '@ant-design/icons';
 import { useRegistry, isRegistryMissing } from '../data/useRegistry';
 import { typePlural } from '../utils/i18n';
 import { StyleCard } from '../components/StyleCard';
 import { TagFilterBar, emptyFilterValue, type FilterValue } from '../components/TagFilterBar';
 import { TopBar } from '../components/TopBar';
+import { useAuth } from '../auth/AuthContext';
+import { useFavorites } from '../auth/FavoritesContext';
 import type { EntryType, RegistryItem } from '../../scripts/sync-from-skill/types';
+
+type ViewKey = EntryType | 'favorites';
 
 const ORDER: EntryType[] = ['vibe', 'archetype', 'composite', 'atom', 'primitive'];
 const GROUP_KEYS = ['aesthetic', 'mood', 'theme', 'stack'] as const;
@@ -24,10 +28,17 @@ const PREVIEW_VIRTUAL_HEIGHT = 900;
 
 export default function BrowsePage() {
   const reg = useRegistry();
-  const [activeType, setActiveType] = useState<EntryType>('composite');
+  const { user } = useAuth();
+  const { set: favSet } = useFavorites();
+  const [view, setView] = useState<ViewKey>('composite');
   const [filters, setFilters] = useState<FilterValue>(emptyFilterValue);
   const [search, setSearch] = useState('');
   const nav = useNavigate();
+
+  // 登出后若停留在"我的收藏"tab，回到默认
+  useEffect(() => {
+    if (!user && view === 'favorites') setView('composite');
+  }, [user, view]);
 
   const counts = useMemo<Record<EntryType, number>>(() => {
     const c: Record<EntryType, number> = {
@@ -52,11 +63,16 @@ export default function BrowsePage() {
     return reg.items.find((i) => i.type === 'vibe' && i.hasPreviewFile);
   }, [reg]);
 
+  const favCount = favSet.size;
+
   const filtered = useMemo(() => {
     if (!reg?.items) return [];
     const q = search.trim().toLowerCase();
-    return reg.items
-      .filter((i) => i.type === activeType)
+    const base =
+      view === 'favorites'
+        ? reg.items.filter((i) => favSet.has(i.id))
+        : reg.items.filter((i) => i.type === view);
+    return base
       .filter((item) => {
         if (!q) return true;
         return (
@@ -71,7 +87,7 @@ export default function BrowsePage() {
           return item.tags[k].some((t) => filters[k].includes(t));
         }),
       );
-  }, [reg, activeType, filters, search]);
+  }, [reg, view, filters, search, favSet]);
 
   if (isRegistryMissing(reg)) return <Navigate to="/not-installed" replace />;
 
@@ -172,13 +188,48 @@ export default function BrowsePage() {
         <div className="mx-auto max-w-[1600px] px-8">
           {/* 大号分类切换 */}
           <div className="flex items-end gap-2 overflow-x-auto py-4 md:gap-6">
+            {user && (
+              <button
+                type="button"
+                onClick={() => setView('favorites')}
+                data-active={view === 'favorites'}
+                className={`sv-tab-indicator group relative shrink-0 px-1 pb-3 pt-1 text-left transition
+                  ${view === 'favorites' ? 'text-violet-600' : 'text-slate-400 hover:text-violet-500'}`}
+              >
+                <div className="flex items-baseline gap-2">
+                  <span className="flex items-center gap-1.5 font-display text-[22px] font-medium tracking-tight">
+                    <HeartFilled
+                      className={
+                        view === 'favorites' ? 'text-violet-500' : 'text-slate-300'
+                      }
+                    />
+                    我的收藏
+                  </span>
+                  <span
+                    className={`font-display text-[14px] ${
+                      view === 'favorites' ? 'text-violet-500' : 'text-slate-300'
+                    }`}
+                  >
+                    {favCount}
+                  </span>
+                </div>
+                <div
+                  className={`mt-0.5 text-[11px] ${
+                    view === 'favorites' ? 'text-slate-500' : 'text-slate-400'
+                  }`}
+                >
+                  登录后收藏的风格
+                </div>
+              </button>
+            )}
+
             {ORDER.map((t) => {
-              const active = activeType === t;
+              const active = view === t;
               return (
                 <button
                   key={t}
                   type="button"
-                  onClick={() => setActiveType(t)}
+                  onClick={() => setView(t)}
                   data-active={active}
                   className={`sv-tab-indicator group relative shrink-0 px-1 pb-3 pt-1 text-left transition
                     ${active ? 'text-slate-900' : 'text-slate-400 hover:text-slate-700'}`}
@@ -220,11 +271,21 @@ export default function BrowsePage() {
         <div className="mb-8 flex items-end justify-between">
           <div>
             <div className="text-[11px] font-medium uppercase tracking-[0.24em] text-violet-500">
-              {typePlural[activeType]} · {filtered.length} of {counts[activeType]}
+              {view === 'favorites' ? '我的收藏' : typePlural[view]} ·{' '}
+              {filtered.length}{' '}
+              {view === 'favorites' ? `of ${favCount}` : `of ${counts[view]}`}
             </div>
             <h2 className="mt-2 font-display text-[36px] font-light tracking-tight text-slate-900">
-              Latest in{' '}
-              <span className="italic text-violet-600">{typePlural[activeType]}</span>
+              {view === 'favorites' ? (
+                <>
+                  Your <span className="italic text-violet-600">Favorites</span>
+                </>
+              ) : (
+                <>
+                  Latest in{' '}
+                  <span className="italic text-violet-600">{typePlural[view]}</span>
+                </>
+              )}
             </h2>
           </div>
           {search && (
@@ -239,12 +300,16 @@ export default function BrowsePage() {
         </div>
 
         {filtered.length === 0 ? (
-          <EmptyState
-            onReset={() => {
-              setFilters(emptyFilterValue);
-              setSearch('');
-            }}
-          />
+          view === 'favorites' && favCount === 0 ? (
+            <FavoritesEmpty onExplore={() => setView('composite')} />
+          ) : (
+            <EmptyState
+              onReset={() => {
+                setFilters(emptyFilterValue);
+                setSearch('');
+              }}
+            />
+          )
         ) : (
           <div className="columns-1 gap-6 md:columns-2 lg:columns-3 xl:columns-4">
             {filtered.map((item) => (
@@ -410,6 +475,33 @@ function FeaturedPreview({ item }: { item: RegistryItem }) {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+function FavoritesEmpty({ onExplore }: { onExplore: () => void }) {
+  return (
+    <div className="relative flex flex-col items-center gap-5 py-28">
+      <div className="pointer-events-none absolute left-1/2 top-8 h-48 w-48 -translate-x-1/2 rounded-full bg-gradient-to-br from-violet-200/60 to-pink-200/50 blur-3xl sv-anim-breathe" />
+      <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-violet-200/60 bg-white shadow-[0_8px_30px_-8px_rgba(124,58,237,0.25)]">
+        <HeartFilled className="text-[34px] text-violet-400" />
+      </div>
+      <div className="relative text-center">
+        <div className="font-display text-[22px] font-medium text-slate-900">
+          还没收藏任何风格
+        </div>
+        <div className="mt-1 text-[13px] text-slate-500">
+          浏览风格库时点心形图标即可加入收藏
+        </div>
+      </div>
+      <button
+        type="button"
+        onClick={onExplore}
+        className="relative inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white px-5 py-2 text-[13px] text-violet-700 transition hover:border-violet-300 hover:bg-violet-50"
+      >
+        去探索一下
+        <ArrowRightOutlined className="text-[11px]" />
+      </button>
     </div>
   );
 }
