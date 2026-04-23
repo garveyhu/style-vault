@@ -1,40 +1,73 @@
 {
-  "version": "2026-04-23T16:19:46.088Z",
+  "version": "2026-04-23T16:31:49.128Z",
   "items": [
     {
-      "id": "archetypes/landing/saas-landing",
-      "type": "archetype",
-      "name": "SaaS Landing",
-      "description": "标准 SaaS 落地页骨架：Hero / Feature Grid / Pricing / CTA",
+      "id": "blocks/display/table",
+      "type": "block",
+      "name": "Admin Table",
+      "description": "管理后台无边框表格，统一分页、中文本地化、行 hover 减淡",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
       "tags": {
         "aesthetic": [
           "minimal"
         ],
         "mood": [
+          "calm",
           "serious"
         ],
         "stack": [
-          "react-antd-tailwind",
-          "html-tailwind"
+          "react-antd-tailwind"
         ]
       },
-      "preview": "/preview/archetypes/landing/saas-landing",
+      "uses": [],
+      "preview": "/preview/blocks/display/table",
+      "usedBy": [
+        "blocks/layout/toolbar-bar"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/table.md"
+    },
+    {
+      "id": "blocks/layout/toolbar-bar",
+      "type": "block",
+      "name": "Admin Toolbar Bar",
+      "description": "表格顶部工具栏，搜索+筛选左对齐，功能按钮右对齐",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/display/table"
+      ],
+      "preview": "/preview/blocks/layout/toolbar-bar",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/layout/toolbar-bar.md"
+    },
+    {
+      "id": "components/buttons/ghost-button",
+      "type": "component",
+      "name": "Ghost Button",
+      "description": "幽灵按钮——透明底 + 1px 描边，只在 hover 时显色",
       "platforms": [
         "web"
       ],
       "theme": "both",
-      "uses": [],
-      "usedBy": [
-        "vibes/saas-tool/cold-industrial-saas"
-      ],
-      "hasPreviewFile": true,
-      "skillPath": "archetypes/landing/saas-landing/README.md"
-    },
-    {
-      "id": "atoms/buttons/ghost-button",
-      "type": "atom",
-      "name": "Ghost Button",
-      "description": "幽灵按钮——透明底 + 1px 描边，只在 hover 时显色",
       "tags": {
         "aesthetic": [
           "minimal",
@@ -50,59 +83,60 @@
         ]
       },
       "uses": [
-        "primitives/palettes/slate-cyan-ice"
+        "tokens/palettes/slate-cyan-ice"
       ],
-      "preview": "/preview/atoms/buttons/ghost-button",
+      "preview": "/preview/components/buttons/ghost-button",
+      "usedBy": [
+        "styles/saas-tool/cold-industrial-saas"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/buttons/ghost-button.md"
+    },
+    {
+      "id": "pages/landing/saas-landing",
+      "type": "page",
+      "name": "SaaS Landing",
+      "description": "标准 SaaS 落地页骨架：Hero / Feature Grid / Pricing / CTA",
       "platforms": [
         "web"
       ],
       "theme": "both",
-      "usedBy": [
-        "vibes/saas-tool/cold-industrial-saas"
-      ],
-      "hasPreviewFile": true,
-      "skillPath": "atoms/buttons/ghost-button.md"
-    },
-    {
-      "id": "composites/display/table",
-      "type": "composite",
-      "name": "Admin Table",
-      "description": "管理后台无边框表格，统一分页、中文本地化、行 hover 减淡",
       "tags": {
         "aesthetic": [
           "minimal"
         ],
         "mood": [
-          "calm",
           "serious"
         ],
         "stack": [
-          "react-antd-tailwind"
+          "react-antd-tailwind",
+          "html-tailwind"
         ]
       },
+      "preview": "/preview/pages/landing/saas-landing",
       "uses": [],
-      "preview": "/preview/composites/display/table",
+      "usedBy": [
+        "styles/saas-tool/cold-industrial-saas"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/landing/saas-landing/README.md"
+    },
+    {
+      "id": "styles/saas-tool/cold-industrial-saas",
+      "type": "style",
+      "name": "Cold Industrial SaaS",
+      "description": "冷感留白 + IBM Plex 双字体 + 几何切割，工具型 SaaS 的整站调性",
       "platforms": [
         "web"
       ],
-      "theme": "light",
-      "usedBy": [
-        "composites/layout/toolbar-bar"
-      ],
-      "hasPreviewFile": true,
-      "skillPath": "composites/display/table.md"
-    },
-    {
-      "id": "composites/layout/toolbar-bar",
-      "type": "composite",
-      "name": "Admin Toolbar Bar",
-      "description": "表格顶部工具栏，搜索+筛选左对齐，功能按钮右对齐",
+      "theme": "both",
       "tags": {
         "aesthetic": [
-          "minimal"
+          "minimal",
+          "industrial"
         ],
         "mood": [
-          "calm",
+          "cold",
           "serious"
         ],
         "stack": [
@@ -110,22 +144,25 @@
         ]
       },
       "uses": [
-        "composites/display/table"
+        "tokens/palettes/slate-cyan-ice",
+        "tokens/typography/pairs/ibm-plex-duo",
+        "components/buttons/ghost-button",
+        "pages/landing/saas-landing"
       ],
-      "preview": "/preview/composites/layout/toolbar-bar",
-      "platforms": [
-        "web"
-      ],
-      "theme": "light",
+      "preview": "/preview/styles/saas-tool/cold-industrial-saas",
       "usedBy": [],
       "hasPreviewFile": true,
-      "skillPath": "composites/layout/toolbar-bar.md"
+      "skillPath": "styles/saas-tool/cold-industrial-saas/README.md"
     },
     {
-      "id": "primitives/palettes/slate-cyan-ice",
-      "type": "primitive",
+      "id": "tokens/palettes/slate-cyan-ice",
+      "type": "token",
       "name": "Slate × Cyan Ice",
       "description": "冷感留白、深 slate 底 + cyan 高亮的工具型界面基础色",
+      "platforms": [
+        "any"
+      ],
+      "theme": "both",
       "tags": {
         "aesthetic": [
           "minimal",
@@ -140,24 +177,24 @@
           "html-tailwind"
         ]
       },
-      "preview": "/preview/primitives/palettes/slate-cyan-ice",
+      "preview": "/preview/tokens/palettes/slate-cyan-ice",
+      "uses": [],
+      "usedBy": [
+        "components/buttons/ghost-button",
+        "styles/saas-tool/cold-industrial-saas"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/palettes/slate-cyan-ice.md"
+    },
+    {
+      "id": "tokens/typography/pairs/ibm-plex-duo",
+      "type": "token",
+      "name": "IBM Plex Duo",
+      "description": "IBM Plex Sans + IBM Plex Mono，技术感与中性感兼具的字体搭配",
       "platforms": [
         "any"
       ],
       "theme": "both",
-      "uses": [],
-      "usedBy": [
-        "atoms/buttons/ghost-button",
-        "vibes/saas-tool/cold-industrial-saas"
-      ],
-      "hasPreviewFile": true,
-      "skillPath": "primitives/palettes/slate-cyan-ice.md"
-    },
-    {
-      "id": "primitives/typography/pairs/ibm-plex-duo",
-      "type": "primitive",
-      "name": "IBM Plex Duo",
-      "description": "IBM Plex Sans + IBM Plex Mono，技术感与中性感兼具的字体搭配",
       "tags": {
         "aesthetic": [
           "minimal",
@@ -172,50 +209,13 @@
           "html-tailwind"
         ]
       },
-      "preview": "/preview/primitives/typography/pairs/ibm-plex-duo",
-      "platforms": [
-        "any"
-      ],
-      "theme": "both",
+      "preview": "/preview/tokens/typography/pairs/ibm-plex-duo",
       "uses": [],
       "usedBy": [
-        "vibes/saas-tool/cold-industrial-saas"
+        "styles/saas-tool/cold-industrial-saas"
       ],
       "hasPreviewFile": true,
-      "skillPath": "primitives/typography/pairs/ibm-plex-duo.md"
-    },
-    {
-      "id": "vibes/saas-tool/cold-industrial-saas",
-      "type": "vibe",
-      "name": "Cold Industrial SaaS",
-      "description": "冷感留白 + IBM Plex 双字体 + 几何切割，工具型 SaaS 的整站调性",
-      "tags": {
-        "aesthetic": [
-          "minimal",
-          "industrial"
-        ],
-        "mood": [
-          "cold",
-          "serious"
-        ],
-        "stack": [
-          "react-antd-tailwind"
-        ]
-      },
-      "uses": [
-        "primitives/palettes/slate-cyan-ice",
-        "primitives/typography/pairs/ibm-plex-duo",
-        "atoms/buttons/ghost-button",
-        "archetypes/landing/saas-landing"
-      ],
-      "preview": "/preview/vibes/saas-tool/cold-industrial-saas",
-      "platforms": [
-        "web"
-      ],
-      "theme": "both",
-      "usedBy": [],
-      "hasPreviewFile": true,
-      "skillPath": "vibes/saas-tool/cold-industrial-saas/README.md"
+      "skillPath": "tokens/typography/pairs/ibm-plex-duo.md"
     }
   ],
   "tagDict": {
