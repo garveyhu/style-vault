@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-23T16:49:28.730Z",
+  "version": "2026-04-23T17:01:10.276Z",
   "items": [
     {
       "id": "blocks/display/table",
@@ -120,6 +120,51 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/landing/saas-landing/README.md"
+    },
+    {
+      "id": "products/acme-cold-saas",
+      "type": "product",
+      "name": "Acme · Cold Industrial SaaS",
+      "description": "A productivity cockpit for quant teams — dense tables, monospace numbers, no warmth.",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "category": "productivity-tool",
+      "refs": {
+        "style": "styles/saas-tool/cold-industrial-saas",
+        "pages": [
+          "pages/landing/saas-landing"
+        ],
+        "blocks": [
+          "blocks/layout/toolbar-bar",
+          "blocks/display/table"
+        ],
+        "components": [
+          "components/buttons/ghost-button"
+        ],
+        "tokens": {
+          "palette": "tokens/palettes/slate-cyan-ice",
+          "typography": "tokens/typography/pairs/ibm-plex-duo"
+        }
+      },
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": false,
+      "skillPath": "products/acme-cold-saas/README.md"
     },
     {
       "id": "styles/saas-tool/cold-industrial-saas",
