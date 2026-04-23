@@ -57,3 +57,18 @@ class DatabaseSettings:
     @staticmethod
     def is_sqlite() -> bool:
         return DatabaseSettings.get_type() == "sqlite"
+
+
+class MinioSettings:
+    """MinIO 对象存储配置访问类"""
+
+    ENDPOINT = component_settings.get("minio.url") or "127.0.0.1:9000"
+    SECURE = bool(component_settings.get("minio.secure") or False)
+    BUCKET = component_settings.get("minio.bucket") or "style-vault"
+    PUBLIC_URL = (
+        component_settings.get("minio.public_url")
+        or f"{'https' if SECURE else 'http'}://{ENDPOINT}"
+    )
+
+    ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY") or ""
+    SECRET_KEY = os.getenv("MINIO_SECRET_KEY") or ""

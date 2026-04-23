@@ -4,5 +4,11 @@
         "sqlite": {
             "path": "sqlite:///./data.db"
         }
+    },
+    "minio": {
+        "url": "127.0.0.1:9000",
+        "secure": false,
+        "bucket": "style-vault",
+        "public_url": "http://127.0.0.1:9000"
     }
 }
