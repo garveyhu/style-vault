@@ -18,7 +18,12 @@ export function setToken(t: string | null) {
  */
 type CacheEntry = { promise: Promise<unknown>; expireAt: number };
 const fetchCache = new Map<string, CacheEntry>();
-const DEDUP_TTL_MS = 200;
+const DEDUP_TTL_MS = 5000; // 5s：防止同一会话内 Provider / StrictMode / HMR 的重复请求
+
+/** 手动失效缓存：写操作（toggle / upsert）完成后调用，让下次 GET 拿到新状态。 */
+export function invalidateCache(path: string, method: string = 'GET') {
+  fetchCache.delete(`${method.toUpperCase()} ${path}`);
+}
 
 async function doFetch<T>(path: string, init?: RequestInit): Promise<T> {
   const headers: Record<string, string> = {
@@ -114,10 +119,13 @@ export const favoritesApi = {
     const d = await apiFetch<{ items: string[] }>('/api/favorites');
     return d.items ?? [];
   },
-  toggle(entryId: string): Promise<{ favorited: boolean }> {
-    return apiFetch<{ favorited: boolean }>(`/api/favorites/${entryId}`, {
-      method: 'POST',
-    });
+  async toggle(entryId: string): Promise<{ favorited: boolean }> {
+    const r = await apiFetch<{ favorited: boolean }>(
+      `/api/favorites/${entryId}`,
+      { method: 'POST' },
+    );
+    invalidateCache('/api/favorites'); // toggle 后让下次 list 拿到新状态
+    return r;
   },
 };
 
@@ -130,6 +138,7 @@ export const notesApi = {
       method: 'PUT',
       body: JSON.stringify({ content }),
     });
+    invalidateCache(`/api/notes/${entryId}`);
   },
 };
 
@@ -155,14 +164,23 @@ export const screenshotsApi = {
     );
     return d.items ?? [];
   },
-  create(entryId: string, payload: ScreenshotCreatePayload): Promise<Screenshot> {
-    return apiFetch<Screenshot>(`/api/screenshots/${entryId}`, {
+  async create(
+    entryId: string,
+    payload: ScreenshotCreatePayload,
+  ): Promise<Screenshot> {
+    const r = await apiFetch<Screenshot>(`/api/screenshots/${entryId}`, {
       method: 'POST',
       body: JSON.stringify(payload),
     });
+    invalidateCache(`/api/screenshots/${entryId}`);
+    return r;
   },
   async remove(id: number): Promise<void> {
     await apiFetch<null>(`/api/screenshots/${id}`, { method: 'DELETE' });
+    // 不知道具体 entry_id 时批量 clear 所有 screenshots 缓存
+    for (const k of Array.from(fetchCache.keys())) {
+      if (k.startsWith('GET /api/screenshots/')) fetchCache.delete(k);
+    }
   },
 };
 

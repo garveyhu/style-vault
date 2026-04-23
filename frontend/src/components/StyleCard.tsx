@@ -175,8 +175,10 @@ export function StyleCard({
             className={`pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg shadow-sm backdrop-blur-sm transition-all duration-200
               ${
                 favorited
-                  ? 'bg-emerald-500 text-white hover:bg-emerald-600'
-                  : 'bg-white/90 text-slate-600 hover:bg-white hover:text-emerald-500'
+                  ? 'bg-emerald-500 text-white opacity-100 hover:bg-emerald-600'
+                  : `bg-white/95 text-slate-500 hover:bg-white hover:text-emerald-500 ${
+                      hovered ? 'opacity-100' : 'opacity-0'
+                    }`
               }`}
           >
             {favorited ? <HeartFilled /> : <HeartOutlined />}
@@ -190,7 +192,9 @@ export function StyleCard({
                 window.open(item.preview!, '_blank');
               }}
               title="全屏预览"
-              className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg bg-white/90 text-slate-600 shadow-sm backdrop-blur-sm transition-all duration-200 hover:bg-white hover:text-slate-900"
+              className={`pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg bg-white/95 text-slate-600 shadow-sm backdrop-blur-sm transition-all duration-200 hover:bg-white hover:text-slate-900 ${
+                hovered ? 'opacity-100' : 'opacity-0'
+              }`}
             >
               <FullscreenOutlined />
             </button>
