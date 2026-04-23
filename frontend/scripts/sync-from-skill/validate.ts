@@ -1,12 +1,12 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import type { Entry, Frontmatter, TagDict, ValidationIssue } from './types';
+import type { Entry, EntryType, Frontmatter, Platform, TagDict, ValidationIssue } from './types';
 
-const VALID_TYPES = new Set([
+const VALID_TYPES: ReadonlySet<EntryType> = new Set<EntryType>([
   'product', 'style', 'page', 'block', 'component', 'token',
   'vibe', 'archetype', 'composite', 'atom', 'primitive',
 ]);
-const VALID_PLATFORMS = new Set(['web', 'ios', 'android', 'any']);
+const VALID_PLATFORMS: ReadonlySet<Platform> = new Set<Platform>(['web', 'ios', 'android', 'any']);
 
 export function validateType(fm: Frontmatter): ValidationIssue[] {
   if (!VALID_TYPES.has(fm.type)) {

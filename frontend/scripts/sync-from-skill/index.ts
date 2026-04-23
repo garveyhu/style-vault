@@ -11,6 +11,7 @@ import {
   computeUsedBy,
 } from './validate';
 import { emit } from './emit';
+import { normalizePlatforms, normalizeTheme } from './normalize';
 import {
   REFERENCES_DIR,
   TAGS_FILE,
@@ -19,11 +20,9 @@ import {
   REGISTRY_OUT,
 } from './config';
 import type {
-  Platform,
   PlatformDict,
   RegistryItem,
   TagDict,
-  Theme,
   ValidationIssue,
 } from './types';
 
@@ -49,18 +48,13 @@ async function main() {
     const { hasPreviewFile, issues: pIssues } = await validatePreview(e.frontmatter, PREVIEW_DIR);
     issues.push(...pIssues);
 
-    const platforms: Platform[] = (e.frontmatter.platforms && e.frontmatter.platforms.length > 0)
-      ? e.frontmatter.platforms
-      : (e.frontmatter.type === 'token' || e.frontmatter.type === 'primitive' ? ['any'] : ['web']);
-
-    const themeFromTags = (e.frontmatter.tags.theme ?? []).join('-');
-    const theme: Theme =
-      e.frontmatter.theme
-      ?? (themeFromTags === 'light-dark' || themeFromTags === 'dark-light' ? 'both'
-        : themeFromTags === 'dark' ? 'dark' : 'light');
-
-    const { theme: _strip, ...restTags } = e.frontmatter.tags;
-    void _strip;
+    const platforms = normalizePlatforms(e.frontmatter);
+    const { theme, warning: themeWarning } = normalizeTheme(e.frontmatter);
+    if (themeWarning) {
+      issues.push({ level: 'warning', entryId: e.frontmatter.id, message: themeWarning });
+    }
+    const { theme: _legacyTheme, ...restTags } = e.frontmatter.tags;
+    void _legacyTheme; // drop legacy field from output
 
     items.push({
       ...e.frontmatter,
