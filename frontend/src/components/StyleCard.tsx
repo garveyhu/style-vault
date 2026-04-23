@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ComponentType } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   FullscreenOutlined,
   ArrowRightOutlined,
@@ -10,26 +10,10 @@ import { typeLabel } from '../utils/i18n';
 import { zh } from '../utils/tagI18n';
 import { useFavorites } from '../auth/FavoritesContext';
 import { useAuth } from '../auth/AuthContext';
+import { getPreviewComponent } from '../preview/registry';
 
 const PREVIEW_VIRTUAL_WIDTH = 1440;
 const PREVIEW_VIRTUAL_HEIGHT = 900;
-
-/**
- * Eager 打包所有 preview 组件进主 bundle（7 个 ~30KB），卡片内直接 mount：
- * - 预览即时可见（无 iframe 下载 / chunk 加载等待）
- * - 无 iframe sub-document 吞 hover 事件的问题
- */
-const previewModules = import.meta.glob<{ default: ComponentType }>(
-  '../preview/**/*.tsx',
-  { eager: true },
-);
-
-const previewComponents: Record<string, ComponentType> = {};
-for (const [path, mod] of Object.entries(previewModules)) {
-  if (path.includes('/_layout') || path.includes('/_templates/')) continue;
-  const id = path.replace(/^\.\.\/preview\//, '').replace(/\.tsx$/, '');
-  previewComponents[id] = mod.default;
-}
 
 /** 按 type 分 L/M/S 三档高度（CSS columns 多列里必须固定像素高度） */
 const SIZE_BY_TYPE: Record<string, { h: number; w: number }> = {
@@ -55,11 +39,6 @@ function typeDotColor(type: string): string {
     default:
       return 'bg-slate-400';
   }
-}
-
-function getPreviewId(item: RegistryItem): string | null {
-  if (!item.preview) return null;
-  return item.preview.replace(/^\/preview\//, '');
 }
 
 export function StyleCard({
@@ -104,8 +83,7 @@ export function StyleCard({
   }, []);
 
   const sizing = SIZE_BY_TYPE[item.type] ?? SIZE_BY_TYPE.composite;
-  const previewId = getPreviewId(item);
-  const PreviewComp = previewId ? previewComponents[previewId] : null;
+  const PreviewComp = getPreviewComponent(item.preview);
 
   return (
     <article

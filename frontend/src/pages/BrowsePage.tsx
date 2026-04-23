@@ -9,6 +9,7 @@ import { FiltersPanel } from "../components/FiltersPanel";
 import { emptyFilterValue, type FilterValue } from "../components/TagFilterBar";
 import { TopBar } from "../components/TopBar";
 import { GlossaryDrawer } from "../components/GlossaryDrawer";
+import { getPreviewComponent } from "../preview/registry";
 import { useAuth } from "../auth/AuthContext";
 import { useFavorites } from "../auth/FavoritesContext";
 import type {
@@ -354,27 +355,20 @@ function HeroStackDecor({ items }: { items: RegistryItem[] }) {
 }
 
 function StaticPreviewFrame({ item }: { item: RegistryItem }) {
-  const previewUrl = item.preview
-    ? `${window.location.origin}${item.preview}`
-    : null;
+  const PreviewComp = getPreviewComponent(item.preview);
   const CARD_WIDTH = 400;
   const scale = CARD_WIDTH / PREVIEW_VIRTUAL_WIDTH;
-  if (!previewUrl) return null;
+  if (!PreviewComp) return null;
   return (
     <div
-      className="origin-top-left"
+      className="pointer-events-none origin-top-left"
       style={{
         width: `${PREVIEW_VIRTUAL_WIDTH}px`,
         height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
         transform: `scale(${scale})`,
       }}
     >
-      <iframe
-        src={previewUrl}
-        title={item.name}
-        className="pointer-events-none block h-full w-full border-0"
-        loading="lazy"
-      />
+      <PreviewComp />
     </div>
   );
 }
