@@ -1,3 +1,5 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import type { Entry, Frontmatter, TagDict, ValidationIssue } from './types';
 
 export function validateTags(fm: Frontmatter, dict: TagDict): ValidationIssue[] {
@@ -38,6 +40,30 @@ export function validateUses(entries: Entry[]): ValidationIssue[] {
     }
   }
   return issues;
+}
+
+export async function validatePreview(
+  fm: Frontmatter,
+  previewRoot: string,
+): Promise<{ hasPreviewFile: boolean; issues: ValidationIssue[] }> {
+  if (!fm.preview) return { hasPreviewFile: false, issues: [] };
+
+  const route = fm.preview.replace(/^\/preview\//, '');
+  const filePath = path.join(previewRoot, `${route}.tsx`);
+  const exists = await fs.access(filePath).then(() => true).catch(() => false);
+
+  return {
+    hasPreviewFile: exists,
+    issues: exists
+      ? []
+      : [
+          {
+            level: 'warning',
+            entryId: fm.id,
+            message: `preview file missing: ${filePath}`,
+          },
+        ],
+  };
 }
 
 export function computeUsedBy(entries: Entry[]): Map<string, string[]> {
