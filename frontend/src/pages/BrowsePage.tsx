@@ -12,19 +12,17 @@ import { GlossaryDrawer } from "../components/GlossaryDrawer";
 import { getPreviewComponent } from "../preview/registry";
 import { useAuth } from "../auth/AuthContext";
 import { useFavorites } from "../auth/FavoritesContext";
-import type {
-  EntryType,
-  RegistryItem,
-} from "../../scripts/sync-from-skill/types";
+import type { RegistryItem } from "../../scripts/sync-from-skill/types";
 
-type ViewKey = EntryType | "favorites";
+type NewEntryType = 'style' | 'page' | 'block' | 'component' | 'token';
+type ViewKey = NewEntryType | 'favorites';
 
-const ORDER: EntryType[] = [
-  "vibe",
-  "archetype",
-  "composite",
-  "atom",
-  "primitive",
+const ORDER: NewEntryType[] = [
+  'style',
+  'page',
+  'block',
+  'component',
+  'token',
 ];
 const GROUP_KEYS = ["aesthetic", "mood", "theme", "stack"] as const;
 
@@ -35,25 +33,29 @@ export default function BrowsePage() {
   const reg = useRegistry();
   const { user } = useAuth();
   const { set: favSet } = useFavorites();
-  const [view, setView] = useState<ViewKey>("composite");
+  const [view, setView] = useState<ViewKey>("block");
   const [filters, setFilters] = useState<FilterValue>(emptyFilterValue);
   const [search, setSearch] = useState("");
   const [glossaryOpen, setGlossaryOpen] = useState(false);
   const nav = useNavigate();
 
   useEffect(() => {
-    if (!user && view === "favorites") setView("composite");
+    if (!user && view === "favorites") setView("block");
   }, [user, view]);
 
-  const counts = useMemo<Record<EntryType, number>>(() => {
-    const c: Record<EntryType, number> = {
-      vibe: 0,
-      archetype: 0,
-      composite: 0,
-      atom: 0,
-      primitive: 0,
+  const counts = useMemo<Record<NewEntryType, number>>(() => {
+    const c: Record<NewEntryType, number> = {
+      style: 0,
+      page: 0,
+      block: 0,
+      component: 0,
+      token: 0,
     };
-    if (reg?.items) for (const i of reg.items) c[i.type]++;
+    if (reg?.items) {
+      for (const i of reg.items) {
+        if (i.type in c) c[i.type as NewEntryType]++;
+      }
+    }
     return c;
   }, [reg]);
 
@@ -218,7 +220,7 @@ export default function BrowsePage() {
 
         {filtered.length === 0 ? (
           view === "favorites" && favCount === 0 ? (
-            <FavoritesEmpty onExplore={() => setView("composite")} />
+            <FavoritesEmpty onExplore={() => setView("block")} />
           ) : (
             <EmptyState
               onReset={() => {
@@ -319,10 +321,10 @@ function TabButton({
 function HeroStackDecor({ items }: { items: RegistryItem[] }) {
   const picks = useMemo(() => {
     const withPreview = items.filter((i) => i.hasPreviewFile && i.preview);
-    const vibe = withPreview.find((i) => i.type === "vibe");
-    const arche = withPreview.find((i) => i.type === "archetype");
-    const comp = withPreview.find((i) => i.type === "composite");
-    return [vibe, arche, comp].filter(Boolean) as RegistryItem[];
+    const style = withPreview.find((i) => i.type === "style");
+    const page = withPreview.find((i) => i.type === "page");
+    const block = withPreview.find((i) => i.type === "block");
+    return [style, page, block].filter(Boolean) as RegistryItem[];
   }, [items]);
 
   if (picks.length === 0) {
