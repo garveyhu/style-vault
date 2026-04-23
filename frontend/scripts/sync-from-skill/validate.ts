@@ -2,9 +2,42 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { Entry, Frontmatter, TagDict, ValidationIssue } from './types';
 
+const VALID_TYPES = new Set([
+  'product', 'style', 'page', 'block', 'component', 'token',
+  'vibe', 'archetype', 'composite', 'atom', 'primitive',
+]);
+const VALID_PLATFORMS = new Set(['web', 'ios', 'android', 'any']);
+
+export function validateType(fm: Frontmatter): ValidationIssue[] {
+  if (!VALID_TYPES.has(fm.type)) {
+    return [{ level: 'error', entryId: fm.id, message: `unknown type: ${fm.type}` }];
+  }
+  return [];
+}
+
+export function validatePlatforms(fm: Frontmatter): ValidationIssue[] {
+  const p = fm.platforms ?? [];
+  const issues: ValidationIssue[] = [];
+  for (const v of p) {
+    if (!VALID_PLATFORMS.has(v)) {
+      issues.push({ level: 'error', entryId: fm.id, message: `unknown platform: ${v}` });
+    }
+  }
+  return issues;
+}
+
+export function validateRefs(fm: Frontmatter): ValidationIssue[] {
+  if (fm.type !== 'product') return [];
+  const issues: ValidationIssue[] = [];
+  if (!fm.refs?.style) {
+    issues.push({ level: 'error', entryId: fm.id, message: 'product missing refs.style' });
+  }
+  return issues;
+}
+
 export function validateTags(fm: Frontmatter, dict: TagDict): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
-  (['aesthetic', 'mood', 'theme', 'stack'] as const).forEach((key) => {
+  (['aesthetic', 'mood', 'stack'] as const).forEach((key) => {
     for (const v of fm.tags[key]) {
       if (!dict[key].includes(v)) {
         issues.push({

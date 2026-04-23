@@ -1,7 +1,15 @@
 import fs from 'node:fs/promises';
 import yaml from 'js-yaml';
 import { walkReferences } from './walk';
-import { validateTags, validateUses, validatePreview, computeUsedBy } from './validate';
+import {
+  validateTags,
+  validateType,
+  validatePlatforms,
+  validateRefs,
+  validateUses,
+  validatePreview,
+  computeUsedBy,
+} from './validate';
 import { emit } from './emit';
 import { REFERENCES_DIR, TAGS_FILE, PREVIEW_DIR, REGISTRY_OUT } from './config';
 import type { TagDict, RegistryItem, ValidationIssue } from './types';
@@ -15,6 +23,9 @@ async function main() {
   const items: RegistryItem[] = [];
 
   for (const e of entries) {
+    issues.push(...validateType(e.frontmatter));
+    issues.push(...validatePlatforms(e.frontmatter));
+    issues.push(...validateRefs(e.frontmatter));
     issues.push(...validateTags(e.frontmatter, tagDict));
     const { hasPreviewFile, issues: pIssues } = await validatePreview(e.frontmatter, PREVIEW_DIR);
     issues.push(...pIssues);
