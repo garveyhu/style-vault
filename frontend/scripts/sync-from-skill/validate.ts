@@ -4,7 +4,6 @@ import type { Entry, EntryType, Frontmatter, Platform, TagDict, ValidationIssue 
 
 const VALID_TYPES: ReadonlySet<EntryType> = new Set<EntryType>([
   'product', 'style', 'page', 'block', 'component', 'token',
-  'vibe', 'archetype', 'composite', 'atom', 'primitive',
 ]);
 const VALID_PLATFORMS: ReadonlySet<Platform> = new Set<Platform>(['web', 'ios', 'android', 'any']);
 

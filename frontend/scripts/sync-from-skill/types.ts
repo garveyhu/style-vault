@@ -4,13 +4,7 @@ export type EntryType =
   | 'page'
   | 'block'
   | 'component'
-  | 'token'
-  // legacy（Phase C 末删除）
-  | 'vibe'
-  | 'archetype'
-  | 'composite'
-  | 'atom'
-  | 'primitive';
+  | 'token';
 
 export type Platform = 'web' | 'ios' | 'android' | 'any';
 export type Theme = 'light' | 'dark' | 'both';

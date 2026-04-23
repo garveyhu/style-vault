@@ -8,7 +8,7 @@ import type { Frontmatter, Platform, Theme } from './types';
  */
 export function normalizePlatforms(fm: Frontmatter): Platform[] {
   if (fm.platforms && fm.platforms.length > 0) return fm.platforms;
-  if (fm.type === 'token' || fm.type === 'primitive') return ['any'];
+  if (fm.type === 'token') return ['any'];
   return ['web'];
 }
 

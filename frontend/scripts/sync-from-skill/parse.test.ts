@@ -35,10 +35,10 @@ tags:
     expect(body.trim()).toBe('正文。');
   });
 
-  it('parses legacy frontmatter with tags.theme and no platforms', () => {
+  it('parses frontmatter with tags.theme and no platforms (legacy tags.theme still tolerated)', () => {
     const md = `---
-id: atoms/buttons/ghost-button
-type: atom
+id: components/buttons/ghost-button
+type: component
 name: Ghost Button
 description: 幽灵按钮
 tags:
@@ -53,11 +53,11 @@ tags:
     - react-antd-tailwind
 ---
 
-Legacy body.
+Body.
 `;
-    const { frontmatter } = parseEntry(md, 'atoms/buttons/ghost-button.md');
-    expect(frontmatter.id).toBe('atoms/buttons/ghost-button');
-    expect(frontmatter.type).toBe('atom');
+    const { frontmatter } = parseEntry(md, 'components/buttons/ghost-button.md');
+    expect(frontmatter.id).toBe('components/buttons/ghost-button');
+    expect(frontmatter.type).toBe('component');
     expect(frontmatter.platforms).toBeUndefined();
     expect(frontmatter.theme).toBeUndefined();
     expect(frontmatter.tags.theme).toEqual(['light', 'dark']);
@@ -67,8 +67,8 @@ Legacy body.
 
   it('throws when frontmatter id does not match path', () => {
     const md = `---
-id: atoms/buttons/wrong-id
-type: atom
+id: components/buttons/wrong-id
+type: component
 name: Wrong
 description: 不匹配
 tags:
@@ -82,6 +82,6 @@ tags:
 
 body
 `;
-    expect(() => parseEntry(md, 'atoms/buttons/ghost-button.md')).toThrow(/id mismatch/);
+    expect(() => parseEntry(md, 'components/buttons/ghost-button.md')).toThrow(/id mismatch/);
   });
 });

@@ -18,14 +18,8 @@ describe('normalizePlatforms', () => {
   it("defaults token → ['any']", () => {
     expect(normalizePlatforms(baseFm({ type: 'token' }))).toEqual(['any']);
   });
-  it("defaults primitive → ['any'] (legacy)", () => {
-    expect(normalizePlatforms(baseFm({ type: 'primitive' }))).toEqual(['any']);
-  });
   it("defaults component → ['web']", () => {
     expect(normalizePlatforms(baseFm({ type: 'component' }))).toEqual(['web']);
-  });
-  it("defaults legacy atom → ['web']", () => {
-    expect(normalizePlatforms(baseFm({ type: 'atom' }))).toEqual(['web']);
   });
   it('ignores empty platforms array and falls back to defaults', () => {
     expect(normalizePlatforms(baseFm({ type: 'style', platforms: [] }))).toEqual(['web']);

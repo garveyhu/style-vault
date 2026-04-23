@@ -4,8 +4,8 @@ import type { Frontmatter } from './types';
 
 function baseFm(overrides: Partial<Frontmatter> = {}): Frontmatter {
   return {
-    id: 'atoms/buttons/ghost-button',
-    type: 'atom',
+    id: 'components/buttons/ghost-button',
+    type: 'component',
     name: 'Ghost Button',
     description: '幽灵按钮',
     tags: {
@@ -25,14 +25,6 @@ describe('validateType', () => {
     expect(validateType(baseFm({ type: 'block' }))).toEqual([]);
     expect(validateType(baseFm({ type: 'component' }))).toEqual([]);
     expect(validateType(baseFm({ type: 'token' }))).toEqual([]);
-  });
-
-  it('still accepts legacy types for backwards compat', () => {
-    expect(validateType(baseFm({ type: 'vibe' }))).toEqual([]);
-    expect(validateType(baseFm({ type: 'archetype' }))).toEqual([]);
-    expect(validateType(baseFm({ type: 'composite' }))).toEqual([]);
-    expect(validateType(baseFm({ type: 'atom' }))).toEqual([]);
-    expect(validateType(baseFm({ type: 'primitive' }))).toEqual([]);
   });
 
   it('rejects unknown types', () => {
@@ -70,7 +62,7 @@ describe('validatePlatforms', () => {
 describe('validateRefs', () => {
   it('no-op for non-product types', () => {
     expect(validateRefs(baseFm({ type: 'style' }))).toEqual([]);
-    expect(validateRefs(baseFm({ type: 'atom' }))).toEqual([]);
+    expect(validateRefs(baseFm({ type: 'block' }))).toEqual([]);
     expect(validateRefs(baseFm({ type: 'component' }))).toEqual([]);
   });
 

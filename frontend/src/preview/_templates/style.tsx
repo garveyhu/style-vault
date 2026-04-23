@@ -1,7 +1,7 @@
 import { PreviewFrame } from '../_layout';
 
-/** VIBE 模板：整站调性。拷贝时改 tokens 与 hero/feature 内容 */
-export default function VibePreviewTemplate() {
+/** STYLE 模板：整套设计语言。拷贝时改 tokens 与 hero/feature 内容 */
+export default function StylePreviewTemplate() {
   return (
     <PreviewFrame bg="#0f172a" padded={false}>
       <div style={{ color: '#e2e8f0', padding: 48, fontFamily: 'IBM Plex Sans, sans-serif' }}>
@@ -15,7 +15,7 @@ export default function VibePreviewTemplate() {
           Hero headline goes here
         </h1>
         <p style={{ fontSize: 18, color: '#94a3b8', maxWidth: 640, marginBottom: 40 }}>
-          支撑描述，展示本 vibe 的文字节奏与留白风格。
+          支撑描述，展示本 style 的文字节奏与留白风格。
         </p>
         <button style={{ background: '#22d3ee', color: '#0f172a', padding: '12px 24px', border: 0, borderRadius: 4, fontWeight: 600 }}>
           Get started
