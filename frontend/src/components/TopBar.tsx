@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, Dropdown } from 'antd';
-import { BookOutlined, SearchOutlined, CloseOutlined } from '@ant-design/icons';
-import { GlossaryDrawer } from './GlossaryDrawer';
+import { SearchOutlined, CloseOutlined } from '@ant-design/icons';
 import { LoginModal } from './LoginModal';
 import { useAuth } from '../auth/AuthContext';
 
@@ -12,7 +11,6 @@ type TopBarProps = {
 };
 
 export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
-  const [glossaryOpen, setGlossaryOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -27,7 +25,7 @@ export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
     }
   }, [searchOpen]);
 
-  // ESC 收起 / Cmd+K 展开
+  // ESC 收起 / ⌘K 展开
   useEffect(() => {
     if (!searchable) return;
     const onKey = (e: KeyboardEvent) => {
@@ -45,28 +43,23 @@ export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto flex h-[72px] max-w-[1600px] items-center gap-6 px-8">
-        {/* Logo */}
-        <Link to="/" className="group flex shrink-0 items-center gap-3">
+      <div className="mx-auto flex h-[72px] max-w-[1600px] items-center gap-8 px-8">
+        {/* Logo + 简洁中文站名 */}
+        <Link to="/" className="group flex shrink-0 items-center gap-2.5">
           <img
             src="/logo.svg"
             alt="Style Vault"
             className="h-9 w-9 transition-transform duration-300 group-hover:scale-105"
           />
-          <div className="hidden flex-col leading-tight sm:flex">
-            <span className="font-display text-[20px] font-semibold tracking-tight text-slate-900">
-              Style Vault
-            </span>
-            <span className="text-[11px] tracking-wide text-slate-400">
-              personal frontend style library
-            </span>
-          </div>
+          <span className="font-display text-[22px] font-semibold tracking-tight text-slate-900">
+            Style Vault
+          </span>
         </Link>
 
-        {/* 中间留白，editorial 感 */}
+        {/* 中间留白（editorial 感，保留未来横向 nav 位置） */}
         <div className="flex-1" />
 
-        {/* 右侧 action */}
+        {/* 右侧 action：搜索 + 登录 */}
         <div className="flex items-center gap-2">
           {searchable && (
             <div className="relative">
@@ -77,7 +70,7 @@ export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
                     ref={inputRef}
                     value={search ?? ''}
                     onChange={(e) => onSearchChange?.(e.target.value)}
-                    placeholder="搜索名称、描述、ID…"
+                    placeholder="搜索风格"
                     className="h-9 w-[260px] bg-transparent text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none"
                   />
                   <button
@@ -96,26 +89,15 @@ export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
                 <button
                   type="button"
                   onClick={() => setSearchOpen(true)}
-                  className="flex h-9 items-center gap-2 rounded-full border border-slate-200 bg-white px-3 text-[13px] text-slate-500 transition hover:border-slate-300 hover:text-slate-800"
+                  className="flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
                   aria-label="搜索"
+                  title="搜索 (⌘K)"
                 >
-                  <SearchOutlined />
-                  <span className="hidden md:inline">搜索</span>
-                  <kbd className="hidden items-center gap-0.5 rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 font-sans text-[10px] text-slate-400 md:inline-flex">
-                    ⌘K
-                  </kbd>
+                  <SearchOutlined className="text-[16px]" />
                 </button>
               )}
             </div>
           )}
-
-          <button
-            type="button"
-            onClick={() => setGlossaryOpen(true)}
-            className="flex h-9 items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 text-[13px] text-slate-600 transition hover:border-slate-300 hover:text-slate-900"
-          >
-            <BookOutlined /> <span className="hidden md:inline">术语表</span>
-          </button>
 
           {loading ? null : user ? (
             <Dropdown
@@ -137,7 +119,7 @@ export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
             >
               <button
                 type="button"
-                className="flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1 pl-1 pr-3 transition hover:border-violet-300"
+                className="flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1 pl-1 pr-3 transition hover:border-slate-300"
               >
                 <Avatar src={user.avatar_url ?? undefined} size={28}>
                   {user.name?.[0]?.toUpperCase() ?? 'U'}
@@ -151,14 +133,13 @@ export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
             <button
               type="button"
               onClick={() => setLoginOpen(true)}
-              className="h-9 rounded-full bg-slate-900 px-4 text-[13px] text-white transition hover:bg-slate-700"
+              className="h-9 rounded-full bg-slate-900 px-5 text-[13px] font-medium text-white transition hover:bg-slate-700"
             >
               登录
             </button>
           )}
         </div>
       </div>
-      <GlossaryDrawer open={glossaryOpen} onClose={() => setGlossaryOpen(false)} />
       <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
     </header>
   );

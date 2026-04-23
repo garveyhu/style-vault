@@ -3,9 +3,11 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import { ArrowRightOutlined, HeartFilled } from '@ant-design/icons';
 import { useRegistry, isRegistryMissing } from '../data/useRegistry';
 import { typePlural } from '../utils/i18n';
+import { zh } from '../utils/tagI18n';
 import { StyleCard } from '../components/StyleCard';
 import { TagFilterBar, emptyFilterValue, type FilterValue } from '../components/TagFilterBar';
 import { TopBar } from '../components/TopBar';
+import { GlossaryDrawer } from '../components/GlossaryDrawer';
 import { useAuth } from '../auth/AuthContext';
 import { useFavorites } from '../auth/FavoritesContext';
 import type { EntryType, RegistryItem } from '../../scripts/sync-from-skill/types';
@@ -33,6 +35,7 @@ export default function BrowsePage() {
   const [view, setView] = useState<ViewKey>('composite');
   const [filters, setFilters] = useState<FilterValue>(emptyFilterValue);
   const [search, setSearch] = useState('');
+  const [glossaryOpen, setGlossaryOpen] = useState(false);
   const nav = useNavigate();
 
   // 登出后若停留在"我的收藏"tab，回到默认
@@ -105,27 +108,18 @@ export default function BrowsePage() {
         <div className="relative mx-auto grid max-w-[1600px] grid-cols-1 gap-12 px-8 py-20 md:py-24 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:py-28">
           {/* 左：editorial 大字 */}
           <div>
-            <div className="sv-anim-fade-up sv-delay-0 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.24em] text-violet-500">
-              <span className="h-px w-8 bg-violet-400" />
-              Curated · Replicable · Yours
-            </div>
-
-            <h1 className="sv-anim-fade-up sv-delay-150 mt-6 font-display text-[68px] font-light leading-[0.95] tracking-tight text-slate-900 md:text-[88px] lg:text-[104px]">
-              Style
-              <br />
-              <span className="italic text-transparent bg-gradient-to-br from-violet-600 via-indigo-600 to-slate-900 bg-clip-text">
-                Vault
-              </span>
+            <h1 className="sv-anim-fade-up sv-delay-0 font-display text-[72px] font-light leading-[0.98] tracking-tight text-slate-900 md:text-[92px] lg:text-[108px]">
+              Style Vault
             </h1>
 
-            <p className="sv-anim-fade-up sv-delay-300 mt-8 max-w-xl text-[17px] leading-[1.6] text-slate-600">
-              沉淀你满意的前端设计风格——
-              <span className="text-slate-900">按层级浏览，按氛围筛选</span>，
-              下次做项目一键复刻。点"复制 Prompt"让 AI 直接用上。
+            <p className="sv-anim-fade-up sv-delay-150 mt-10 max-w-xl text-[17px] leading-[1.7] text-slate-600">
+              沉淀你满意的前端设计风格，下次做项目一键复刻。
+              <br />
+              按层级浏览、按氛围筛选，点「复制 Prompt」让 AI 直接用上。
             </p>
 
             {/* Stats */}
-            <div className="sv-anim-fade-up sv-delay-500 mt-12 flex flex-wrap items-end gap-10">
+            <div className="sv-anim-fade-up sv-delay-300 mt-14 flex flex-wrap items-end gap-10">
               <HeroStat value={totalCount} label="风格条目" />
               <div className="h-14 w-px bg-slate-200" />
               <HeroStat value={5} label="分层结构" />
@@ -147,11 +141,11 @@ export default function BrowsePage() {
           <div className="mx-auto max-w-[1600px] px-8 py-16">
             <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-center">
               <div>
-                <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.24em] text-violet-300/80">
+                <div className="flex items-center gap-2 text-[11px] font-medium tracking-[0.2em] text-violet-300/80">
                   <span className="h-px w-8 bg-violet-400/70" />
-                  Featured Vibe · 本周精选
+                  本周精选
                 </div>
-                <h2 className="mt-5 font-display text-[48px] font-light leading-tight tracking-tight lg:text-[60px]">
+                <h2 className="mt-5 font-display text-[44px] font-light leading-tight tracking-tight lg:text-[56px]">
                   {featuredVibe.name}
                 </h2>
                 <p className="mt-4 max-w-md text-[15px] leading-relaxed text-slate-300">
@@ -163,7 +157,7 @@ export default function BrowsePage() {
                       key={t}
                       className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[12px] text-slate-200"
                     >
-                      {t}
+                      {zh('aesthetic', t)}
                     </span>
                   ))}
                 </div>
@@ -270,23 +264,14 @@ export default function BrowsePage() {
         {/* Section 标题 */}
         <div className="mb-8 flex items-end justify-between">
           <div>
-            <div className="text-[11px] font-medium uppercase tracking-[0.24em] text-violet-500">
-              {view === 'favorites' ? '我的收藏' : typePlural[view]} ·{' '}
-              {filtered.length}{' '}
-              {view === 'favorites' ? `of ${favCount}` : `of ${counts[view]}`}
-            </div>
-            <h2 className="mt-2 font-display text-[36px] font-light tracking-tight text-slate-900">
-              {view === 'favorites' ? (
-                <>
-                  Your <span className="italic text-violet-600">Favorites</span>
-                </>
-              ) : (
-                <>
-                  Latest in{' '}
-                  <span className="italic text-violet-600">{typePlural[view]}</span>
-                </>
-              )}
+            <h2 className="font-display text-[32px] font-light tracking-tight text-slate-900">
+              {view === 'favorites' ? '我的收藏' : typePlural[view]}
             </h2>
+            <div className="mt-2 text-[13px] text-slate-500">
+              {view === 'favorites'
+                ? `共 ${favCount} 个收藏 · 当前显示 ${filtered.length}`
+                : `共 ${counts[view]} 个条目 · 当前显示 ${filtered.length}`}
+            </div>
           </div>
           {search && (
             <button
@@ -325,7 +310,7 @@ export default function BrowsePage() {
 
       {/* ===================== Footer ===================== */}
       <footer className="border-t border-slate-100 bg-white">
-        <div className="mx-auto flex max-w-[1600px] flex-col items-start justify-between gap-3 px-8 py-8 md:flex-row md:items-center">
+        <div className="mx-auto flex max-w-[1600px] flex-col items-start justify-between gap-4 px-8 py-10 md:flex-row md:items-center">
           <div className="flex items-center gap-3">
             <img src="/logo.svg" alt="" className="h-7 w-7 opacity-80" />
             <div>
@@ -337,10 +322,33 @@ export default function BrowsePage() {
               </div>
             </div>
           </div>
-          <div className="text-[11px] text-slate-400">
-            © {new Date().getFullYear()} · Personal project
-          </div>
+
+          <nav className="flex items-center gap-6 text-[13px] text-slate-500">
+            <button
+              type="button"
+              onClick={() => setGlossaryOpen(true)}
+              className="transition hover:text-slate-900"
+            >
+              术语表
+            </button>
+            <a
+              href="https://github.com/anthropics/claude-code/issues"
+              target="_blank"
+              rel="noreferrer"
+              className="transition hover:text-slate-900"
+            >
+              反馈
+            </a>
+            <span className="text-[11px] text-slate-400">
+              © {new Date().getFullYear()} · 个人项目
+            </span>
+          </nav>
         </div>
+
+        <GlossaryDrawer
+          open={glossaryOpen}
+          onClose={() => setGlossaryOpen(false)}
+        />
       </footer>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, message } from 'antd';
-import { CheckCircleFilled, LoadingOutlined } from '@ant-design/icons';
+import { CheckCircleFilled, LoadingOutlined, EditOutlined } from '@ant-design/icons';
 import { notesApi } from '../utils/api';
 import { useAuth } from '../auth/AuthContext';
 import { LoginModal } from './LoginModal';
@@ -92,7 +92,9 @@ export function NoteEditor({ entryId }: { entryId: string }) {
   if (!user) {
     return (
       <div className="flex flex-col items-center gap-4 rounded-xl border border-dashed border-slate-200 bg-white/60 px-6 py-16 text-center">
-        <div className="text-[22px]">✨</div>
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-400">
+          <EditOutlined className="text-[20px]" />
+        </div>
         <div>
           <div className="font-display text-[18px] text-slate-900">登录后即可写笔记</div>
           <div className="mt-1 text-[13px] text-slate-500">

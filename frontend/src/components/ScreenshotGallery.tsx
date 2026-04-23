@@ -5,6 +5,7 @@ import {
   InboxOutlined,
   DeleteOutlined,
   LoadingOutlined,
+  CameraOutlined,
 } from '@ant-design/icons';
 import { filesApi, screenshotsApi, type Screenshot } from '../utils/api';
 import { useAuth } from '../auth/AuthContext';
@@ -83,7 +84,9 @@ export function ScreenshotGallery({ entryId }: { entryId: string }) {
   if (!user) {
     return (
       <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-slate-200 bg-white/60 px-4 py-8 text-center">
-        <div className="text-[22px]">📸</div>
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-400">
+          <CameraOutlined className="text-[18px]" />
+        </div>
         <div className="text-[13px] text-slate-500">
           登录后可上传应用截图
         </div>
