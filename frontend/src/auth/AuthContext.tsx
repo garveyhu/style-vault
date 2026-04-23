@@ -6,15 +6,10 @@ import {
   useCallback,
   type ReactNode,
 } from 'react';
-import { apiFetch, getToken, setToken } from '../utils/api';
-import { requestGoogleAccessToken } from '../utils/googleAuth';
+import { authApi, getToken, setToken, type User } from '@/services';
+import { requestGoogleAccessToken } from '@/services/google-oauth';
 
-export type User = {
-  id: number;
-  email: string;
-  name: string;
-  avatar_url: string | null;
-};
+export type { User };
 
 type AuthState = {
   user: User | null;
@@ -49,7 +44,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false);
       return;
     }
-    apiFetch<{ user: User }>('/api/auth/me')
+    authApi
+      .me()
       .then((d) => {
         w.__sv_auth_user = d.user;
         setUser(d.user);
@@ -62,13 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoggingIn(true);
     try {
       const access_token = await requestGoogleAccessToken();
-      const data = await apiFetch<{ token: string; user: User }>(
-        '/api/auth/google',
-        {
-          method: 'POST',
-          body: JSON.stringify({ access_token }),
-        },
-      );
+      const data = await authApi.google(access_token);
       setToken(data.token);
       setUser(data.user);
       (window as Window & { __sv_auth_user?: User }).__sv_auth_user = data.user;
@@ -79,7 +69,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = useCallback(async () => {
     try {
-      await apiFetch('/api/auth/logout', { method: 'POST' });
+      await authApi.logout();
     } catch {
       // 忽略登出 API 错误，本地清除即可
     }

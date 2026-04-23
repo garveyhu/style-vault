@@ -1,5 +1,5 @@
-const GOOGLE_CLIENT_ID =
-  '160104575584-magsnq73oenb32fs90r65avlce16ec5p.apps.googleusercontent.com';
+import { GOOGLE_CLIENT_ID } from '@/config/env';
+
 const SCOPES = 'email profile openid';
 
 declare global {

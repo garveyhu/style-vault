@@ -7,7 +7,7 @@ import {
   LoadingOutlined,
   CameraOutlined,
 } from '@ant-design/icons';
-import { filesApi, screenshotsApi, type Screenshot } from '../utils/api';
+import { filesApi, screenshotsApi, type Screenshot } from '@/services';
 import { useAuth } from '../auth/AuthContext';
 import { LoginModal } from './LoginModal';
 

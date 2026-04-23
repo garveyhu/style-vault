@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, message } from 'antd';
 import { CheckCircleFilled, LoadingOutlined, EditOutlined } from '@ant-design/icons';
-import { notesApi } from '../utils/api';
+import { notesApi } from '@/services';
 import { useAuth } from '../auth/AuthContext';
 import { LoginModal } from './LoginModal';
 

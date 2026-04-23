@@ -7,7 +7,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { favoritesApi } from '../utils/api';
+import { favoritesApi } from '@/services';
 import { useAuth } from './AuthContext';
 
 type FavoritesState = {
