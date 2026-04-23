@@ -1,6 +1,33 @@
 {
-  "version": "2026-04-23T07:13:35.661Z",
+  "version": "2026-04-23T07:14:37.653Z",
   "items": [
+    {
+      "id": "archetypes/landing/saas-landing",
+      "type": "archetype",
+      "name": "SaaS Landing",
+      "description": "标准 SaaS 落地页骨架：Hero / Feature Grid / Pricing / CTA",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "theme": [
+          "light",
+          "dark"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "preview": "/preview/archetypes/landing/saas-landing",
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "archetypes/landing/saas-landing/README.md"
+    },
     {
       "id": "atoms/buttons/ghost-button",
       "type": "atom",
