@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Avatar, Dropdown } from 'antd';
 import { BookOutlined, SearchOutlined, CloseOutlined } from '@ant-design/icons';
 import { GlossaryDrawer } from './GlossaryDrawer';
+import { LoginModal } from './LoginModal';
+import { useAuth } from '../auth/AuthContext';
 
 type TopBarProps = {
   search?: string;
@@ -11,7 +14,9 @@ type TopBarProps = {
 export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
   const [glossaryOpen, setGlossaryOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const { user, logout, loading } = useAuth();
 
   const searchable = typeof onSearchChange === 'function';
 
@@ -112,17 +117,49 @@ export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
             <BookOutlined /> <span className="hidden md:inline">术语表</span>
           </button>
 
-          <button
-            type="button"
-            disabled
-            className="hidden h-9 cursor-not-allowed items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 text-[13px] text-slate-400 md:flex"
-            title="登录（即将上线）"
-          >
-            登录
-          </button>
+          {loading ? null : user ? (
+            <Dropdown
+              menu={{
+                items: [
+                  {
+                    key: 'email',
+                    label: (
+                      <span className="text-xs text-slate-400">{user.email}</span>
+                    ),
+                    disabled: true,
+                  },
+                  { type: 'divider' },
+                  { key: 'logout', label: '退出登录', onClick: () => logout() },
+                ],
+              }}
+              placement="bottomRight"
+              trigger={['click']}
+            >
+              <button
+                type="button"
+                className="flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1 pl-1 pr-3 transition hover:border-violet-300"
+              >
+                <Avatar src={user.avatar_url ?? undefined} size={28}>
+                  {user.name?.[0]?.toUpperCase() ?? 'U'}
+                </Avatar>
+                <span className="hidden text-[13px] text-slate-700 md:inline">
+                  {user.name}
+                </span>
+              </button>
+            </Dropdown>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setLoginOpen(true)}
+              className="h-9 rounded-full bg-slate-900 px-4 text-[13px] text-white transition hover:bg-slate-700"
+            >
+              登录
+            </button>
+          )}
         </div>
       </div>
       <GlossaryDrawer open={glossaryOpen} onClose={() => setGlossaryOpen(false)} />
+      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
     </header>
   );
 }
