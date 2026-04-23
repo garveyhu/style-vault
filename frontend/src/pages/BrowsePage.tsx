@@ -1,7 +1,9 @@
+import { useMemo, useState } from 'react';
 import { Tabs } from 'antd';
 import type { TabsProps } from 'antd';
 import { useRegistry } from '../data/useRegistry';
 import { StyleCard } from '../components/StyleCard';
+import { TagFilter, emptyFilterValue, type FilterValue } from '../components/TagFilter';
 import type { EntryType, RegistryItem } from '../../scripts/sync-from-skill/types';
 
 const tabs: { key: EntryType; label: string }[] = [
@@ -11,6 +13,17 @@ const tabs: { key: EntryType; label: string }[] = [
   { key: 'atom', label: 'Atoms' },
   { key: 'primitive', label: 'Primitives' },
 ];
+
+const groupKeys: (keyof FilterValue)[] = ['aesthetic', 'mood', 'theme', 'stack'];
+
+function matchFilter(item: RegistryItem, value: FilterValue): boolean {
+  return groupKeys.every((key) => {
+    const selected = value[key];
+    if (selected.length === 0) return true;
+    const itemTags = item.tags[key] ?? [];
+    return itemTags.some((t) => selected.includes(t));
+  });
+}
 
 function Grid({ items }: { items: RegistryItem[] }) {
   if (items.length === 0) {
@@ -27,11 +40,17 @@ function Grid({ items }: { items: RegistryItem[] }) {
 
 export default function BrowsePage() {
   const registry = useRegistry();
+  const [filter, setFilter] = useState<FilterValue>(emptyFilterValue);
+
+  const filteredItems = useMemo(
+    () => registry.items.filter((item) => matchFilter(item, filter)),
+    [registry.items, filter],
+  );
 
   const tabItems: TabsProps['items'] = tabs.map(({ key, label }) => ({
     key,
     label,
-    children: <Grid items={registry.items.filter((i) => i.type === key)} />,
+    children: <Grid items={filteredItems.filter((i) => i.type === key)} />,
   }));
 
   return (
@@ -40,7 +59,9 @@ export default function BrowsePage() {
         <span className="text-lg font-semibold">Style Vault</span>
       </div>
       <div className="flex-1 flex min-h-0">
-        <aside className="w-64 border-r p-4 bg-white">Filters</aside>
+        <aside className="w-64 border-r p-4 bg-white overflow-auto">
+          <TagFilter tagDict={registry.tagDict} value={filter} onChange={setFilter} />
+        </aside>
         <main className="flex-1 min-w-0 overflow-auto">
           <Tabs defaultActiveKey="composite" items={tabItems} className="px-6 pt-2" />
         </main>
