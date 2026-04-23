@@ -7,6 +7,7 @@ backend/**/*.pyc
 backend/data.db
 backend/*.log
 backend/logs/
+backend/.ruff_cache/
 backend/config/.env
 backend/config/app.json
 backend/config/component.json
