@@ -11,11 +11,21 @@ body,
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei",
-    "Segoe UI", "Inter", sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Microsoft YaHei", "Segoe UI", sans-serif;
   background: #fafafa;
   color: #0f172a;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Display serif — hero / editorial headings / stats 数字 */
+.font-display {
+  font-family: "Fraunces", "Instrument Serif", Georgia,
+    "PingFang SC", "Microsoft YaHei", serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 144, "SOFT" 0;
+  letter-spacing: -0.02em;
 }
 
 iframe {
@@ -27,4 +37,133 @@ iframe {
 /* Antd Tag 收紧一档 */
 .ant-tag {
   font-size: 12px;
+}
+
+/* Hero 进场动效 */
+@keyframes sv-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes sv-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sv-blob-drift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(20px, -30px, 0) scale(1.08);
+  }
+}
+
+@keyframes sv-blob-drift-slow {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-30px, 20px, 0) scale(1.12);
+  }
+}
+
+.sv-anim-fade-up {
+  opacity: 0;
+  animation: sv-fade-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.sv-anim-fade-in {
+  opacity: 0;
+  animation: sv-fade-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.sv-anim-blob {
+  animation: sv-blob-drift 14s ease-in-out infinite;
+}
+
+.sv-anim-blob-slow {
+  animation: sv-blob-drift-slow 18s ease-in-out infinite;
+}
+
+/* Delay 工具类（与 sv-anim-* 组合使用） */
+.sv-delay-0 { animation-delay: 0ms; }
+.sv-delay-75 { animation-delay: 75ms; }
+.sv-delay-150 { animation-delay: 150ms; }
+.sv-delay-225 { animation-delay: 225ms; }
+.sv-delay-300 { animation-delay: 300ms; }
+.sv-delay-400 { animation-delay: 400ms; }
+.sv-delay-500 { animation-delay: 500ms; }
+.sv-delay-600 { animation-delay: 600ms; }
+
+/* Editorial tab 下划线指示器 */
+.sv-tab-indicator {
+  position: relative;
+}
+.sv-tab-indicator::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: linear-gradient(90deg, #7c3aed, #4f46e5);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.sv-tab-indicator[data-active="true"]::after {
+  transform: scaleX(1);
+}
+
+/* 卡片 hover 细节 */
+.sv-card {
+  transition:
+    transform 400ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    box-shadow 400ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 400ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.sv-card .sv-card-preview-inner {
+  transition: transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  transform-origin: top center;
+}
+.sv-card:hover .sv-card-preview-inner {
+  transform: scale(1.05) translateZ(0);
+}
+.sv-card .sv-card-meta-overlay {
+  transition:
+    transform 400ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    opacity 400ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.sv-card:hover .sv-card-meta-overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* 双层 shadow：近身细腻 + 远处紫色扩散 */
+.sv-card:hover {
+  transform: translate3d(0, -4px, 0);
+  border-color: rgba(167, 139, 250, 0.55);
+  box-shadow:
+    0 2px 6px -1px rgba(15, 23, 42, 0.08),
+    0 20px 48px -16px rgba(99, 102, 241, 0.28);
+}
+
+/* 空态 blob 轻微呼吸 */
+@keyframes sv-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.05); }
+}
+.sv-anim-breathe {
+  animation: sv-breathe 4.5s ease-in-out infinite;
 }
