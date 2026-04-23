@@ -173,6 +173,14 @@ iframe {
   50% { opacity: 1; transform: scale(1.04); }
 }
 
+/* PreviewFrame：独立 /preview/* 路由下撑满视口；嵌入 DetailPage 预览框时按内容高度 */
+.sv-preview-frame {
+  min-height: 100vh;
+}
+.sv-preview-embedded .sv-preview-frame {
+  min-height: 0;
+}
+
 /* GlobalLoading: 三个点依次弹跳 */
 @keyframes sv-dot-bounce {
   0%, 80%, 100% { opacity: 0.2; transform: translateY(0); }

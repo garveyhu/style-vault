@@ -10,7 +10,10 @@ export function PreviewFrame({
   padded?: boolean;
 }) {
   return (
-    <div style={{ minHeight: '100vh', background: bg, padding: padded ? 24 : 0 }}>
+    <div
+      className="sv-preview-frame"
+      style={{ background: bg, padding: padded ? 24 : 0 }}
+    >
       {children}
     </div>
   );

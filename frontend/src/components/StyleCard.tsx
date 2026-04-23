@@ -179,15 +179,14 @@ export function StyleCard({
           )}
         </div>
 
-        {/* 左上 type 角标（z-10） */}
-        <div className="absolute left-3 top-3 z-10 flex items-center gap-1.5 rounded-full border border-white/40 bg-white/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-slate-700 shadow-sm backdrop-blur-sm">
-          <span className={`h-1.5 w-1.5 rounded-full ${typeDotColor(item.type)}`} />
-          {typeLabel[item.type]}
-        </div>
       </div>
 
       {/* 信息区 */}
       <div className="space-y-2 p-5">
+        <div className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-slate-500">
+          <span className={`h-1.5 w-1.5 rounded-full ${typeDotColor(item.type)}`} />
+          {typeLabel[item.type]}
+        </div>
         <h3 className="m-0 font-display text-[16px] font-semibold leading-snug tracking-tight text-slate-900">
           {item.name}
         </h3>

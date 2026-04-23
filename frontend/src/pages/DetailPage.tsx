@@ -325,18 +325,16 @@ export default function DetailPage() {
                       </div>
                       <div className="flex justify-center bg-slate-50 p-4">
                         <div
-                          className="relative overflow-hidden rounded-md border border-slate-200 bg-white"
+                          className="sv-preview-embedded relative overflow-auto rounded-md border border-slate-200 bg-white"
                           style={{
                             maxWidth: iframeMaxWidth,
                             width: '100%',
-                            height: '72vh',
+                            maxHeight: '72vh',
                             transition: 'max-width 240ms ease',
                           }}
                         >
                           {PreviewComp ? (
-                            <div className="h-full w-full overflow-auto">
-                              <PreviewComp />
-                            </div>
+                            <PreviewComp />
                           ) : (
                             <Empty description="暂无预览" className="py-16" />
                           )}
