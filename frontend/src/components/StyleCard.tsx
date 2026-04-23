@@ -25,12 +25,17 @@ const PREVIEW_VIRTUAL_HEIGHT = 900;
  * aspect 用于 iframe 容器比例。columns-* 外层按 break-inside-avoid，
  * 不同卡片高度差异天然形成 masonry 视觉。
  */
-const SIZE_BY_TYPE: Record<string, { aspect: string; label: 'L' | 'M' | 'S' }> = {
-  vibe: { aspect: 'aspect-[16/10]', label: 'L' },
-  archetype: { aspect: 'aspect-[16/10]', label: 'L' },
-  composite: { aspect: 'aspect-[4/3]', label: 'M' },
-  atom: { aspect: 'aspect-[4/3]', label: 'M' },
-  primitive: { aspect: 'aspect-[5/4]', label: 'S' },
+/**
+ * 固定像素 height 替代 aspect-ratio（在 CSS columns 多列布局里，
+ * aspect-ratio 可能解析为 0 高度导致 iframe 不可见）。
+ * 尺寸按 type 分 L/M/S 三档，自然形成 masonry。
+ */
+const SIZE_BY_TYPE: Record<string, { h: string; label: 'L' | 'M' | 'S' }> = {
+  vibe: { h: 'h-[260px]', label: 'L' },
+  archetype: { h: 'h-[260px]', label: 'L' },
+  composite: { h: 'h-[220px]', label: 'M' },
+  atom: { h: 'h-[200px]', label: 'M' },
+  primitive: { h: 'h-[200px]', label: 'S' },
 };
 
 export function StyleCard({
@@ -84,7 +89,7 @@ export function StyleCard({
       {/* Preview 区 */}
       <div
         ref={previewRef}
-        className={`relative overflow-hidden bg-slate-50 ${sizing.aspect}`}
+        className={`relative overflow-hidden bg-slate-50 ${sizing.h}`}
       >
         {previewUrl && item.hasPreviewFile ? (
           <div
@@ -172,9 +177,9 @@ export function StyleCard({
         </div>
       </div>
 
-      {/* 信息区（默认态；hover 时 overlay 盖在预览图上） */}
+      {/* 信息区 */}
       <div className="space-y-2 p-5">
-        <h3 className="m-0 font-display text-[18px] font-medium leading-snug tracking-tight text-slate-900">
+        <h3 className="m-0 font-display text-[16px] font-semibold leading-snug tracking-tight text-slate-900">
           {item.name}
         </h3>
         <p className="line-clamp-2 min-h-[36px] text-[13px] leading-relaxed text-slate-500">
@@ -192,7 +197,7 @@ export function StyleCard({
           {item.tags.mood.slice(0, 2).map((t) => (
             <span
               key={`m-${t}`}
-              className="rounded-md bg-violet-50 px-2 py-0.5 text-[11px] text-violet-600"
+              className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] text-slate-600"
             >
               {zh('mood', t)}
             </span>

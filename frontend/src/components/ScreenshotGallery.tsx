@@ -13,7 +13,13 @@ import { LoginModal } from './LoginModal';
 
 const { Dragger } = Upload;
 
-export function ScreenshotGallery({ entryId }: { entryId: string }) {
+export function ScreenshotGallery({
+  entryId,
+  variant = 'compact',
+}: {
+  entryId: string;
+  variant?: 'compact' | 'section';
+}) {
   const { user, loading: authLoading } = useAuth();
   const [items, setItems] = useState<Screenshot[]>([]);
   const [loading, setLoading] = useState(false);
@@ -81,16 +87,24 @@ export function ScreenshotGallery({ entryId }: { entryId: string }) {
     }
   };
 
+  const isSection = variant === 'section';
+
   if (!user) {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-slate-200 bg-white/60 px-4 py-8 text-center">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-400">
-          <CameraOutlined className="text-[18px]" />
+      <div
+        className={`flex flex-col items-center gap-3 rounded-2xl border border-dashed border-slate-200 bg-white/60 text-center ${
+          isSection ? 'py-16' : 'px-4 py-8'
+        }`}
+      >
+        <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-400">
+          <CameraOutlined className="text-[20px]" />
         </div>
         <div className="text-[13px] text-slate-500">
-          登录后可上传应用截图
+          {isSection
+            ? '登录后可上传应用截图，记录风格的真实落地'
+            : '登录后可上传应用截图'}
         </div>
-        <Button size="small" type="primary" onClick={() => setLoginOpen(true)}>
+        <Button type="primary" onClick={() => setLoginOpen(true)}>
           登录
         </Button>
         <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
@@ -99,7 +113,7 @@ export function ScreenshotGallery({ entryId }: { entryId: string }) {
   }
 
   return (
-    <div className="space-y-3">
+    <div className={isSection ? 'space-y-6' : 'space-y-3'}>
       {ctx}
       <Dragger
         name="file"
@@ -109,53 +123,75 @@ export function ScreenshotGallery({ entryId }: { entryId: string }) {
         customRequest={customRequest}
         disabled={uploading}
         fileList={[] as UploadFile[]}
-        className="!rounded-xl !border-slate-200 !bg-white"
+        className={`!rounded-2xl !border-dashed !border-slate-200 !bg-white/70 ${
+          isSection ? '!py-10' : ''
+        }`}
       >
-        <p className="ant-upload-drag-icon !mb-2">
+        <p className="ant-upload-drag-icon !mb-3">
           {uploading ? (
-            <LoadingOutlined className="text-violet-500" />
+            <LoadingOutlined className="text-indigo-500" />
           ) : (
-            <InboxOutlined className="text-violet-400" />
+            <InboxOutlined className="text-indigo-400" />
           )}
         </p>
-        <p className="ant-upload-text !text-[13px] !text-slate-700">
-          {uploading ? '上传中…' : '拖入或点击上传截图'}
+        <p
+          className={`ant-upload-text !text-slate-800 ${
+            isSection ? '!text-[15px] !font-medium' : '!text-[13px]'
+          }`}
+        >
+          {uploading
+            ? '上传中…'
+            : isSection
+              ? '拖入图片或点击上传'
+              : '拖入或点击上传截图'}
         </p>
-        <p className="ant-upload-hint !text-[11px] !text-slate-400">
-          单张图片，≤10MB
+        <p className="ant-upload-hint !text-[12px] !text-slate-400">
+          支持 PNG / JPG / WEBP · 单张 ≤10MB
         </p>
       </Dragger>
 
       {loading ? (
         <div className="py-6 text-center text-[12px] text-slate-400">
-          <LoadingOutlined /> 载入截图…
+          <LoadingOutlined /> 载入中…
         </div>
-      ) : items.length === 0 ? (
+      ) : items.length === 0 ? isSection ? null : (
         <Empty
           image={Empty.PRESENTED_IMAGE_SIMPLE}
-          description={<span className="text-[12px] text-slate-400">还没有截图</span>}
+          description={
+            <span className="text-[12px] text-slate-400">还没有截图</span>
+          }
           className="!my-4"
         />
       ) : (
-        <div className="grid grid-cols-2 gap-2">
+        <div
+          className={
+            isSection
+              ? 'grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+              : 'grid grid-cols-2 gap-2'
+          }
+        >
           {items.map((s) => (
             <div
               key={s.id}
-              className="group relative overflow-hidden rounded-lg border border-slate-200 bg-slate-50"
+              className={`group relative overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 ${
+                isSection ? '' : ''
+              }`}
             >
               <Image
                 src={s.url}
                 alt={s.caption ?? 'screenshot'}
-                className="!block !h-24 !w-full !object-cover"
+                className={`!block !w-full !object-cover ${
+                  isSection ? '!h-56' : '!h-24'
+                }`}
                 preview={{ src: s.url }}
               />
               <button
                 type="button"
                 onClick={() => handleDelete(s.id)}
                 title="删除"
-                className="absolute right-1.5 top-1.5 flex h-6 w-6 items-center justify-center rounded-md bg-black/60 text-white opacity-0 transition group-hover:opacity-100 hover:bg-black/80"
+                className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-lg bg-black/60 text-white opacity-0 transition group-hover:opacity-100 hover:bg-black/80"
               >
-                <DeleteOutlined className="text-[11px]" />
+                <DeleteOutlined className="text-[12px]" />
               </button>
             </div>
           ))}

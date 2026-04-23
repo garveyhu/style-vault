@@ -1,29 +1,27 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
-import { ArrowRightOutlined, HeartFilled } from '@ant-design/icons';
+import { HeartFilled } from '@ant-design/icons';
 import { useRegistry, isRegistryMissing } from '../data/useRegistry';
 import { typePlural } from '../utils/i18n';
-import { zh } from '../utils/tagI18n';
 import { StyleCard } from '../components/StyleCard';
-import { TagFilterBar, emptyFilterValue, type FilterValue } from '../components/TagFilterBar';
+import {
+  TagFilterBar,
+  emptyFilterValue,
+  type FilterValue,
+} from '../components/TagFilterBar';
 import { TopBar } from '../components/TopBar';
 import { GlossaryDrawer } from '../components/GlossaryDrawer';
 import { useAuth } from '../auth/AuthContext';
 import { useFavorites } from '../auth/FavoritesContext';
-import type { EntryType, RegistryItem } from '../../scripts/sync-from-skill/types';
+import type {
+  EntryType,
+  RegistryItem,
+} from '../../scripts/sync-from-skill/types';
 
 type ViewKey = EntryType | 'favorites';
 
 const ORDER: EntryType[] = ['vibe', 'archetype', 'composite', 'atom', 'primitive'];
 const GROUP_KEYS = ['aesthetic', 'mood', 'theme', 'stack'] as const;
-
-const TYPE_HINT: Record<EntryType, string> = {
-  vibe: '整页气质',
-  archetype: '页面样板',
-  composite: '场景组合',
-  atom: '原子组件',
-  primitive: '设计原语',
-};
 
 const PREVIEW_VIRTUAL_WIDTH = 1440;
 const PREVIEW_VIRTUAL_HEIGHT = 900;
@@ -38,7 +36,6 @@ export default function BrowsePage() {
   const [glossaryOpen, setGlossaryOpen] = useState(false);
   const nav = useNavigate();
 
-  // 登出后若停留在"我的收藏"tab，回到默认
   useEffect(() => {
     if (!user && view === 'favorites') setView('composite');
   }, [user, view]);
@@ -53,17 +50,6 @@ export default function BrowsePage() {
     };
     if (reg?.items) for (const i of reg.items) c[i.type]++;
     return c;
-  }, [reg]);
-
-  const totalCount = reg?.items?.length ?? 0;
-  const totalTags = useMemo(() => {
-    if (!reg?.tagDict) return 0;
-    return Object.values(reg.tagDict).reduce((acc, arr) => acc + arr.length, 0);
-  }, [reg]);
-
-  const featuredVibe: RegistryItem | undefined = useMemo(() => {
-    if (!reg?.items) return undefined;
-    return reg.items.find((i) => i.type === 'vibe' && i.hasPreviewFile);
   }, [reg]);
 
   const favCount = favSet.size;
@@ -98,18 +84,20 @@ export default function BrowsePage() {
     <div className="min-h-screen bg-[#fafafa]">
       <TopBar search={search} onSearchChange={setSearch} />
 
-      {/* ===================== Hero ===================== */}
-      <section className="relative overflow-hidden border-b border-slate-100 bg-gradient-to-b from-white via-white to-[#faf8ff]">
-        {/* 装饰 blobs */}
-        <div className="pointer-events-none absolute -left-32 -top-24 h-[28rem] w-[28rem] rounded-full bg-gradient-to-br from-violet-200/60 to-fuchsia-100/30 blur-3xl sv-anim-blob" />
-        <div className="pointer-events-none absolute -right-40 top-10 h-[32rem] w-[32rem] rounded-full bg-gradient-to-br from-indigo-200/50 to-sky-100/20 blur-3xl sv-anim-blob-slow" />
-        <div className="pointer-events-none absolute left-1/2 top-1/3 h-64 w-64 -translate-x-1/2 rounded-full bg-fuchsia-100/25 blur-3xl" />
+      {/* ===================== Hero（极简，无 stats / featured） ===================== */}
+      <section className="relative overflow-hidden border-b border-slate-100 bg-white">
+        <div className="pointer-events-none absolute -left-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-gradient-to-br from-indigo-100/60 via-violet-100/40 to-transparent blur-3xl" />
+        <div className="pointer-events-none absolute -right-48 top-0 h-[36rem] w-[36rem] rounded-full bg-gradient-to-br from-violet-100/50 via-indigo-50/30 to-transparent blur-3xl" />
 
-        <div className="relative mx-auto grid max-w-[1600px] grid-cols-1 gap-12 px-8 py-20 md:py-24 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:py-28">
-          {/* 左：editorial 大字 */}
+        <div className="relative mx-auto grid max-w-[1600px] grid-cols-1 gap-14 px-8 py-20 md:py-24 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+          {/* 左：标题 + 副 */}
           <div>
-            <h1 className="sv-anim-fade-up sv-delay-0 font-display text-[72px] font-light leading-[0.98] tracking-tight text-slate-900 md:text-[92px] lg:text-[108px]">
-              Style Vault
+            <h1 className="sv-anim-fade-up sv-delay-0 font-display text-[64px] font-extrabold leading-[1.02] tracking-[-0.04em] text-slate-900 md:text-[80px] lg:text-[96px]">
+              Discover your
+              <br />
+              <span className="bg-gradient-to-br from-indigo-600 to-slate-900 bg-clip-text text-transparent">
+                style vault.
+              </span>
             </h1>
 
             <p className="sv-anim-fade-up sv-delay-150 mt-10 max-w-xl text-[17px] leading-[1.7] text-slate-600">
@@ -117,103 +105,45 @@ export default function BrowsePage() {
               <br />
               按层级浏览、按氛围筛选，点「复制 Prompt」让 AI 直接用上。
             </p>
-
-            {/* Stats */}
-            <div className="sv-anim-fade-up sv-delay-300 mt-14 flex flex-wrap items-end gap-10">
-              <HeroStat value={totalCount} label="风格条目" />
-              <div className="h-14 w-px bg-slate-200" />
-              <HeroStat value={5} label="分层结构" />
-              <div className="h-14 w-px bg-slate-200" />
-              <HeroStat value={totalTags} label="标签维度" />
-            </div>
           </div>
 
-          {/* 右：装饰卡片堆叠 */}
-          <div className="relative hidden h-[460px] lg:block">
+          {/* 右：真实预览堆叠装饰 */}
+          <div className="relative hidden h-[480px] lg:block">
             <HeroStackDecor items={reg.items} />
           </div>
         </div>
       </section>
 
-      {/* ===================== Featured（深色点缀段） ===================== */}
-      {featuredVibe && (
-        <section className="bg-slate-950 text-white">
-          <div className="mx-auto max-w-[1600px] px-8 py-16">
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.4fr] lg:items-center">
-              <div>
-                <div className="flex items-center gap-2 text-[11px] font-medium tracking-[0.2em] text-violet-300/80">
-                  <span className="h-px w-8 bg-violet-400/70" />
-                  本周精选
-                </div>
-                <h2 className="mt-5 font-display text-[44px] font-light leading-tight tracking-tight lg:text-[56px]">
-                  {featuredVibe.name}
-                </h2>
-                <p className="mt-4 max-w-md text-[15px] leading-relaxed text-slate-300">
-                  {featuredVibe.description}
-                </p>
-                <div className="mt-8 flex flex-wrap gap-2">
-                  {featuredVibe.tags.aesthetic.slice(0, 4).map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[12px] text-slate-200"
-                    >
-                      {zh('aesthetic', t)}
-                    </span>
-                  ))}
-                </div>
-                <button
-                  type="button"
-                  onClick={() => nav(`/item/${featuredVibe.id}`)}
-                  className="group mt-10 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-[14px] font-medium text-slate-900 transition hover:bg-violet-100"
-                >
-                  查看整页设计
-                  <ArrowRightOutlined className="transition-transform group-hover:translate-x-0.5" />
-                </button>
-              </div>
-
-              <FeaturedPreview item={featuredVibe} />
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ===================== Editorial Tab 导航 ===================== */}
+      {/* ===================== Nav：分类 + 筛选 ===================== */}
       <div className="sticky top-[72px] z-40 border-b border-slate-100 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto max-w-[1600px] px-8">
-          {/* 大号分类切换 */}
-          <div className="flex items-end gap-2 overflow-x-auto py-4 md:gap-6">
+          <div className="flex flex-wrap items-center gap-3 py-4">
+            {/* 收藏 tab */}
             {user && (
               <button
                 type="button"
                 onClick={() => setView('favorites')}
-                data-active={view === 'favorites'}
-                className={`sv-tab-indicator group relative shrink-0 px-1 pb-3 pt-1 text-left transition
-                  ${view === 'favorites' ? 'text-violet-600' : 'text-slate-400 hover:text-violet-500'}`}
+                className={`flex h-10 items-center gap-2 rounded-full px-5 text-[14px] font-medium transition ${
+                  view === 'favorites'
+                    ? 'bg-slate-900 text-white shadow-sm'
+                    : 'bg-white text-slate-600 hover:bg-slate-100'
+                }`}
               >
-                <div className="flex items-baseline gap-2">
-                  <span className="flex items-center gap-1.5 font-display text-[22px] font-medium tracking-tight">
-                    <HeartFilled
-                      className={
-                        view === 'favorites' ? 'text-violet-500' : 'text-slate-300'
-                      }
-                    />
-                    我的收藏
-                  </span>
-                  <span
-                    className={`font-display text-[14px] ${
-                      view === 'favorites' ? 'text-violet-500' : 'text-slate-300'
-                    }`}
-                  >
-                    {favCount}
-                  </span>
-                </div>
-                <div
-                  className={`mt-0.5 text-[11px] ${
-                    view === 'favorites' ? 'text-slate-500' : 'text-slate-400'
+                <HeartFilled
+                  className={
+                    view === 'favorites' ? 'text-white' : 'text-slate-400'
+                  }
+                />
+                我的收藏
+                <span
+                  className={`rounded-full px-1.5 text-[11px] font-semibold tabular-nums ${
+                    view === 'favorites'
+                      ? 'bg-white/15 text-white'
+                      : 'bg-slate-100 text-slate-400'
                   }`}
                 >
-                  登录后收藏的风格
-                </div>
+                  {favCount}
+                </span>
               </button>
             )}
 
@@ -224,62 +154,51 @@ export default function BrowsePage() {
                   key={t}
                   type="button"
                   onClick={() => setView(t)}
-                  data-active={active}
-                  className={`sv-tab-indicator group relative shrink-0 px-1 pb-3 pt-1 text-left transition
-                    ${active ? 'text-slate-900' : 'text-slate-400 hover:text-slate-700'}`}
+                  className={`flex h-10 items-center gap-2 rounded-full px-5 text-[14px] font-medium transition ${
+                    active
+                      ? 'bg-slate-900 text-white shadow-sm'
+                      : 'bg-white text-slate-600 hover:bg-slate-100'
+                  }`}
                 >
-                  <div className="flex items-baseline gap-2">
-                    <span className="font-display text-[22px] font-medium tracking-tight">
-                      {typePlural[t]}
-                    </span>
-                    <span
-                      className={`font-display text-[14px] ${
-                        active ? 'text-violet-500' : 'text-slate-300'
-                      }`}
-                    >
-                      {counts[t]}
-                    </span>
-                  </div>
-                  <div
-                    className={`mt-0.5 text-[11px] ${
-                      active ? 'text-slate-500' : 'text-slate-400'
+                  {typePlural[t]}
+                  <span
+                    className={`rounded-full px-1.5 text-[11px] font-semibold tabular-nums ${
+                      active ? 'bg-white/15 text-white' : 'bg-slate-100 text-slate-400'
                     }`}
                   >
-                    {TYPE_HINT[t]}
-                  </div>
+                    {counts[t]}
+                  </span>
                 </button>
               );
             })}
-          </div>
 
-          {/* 标签筛选 */}
-          <div className="border-t border-slate-100 pb-2 pt-3">
-            <TagFilterBar dict={reg.tagDict} value={filters} onChange={setFilters} />
+            {/* 筛选下拉（TagFilterBar）靠右 */}
+            <div className="ml-auto">
+              <TagFilterBar
+                dict={reg.tagDict}
+                value={filters}
+                onChange={setFilters}
+              />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* ===================== Masonry 内容区 ===================== */}
-      <main className="mx-auto max-w-[1600px] px-8 py-12">
-        {/* Section 标题 */}
-        <div className="mb-8 flex items-end justify-between">
-          <div>
-            <h2 className="font-display text-[32px] font-light tracking-tight text-slate-900">
-              {view === 'favorites' ? '我的收藏' : typePlural[view]}
-            </h2>
-            <div className="mt-2 text-[13px] text-slate-500">
-              {view === 'favorites'
-                ? `共 ${favCount} 个收藏 · 当前显示 ${filtered.length}`
-                : `共 ${counts[view]} 个条目 · 当前显示 ${filtered.length}`}
-            </div>
+      {/* ===================== 卡片网格 ===================== */}
+      <main className="mx-auto max-w-[1600px] px-8 py-10">
+        <div className="mb-6 flex items-end justify-between">
+          <div className="text-[13px] text-slate-500">
+            {view === 'favorites'
+              ? `共 ${favCount} 个收藏 · 当前显示 ${filtered.length}`
+              : `共 ${counts[view]} 个条目 · 当前显示 ${filtered.length}`}
           </div>
           {search && (
             <button
               type="button"
               onClick={() => setSearch('')}
-              className="text-sm text-violet-600 hover:text-violet-700"
+              className="text-sm text-slate-500 hover:text-slate-900"
             >
-              清除搜索 "{search}"
+              清除搜索「{search}」
             </button>
           )}
         </div>
@@ -312,18 +231,13 @@ export default function BrowsePage() {
       <footer className="border-t border-slate-100 bg-white">
         <div className="mx-auto flex max-w-[1600px] flex-col items-start justify-between gap-4 px-8 py-10 md:flex-row md:items-center">
           <div className="flex items-center gap-3">
-            <img src="/logo.svg" alt="" className="h-7 w-7 opacity-80" />
-            <div>
-              <div className="font-display text-[15px] font-medium text-slate-900">
-                Style Vault
-              </div>
-              <div className="text-[11px] text-slate-400">
-                沉淀你满意的前端设计风格
-              </div>
-            </div>
+            <img src="/logo.svg" alt="" className="h-7 w-7" />
+            <span className="text-[14px] font-semibold tracking-tight text-slate-900">
+              Style Vault
+            </span>
           </div>
 
-          <nav className="flex items-center gap-6 text-[13px] text-slate-500">
+          <div className="flex items-center gap-6 text-[13px] text-slate-500">
             <button
               type="button"
               onClick={() => setGlossaryOpen(true)}
@@ -331,18 +245,10 @@ export default function BrowsePage() {
             >
               术语表
             </button>
-            <a
-              href="https://github.com/anthropics/claude-code/issues"
-              target="_blank"
-              rel="noreferrer"
-              className="transition hover:text-slate-900"
-            >
-              反馈
-            </a>
-            <span className="text-[11px] text-slate-400">
-              © {new Date().getFullYear()} · 个人项目
+            <span className="text-[12px] text-slate-400">
+              © {new Date().getFullYear()} Style Vault
             </span>
-          </nav>
+          </div>
         </div>
 
         <GlossaryDrawer
@@ -356,22 +262,8 @@ export default function BrowsePage() {
 
 /* -------------------- 子组件 -------------------- */
 
-function HeroStat({ value, label }: { value: number; label: string }) {
-  return (
-    <div>
-      <div className="font-display text-[56px] font-light leading-none tracking-tight text-slate-900">
-        {value}
-      </div>
-      <div className="mt-2 text-[11px] font-medium uppercase tracking-[0.2em] text-slate-400">
-        {label}
-      </div>
-    </div>
-  );
-}
-
 /**
  * Hero 右侧：几张预览卡片向后堆叠的装饰，不可点。
- * 用 registry 里真实的前 3 张 preview 作为背景意象。
  */
 function HeroStackDecor({ items }: { items: RegistryItem[] }) {
   const picks = useMemo(() => {
@@ -385,7 +277,7 @@ function HeroStackDecor({ items }: { items: RegistryItem[] }) {
   if (picks.length === 0) {
     return (
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="h-64 w-64 rounded-full bg-gradient-to-br from-violet-300/40 to-indigo-300/40 blur-2xl" />
+        <div className="h-64 w-64 rounded-full bg-gradient-to-br from-indigo-300/40 to-violet-300/40 blur-2xl" />
       </div>
     );
   }
@@ -401,7 +293,7 @@ function HeroStackDecor({ items }: { items: RegistryItem[] }) {
       {picks.map((p, idx) => (
         <div
           key={p.id}
-          className={`sv-anim-fade-up absolute aspect-[16/10] w-[380px] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-[0_20px_60px_-20px_rgba(79,70,229,0.25)] ${positions[idx]} sv-delay-${idx === 0 ? '300' : idx === 1 ? '500' : '600'}`}
+          className={`sv-anim-fade-up absolute aspect-[16/10] w-[400px] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_24px_60px_-20px_rgba(79,70,229,0.3)] ${positions[idx]} sv-delay-${idx === 0 ? '300' : idx === 1 ? '500' : '600'}`}
           style={{ zIndex: 10 - idx }}
         >
           <StaticPreviewFrame item={p} />
@@ -413,7 +305,7 @@ function HeroStackDecor({ items }: { items: RegistryItem[] }) {
 
 function StaticPreviewFrame({ item }: { item: RegistryItem }) {
   const previewUrl = item.preview ? `${window.location.origin}${item.preview}` : null;
-  const CARD_WIDTH = 380;
+  const CARD_WIDTH = 400;
   const scale = CARD_WIDTH / PREVIEW_VIRTUAL_WIDTH;
   if (!previewUrl) return null;
   return (
@@ -435,80 +327,27 @@ function StaticPreviewFrame({ item }: { item: RegistryItem }) {
   );
 }
 
-function FeaturedPreview({ item }: { item: RegistryItem }) {
-  const previewUrl = item.preview ? `${window.location.origin}${item.preview}` : null;
-  // Featured 预览卡的显示宽度用 clamp，iframe 用 scale 自适配
-  const [wrapRef, setWrapRef] = useState<HTMLDivElement | null>(null);
-  const [scale, setScale] = useState(0.5);
-
-  useEffect(() => {
-    if (!wrapRef) return;
-    const ro = new ResizeObserver((entries) => {
-      for (const e of entries) {
-        const w = e.contentRect.width;
-        if (w > 0) setScale(w / PREVIEW_VIRTUAL_WIDTH);
-      }
-    });
-    ro.observe(wrapRef);
-    return () => ro.disconnect();
-  }, [wrapRef]);
-
-  return (
-    <div className="relative">
-      <div className="pointer-events-none absolute -inset-10 rounded-[32px] bg-gradient-to-br from-violet-500/30 to-indigo-500/20 blur-3xl" />
-      <div
-        ref={setWrapRef}
-        className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900 shadow-[0_30px_80px_-20px_rgba(124,58,237,0.4)]"
-        style={{ aspectRatio: '16 / 10' }}
-      >
-        {previewUrl ? (
-          <div
-            className="origin-top-left"
-            style={{
-              width: `${PREVIEW_VIRTUAL_WIDTH}px`,
-              height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
-              transform: `scale(${scale})`,
-            }}
-          >
-            <iframe
-              src={previewUrl}
-              title={item.name}
-              className="pointer-events-none block h-full w-full border-0"
-              loading="lazy"
-            />
-          </div>
-        ) : (
-          <div className="flex h-full items-center justify-center text-slate-500">
-            暂无预览
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
 function FavoritesEmpty({ onExplore }: { onExplore: () => void }) {
   return (
     <div className="relative flex flex-col items-center gap-5 py-28">
       <div className="pointer-events-none absolute left-1/2 top-8 h-48 w-48 -translate-x-1/2 rounded-full bg-gradient-to-br from-violet-200/60 to-pink-200/50 blur-3xl sv-anim-breathe" />
-      <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-violet-200/60 bg-white shadow-[0_8px_30px_-8px_rgba(124,58,237,0.25)]">
-        <HeartFilled className="text-[34px] text-violet-400" />
+      <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_-8px_rgba(124,58,237,0.2)]">
+        <HeartFilled className="text-[32px] text-violet-400" />
       </div>
       <div className="relative text-center">
-        <div className="font-display text-[22px] font-medium text-slate-900">
+        <div className="font-display text-[22px] font-semibold text-slate-900">
           还没收藏任何风格
         </div>
         <div className="mt-1 text-[13px] text-slate-500">
-          浏览风格库时点心形图标即可加入收藏
+          浏览风格库时点卡片上的心形即可加入收藏
         </div>
       </div>
       <button
         type="button"
         onClick={onExplore}
-        className="relative inline-flex items-center gap-2 rounded-full border border-violet-200 bg-white px-5 py-2 text-[13px] text-violet-700 transition hover:border-violet-300 hover:bg-violet-50"
+        className="relative h-10 rounded-full bg-slate-900 px-5 text-[13px] font-medium text-white transition hover:bg-slate-700"
       >
-        去探索一下
-        <ArrowRightOutlined className="text-[11px]" />
+        去探索
       </button>
     </div>
   );
@@ -517,21 +356,21 @@ function FavoritesEmpty({ onExplore }: { onExplore: () => void }) {
 function EmptyState({ onReset }: { onReset: () => void }) {
   return (
     <div className="relative flex flex-col items-center gap-5 py-28">
-      <div className="pointer-events-none absolute left-1/2 top-8 h-48 w-48 -translate-x-1/2 rounded-full bg-gradient-to-br from-violet-200/60 to-indigo-200/60 blur-3xl sv-anim-breathe" />
-      <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-violet-200/60 bg-white shadow-[0_8px_30px_-8px_rgba(124,58,237,0.25)]">
+      <div className="pointer-events-none absolute left-1/2 top-8 h-48 w-48 -translate-x-1/2 rounded-full bg-gradient-to-br from-slate-200/60 to-indigo-200/50 blur-3xl sv-anim-breathe" />
+      <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_-8px_rgba(15,23,42,0.15)]">
         <svg
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.5"
-          className="h-10 w-10 text-violet-500"
+          className="h-9 w-9 text-slate-500"
         >
           <circle cx="11" cy="11" r="7" />
           <line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
       </div>
       <div className="relative text-center">
-        <div className="font-display text-[22px] font-medium text-slate-900">
+        <div className="font-display text-[22px] font-semibold text-slate-900">
           没有匹配的风格
         </div>
         <div className="mt-1 text-[13px] text-slate-500">
@@ -541,7 +380,7 @@ function EmptyState({ onReset }: { onReset: () => void }) {
       <button
         type="button"
         onClick={onReset}
-        className="relative rounded-full border border-violet-200 bg-white px-5 py-2 text-[13px] text-violet-700 transition hover:border-violet-300 hover:bg-violet-50"
+        className="relative h-10 rounded-full border border-slate-200 bg-white px-5 text-[13px] text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
       >
         清除所有筛选
       </button>

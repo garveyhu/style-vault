@@ -19,13 +19,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Display serif — hero / editorial headings / stats 数字 */
+/* 大标题：沿用 Inter 家族但更紧凑的字距；靠 font-weight 与大小拉层级 */
 .font-display {
-  font-family: "Fraunces", "Instrument Serif", Georgia,
-    "PingFang SC", "Microsoft YaHei", serif;
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 144, "SOFT" 0;
-  letter-spacing: -0.02em;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Microsoft YaHei", "Segoe UI", sans-serif;
+  letter-spacing: -0.035em;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
 }
 
 iframe {

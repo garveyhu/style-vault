@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { useParams, useNavigate, Navigate } from 'react-router-dom';
-import { Tag, Descriptions, Button, Empty, Tabs, message } from 'antd';
+import { Tag, Button, Empty, Select, Tabs, message, Tooltip } from 'antd';
 import {
   ArrowLeftOutlined,
   CopyOutlined,
   CodeOutlined,
+  FullscreenOutlined,
+  EyeOutlined,
+  EditOutlined,
   MobileOutlined,
   TabletOutlined,
   DesktopOutlined,
   ExpandOutlined,
-  FullscreenOutlined,
-  EyeOutlined,
-  EditOutlined,
 } from '@ant-design/icons';
 import { useRegistry, useItem, isRegistryMissing } from '../data/useRegistry';
-import { typeLabel, typeColor, tagGroupLabel } from '../utils/i18n';
+import { typeLabel, typeColor } from '../utils/i18n';
 import { zh } from '../utils/tagI18n';
 import { buildPrompt } from '../utils/prompt';
 import { TopBar } from '../components/TopBar';
@@ -25,15 +25,20 @@ import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 
 type ViewportKey = 375 | 768 | 1024 | 1440 | 'full';
 
-const VIEWPORTS: { key: ViewportKey; label: string; icon: React.ReactNode }[] = [
-  { key: 375, label: '手机', icon: <MobileOutlined /> },
-  { key: 768, label: '平板', icon: <TabletOutlined /> },
-  { key: 1024, label: '桌面', icon: <DesktopOutlined /> },
-  { key: 1440, label: '大屏', icon: <DesktopOutlined /> },
-  { key: 'full', label: '全宽', icon: <ExpandOutlined /> },
+const VIEWPORT_OPTIONS: {
+  value: ViewportKey;
+  label: string;
+  icon: React.ReactNode;
+  desc: string;
+}[] = [
+  { value: 375, label: '手机', icon: <MobileOutlined />, desc: '375 px' },
+  { value: 768, label: '平板', icon: <TabletOutlined />, desc: '768 px' },
+  { value: 1024, label: '桌面', icon: <DesktopOutlined />, desc: '1024 px' },
+  { value: 1440, label: '大屏', icon: <DesktopOutlined />, desc: '1440 px' },
+  { value: 'full', label: '全宽', icon: <ExpandOutlined />, desc: '响应式' },
 ];
 
-function LinkedItemButton({
+function RelatedItem({
   item,
   onClick,
 }: {
@@ -44,20 +49,42 @@ function LinkedItemButton({
     <button
       type="button"
       onClick={onClick}
-      className="group flex w-full items-center justify-between rounded-lg bg-white px-3 py-2 text-sm transition hover:bg-violet-50"
+      className="group flex w-full items-center gap-3 rounded-xl border border-transparent bg-slate-50/60 px-3 py-2.5 text-left transition hover:border-slate-200 hover:bg-white"
     >
-      <span className="flex items-center gap-2">
-        <Tag color={typeColor[item.type]} bordered={false} className="!mr-0">
+      <span
+        className={`h-1.5 w-1.5 shrink-0 rounded-full ${typeDotColor(item.type)}`}
+      />
+      <span className="flex-1 truncate">
+        <span className="block text-[13px] font-medium text-slate-900">
+          {item.name}
+        </span>
+        <span className="mt-0.5 block text-[11px] text-slate-400">
           {typeLabel[item.type]}
-        </Tag>
-        <span className="text-slate-900">{item.name}</span>
+        </span>
       </span>
       <ArrowLeftOutlined
         rotate={180}
-        className="text-slate-300 transition group-hover:text-violet-500"
+        className="shrink-0 text-slate-300 transition group-hover:text-slate-900"
       />
     </button>
   );
+}
+
+function typeDotColor(type: string): string {
+  switch (type) {
+    case 'vibe':
+      return 'bg-fuchsia-500';
+    case 'archetype':
+      return 'bg-indigo-500';
+    case 'composite':
+      return 'bg-cyan-500';
+    case 'atom':
+      return 'bg-emerald-500';
+    case 'primitive':
+      return 'bg-amber-500';
+    default:
+      return 'bg-slate-400';
+  }
 }
 
 export default function DetailPage() {
@@ -94,7 +121,7 @@ export default function DetailPage() {
       await navigator.clipboard.writeText(buildPrompt(item));
       messageApi.success({ content: 'Prompt 已复制', duration: 2 });
     } catch {
-      messageApi.error({ content: '复制失败，请手动复制', duration: 2 });
+      messageApi.error({ content: '复制失败', duration: 2 });
     }
   };
   const handleCopySkillPath = async () => {
@@ -104,7 +131,7 @@ export default function DetailPage() {
       );
       messageApi.success({ content: '源码路径已复制', duration: 2 });
     } catch {
-      messageApi.error({ content: '复制失败，请手动复制', duration: 2 });
+      messageApi.error({ content: '复制失败', duration: 2 });
     }
   };
 
@@ -115,6 +142,7 @@ export default function DetailPage() {
   };
 
   const iframeMaxWidth = viewport === 'full' ? '100%' : `${viewport}px`;
+  const currentViewport = VIEWPORT_OPTIONS.find((v) => v.value === viewport);
 
   return (
     <div className="min-h-screen bg-[#fafafa]">
@@ -122,8 +150,8 @@ export default function DetailPage() {
       <TopBar />
 
       {/* 面包屑 */}
-      <div className="border-b border-slate-200/60 bg-white">
-        <div className="mx-auto flex max-w-[1600px] items-center gap-4 px-8 py-3 text-sm">
+      <div className="border-b border-slate-100 bg-white">
+        <div className="mx-auto flex max-w-[1600px] items-center gap-4 px-8 py-3 text-[13px]">
           <button
             type="button"
             onClick={() => nav(-1)}
@@ -138,146 +166,93 @@ export default function DetailPage() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-[1600px] gap-8 px-8 py-8">
-        {/* 左列 */}
-        <aside className="w-[360px] shrink-0 space-y-6">
-          <div>
-            <div className="flex items-center justify-between gap-2">
-              <Tag color={typeColor[item.type]} bordered={false}>
-                {typeLabel[item.type]}
-              </Tag>
-              <FavoriteButton entryId={item.id} size="sm" variant="icon" />
-            </div>
-            <h1 className="mt-2 font-display text-[32px] font-medium leading-tight tracking-tight text-slate-900">
-              {item.name}
-            </h1>
-            <p className="mt-2 text-[14px] leading-relaxed text-slate-600">
-              {item.description}
-            </p>
-          </div>
-
-          <Descriptions
-            column={1}
-            size="small"
-            labelStyle={{ width: 72, color: '#64748b' }}
-            items={[
-              {
-                key: 'id',
-                label: 'ID',
-                children: <code className="text-xs text-slate-500">{item.id}</code>,
-              },
-              {
-                key: 'aesthetic',
-                label: tagGroupLabel.aesthetic,
-                children:
-                  item.tags.aesthetic.length === 0 ? (
-                    <span className="text-slate-300">-</span>
-                  ) : (
-                    item.tags.aesthetic.map((t) => (
-                      <Tag key={t} bordered={false}>
-                        {zh('aesthetic', t)}
-                      </Tag>
-                    ))
-                  ),
-              },
-              {
-                key: 'mood',
-                label: tagGroupLabel.mood,
-                children:
-                  item.tags.mood.length === 0 ? (
-                    <span className="text-slate-300">-</span>
-                  ) : (
-                    item.tags.mood.map((t) => (
-                      <Tag key={t} color="purple" bordered={false}>
-                        {zh('mood', t)}
-                      </Tag>
-                    ))
-                  ),
-              },
-              {
-                key: 'theme',
-                label: tagGroupLabel.theme,
-                children:
-                  item.tags.theme.length === 0 ? (
-                    <span className="text-slate-300">-</span>
-                  ) : (
-                    item.tags.theme.map((t) => (
-                      <Tag
-                        key={t}
-                        color={t === 'dark' ? 'default' : 'gold'}
-                        bordered={false}
-                      >
-                        {zh('theme', t)}
-                      </Tag>
-                    ))
-                  ),
-              },
-              {
-                key: 'stack',
-                label: tagGroupLabel.stack,
-                children:
-                  item.tags.stack.length === 0 ? (
-                    <span className="text-slate-300">-</span>
-                  ) : (
-                    item.tags.stack.map((t) => (
-                      <Tag key={t} color="geekblue" bordered={false}>
-                        {zh('stack', t)}
-                      </Tag>
-                    ))
-                  ),
-              },
-            ]}
-          />
-
-          {usesItems.length > 0 && (
+      <div className="mx-auto flex max-w-[1600px] gap-10 px-8 py-10">
+        {/* ===================== 左列：元信息 ===================== */}
+        <aside className="w-[340px] shrink-0">
+          <div className="sticky top-[108px] space-y-8">
+            {/* 标题块 */}
             <div>
-              <h3 className="mb-2 text-[13px] font-medium text-slate-500">依赖</h3>
-              <ul className="m-0 list-none space-y-1.5 p-0">
-                {usesItems.map((u) => (
-                  <li key={u.id}>
-                    <LinkedItemButton item={u} onClick={() => nav(`/item/${u.id}`)} />
-                  </li>
-                ))}
-              </ul>
+              <div className="flex items-center justify-between gap-2">
+                <Tag color={typeColor[item.type]} bordered={false} className="!m-0">
+                  {typeLabel[item.type]}
+                </Tag>
+                <FavoriteButton entryId={item.id} size="sm" variant="icon" />
+              </div>
+              <h1 className="mt-3 font-display text-[32px] font-bold leading-[1.15] tracking-[-0.03em] text-slate-900">
+                {item.name}
+              </h1>
+              <p className="mt-3 text-[14px] leading-relaxed text-slate-600">
+                {item.description}
+              </p>
             </div>
-          )}
 
-          {usedByItems.length > 0 && (
-            <div>
-              <h3 className="mb-2 text-[13px] font-medium text-slate-500">被引用</h3>
-              <ul className="m-0 list-none space-y-1.5 p-0">
-                {usedByItems.map((u) => (
-                  <li key={u.id}>
-                    <LinkedItemButton item={u} onClick={() => nav(`/item/${u.id}`)} />
-                  </li>
-                ))}
-              </ul>
+            {/* Tags 紧凑网格 */}
+            <div className="space-y-3">
+              <TagRow label="风格" values={item.tags.aesthetic} group="aesthetic" />
+              <TagRow label="氛围" values={item.tags.mood} group="mood" />
+              <TagRow label="主题" values={item.tags.theme} group="theme" />
+              <TagRow label="技术栈" values={item.tags.stack} group="stack" />
             </div>
-          )}
 
-          <div className="flex flex-col gap-2 pt-2">
-            <Button
-              type="primary"
-              size="large"
-              icon={<CopyOutlined />}
-              onClick={handleCopyPrompt}
-              className="!border-0 !bg-gradient-to-br !from-violet-500 !to-indigo-600 !shadow-md !shadow-violet-500/20 hover:!shadow-lg"
-            >
-              复制 Prompt
-            </Button>
-            <Button icon={<CodeOutlined />} onClick={handleCopySkillPath} size="large">
-              复制源码路径
-            </Button>
-          </div>
+            {/* 关联 */}
+            {usesItems.length > 0 && (
+              <div>
+                <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                  依赖
+                </h3>
+                <div className="space-y-1">
+                  {usesItems.map((u) => (
+                    <RelatedItem
+                      key={u.id}
+                      item={u}
+                      onClick={() => nav(`/item/${u.id}`)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
 
-          {/* 截图画廊 */}
-          <div className="pt-2">
-            <h3 className="mb-2 text-[13px] font-medium text-slate-500">应用截图</h3>
-            <ScreenshotGallery entryId={item.id} />
+            {usedByItems.length > 0 && (
+              <div>
+                <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                  被引用
+                </h3>
+                <div className="space-y-1">
+                  {usedByItems.map((u) => (
+                    <RelatedItem
+                      key={u.id}
+                      item={u}
+                      onClick={() => nav(`/item/${u.id}`)}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* CTA：主按钮 + 次级 icon */}
+            <div className="flex items-stretch gap-2 pt-2">
+              <Button
+                type="primary"
+                size="large"
+                icon={<CopyOutlined />}
+                onClick={handleCopyPrompt}
+                className="!h-12 !flex-1 !border-0 !bg-slate-900 !font-medium !shadow-sm hover:!bg-slate-700"
+              >
+                复制 Prompt
+              </Button>
+              <Tooltip title="复制源码路径">
+                <Button
+                  size="large"
+                  icon={<CodeOutlined />}
+                  onClick={handleCopySkillPath}
+                  className="!h-12 !w-12 !border-slate-200 !bg-white !text-slate-600 hover:!border-slate-300 hover:!text-slate-900"
+                />
+              </Tooltip>
+            </div>
           </div>
         </aside>
 
-        {/* 右列 preview / 笔记 */}
+        {/* ===================== 右列：预览 / 笔记 ===================== */}
         <main className="min-w-0 flex-1">
           <Tabs
             defaultActiveKey="preview"
@@ -292,51 +267,58 @@ export default function DetailPage() {
                 ),
                 children: (
                   <div className="space-y-4">
-                    {/* ViewportSwitcher + 全屏 */}
-                    <div className="flex flex-wrap items-center gap-2">
-                      {VIEWPORTS.map((v) => (
-                        <button
-                          key={String(v.key)}
-                          type="button"
-                          onClick={() => setViewport(v.key)}
-                          className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition
-                            ${
-                              viewport === v.key
-                                ? 'border-violet-400 bg-violet-50 text-violet-700'
-                                : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
-                            }`}
-                        >
-                          {v.icon}
-                          <span>{v.label}</span>
-                          {typeof v.key === 'number' && (
-                            <span className="text-[11px] text-slate-400">{v.key}</span>
-                          )}
-                        </button>
-                      ))}
-
-                      <div className="mx-2 h-5 w-px bg-slate-200" />
-
+                    {/* 视口选择 + 全屏 */}
+                    <div className="flex items-center gap-3">
+                      <Select<ViewportKey>
+                        value={viewport}
+                        onChange={(v) => setViewport(v)}
+                        size="large"
+                        suffixIcon={null}
+                        className="sv-viewport-select"
+                        popupMatchSelectWidth={200}
+                        style={{ width: 200 }}
+                        options={VIEWPORT_OPTIONS.map((v) => ({
+                          value: v.value,
+                          label: (
+                            <div className="flex items-center gap-2">
+                              <span className="flex h-6 w-6 items-center justify-center rounded-md bg-slate-100 text-slate-600">
+                                {v.icon}
+                              </span>
+                              <span className="flex-1 text-[13px] font-medium">
+                                {v.label}
+                              </span>
+                              <span className="text-[11px] text-slate-400">
+                                {v.desc}
+                              </span>
+                            </div>
+                          ),
+                        }))}
+                      />
                       <button
                         type="button"
                         onClick={openFullscreen}
                         disabled={!item.hasPreviewFile}
-                        className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-600 transition hover:border-violet-400 hover:bg-violet-50 hover:text-violet-700 disabled:cursor-not-allowed disabled:opacity-40"
+                        className="flex h-10 items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-4 text-[13px] text-slate-600 transition hover:border-slate-300 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         <FullscreenOutlined />
-                        <span>全屏预览</span>
+                        全屏预览
                       </button>
+                      <div className="ml-auto flex items-center gap-1 text-[12px] text-slate-400">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                        {currentViewport?.label}
+                      </div>
                     </div>
 
-                    {/* 浏览器 chrome 装饰外框 */}
-                    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+                    {/* 浏览器 chrome */}
+                    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                       <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50 px-4 py-2.5">
                         <div className="flex gap-1.5">
                           <div className="h-3 w-3 rounded-full bg-[#ff5f57]" />
                           <div className="h-3 w-3 rounded-full bg-[#febc2e]" />
                           <div className="h-3 w-3 rounded-full bg-[#28c840]" />
                         </div>
-                        <div className="flex-1 truncate text-center text-[12px] text-slate-400">
-                          {item.preview}
+                        <div className="flex-1 truncate text-center text-[12px] font-medium text-slate-500">
+                          {item.name}
                         </div>
                         <div className="w-16" />
                       </div>
@@ -345,14 +327,14 @@ export default function DetailPage() {
                           style={{
                             maxWidth: iframeMaxWidth,
                             width: '100%',
-                            transition: 'max-width 200ms ease',
+                            transition: 'max-width 240ms ease',
                           }}
                         >
                           {item.hasPreviewFile && previewUrl ? (
                             <iframe
                               src={previewUrl}
                               title={item.name}
-                              className="h-[70vh] w-full rounded-md border border-slate-200 bg-white"
+                              className="h-[72vh] w-full rounded-md border border-slate-200 bg-white"
                             />
                           ) : (
                             <Empty description="暂无预览" className="py-16" />
@@ -375,6 +357,52 @@ export default function DetailPage() {
             ]}
           />
         </main>
+      </div>
+
+      {/* ===================== 底部：应用截图（宽版独立 section） ===================== */}
+      <section className="border-t border-slate-100 bg-white">
+        <div className="mx-auto max-w-[1600px] px-8 py-14">
+          <div className="mb-6 flex items-end justify-between">
+            <div>
+              <h2 className="font-display text-[28px] font-bold tracking-[-0.02em] text-slate-900">
+                应用截图
+              </h2>
+              <p className="mt-1 text-[13px] text-slate-500">
+                在自己的项目里用上了？上传一张截图，记录风格是如何落地的
+              </p>
+            </div>
+          </div>
+          <ScreenshotGallery entryId={item.id} variant="section" />
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function TagRow({
+  label,
+  values,
+  group,
+}: {
+  label: string;
+  values: string[];
+  group: 'aesthetic' | 'mood' | 'theme' | 'stack';
+}) {
+  if (values.length === 0) return null;
+  return (
+    <div className="flex items-start gap-3">
+      <span className="w-14 shrink-0 pt-0.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+        {label}
+      </span>
+      <div className="flex flex-wrap gap-1.5">
+        {values.map((v) => (
+          <span
+            key={v}
+            className="rounded-md bg-slate-100 px-2 py-0.5 text-[12px] text-slate-700"
+          >
+            {zh(group, v)}
+          </span>
+        ))}
       </div>
     </div>
   );
