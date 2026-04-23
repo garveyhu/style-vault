@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Product Detail · Layout AB · Style Vault</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f6f7f8;
+        --ink: #0f172a;
+        --ink-2: #334155;
+        --muted: #64748b;
+        --line: #e5e7eb;
+        --panel: #ffffff;
+        --accent: #0891b2; /* cyan-600 */
+        --accent-soft: #cffafe; /* cyan-100 */
+      }
+      html,
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+        font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+        -webkit-font-smoothing: antialiased;
+      }
+      .font-display {
+        font-family: "Fraunces", "IBM Plex Sans", serif;
+        letter-spacing: -0.02em;
+      }
+      .font-mono {
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+      }
+      .hairline {
+        border: 1px solid var(--line);
+      }
+      /* 顶层 Tab */
+      .layout-tab {
+        padding: 0.65rem 1.25rem;
+        font-size: 13px;
+        letter-spacing: 0.02em;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--muted);
+        transition: all 180ms ease;
+      }
+      .layout-tab[data-on="true"] {
+        background: var(--ink);
+        color: #fff;
+        border-color: var(--ink);
+      }
+      /* 内部 pill tabs（平台 / 类型） */
+      .pill {
+        padding: 0.35rem 0.9rem;
+        font-size: 12px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        background: #fff;
+      }
+      .pill[data-on="true"] {
+        background: var(--ink);
+        color: #fff;
+        border-color: var(--ink);
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 3px 9px;
+        font-size: 11px;
+        border-radius: 6px;
+        background: #eef2f4;
+        color: var(--ink-2);
+        letter-spacing: 0.02em;
+      }
+      .dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+      }
+      /* 假 preview 占位 */
+      .frame {
+        background:
+          repeating-linear-gradient(135deg, #f8fafc, #f8fafc 10px, #f1f5f9 10px, #f1f5f9 20px);
+        border-radius: 10px;
+        border: 1px solid var(--line);
+      }
+      .swatch {
+        border-radius: 10px;
+        border: 1px solid rgba(15, 23, 42, 0.06);
+      }
+      /* sticky TOC */
+      .sticky-toc {
+        position: sticky;
+        top: 96px;
+      }
+      /* section divider */
+      .sec-rule {
+        height: 1px;
+        background: linear-gradient(to right, transparent, var(--line) 20%, var(--line) 80%, transparent);
+        margin: 3.5rem 0 2rem;
+      }
+      /* pageflows 双栏左列 */
+      .rail-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 10px;
+        border-radius: 8px;
+        color: var(--muted);
+        font-size: 13px;
+        cursor: pointer;
+      }
+      .rail-item:hover {
+        background: #f1f5f9;
+        color: var(--ink);
+      }
+      .rail-item[data-active="true"] {
+        background: var(--ink);
+        color: #fff;
+      }
+      .rail-item[data-active="true"] .rail-kbd {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+      }
+      .rail-group-label {
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #94a3b8;
+        padding: 16px 10px 6px;
+      }
+      .rail-kbd {
+        margin-left: auto;
+        font-size: 10px;
+        background: #f1f5f9;
+        color: var(--muted);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: "IBM Plex Mono", monospace;
+      }
+      .hide {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- ============ TOP SWITCHER ============ -->
+    <header
+      class="sticky top-0 z-50 border-b border-slate-200 bg-white/85 backdrop-blur"
+    >
+      <div class="mx-auto flex max-w-[1400px] items-center gap-6 px-8 py-3">
+        <div class="flex items-center gap-2.5">
+          <div
+            class="grid h-7 w-7 place-items-center rounded-md bg-[var(--ink)] text-[11px] font-bold text-white"
+          >
+            SV
+          </div>
+          <span class="font-display text-[17px] font-semibold">Style Vault</span>
+        </div>
+        <div class="ml-auto flex gap-0">
+          <button
+            id="tab-a"
+            class="layout-tab rounded-l-full"
+            data-on="true"
+            onclick="showLayout('a')"
+          >
+            Layout A · Dual-pane (pageflows 原型)
+          </button>
+          <button
+            id="tab-b"
+            class="layout-tab rounded-r-full -ml-px"
+            data-on="false"
+            onclick="showLayout('b')"
+          >
+            Layout B · Magazine (推荐)
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ LAYOUT A ============ -->
+    <main id="layout-a">
+      <!-- 顶部 Product bar -->
+      <section class="border-b border-slate-200 bg-white">
+        <div class="mx-auto max-w-[1400px] px-8 py-8">
+          <div class="flex items-start gap-5">
+            <div
+              class="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-slate-900 to-slate-700 text-white shadow-sm"
+            >
+              <span class="font-display text-[22px] font-semibold">A</span>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2">
+                <h1 class="font-display text-[28px] font-semibold leading-tight">
+                  Acme · Cold Industrial SaaS
+                </h1>
+              </div>
+              <p class="mt-1 text-[14px] text-slate-500">
+                A productivity cockpit for quant teams — dense tables, monospace
+                numbers, no warmth, just control.
+              </p>
+              <div class="mt-3 flex items-center gap-2">
+                <span class="chip">Productivity Tool</span>
+                <span class="chip">Dashboard</span>
+              </div>
+            </div>
+            <div class="flex shrink-0 items-center gap-2">
+              <button
+                class="hairline flex h-9 items-center gap-1.5 rounded-lg bg-white px-3 text-[12px] text-slate-700 hover:border-slate-300"
+              >
+                ♡ Save
+              </button>
+              <button
+                class="flex h-9 items-center gap-1.5 rounded-lg bg-[var(--ink)] px-3 text-[12px] font-medium text-white hover:bg-slate-700"
+              >
+                Copy Prompt
+              </button>
+            </div>
+          </div>
+          <!-- 平台 pill -->
+          <div class="mt-6 flex items-center gap-2">
+            <span class="pill" data-on="true">Web</span>
+            <span class="pill">iOS</span>
+            <span class="pill">Android</span>
+            <span class="ml-auto text-[11px] uppercase tracking-widest text-slate-400"
+              >Version v1 · Apr 2026</span
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- 双栏 -->
+      <section class="mx-auto max-w-[1400px] px-8 py-8">
+        <div class="grid grid-cols-[220px_1fr] gap-10">
+          <!-- 左栏 rail -->
+          <aside class="sticky-toc h-max">
+            <div class="rail-group-label">Style</div>
+            <div class="rail-item" data-active="false">
+              <span class="dot" style="background: #0891b2"></span>
+              Slate × Cyan Ice <span class="rail-kbd">S</span>
+            </div>
+            <div class="rail-group-label">Pages · 3</div>
+            <div class="rail-item" data-active="true">
+              <span class="dot" style="background: #64748b"></span>
+              Landing <span class="rail-kbd">1</span>
+            </div>
+            <div class="rail-item">
+              <span class="dot" style="background: #64748b"></span>
+              Pricing <span class="rail-kbd">2</span>
+            </div>
+            <div class="rail-item">
+              <span class="dot" style="background: #64748b"></span>
+              Dashboard <span class="rail-kbd">3</span>
+            </div>
+            <div class="rail-group-label">Blocks · 7</div>
+            <div class="rail-item">Hero</div>
+            <div class="rail-item">Feature grid</div>
+            <div class="rail-item">Pricing table</div>
+            <div class="rail-item">FAQ</div>
+            <div class="rail-item">Footer</div>
+            <div class="rail-group-label">Components · 4</div>
+            <div class="rail-item">Ghost Button</div>
+            <div class="rail-item">Cold Select</div>
+            <div class="rail-group-label">Tokens</div>
+            <div class="rail-item">Palette</div>
+            <div class="rail-item">Typography</div>
+          </aside>
+
+          <!-- 右栏 main -->
+          <div class="min-w-0 space-y-14">
+            <!-- Style -->
+            <div>
+              <div
+                class="mb-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400"
+              >
+                <span class="dot" style="background: #0891b2"></span> STYLE
+              </div>
+              <div class="hairline flex gap-6 rounded-2xl bg-white p-6">
+                <div class="swatch h-28 w-36 shrink-0 bg-slate-900"></div>
+                <div class="min-w-0">
+                  <h3 class="font-display text-[20px] font-semibold">
+                    Slate × Cyan Ice
+                  </h3>
+                  <p class="mt-1 text-[13px] leading-relaxed text-slate-500">
+                    冷感留白、深 slate 底 + cyan 高亮的工具型界面基础色。Typography
+                    以 IBM Plex 为主，数字和代码走等宽。
+                  </p>
+                  <div class="mt-3 flex gap-2">
+                    <span class="chip">极简</span>
+                    <span class="chip">工业</span>
+                    <span class="chip">冷峻</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pages -->
+            <div>
+              <div
+                class="mb-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400"
+              >
+                PAGES · 3
+              </div>
+              <!-- Landing -->
+              <div class="mb-6">
+                <div class="mb-2 flex items-baseline gap-3">
+                  <h3 class="font-display text-[22px] font-semibold">Landing</h3>
+                  <span class="text-[12px] text-slate-400">A cold-punk intro</span>
+                </div>
+                <div class="frame h-[320px]"></div>
+                <div class="mt-3 flex flex-wrap items-center gap-2">
+                  <span class="text-[11px] uppercase tracking-wider text-slate-400"
+                    >Uses blocks:</span
+                  >
+                  <span class="chip">Hero</span>
+                  <span class="chip">Feature grid</span>
+                  <span class="chip">CTA</span>
+                  <span class="chip">Footer</span>
+                </div>
+              </div>
+              <div class="mb-6">
+                <div class="mb-2 flex items-baseline gap-3">
+                  <h3 class="font-display text-[22px] font-semibold">Pricing</h3>
+                  <span class="text-[12px] text-slate-400">No gradients, just numbers</span>
+                </div>
+                <div class="frame h-[320px]"></div>
+                <div class="mt-3 flex flex-wrap items-center gap-2">
+                  <span class="text-[11px] uppercase tracking-wider text-slate-400"
+                    >Uses blocks:</span
+                  >
+                  <span class="chip">Pricing table</span>
+                  <span class="chip">FAQ</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Blocks grid -->
+            <div>
+              <div
+                class="mb-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400"
+              >
+                BLOCKS · 7
+              </div>
+              <div class="grid grid-cols-3 gap-4">
+                <div class="hairline rounded-xl bg-white p-3">
+                  <div class="frame h-24"></div>
+                  <div class="mt-2 text-[13px] font-medium">Hero</div>
+                </div>
+                <div class="hairline rounded-xl bg-white p-3">
+                  <div class="frame h-24"></div>
+                  <div class="mt-2 text-[13px] font-medium">Feature grid</div>
+                </div>
+                <div class="hairline rounded-xl bg-white p-3">
+                  <div class="frame h-24"></div>
+                  <div class="mt-2 text-[13px] font-medium">Pricing table</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tokens -->
+            <div>
+              <div
+                class="mb-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-400"
+              >
+                TOKENS
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="hairline rounded-xl bg-white p-5">
+                  <div class="text-[12px] font-semibold text-slate-600">Palette</div>
+                  <div class="mt-3 grid grid-cols-6 gap-2">
+                    <div class="swatch h-14" style="background: #0f172a"></div>
+                    <div class="swatch h-14" style="background: #1e293b"></div>
+                    <div class="swatch h-14" style="background: #334155"></div>
+                    <div class="swatch h-14" style="background: #e2e8f0"></div>
+                    <div class="swatch h-14" style="background: #0891b2"></div>
+                    <div class="swatch h-14" style="background: #67e8f9"></div>
+                  </div>
+                </div>
+                <div class="hairline rounded-xl bg-white p-5">
+                  <div class="text-[12px] font-semibold text-slate-600">Typography</div>
+                  <div class="mt-3 font-display text-[24px]">
+                    IBM Plex Sans · 600
+                  </div>
+                  <div class="mt-1 font-mono text-[13px] text-slate-500">
+                    IBM Plex Mono · 400 — 1,294,221
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ LAYOUT B ============ -->
+    <main id="layout-b" class="hide">
+      <!-- Cover Hero -->
+      <section class="relative overflow-hidden border-b border-slate-200 bg-white">
+        <div
+          class="pointer-events-none absolute -left-24 -top-24 h-[400px] w-[400px] rounded-full bg-[var(--accent-soft)] blur-3xl"
+        ></div>
+        <div
+          class="pointer-events-none absolute -right-24 bottom-0 h-[300px] w-[300px] rounded-full bg-slate-200/70 blur-3xl"
+        ></div>
+
+        <div class="mx-auto max-w-[1100px] px-8 pb-20 pt-20 text-center">
+          <div
+            class="mx-auto inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-500"
+          >
+            <span class="dot" style="background: #0891b2"></span> PRODUCT · ACME
+          </div>
+          <h1
+            class="mx-auto mt-5 max-w-[800px] font-display text-[56px] font-semibold leading-[1.05]"
+          >
+            Cold Industrial SaaS, made for people who love numbers.
+          </h1>
+          <p class="mx-auto mt-5 max-w-[640px] text-[16px] leading-relaxed text-slate-500">
+            A productivity cockpit for quant teams — dense tables, monospace numbers,
+            no warmth, just control.
+          </p>
+
+          <div class="mt-8 flex items-center justify-center gap-3">
+            <span class="pill" data-on="true">Web</span>
+            <span class="pill">iOS</span>
+            <span class="pill">Android</span>
+          </div>
+
+          <!-- 大 Cover 图 -->
+          <div
+            class="mx-auto mt-14 h-[360px] max-w-[1000px] rounded-2xl border border-slate-200 bg-white shadow-[0_30px_60px_-30px_rgba(15,23,42,0.3)]"
+          >
+            <div class="flex items-center gap-2 border-b border-slate-100 px-4 py-2.5">
+              <span class="h-2.5 w-2.5 rounded-full bg-rose-400"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+              <span class="ml-3 text-[11px] text-slate-400 font-mono">acme.dev/dashboard</span>
+            </div>
+            <div class="frame m-4 h-[290px]"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- body with sticky TOC on left -->
+      <section class="mx-auto max-w-[1100px] px-8 py-20">
+        <div class="grid grid-cols-[180px_1fr] gap-14">
+          <!-- TOC -->
+          <aside class="sticky-toc h-max">
+            <div
+              class="mb-3 text-[10px] uppercase tracking-[0.22em] text-slate-400"
+            >
+              On this page
+            </div>
+            <ul class="space-y-2.5 text-[13px]">
+              <li class="font-medium text-[var(--ink)]">01 · Style</li>
+              <li class="text-slate-500">02 · Pages</li>
+              <li class="text-slate-500">03 · Blocks</li>
+              <li class="text-slate-500">04 · Tokens</li>
+            </ul>
+          </aside>
+
+          <!-- Main content -->
+          <div class="min-w-0 space-y-20">
+            <!-- STYLE -->
+            <article>
+              <div class="flex items-baseline gap-4">
+                <span class="font-mono text-[12px] text-slate-400">01</span>
+                <h2 class="font-display text-[36px] font-semibold">The Style</h2>
+              </div>
+              <div
+                class="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white"
+              >
+                <div class="grid grid-cols-[260px_1fr]">
+                  <div class="bg-slate-900 p-6 text-white">
+                    <div class="text-[11px] uppercase tracking-[0.2em] text-cyan-300">
+                      Design Language
+                    </div>
+                    <div class="mt-3 font-display text-[24px] leading-tight">
+                      Slate × Cyan Ice
+                    </div>
+                    <div class="mt-8 grid grid-cols-3 gap-1.5">
+                      <div class="h-8 rounded" style="background: #0f172a"></div>
+                      <div class="h-8 rounded" style="background: #334155"></div>
+                      <div class="h-8 rounded" style="background: #e2e8f0"></div>
+                      <div class="h-8 rounded" style="background: #0891b2"></div>
+                      <div class="h-8 rounded" style="background: #67e8f9"></div>
+                      <div class="h-8 rounded" style="background: #f8fafc"></div>
+                    </div>
+                  </div>
+                  <div class="p-7">
+                    <p class="text-[14px] leading-[1.75] text-slate-600">
+                      冷感留白、深 slate 底 + cyan 高亮的工具型界面基础色。没有 warmth，
+                      没有 drop shadow 的柔光，所有视觉依赖 hairline、对齐和等宽数字。
+                    </p>
+                    <div class="mt-5 flex flex-wrap gap-2">
+                      <span class="chip">极简</span>
+                      <span class="chip">工业</span>
+                      <span class="chip">冷峻</span>
+                      <span class="chip">严肃</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- PAGES -->
+            <article>
+              <div class="flex items-baseline gap-4">
+                <span class="font-mono text-[12px] text-slate-400">02</span>
+                <h2 class="font-display text-[36px] font-semibold">Pages</h2>
+                <span class="text-[13px] text-slate-400">· 3</span>
+              </div>
+              <div class="mt-8 space-y-14">
+                <div>
+                  <div class="mb-3 flex items-end justify-between">
+                    <div>
+                      <div class="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+                        Landing
+                      </div>
+                      <h3 class="mt-1 font-display text-[22px] font-semibold">
+                        A cold-punk intro
+                      </h3>
+                    </div>
+                    <button class="text-[12px] text-slate-500 underline decoration-dotted">
+                      Open →
+                    </button>
+                  </div>
+                  <div class="frame h-[380px]"></div>
+                  <div class="mt-3 flex flex-wrap items-center gap-2">
+                    <span class="text-[11px] uppercase tracking-wider text-slate-400"
+                      >Uses blocks:</span
+                    >
+                    <span class="chip">Hero</span>
+                    <span class="chip">Feature grid</span>
+                    <span class="chip">CTA</span>
+                    <span class="chip">Footer</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="mb-3 flex items-end justify-between">
+                    <div>
+                      <div class="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+                        Pricing
+                      </div>
+                      <h3 class="mt-1 font-display text-[22px] font-semibold">
+                        No gradients, just numbers
+                      </h3>
+                    </div>
+                    <button class="text-[12px] text-slate-500 underline decoration-dotted">
+                      Open →
+                    </button>
+                  </div>
+                  <div class="frame h-[380px]"></div>
+                  <div class="mt-3 flex flex-wrap items-center gap-2">
+                    <span class="text-[11px] uppercase tracking-wider text-slate-400"
+                      >Uses blocks:</span
+                    >
+                    <span class="chip">Pricing table</span>
+                    <span class="chip">FAQ</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- BLOCKS -->
+            <article>
+              <div class="flex items-baseline gap-4">
+                <span class="font-mono text-[12px] text-slate-400">03</span>
+                <h2 class="font-display text-[36px] font-semibold">Blocks</h2>
+                <span class="text-[13px] text-slate-400">· 7</span>
+              </div>
+              <div class="mt-8 grid grid-cols-3 gap-5">
+                <div class="hairline rounded-2xl bg-white p-4">
+                  <div class="frame h-32"></div>
+                  <div class="mt-3 font-medium text-[14px]">Hero</div>
+                  <div class="text-[11px] text-slate-400 mt-0.5">
+                    Cold open, monospace subhead
+                  </div>
+                </div>
+                <div class="hairline rounded-2xl bg-white p-4">
+                  <div class="frame h-32"></div>
+                  <div class="mt-3 font-medium text-[14px]">Feature grid</div>
+                  <div class="text-[11px] text-slate-400 mt-0.5">4-up industrial</div>
+                </div>
+                <div class="hairline rounded-2xl bg-white p-4">
+                  <div class="frame h-32"></div>
+                  <div class="mt-3 font-medium text-[14px]">Pricing table</div>
+                  <div class="text-[11px] text-slate-400 mt-0.5">Dense tabular</div>
+                </div>
+                <div class="hairline rounded-2xl bg-white p-4">
+                  <div class="frame h-32"></div>
+                  <div class="mt-3 font-medium text-[14px]">FAQ accordion</div>
+                </div>
+                <div class="hairline rounded-2xl bg-white p-4">
+                  <div class="frame h-32"></div>
+                  <div class="mt-3 font-medium text-[14px]">CTA stripe</div>
+                </div>
+                <div class="hairline rounded-2xl bg-white p-4">
+                  <div class="frame h-32"></div>
+                  <div class="mt-3 font-medium text-[14px]">Footer</div>
+                </div>
+              </div>
+            </article>
+
+            <!-- TOKENS -->
+            <article>
+              <div class="flex items-baseline gap-4">
+                <span class="font-mono text-[12px] text-slate-400">04</span>
+                <h2 class="font-display text-[36px] font-semibold">Tokens</h2>
+              </div>
+              <div class="mt-8 grid grid-cols-2 gap-5">
+                <div class="hairline rounded-2xl bg-white p-6">
+                  <div class="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+                    Palette
+                  </div>
+                  <div class="mt-4 grid grid-cols-6 gap-2.5">
+                    <div class="swatch h-16" style="background: #0f172a"></div>
+                    <div class="swatch h-16" style="background: #1e293b"></div>
+                    <div class="swatch h-16" style="background: #334155"></div>
+                    <div class="swatch h-16" style="background: #e2e8f0"></div>
+                    <div class="swatch h-16" style="background: #0891b2"></div>
+                    <div class="swatch h-16" style="background: #67e8f9"></div>
+                  </div>
+                  <div class="mt-4 font-mono text-[11px] text-slate-400">
+                    slate-900 · slate-800 · slate-700 · slate-200 · cyan-600 · cyan-300
+                  </div>
+                </div>
+                <div class="hairline rounded-2xl bg-white p-6">
+                  <div class="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+                    Typography
+                  </div>
+                  <div class="mt-4 font-display text-[34px] font-semibold leading-tight">
+                    The Quiet Machine
+                  </div>
+                  <div class="mt-2 font-mono text-[13px] text-slate-500">
+                    1,294,221.88 / ▲ 12.4%
+                  </div>
+                  <div class="mt-3 text-[12px] text-slate-400">
+                    Display · Fraunces 600 &nbsp;/&nbsp; Body · IBM Plex Sans 400 &nbsp;/&nbsp;
+                    Numeric · IBM Plex Mono
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      function showLayout(which) {
+        const a = document.getElementById("layout-a");
+        const b = document.getElementById("layout-b");
+        const tabA = document.getElementById("tab-a");
+        const tabB = document.getElementById("tab-b");
+        if (which === "a") {
+          a.classList.remove("hide");
+          b.classList.add("hide");
+          tabA.dataset.on = "true";
+          tabB.dataset.on = "false";
+        } else {
+          a.classList.add("hide");
+          b.classList.remove("hide");
+          tabA.dataset.on = "false";
+          tabB.dataset.on = "true";
+        }
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
+    </script>
+  </body>
+</html>
