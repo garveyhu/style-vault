@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useRef,
   useState,
   useCallback,
   type ReactNode,
@@ -31,8 +32,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [loggingIn, setLoggingIn] = useState(false);
 
-  // 初始若本地有 token，尝试恢复会话
+  // 初始若本地有 token，尝试恢复会话（guard 防止 StrictMode / HMR 双发）
+  const bootFetched = useRef(false);
   useEffect(() => {
+    if (bootFetched.current) return;
+    bootFetched.current = true;
     const token = getToken();
     if (!token) {
       setLoading(false);

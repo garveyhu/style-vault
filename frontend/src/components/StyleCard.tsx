@@ -86,7 +86,7 @@ export function StyleCard({
               <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100" />
             )}
             <div
-              className="absolute left-0 top-0 origin-top-left"
+              className="pointer-events-none absolute left-0 top-0 origin-top-left"
               style={{
                 width: `${PREVIEW_VIRTUAL_WIDTH}px`,
                 height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
@@ -98,11 +98,14 @@ export function StyleCard({
               <iframe
                 src={previewUrl}
                 title={item.name}
-                className="pointer-events-none block h-full w-full border-0"
+                className="block h-full w-full border-0"
                 loading="eager"
                 onLoad={() => setIframeReady(true)}
               />
             </div>
+            {/* 透明 hover catcher：防止 iframe sub-document 吞掉 hover 事件，
+                确保 group-hover 能触发到外层 article */}
+            <div className="absolute inset-0 z-[5]" />
           </>
         ) : (
           <div className="flex h-full items-center justify-center text-sm text-slate-400">
@@ -110,9 +113,9 @@ export function StyleCard({
           </div>
         )}
 
-        {/* hover overlay */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/55 via-black/15 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+        {/* hover overlay（z-10 高于 hover catcher） */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-black/55 via-black/15 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 translate-y-2 p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
           <div className="flex items-end justify-between gap-3">
             <div className="min-w-0 flex-1">
               <div className="text-[11px] uppercase tracking-[0.12em] text-white/70">
@@ -128,8 +131,8 @@ export function StyleCard({
           </div>
         </div>
 
-        {/* 右上：收藏 + 全屏 */}
-        <div className="pointer-events-none absolute right-3 top-3 flex items-center gap-1.5">
+        {/* 右上：收藏 + 全屏（z-10） */}
+        <div className="pointer-events-none absolute right-3 top-3 z-10 flex items-center gap-1.5">
           <button
             type="button"
             onClick={handleToggleFav}
@@ -160,8 +163,8 @@ export function StyleCard({
           )}
         </div>
 
-        {/* 左上 type 角标 */}
-        <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full border border-white/40 bg-white/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-slate-700 shadow-sm backdrop-blur-sm">
+        {/* 左上 type 角标（z-10） */}
+        <div className="absolute left-3 top-3 z-10 flex items-center gap-1.5 rounded-full border border-white/40 bg-white/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-slate-700 shadow-sm backdrop-blur-sm">
           <span className={`h-1.5 w-1.5 rounded-full ${typeDotColor(item.type)}`} />
           {typeLabel[item.type]}
         </div>

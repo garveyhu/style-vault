@@ -1,14 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
-import { HeartFilled } from "@ant-design/icons";
+import { HeartFilled, FilterOutlined } from "@ant-design/icons";
+import { Popover } from "antd";
 import { useRegistry, isRegistryMissing } from "../data/useRegistry";
 import { typePlural } from "../utils/i18n";
 import { StyleCard } from "../components/StyleCard";
-import {
-  TagFilterBar,
-  emptyFilterValue,
-  type FilterValue,
-} from "../components/TagFilterBar";
+import { FiltersPanel } from "../components/FiltersPanel";
+import { emptyFilterValue, type FilterValue } from "../components/TagFilterBar";
 import { TopBar } from "../components/TopBar";
 import { GlossaryDrawer } from "../components/GlossaryDrawer";
 import { useAuth } from "../auth/AuthContext";
@@ -59,6 +57,10 @@ export default function BrowsePage() {
   }, [reg]);
 
   const favCount = favSet.size;
+  const activeFilterCount = GROUP_KEYS.reduce(
+    (acc, k) => acc + filters[k].length,
+    0,
+  );
 
   const filtered = useMemo(() => {
     if (!reg?.items) return [];
@@ -90,12 +92,12 @@ export default function BrowsePage() {
     <div className="min-h-screen bg-[#fafafa]">
       <TopBar search={search} onSearchChange={setSearch} />
 
-      {/* ===================== Hero（极简，无 stats / featured） ===================== */}
-      <section className="relative overflow-hidden border-b border-slate-100 bg-white">
+      {/* ===================== Hero（占满首屏，分类栏需滑下才见） ===================== */}
+      <section className="relative flex min-h-[calc(100vh-72px)] items-center overflow-hidden border-b border-slate-100 bg-white">
         <div className="pointer-events-none absolute -left-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-gradient-to-br from-slate-100/60 via-emerald-100/40 to-transparent blur-3xl" />
         <div className="pointer-events-none absolute -right-48 top-0 h-[36rem] w-[36rem] rounded-full bg-gradient-to-br from-emerald-100/50 via-emerald-50/30 to-transparent blur-3xl" />
 
-        <div className="relative mx-auto grid max-w-[1600px] grid-cols-1 gap-14 px-8 py-20 md:py-24 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <div className="relative mx-auto grid w-full max-w-[1600px] grid-cols-1 gap-14 px-8 py-16 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:py-20">
           {/* 左：标题 + 副 */}
           <div>
             <h1 className="sv-anim-fade-up sv-delay-0 font-display text-[64px] font-extrabold leading-[1.02] tracking-[-0.04em] text-slate-900 md:text-[80px] lg:text-[96px]">
@@ -120,77 +122,79 @@ export default function BrowsePage() {
         </div>
       </section>
 
-      {/* ===================== Nav：分类 + 筛选（不 sticky，滑到才看见） ===================== */}
-      <div className="border-b border-slate-100 bg-white">
+      {/* ===================== Nav：分类 tabs + Filters 按钮 ===================== */}
+      <nav className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-[1600px] px-8">
-          <div className="flex flex-wrap items-center gap-3 py-5">
-            {/* 收藏 tab */}
-            {user && (
-              <button
-                type="button"
-                onClick={() => setView("favorites")}
-                className={`flex h-10 items-center gap-2 rounded-full px-5 text-[14px] font-medium transition ${
-                  view === "favorites"
-                    ? "bg-slate-900 text-white shadow-sm"
-                    : "bg-white text-slate-600 hover:bg-slate-100"
-                }`}
-              >
-                <HeartFilled
-                  className={
-                    view === "favorites" ? "text-white" : "text-slate-400"
+          <div className="flex items-center justify-between gap-6 pt-5">
+            {/* 左：分类 tabs（editorial 文字 + 下划线 indicator） */}
+            <div className="-mb-px flex min-w-0 items-center gap-7 overflow-x-auto pb-4">
+              {user && (
+                <TabButton
+                  active={view === "favorites"}
+                  onClick={() => setView("favorites")}
+                  label={
+                    <span className="flex items-center gap-1.5">
+                      <HeartFilled
+                        className={
+                          view === "favorites"
+                            ? "text-emerald-500"
+                            : "text-slate-300"
+                        }
+                      />
+                      我的收藏
+                    </span>
                   }
+                  count={favCount}
                 />
-                我的收藏
-                <span
-                  className={`rounded-full px-1.5 text-[11px] font-semibold tabular-nums ${
-                    view === "favorites"
-                      ? "bg-white/15 text-white"
-                      : "bg-slate-100 text-slate-400"
-                  }`}
-                >
-                  {favCount}
-                </span>
-              </button>
-            )}
-
-            {ORDER.map((t) => {
-              const active = view === t;
-              return (
-                <button
+              )}
+              {ORDER.map((t) => (
+                <TabButton
                   key={t}
-                  type="button"
+                  active={view === t}
                   onClick={() => setView(t)}
-                  className={`flex h-10 items-center gap-2 rounded-full px-5 text-[14px] font-medium transition ${
-                    active
-                      ? "bg-slate-900 text-white shadow-sm"
-                      : "bg-white text-slate-600 hover:bg-slate-100"
-                  }`}
-                >
-                  {typePlural[t]}
-                  <span
-                    className={`rounded-full px-1.5 text-[11px] font-semibold tabular-nums ${
-                      active
-                        ? "bg-white/15 text-white"
-                        : "bg-slate-100 text-slate-400"
-                    }`}
-                  >
-                    {counts[t]}
-                  </span>
-                </button>
-              );
-            })}
+                  label={typePlural[t]}
+                  count={counts[t]}
+                />
+              ))}
+            </div>
 
-            {/* 筛选下拉（TagFilterBar）靠右 */}
-            <div className="ml-auto">
-              <TagFilterBar
-                dict={reg.tagDict}
-                value={filters}
-                onChange={setFilters}
-              />
+            {/* 右：Filters 按钮（Popover 打开筛选面板） */}
+            <div className="flex shrink-0 items-center gap-2 pb-4">
+              <Popover
+                trigger="click"
+                placement="bottomRight"
+                arrow={false}
+                content={
+                  <FiltersPanel
+                    dict={reg.tagDict}
+                    value={filters}
+                    onChange={setFilters}
+                  />
+                }
+                overlayInnerStyle={{ padding: 0, borderRadius: 16 }}
+              >
+                <button
+                  type="button"
+                  className={`flex h-10 items-center gap-2 rounded-full border px-4 text-[13px] font-medium transition
+                    ${
+                      activeFilterCount > 0
+                        ? "border-slate-900 bg-slate-900 text-white"
+                        : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
+                    }`}
+                >
+                  <FilterOutlined className="text-[14px]" />
+                  <span>筛选</span>
+                  {activeFilterCount > 0 && (
+                    <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-white/20 px-1 text-[11px] font-semibold tabular-nums text-white">
+                      {activeFilterCount}
+                    </span>
+                  )}
+                </button>
+              </Popover>
             </div>
           </div>
         </div>
-      </div>
+      </nav>
 
       {/* ===================== 卡片网格 ===================== */}
       <main className="mx-auto max-w-[1600px] px-8 py-10">
@@ -269,6 +273,44 @@ export default function BrowsePage() {
 }
 
 /* -------------------- 子组件 -------------------- */
+
+function TabButton({
+  active,
+  onClick,
+  label,
+  count,
+}: {
+  active: boolean;
+  onClick: () => void;
+  label: React.ReactNode;
+  count: number;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`group relative shrink-0 pb-4 text-[14px] font-medium transition
+        ${active ? 'text-slate-900' : 'text-slate-500 hover:text-slate-900'}`}
+    >
+      <span className="flex items-center gap-2">
+        {label}
+        <span
+          className={`rounded-full px-1.5 text-[11px] font-semibold tabular-nums ${
+            active ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-500'
+          }`}
+        >
+          {count}
+        </span>
+      </span>
+      <span
+        className={`absolute -bottom-px left-0 right-0 h-0.5 rounded-full bg-slate-900 transition-transform ${
+          active ? 'scale-x-100' : 'scale-x-0'
+        }`}
+      />
+    </button>
+  );
+}
+
 
 /**
  * Hero 右侧：几张预览卡片向后堆叠的装饰，不可点。

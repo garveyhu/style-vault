@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react';
@@ -23,13 +24,18 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   const { user, loading: authLoading } = useAuth();
   const [set, setSet] = useState<Set<string>>(() => new Set());
 
-  // 登录态变化 → 拉取列表；登出清空
+  // 登录态变化 → 拉取列表；登出清空。
+  // 用 lastUid 守卫避免 user 对象引用频繁变化导致的重复请求（StrictMode / HMR）
+  const lastUid = useRef<number | null>(null);
   useEffect(() => {
     if (authLoading) return;
     if (!user) {
+      lastUid.current = null;
       setSet(new Set());
       return;
     }
+    if (lastUid.current === user.id) return;
+    lastUid.current = user.id;
     let cancelled = false;
     favoritesApi
       .list()
