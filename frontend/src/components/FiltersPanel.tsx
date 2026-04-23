@@ -4,7 +4,7 @@ import { tagGroupLabel } from '../utils/i18n';
 import { zh, type TagGroup } from '../utils/tagI18n';
 import { emptyFilterValue, type FilterValue } from './TagFilterBar';
 
-const GROUPS: Array<keyof FilterValue> = ['aesthetic', 'mood', 'theme', 'stack'];
+const GROUPS: Array<keyof FilterValue> = ['aesthetic', 'mood', 'stack'];
 
 export function FiltersPanel({
   dict,

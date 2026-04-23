@@ -24,7 +24,7 @@ const ORDER: NewEntryType[] = [
   'component',
   'token',
 ];
-const GROUP_KEYS = ["aesthetic", "mood", "theme", "stack"] as const;
+const GROUP_KEYS = ["aesthetic", "mood", "stack"] as const;
 
 const PREVIEW_VIRTUAL_WIDTH = 1440;
 const PREVIEW_VIRTUAL_HEIGHT = 900;

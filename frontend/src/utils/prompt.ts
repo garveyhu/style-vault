@@ -1,6 +1,6 @@
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 
-const TAG_GROUPS = ['aesthetic', 'mood', 'theme', 'stack'] as const;
+const TAG_GROUPS = ['aesthetic', 'mood', 'stack'] as const;
 
 export function buildPrompt(item: RegistryItem, extras: RegistryItem[] = []): string {
   const tagLine = TAG_GROUPS.map((k) => `${k}=[${item.tags[k].join(',')}]`).join(', ');

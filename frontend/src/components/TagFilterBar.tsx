@@ -7,18 +7,16 @@ import { zh, type TagGroup } from '../utils/tagI18n';
 export type FilterValue = {
   aesthetic: string[];
   mood: string[];
-  theme: string[];
   stack: string[];
 };
 
 export const emptyFilterValue: FilterValue = {
   aesthetic: [],
   mood: [],
-  theme: [],
   stack: [],
 };
 
-const GROUPS: Array<keyof FilterValue> = ['aesthetic', 'mood', 'theme', 'stack'];
+const GROUPS: Array<keyof FilterValue> = ['aesthetic', 'mood', 'stack'];
 
 export function TagFilterBar({
   dict,
