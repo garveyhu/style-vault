@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-23T07:14:37.653Z",
+  "version": "2026-04-23T07:15:53.777Z",
   "items": [
     {
       "id": "archetypes/landing/saas-landing",
@@ -24,7 +24,9 @@
       },
       "preview": "/preview/archetypes/landing/saas-landing",
       "uses": [],
-      "usedBy": [],
+      "usedBy": [
+        "vibes/saas-tool/cold-industrial-saas"
+      ],
       "hasPreviewFile": true,
       "skillPath": "archetypes/landing/saas-landing/README.md"
     },
@@ -55,7 +57,9 @@
         "primitives/palettes/slate-cyan-ice"
       ],
       "preview": "/preview/atoms/buttons/ghost-button",
-      "usedBy": [],
+      "usedBy": [
+        "vibes/saas-tool/cold-industrial-saas"
+      ],
       "hasPreviewFile": true,
       "skillPath": "atoms/buttons/ghost-button.md"
     },
@@ -141,7 +145,8 @@
       "preview": "/preview/primitives/palettes/slate-cyan-ice",
       "uses": [],
       "usedBy": [
-        "atoms/buttons/ghost-button"
+        "atoms/buttons/ghost-button",
+        "vibes/saas-tool/cold-industrial-saas"
       ],
       "hasPreviewFile": true,
       "skillPath": "primitives/palettes/slate-cyan-ice.md"
@@ -171,9 +176,44 @@
       },
       "preview": "/preview/primitives/typography/pairs/ibm-plex-duo",
       "uses": [],
-      "usedBy": [],
+      "usedBy": [
+        "vibes/saas-tool/cold-industrial-saas"
+      ],
       "hasPreviewFile": true,
       "skillPath": "primitives/typography/pairs/ibm-plex-duo.md"
+    },
+    {
+      "id": "vibes/saas-tool/cold-industrial-saas",
+      "type": "vibe",
+      "name": "Cold Industrial SaaS",
+      "description": "冷感留白 + IBM Plex 双字体 + 几何切割，工具型 SaaS 的整站调性",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "theme": [
+          "dark",
+          "light"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "primitives/palettes/slate-cyan-ice",
+        "primitives/typography/pairs/ibm-plex-duo",
+        "atoms/buttons/ghost-button",
+        "archetypes/landing/saas-landing"
+      ],
+      "preview": "/preview/vibes/saas-tool/cold-industrial-saas",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "vibes/saas-tool/cold-industrial-saas/README.md"
     }
   ],
   "tagDict": {
