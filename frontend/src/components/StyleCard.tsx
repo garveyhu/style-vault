@@ -1,8 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import { FullscreenOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import {
+  FullscreenOutlined,
+  ArrowRightOutlined,
+  HeartOutlined,
+  HeartFilled,
+} from '@ant-design/icons';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 import { typeLabel } from '../utils/i18n';
 import { zh } from '../utils/tagI18n';
+import { useFavorites } from '../auth/FavoritesContext';
+import { useAuth } from '../auth/AuthContext';
 
 const PREVIEW_VIRTUAL_WIDTH = 1440;
 const PREVIEW_VIRTUAL_HEIGHT = 900;
@@ -36,6 +43,23 @@ export function StyleCard({
   const previewUrl = item.preview ? `${window.location.origin}${item.preview}` : null;
   const previewRef = useRef<HTMLDivElement | null>(null);
   const [scale, setScale] = useState(0.28);
+  const { user } = useAuth();
+  const { isFavorited, toggleFavorite } = useFavorites();
+  const favorited = isFavorited(item.id);
+
+  const handleToggleFav = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!user) {
+      // 未登录时，点击回到 click 路径让外层处理（跳详情页弹 LoginModal）
+      onClick();
+      return;
+    }
+    try {
+      await toggleFavorite(item.id);
+    } catch {
+      /* 失败由 FavoritesContext 回滚，这里静默 */
+    }
+  };
 
   useEffect(() => {
     const el = previewRef.current;
@@ -104,20 +128,40 @@ export function StyleCard({
           </div>
         </div>
 
-        {/* 全屏按钮 */}
-        {item.hasPreviewFile && item.preview && (
+        {/* 右上角按钮区：收藏 + 全屏 */}
+        <div className="pointer-events-none absolute right-3 top-3 flex items-center gap-1.5">
+          {/* 收藏：已收藏时常驻紫色显示；未收藏时 hover 浮出 */}
           <button
             type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              window.open(item.preview!, '_blank');
-            }}
-            title="全屏预览"
-            className="pointer-events-auto absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-lg bg-white/95 opacity-0 shadow-sm backdrop-blur-sm transition duration-300 hover:bg-white group-hover:opacity-100"
+            onClick={handleToggleFav}
+            title={favorited ? '取消收藏' : '收藏'}
+            aria-label={favorited ? '取消收藏' : '收藏'}
+            className={`pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg shadow-sm backdrop-blur-sm transition duration-300
+              ${
+                favorited
+                  ? 'bg-violet-500 text-white opacity-100 hover:bg-violet-600'
+                  : 'bg-white/95 text-slate-500 opacity-0 hover:bg-white hover:text-violet-500 group-hover:opacity-100'
+              }
+            `}
           >
-            <FullscreenOutlined className="text-slate-600" />
+            {favorited ? <HeartFilled /> : <HeartOutlined />}
           </button>
-        )}
+
+          {/* 全屏 */}
+          {item.hasPreviewFile && item.preview && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                window.open(item.preview!, '_blank');
+              }}
+              title="全屏预览"
+              className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg bg-white/95 text-slate-600 opacity-0 shadow-sm backdrop-blur-sm transition duration-300 hover:bg-white group-hover:opacity-100"
+            >
+              <FullscreenOutlined />
+            </button>
+          )}
+        </div>
 
         {/* 类型角标 (始终可见，低调) */}
         <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full border border-white/40 bg-white/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-slate-700 shadow-sm backdrop-blur-sm">
