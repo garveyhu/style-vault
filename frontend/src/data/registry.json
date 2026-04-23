@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-23T07:15:53.777Z",
+  "version": "2026-04-23T16:19:46.088Z",
   "items": [
     {
       "id": "archetypes/landing/saas-landing",
@@ -13,16 +13,16 @@
         "mood": [
           "serious"
         ],
-        "theme": [
-          "light",
-          "dark"
-        ],
         "stack": [
           "react-antd-tailwind",
           "html-tailwind"
         ]
       },
       "preview": "/preview/archetypes/landing/saas-landing",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
       "uses": [],
       "usedBy": [
         "vibes/saas-tool/cold-industrial-saas"
@@ -44,10 +44,6 @@
           "calm",
           "serious"
         ],
-        "theme": [
-          "light",
-          "dark"
-        ],
         "stack": [
           "react-antd-tailwind",
           "html-tailwind"
@@ -57,6 +53,10 @@
         "primitives/palettes/slate-cyan-ice"
       ],
       "preview": "/preview/atoms/buttons/ghost-button",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
       "usedBy": [
         "vibes/saas-tool/cold-industrial-saas"
       ],
@@ -76,15 +76,16 @@
           "calm",
           "serious"
         ],
-        "theme": [
-          "light"
-        ],
         "stack": [
           "react-antd-tailwind"
         ]
       },
       "uses": [],
       "preview": "/preview/composites/display/table",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
       "usedBy": [
         "composites/layout/toolbar-bar"
       ],
@@ -104,9 +105,6 @@
           "calm",
           "serious"
         ],
-        "theme": [
-          "light"
-        ],
         "stack": [
           "react-antd-tailwind"
         ]
@@ -115,6 +113,10 @@
         "composites/display/table"
       ],
       "preview": "/preview/composites/layout/toolbar-bar",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
       "usedBy": [],
       "hasPreviewFile": true,
       "skillPath": "composites/layout/toolbar-bar.md"
@@ -133,16 +135,16 @@
           "cold",
           "serious"
         ],
-        "theme": [
-          "dark",
-          "light"
-        ],
         "stack": [
           "react-antd-tailwind",
           "html-tailwind"
         ]
       },
       "preview": "/preview/primitives/palettes/slate-cyan-ice",
+      "platforms": [
+        "any"
+      ],
+      "theme": "both",
       "uses": [],
       "usedBy": [
         "atoms/buttons/ghost-button",
@@ -165,16 +167,16 @@
           "serious",
           "calm"
         ],
-        "theme": [
-          "light",
-          "dark"
-        ],
         "stack": [
           "react-antd-tailwind",
           "html-tailwind"
         ]
       },
       "preview": "/preview/primitives/typography/pairs/ibm-plex-duo",
+      "platforms": [
+        "any"
+      ],
+      "theme": "both",
       "uses": [],
       "usedBy": [
         "vibes/saas-tool/cold-industrial-saas"
@@ -196,10 +198,6 @@
           "cold",
           "serious"
         ],
-        "theme": [
-          "dark",
-          "light"
-        ],
         "stack": [
           "react-antd-tailwind"
         ]
@@ -211,6 +209,10 @@
         "archetypes/landing/saas-landing"
       ],
       "preview": "/preview/vibes/saas-tool/cold-industrial-saas",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
       "usedBy": [],
       "hasPreviewFile": true,
       "skillPath": "vibes/saas-tool/cold-industrial-saas/README.md"
@@ -242,15 +244,19 @@
       "energetic",
       "dark-academia"
     ],
-    "theme": [
-      "light",
-      "dark"
-    ],
     "stack": [
       "react-antd-tailwind",
       "html-tailwind",
       "shadcn-radix",
       "vanilla-css"
+    ]
+  },
+  "platformDict": {
+    "platforms": [
+      "web",
+      "ios",
+      "android",
+      "any"
     ]
   }
 }

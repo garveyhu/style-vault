@@ -11,11 +11,30 @@ import {
   computeUsedBy,
 } from './validate';
 import { emit } from './emit';
-import { REFERENCES_DIR, TAGS_FILE, PREVIEW_DIR, REGISTRY_OUT } from './config';
-import type { TagDict, RegistryItem, ValidationIssue } from './types';
+import {
+  REFERENCES_DIR,
+  TAGS_FILE,
+  PLATFORMS_FILE,
+  PREVIEW_DIR,
+  REGISTRY_OUT,
+} from './config';
+import type {
+  Platform,
+  PlatformDict,
+  RegistryItem,
+  TagDict,
+  Theme,
+  ValidationIssue,
+} from './types';
 
 async function main() {
-  const tagDict = yaml.load(await fs.readFile(TAGS_FILE, 'utf-8')) as TagDict;
+  const rawTagDict = yaml.load(await fs.readFile(TAGS_FILE, 'utf-8')) as Record<string, string[]>;
+  const tagDict: TagDict = {
+    aesthetic: rawTagDict.aesthetic ?? [],
+    mood: rawTagDict.mood ?? [],
+    stack: rawTagDict.stack ?? [],
+  };
+  const platformDict = yaml.load(await fs.readFile(PLATFORMS_FILE, 'utf-8')) as PlatformDict;
   const entries = await walkReferences(REFERENCES_DIR);
 
   const issues: ValidationIssue[] = [];
@@ -30,8 +49,24 @@ async function main() {
     const { hasPreviewFile, issues: pIssues } = await validatePreview(e.frontmatter, PREVIEW_DIR);
     issues.push(...pIssues);
 
+    const platforms: Platform[] = (e.frontmatter.platforms && e.frontmatter.platforms.length > 0)
+      ? e.frontmatter.platforms
+      : (e.frontmatter.type === 'token' || e.frontmatter.type === 'primitive' ? ['any'] : ['web']);
+
+    const themeFromTags = (e.frontmatter.tags.theme ?? []).join('-');
+    const theme: Theme =
+      e.frontmatter.theme
+      ?? (themeFromTags === 'light-dark' || themeFromTags === 'dark-light' ? 'both'
+        : themeFromTags === 'dark' ? 'dark' : 'light');
+
+    const { theme: _strip, ...restTags } = e.frontmatter.tags;
+    void _strip;
+
     items.push({
       ...e.frontmatter,
+      platforms,
+      theme,
+      tags: restTags as RegistryItem['tags'],
       uses: e.frontmatter.uses ?? [],
       usedBy: usedBy.get(e.frontmatter.id) ?? [],
       hasPreviewFile,
@@ -50,7 +85,7 @@ async function main() {
     process.exit(1);
   }
 
-  await emit(items, tagDict, REGISTRY_OUT);
+  await emit(items, tagDict, platformDict, REGISTRY_OUT);
   console.log(`✓ synced ${items.length} items to ${REGISTRY_OUT}`);
   if (warnings.length) console.log(`  (with ${warnings.length} warnings)`);
 }
