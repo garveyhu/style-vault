@@ -37,13 +37,13 @@ function NavbarDemo({
         borderRadius: 16, boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
         border: '1px solid #f3f4f6', padding: '0 20px',
       }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', alignItems: 'center', height: 56 }}>
-          <button style={{ display: 'flex', alignItems: 'center', gap: 10, justifySelf: 'start', background: 'transparent', border: 'none', cursor: 'pointer' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', alignItems: 'center', height: 56, gap: 16 }}>
+          <button style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'transparent', border: 'none', cursor: 'pointer' }}>
             <div style={{ width: 28, height: 28, borderRadius: 8, background: 'linear-gradient(135deg, #14b8a6, #06b6d4)' }} />
-            <span style={{ fontWeight: 700, fontSize: 16, letterSpacing: '-0.01em', color: '#1a1a1a' }}>SkillHub</span>
+            <span style={{ fontWeight: 700, fontSize: 16, letterSpacing: '-0.01em', color: '#1a1a1a', whiteSpace: 'nowrap' }}>SkillHub</span>
           </button>
 
-          <nav style={{ display: 'flex', gap: 4, justifySelf: 'center' }}>
+          <nav style={{ display: 'flex', gap: 4, justifyContent: 'center' }}>
             {visible.map((i) => {
               const isActive = active === i.id;
               return (
@@ -51,7 +51,7 @@ function NavbarDemo({
                   key={i.id}
                   onClick={() => setActive(i.id)}
                   style={{
-                    display: 'flex', alignItems: 'center', gap: 6,
+                    display: 'inline-flex', alignItems: 'center', gap: 6,
                     padding: '6px 16px', borderRadius: 8,
                     fontSize: 14, fontWeight: 500, whiteSpace: 'nowrap',
                     border: 'none', cursor: 'pointer',
@@ -76,13 +76,14 @@ function NavbarDemo({
             })}
           </nav>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, justifySelf: 'end' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             {isAuth ? (
               <button style={{
                 display: 'flex', alignItems: 'center', gap: 8,
                 padding: '6px 12px', borderRadius: 12,
                 background: 'transparent', border: 'none',
                 fontSize: 14, fontWeight: 500, color: '#555', cursor: 'pointer',
+                whiteSpace: 'nowrap',
               }}>
                 <div style={{
                   width: 22, height: 22, borderRadius: 999, background: '#eee',
@@ -99,6 +100,7 @@ function NavbarDemo({
                 padding: '6px 16px', borderRadius: 12,
                 background: '#1a1a1a', color: '#fff',
                 fontSize: 14, fontWeight: 500, border: 'none', cursor: 'pointer',
+                whiteSpace: 'nowrap',
               }}>
                 登录
               </button>

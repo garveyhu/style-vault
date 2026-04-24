@@ -30,17 +30,17 @@ export default function AdminConsolePreview() {
         {/* Navbar 简化版 */}
         <header style={{ padding: '12px 32px', background: 'rgba(255,255,255,0.8)' }}>
           <div style={{ maxWidth: 1152, margin: '0 auto', background: '#fff', borderRadius: 16, boxShadow: '0 1px 4px rgba(0,0,0,0.04)', border: '1px solid #f3f4f6', padding: '0 20px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', alignItems: 'center', height: 56 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', alignItems: 'center', height: 56, gap: 16 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <div style={{ width: 28, height: 28, borderRadius: 8, background: 'linear-gradient(135deg, #14b8a6, #06b6d4)' }} />
-                <span style={{ fontWeight: 700, fontSize: 16 }}>SkillHub</span>
+                <span style={{ fontWeight: 700, fontSize: 16, whiteSpace: 'nowrap' }}>SkillHub</span>
               </div>
-              <nav style={{ display: 'flex', gap: 4, justifySelf: 'center' }}>
-                <button style={{ padding: '6px 16px', borderRadius: 8, fontSize: 14, fontWeight: 500, border: 'none', background: 'transparent', color: '#666' }}>发现</button>
-                <button style={{ padding: '6px 16px', borderRadius: 8, fontSize: 14, fontWeight: 500, border: 'none', background: '#2b2b2b', color: 'rgba(255,255,255,0.95)' }}>管理</button>
+              <nav style={{ display: 'flex', gap: 4, justifyContent: 'center' }}>
+                <button style={{ padding: '6px 16px', borderRadius: 8, fontSize: 14, fontWeight: 500, border: 'none', background: 'transparent', color: '#666', whiteSpace: 'nowrap' }}>发现</button>
+                <button style={{ padding: '6px 16px', borderRadius: 8, fontSize: 14, fontWeight: 500, border: 'none', background: '#2b2b2b', color: 'rgba(255,255,255,0.95)', whiteSpace: 'nowrap' }}>管理</button>
               </nav>
-              <div style={{ justifySelf: 'end' }}>
-                <button style={{ padding: '6px 12px', borderRadius: 12, background: 'transparent', border: 'none', fontSize: 14, color: '#555' }}>admin</button>
+              <div>
+                <button style={{ padding: '6px 12px', borderRadius: 12, background: 'transparent', border: 'none', fontSize: 14, color: '#555', whiteSpace: 'nowrap' }}>admin</button>
               </div>
             </div>
           </div>

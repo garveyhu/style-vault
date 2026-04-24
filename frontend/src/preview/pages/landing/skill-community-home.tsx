@@ -59,20 +59,20 @@ export default function SkillCommunityHomePreview() {
             maxWidth: 1152, margin: '0 auto', background: '#fff', borderRadius: 16,
             boxShadow: '0 1px 4px rgba(0,0,0,0.04)', border: '1px solid #f3f4f6', padding: '0 20px',
           }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', alignItems: 'center', height: 56 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', alignItems: 'center', height: 56, gap: 16 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <div style={{ width: 28, height: 28, borderRadius: 8, background: 'linear-gradient(135deg, #14b8a6, #06b6d4)' }} />
                 <span style={{ fontWeight: 700, fontSize: 16, color: '#1a1a1a' }}>SkillHub</span>
               </div>
-              <nav style={{ display: 'flex', gap: 4, justifySelf: 'center' }}>
+              <nav style={{ display: 'flex', gap: 4, justifyContent: 'center' }}>
                 {[{ l: '发现', i: <Compass size={15} />, a: true }, { l: '社区', i: <Sparkles size={15} /> }, { l: '发布', i: <Upload size={15} /> }, { l: '消息', i: <MessageSquare size={15} /> }, { l: '管理', i: <Settings size={15} /> }].map((x, k) => (
-                  <button key={k} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 16px', borderRadius: 8, fontSize: 14, fontWeight: 500, border: 'none', cursor: 'pointer', background: x.a ? '#2b2b2b' : 'transparent', color: x.a ? 'rgba(255,255,255,0.95)' : '#666' }}>
+                  <button key={k} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 16px', borderRadius: 8, fontSize: 14, fontWeight: 500, border: 'none', cursor: 'pointer', whiteSpace: 'nowrap', background: x.a ? '#2b2b2b' : 'transparent', color: x.a ? 'rgba(255,255,255,0.95)' : '#666' }}>
                     {x.i}{x.l}
                   </button>
                 ))}
               </nav>
-              <div style={{ justifySelf: 'end' }}>
-                <button style={{ padding: '6px 16px', borderRadius: 12, background: '#1a1a1a', color: '#fff', fontSize: 14, fontWeight: 500, border: 'none' }}>登录</button>
+              <div>
+                <button style={{ padding: '6px 16px', borderRadius: 12, background: '#1a1a1a', color: '#fff', fontSize: 14, fontWeight: 500, border: 'none', whiteSpace: 'nowrap' }}>登录</button>
               </div>
             </div>
           </div>
