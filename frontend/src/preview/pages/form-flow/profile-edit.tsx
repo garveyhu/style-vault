@@ -1,6 +1,25 @@
+import { Cascader, ConfigProvider, DatePicker } from 'antd';
 import { ArrowLeft, ChevronRight, User } from 'lucide-react';
 import { useState } from 'react';
 import { PreviewFrame } from '../../_layout';
+
+const ANT_THEME = { token: { colorPrimary: '#0f172a' } };
+
+const REGIONS = [
+  { value: 'zj', label: '浙江', children: [
+    { value: 'hz', label: '杭州' },
+    { value: 'nb', label: '宁波' },
+    { value: 'wz', label: '温州' },
+  ]},
+  { value: 'bj', label: '北京', children: [
+    { value: 'cy', label: '朝阳' },
+    { value: 'hd', label: '海淀' },
+  ]},
+  { value: 'sh', label: '上海', children: [
+    { value: 'pd', label: '浦东' },
+    { value: 'xh', label: '徐汇' },
+  ]},
+];
 
 type ModalKey = 'avatar' | 'nickname' | 'bio' | 'gender' | 'birthday' | 'location' | null;
 
@@ -165,20 +184,30 @@ export default function ProfileEditPagePreview() {
               )}
 
               {modal === 'gender' && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                  {['男', '女', '其他'].map((g) => (
-                    <button key={g} onClick={() => setModal(null)}
-                      style={{
-                        width: '100%', textAlign: 'left', padding: '12px 16px',
-                        borderRadius: 8, fontSize: 14,
-                        background: g === '男' ? 'rgba(238,242,255,0.5)' : 'transparent',
-                        color: g === '男' ? '#4338ca' : '#334155',
-                        fontWeight: g === '男' ? 600 : 400,
-                        border: 'none', cursor: 'pointer', fontFamily: 'inherit',
-                      }}>
-                      {g}
-                    </button>
-                  ))}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4, padding: '8px 0' }}>
+                  {[
+                    { key: 'male', label: '男' },
+                    { key: 'female', label: '女' },
+                    { key: 'other', label: '其他' },
+                  ].map((opt) => {
+                    const selected = opt.key === 'male';
+                    return (
+                      <button key={opt.key} onClick={() => setModal(null)}
+                        style={{
+                          width: '100%', textAlign: 'left', padding: '12px 16px',
+                          borderRadius: 8, fontSize: 14,
+                          background: selected ? '#eef2ff' : 'transparent',
+                          color: selected ? '#4338ca' : '#334155',
+                          fontWeight: selected ? 600 : 400,
+                          border: 'none', cursor: 'pointer', fontFamily: 'inherit',
+                          transition: 'background 150ms',
+                        }}
+                        onMouseEnter={(e) => { if (!selected) (e.currentTarget as HTMLButtonElement).style.background = '#f8fafc'; }}
+                        onMouseLeave={(e) => { if (!selected) (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}>
+                        {opt.label}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
 
@@ -193,14 +222,31 @@ export default function ProfileEditPagePreview() {
               )}
 
               {modal === 'birthday' && (
-                <input type="date" defaultValue="1995-08-15"
-                  style={{ width: '100%', padding: '10px 14px', fontSize: 14, borderRadius: 8, border: '1px solid #cbd5e1', outline: 'none', fontFamily: 'inherit' }} />
+                <ConfigProvider theme={ANT_THEME}>
+                  <div style={{ padding: '16px 0', display: 'flex', justifyContent: 'center' }}>
+                    <DatePicker
+                      size="large"
+                      style={{ width: '100%' }}
+                      placeholder="选择你的生日"
+                      onChange={() => setModal(null)}
+                    />
+                  </div>
+                </ConfigProvider>
               )}
 
               {modal === 'location' && (
-                <select style={{ width: '100%', padding: '10px 14px', fontSize: 14, borderRadius: 8, border: '1px solid #cbd5e1', outline: 'none', background: '#fff', fontFamily: 'inherit' }}>
-                  <option>浙江·杭州</option><option>北京·朝阳</option><option>上海·浦东</option>
-                </select>
+                <ConfigProvider theme={ANT_THEME}>
+                  <div style={{ padding: '16px 0' }}>
+                    <Cascader
+                      options={REGIONS}
+                      size="large"
+                      style={{ width: '100%' }}
+                      placeholder="选择省份和城市"
+                      expandTrigger="hover"
+                      onChange={(value) => { if (value && value.length >= 2) setModal(null); }}
+                    />
+                  </div>
+                </ConfigProvider>
               )}
 
               {(modal === 'nickname' || modal === 'bio') && (
