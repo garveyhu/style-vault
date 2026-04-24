@@ -27,18 +27,7 @@ export default function ProductListPage() {
     <div className="min-h-screen bg-[#fafafa]">
       <TopBar />
 
-      <section className="bg-[#fafafa]">
-        <div className="mx-auto max-w-[1600px] px-8 pb-4 pt-10">
-          <h1 className="font-display text-[28px] font-semibold leading-[1.15] tracking-[-0.015em] text-slate-900 md:text-[32px]">
-            {PLATFORM_TEXT[platform]} 产品集
-          </h1>
-          <p className="mt-2 max-w-[600px] text-[13px] leading-relaxed text-slate-500">
-            一个产品 = 一套风格 + 若干页面、模块、组件与原语。
-          </p>
-        </div>
-      </section>
-
-      <main className="mx-auto max-w-[1600px] px-8 pb-20 pt-6">
+      <main className="mx-auto max-w-[1600px] px-8 pb-20 pt-10">
         {products.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-16 text-center text-slate-400">
             当前「{PLATFORM_TEXT[platform]}」下暂无产品

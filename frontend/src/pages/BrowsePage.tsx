@@ -47,13 +47,10 @@ export default function BrowsePage() {
       <TopBar />
       <CategoryTabs />
 
-      {/* ===== Hero：简短描述 ===== */}
+      {/* ===== 简短描述 ===== */}
       <section className="bg-[#fafafa]">
-        <div className="mx-auto max-w-[1600px] px-8 pt-10">
-          <h1 className="font-display text-[28px] font-semibold leading-[1.15] tracking-[-0.015em] text-slate-900 md:text-[32px]">
-            {PLATFORM_TEXT[platform]}
-          </h1>
-          <p className="mt-2 max-w-[560px] text-[13px] leading-relaxed text-slate-500">
+        <div className="mx-auto max-w-[1600px] px-8 pt-8">
+          <p className="max-w-[680px] text-[14px] leading-relaxed text-slate-500">
             按粒度浏览——从完整风格到单个原语。
           </p>
         </div>
