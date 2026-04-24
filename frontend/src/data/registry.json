@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-24T03:06:15.783Z",
+  "version": "2026-04-24T04:50:33.639Z",
   "items": [
     {
       "id": "blocks/display/table",
@@ -130,7 +130,7 @@
         "web"
       ],
       "theme": "dark",
-      "category": "效率工具",
+      "category": "productivity",
       "refs": {
         "style": "styles/saas-tool/cold-industrial-saas",
         "pages": [
@@ -262,46 +262,5 @@
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/ibm-plex-duo.md"
     }
-  ],
-  "tagDict": {
-    "aesthetic": [
-      "minimal",
-      "maximal",
-      "brutalist",
-      "editorial",
-      "glass",
-      "neumorph",
-      "claymorph",
-      "bento",
-      "retro",
-      "organic",
-      "industrial",
-      "playful",
-      "luxe",
-      "raw"
-    ],
-    "mood": [
-      "cold",
-      "warm",
-      "serious",
-      "playful",
-      "calm",
-      "energetic",
-      "dark-academia"
-    ],
-    "stack": [
-      "react-antd-tailwind",
-      "html-tailwind",
-      "shadcn-radix",
-      "vanilla-css"
-    ]
-  },
-  "platformDict": {
-    "platforms": [
-      "web",
-      "ios",
-      "android",
-      "any"
-    ]
-  }
+  ]
 }

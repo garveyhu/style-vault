@@ -5,8 +5,7 @@ import {
   HeartFilled,
 } from '@ant-design/icons';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
-import { typeLabel, platformLabel } from '../utils/i18n';
-import { zh } from '../utils/tagI18n';
+import { typeLabel, platformLabel, zh } from '../utils/taxonomy';
 import { useFavorites } from '../auth/FavoritesContext';
 import { useAuth } from '../auth/AuthContext';
 import { useRegistry } from '../data/useRegistry';

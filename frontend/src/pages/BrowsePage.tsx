@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { useRegistry, isRegistryMissing } from '../data/useRegistry';
-import { typePlural } from '../utils/i18n';
+import { typePlural } from '../utils/taxonomy';
 import { StyleCard } from '../components/StyleCard';
 import { TopBar } from '../components/TopBar';
 import { CategoryTabs } from '../components/CategoryTabs';
@@ -13,7 +13,7 @@ type OverviewType = 'style' | 'page' | 'block' | 'component' | 'token';
 
 const ORDER: OverviewType[] = ['style', 'page', 'block', 'component', 'token'];
 
-const PREVIEW_PER_ROW = 3;
+const PREVIEW_COUNT = 4;
 
 const MORE_LINK: Record<OverviewType, string> = {
   style: '/browse/style',
@@ -48,11 +48,11 @@ export default function BrowsePage() {
       <CategoryTabs />
 
       {/* ===== 每类别一行 ===== */}
-      <main className="mx-auto max-w-[1600px] px-8 pb-20 pt-10">
+      <main className="px-10 pb-20 pt-10">
         <div className="space-y-14">
           {rows.map(({ type, items }) => {
             if (items.length === 0) return null;
-            const preview = items.slice(0, PREVIEW_PER_ROW);
+            const preview = items.slice(0, PREVIEW_COUNT);
             return (
               <section key={type}>
                 <header className="mb-5 flex items-baseline justify-between gap-4">
@@ -65,8 +65,13 @@ export default function BrowsePage() {
                   </Link>
                 </header>
 
-                {/* 单行固定 3 列 —— 少于 3 条时自然空白，不超过 3 条则截取 */}
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                {/* 与 BrowseCategoryPage 使用同一栅格：自适应 300–400px 卡宽 */}
+                <div
+                  className="grid justify-start gap-4"
+                  style={{
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 400px))',
+                  }}
+                >
                   {preview.map((item) => (
                     <StyleCard
                       key={item.id}

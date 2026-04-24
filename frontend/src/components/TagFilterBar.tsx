@@ -1,8 +1,12 @@
 import { Dropdown } from 'antd';
 import { DownOutlined, CheckOutlined } from '@ant-design/icons';
-import type { TagDict } from '../../scripts/sync-from-skill/types';
-import { tagGroupLabel } from '../utils/i18n';
-import { zh, type TagGroup } from '../utils/tagI18n';
+import { tagGroupLabel, zh, type TagGroup } from '../utils/taxonomy';
+
+export type TagDict = {
+  aesthetic: string[];
+  mood: string[];
+  stack: string[];
+};
 
 export type FilterValue = {
   aesthetic: string[];

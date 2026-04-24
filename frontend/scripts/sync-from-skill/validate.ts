@@ -1,24 +1,19 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import type { Entry, EntryType, Frontmatter, Platform, TagDict, ValidationIssue } from './types';
+import type { Entry, Frontmatter, Taxonomy, ValidationIssue } from './types';
 
-const VALID_TYPES: ReadonlySet<EntryType> = new Set<EntryType>([
-  'product', 'style', 'page', 'block', 'component', 'token',
-]);
-const VALID_PLATFORMS: ReadonlySet<Platform> = new Set<Platform>(['web', 'ios', 'android', 'any']);
-
-export function validateType(fm: Frontmatter): ValidationIssue[] {
-  if (!VALID_TYPES.has(fm.type)) {
+export function validateType(fm: Frontmatter, taxonomy: Taxonomy): ValidationIssue[] {
+  if (!(fm.type in taxonomy.type)) {
     return [{ level: 'error', entryId: fm.id, message: `unknown type: ${fm.type}` }];
   }
   return [];
 }
 
-export function validatePlatforms(fm: Frontmatter): ValidationIssue[] {
+export function validatePlatforms(fm: Frontmatter, taxonomy: Taxonomy): ValidationIssue[] {
   const p = fm.platforms ?? [];
   const issues: ValidationIssue[] = [];
   for (const v of p) {
-    if (!VALID_PLATFORMS.has(v)) {
+    if (!(v in taxonomy.platform)) {
       issues.push({ level: 'error', entryId: fm.id, message: `unknown platform: ${v}` });
     }
   }
@@ -34,20 +29,46 @@ export function validateRefs(fm: Frontmatter): ValidationIssue[] {
   return issues;
 }
 
-export function validateTags(fm: Frontmatter, dict: TagDict): ValidationIssue[] {
+export function validateCategory(fm: Frontmatter, taxonomy: Taxonomy): ValidationIssue[] {
+  if (fm.type !== 'product') return [];
+  const cat = fm.category;
+  if (!cat) {
+    return [{ level: 'error', entryId: fm.id, message: 'product missing category' }];
+  }
+  if (!(cat in taxonomy.category)) {
+    const valid = Object.keys(taxonomy.category).join(', ');
+    return [{
+      level: 'error',
+      entryId: fm.id,
+      message: `category "${cat}" not in taxonomy (valid: ${valid})`,
+    }];
+  }
+  return [];
+}
+
+export function validateTags(fm: Frontmatter, taxonomy: Taxonomy): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
   (['aesthetic', 'mood', 'stack'] as const).forEach((key) => {
+    const allowed = taxonomy.tag[key]?.values ?? {};
     for (const v of fm.tags[key]) {
-      if (!dict[key].includes(v)) {
+      if (!(v in allowed)) {
         issues.push({
           level: 'error',
           entryId: fm.id,
-          message: `tags.${key}[${v}] not in dictionary`,
+          message: `tags.${key}[${v}] not in taxonomy`,
         });
       }
     }
   });
   return issues;
+}
+
+export function validateTheme(fm: Frontmatter, taxonomy: Taxonomy): ValidationIssue[] {
+  if (!fm.theme) return [];
+  if (!(fm.theme in taxonomy.theme)) {
+    return [{ level: 'error', entryId: fm.id, message: `unknown theme: ${fm.theme}` }];
+  }
+  return [];
 }
 
 export function validateRefTargets(entries: Entry[]): ValidationIssue[] {

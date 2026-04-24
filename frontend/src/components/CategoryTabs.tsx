@@ -23,7 +23,7 @@ export function CategoryTabs() {
 
   return (
     <div className="sticky top-[72px] z-40 bg-[#fafafa]/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-[1600px] items-baseline gap-8 overflow-x-auto px-8 pt-5">
+      <div className="flex items-baseline gap-8 overflow-x-auto px-10 pt-5">
         {TABS.map((t) => {
           const on = t.key === activeKey;
           return (

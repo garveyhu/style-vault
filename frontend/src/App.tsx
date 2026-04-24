@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import { Suspense, lazy } from 'react';
 import HomePage from './pages/HomePage';
@@ -8,7 +8,7 @@ import DetailPage from './pages/DetailPage';
 import NotInstalledPage from './pages/NotInstalledPage';
 import ProductListPage from './pages/ProductListPage';
 import ProductDetailPage from './pages/ProductDetailPage';
-import FavoritesPage from './pages/FavoritesPage';
+import ProfilePage from './pages/ProfilePage';
 import { AuthProvider } from './auth/AuthContext';
 import { FavoritesProvider } from './auth/FavoritesContext';
 import { PlatformProvider } from './contexts/PlatformContext';
@@ -41,7 +41,11 @@ export default function App() {
                 <Route path="/item/*" element={<DetailPage />} />
                 <Route path="/products" element={<ProductListPage />} />
                 <Route path="/products/:slug" element={<ProductDetailPage />} />
-                <Route path="/favorites" element={<FavoritesPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route
+                  path="/favorites"
+                  element={<Navigate to="/profile?tab=collections" replace />}
+                />
                 <Route path="/not-installed" element={<NotInstalledPage />} />
                 {previewRoutes.map(({ relId, Element }) => (
                   <Route

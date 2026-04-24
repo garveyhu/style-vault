@@ -1,8 +1,6 @@
 import { CheckOutlined } from '@ant-design/icons';
-import type { TagDict } from '../../scripts/sync-from-skill/types';
-import { tagGroupLabel } from '../utils/i18n';
-import { zh, type TagGroup } from '../utils/tagI18n';
-import { emptyFilterValue, type FilterValue } from './TagFilterBar';
+import { tagGroupLabel, zh, type TagGroup } from '../utils/taxonomy';
+import { emptyFilterValue, type FilterValue, type TagDict } from './TagFilterBar';
 
 const GROUPS: Array<keyof FilterValue> = ['aesthetic', 'mood', 'stack'];
 

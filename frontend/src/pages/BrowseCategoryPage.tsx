@@ -9,6 +9,7 @@ import { CategoryTabs } from '../components/CategoryTabs';
 import { FiltersPanel } from '../components/FiltersPanel';
 import { emptyFilterValue, type FilterValue } from '../components/TagFilterBar';
 import { usePlatform, matchesPlatform } from '../contexts/PlatformContext';
+import { tagDict } from '../utils/taxonomy';
 
 const GROUP_KEYS = ['aesthetic', 'mood', 'stack'] as const;
 type CategoryKey = 'style' | 'page' | 'block' | 'component' | 'token';
@@ -84,7 +85,7 @@ export default function BrowseCategoryPage() {
       <CategoryTabs />
 
       <section className="bg-[#fafafa]">
-        <div className="mx-auto max-w-[1600px] px-8 pb-4 pt-8">
+        <div className="px-10 pb-4 pt-8">
           <div className="flex flex-wrap items-center justify-between gap-6">
             <p className="max-w-[680px] text-[14px] leading-relaxed text-slate-500">
               {hero.desc}
@@ -95,7 +96,7 @@ export default function BrowseCategoryPage() {
               arrow={false}
               content={
                 <FiltersPanel
-                  dict={reg.tagDict}
+                  dict={tagDict}
                   value={filters}
                   onChange={setFilters}
                 />
@@ -123,7 +124,7 @@ export default function BrowseCategoryPage() {
         </div>
       </section>
 
-      <main className="mx-auto max-w-[1600px] px-8 pb-20 pt-6">
+      <main className="px-10 pb-20 pt-6">
         {filtered.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-16 text-center text-slate-400">
             当前「{PLATFORM_TEXT[platform]}」下暂无该类别的内容

@@ -228,13 +228,13 @@ iframe {
   opacity: 1;
 }
 
-/* 双层 shadow：近身细腻 + 远处 slate 冷扩散 */
+/* hover：不换描边，靠大面积柔和黑光营造悬浮感 */
 .sv-card:hover {
   transform: translate3d(0, -4px, 0);
-  border-color: rgba(15, 23, 42, 0.45);
   box-shadow:
-    0 2px 6px -1px rgba(15, 23, 42, 0.08),
-    0 20px 48px -16px rgba(15, 23, 42, 0.3);
+    0 2px 6px -1px rgba(15, 23, 42, 0.06),
+    0 14px 32px -10px rgba(15, 23, 42, 0.22),
+    0 24px 48px -20px rgba(15, 23, 42, 0.14);
 }
 
 /* 空态 blob 轻微呼吸 */

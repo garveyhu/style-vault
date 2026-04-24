@@ -29,7 +29,7 @@ export function TopBar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95 backdrop-blur-xl">
-      <div className="relative mx-auto flex h-[72px] max-w-[1600px] items-center gap-8 px-8">
+      <div className="relative flex h-[72px] items-center gap-8 px-10">
         {/* Logo + 简洁中文站名 */}
         <Link to="/" className="group flex shrink-0 items-center gap-2.5">
           <img
@@ -85,7 +85,7 @@ export function TopBar() {
           {user && (
             <button
               type="button"
-              onClick={() => nav('/favorites')}
+              onClick={() => nav('/profile')}
               className="flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
               aria-label="我的收藏"
               title="我的收藏"
@@ -96,32 +96,73 @@ export function TopBar() {
 
           {loading ? null : user ? (
             <Dropdown
-              menu={{
-                items: [
-                  {
-                    key: 'email',
-                    label: (
-                      <span className="text-xs text-slate-400">{user.email}</span>
-                    ),
-                    disabled: true,
-                  },
-                  { type: 'divider' },
-                  { key: 'logout', label: '退出登录', onClick: () => logout() },
-                ],
-              }}
-              placement="bottomRight"
               trigger={['click']}
+              placement="bottomRight"
+              dropdownRender={() => (
+                <div className="w-[260px] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_20px_48px_-16px_rgba(15,23,42,0.24)]">
+                  {/* 头：avatar + 名字，点整块去 /profile */}
+                  <button
+                    type="button"
+                    onClick={() => nav('/profile')}
+                    className="flex w-full flex-col items-start gap-3 px-6 py-5 text-left transition hover:bg-slate-50"
+                  >
+                    <Avatar
+                      src={user.avatar_url ?? undefined}
+                      size={56}
+                      className="border border-slate-200"
+                    >
+                      {user.name?.[0]?.toUpperCase() ?? 'U'}
+                    </Avatar>
+                    <span className="font-display text-[16px] font-bold text-slate-900">
+                      {user.name}
+                    </span>
+                  </button>
+
+                  <ul className="list-none border-t border-slate-100 p-1">
+                    <li>
+                      <button
+                        type="button"
+                        onClick={() => nav('/profile')}
+                        className="w-full rounded-lg px-5 py-2.5 text-left text-[14px] font-medium text-slate-800 transition hover:bg-slate-50"
+                      >
+                        我的主页
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        type="button"
+                        onClick={() => nav('/profile?tab=about')}
+                        className="w-full rounded-lg px-5 py-2.5 text-left text-[14px] font-medium text-slate-800 transition hover:bg-slate-50"
+                      >
+                        设置
+                      </button>
+                    </li>
+                  </ul>
+
+                  <ul className="list-none border-t border-slate-100 p-1">
+                    <li>
+                      <button
+                        type="button"
+                        onClick={() => logout()}
+                        className="w-full rounded-lg px-5 py-2.5 text-left text-[14px] font-medium text-slate-800 transition hover:bg-slate-50"
+                      >
+                        退出登录
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              )}
             >
               <button
                 type="button"
-                className="flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1 pl-1 pr-3 transition hover:border-slate-300"
+                className="relative flex h-10 w-10 items-center justify-center rounded-full transition hover:ring-2 hover:ring-slate-200 hover:ring-offset-2 hover:ring-offset-white"
+                aria-label={user.name}
               >
-                <Avatar src={user.avatar_url ?? undefined} size={28}>
+                <Avatar src={user.avatar_url ?? undefined} size={36}>
                   {user.name?.[0]?.toUpperCase() ?? 'U'}
                 </Avatar>
-                <span className="hidden text-[13px] text-slate-700 md:inline">
-                  {user.name}
-                </span>
+                {/* 右下角绿点 · 在线指示 */}
+                <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-white bg-emerald-500" />
               </button>
             </Dropdown>
           ) : (

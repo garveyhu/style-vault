@@ -14,8 +14,7 @@ import {
   ExpandOutlined,
 } from '@ant-design/icons';
 import { useRegistry, useItem, isRegistryMissing } from '../data/useRegistry';
-import { typeLabel, typeColor, platformLabel, themeLabel } from '../utils/i18n';
-import { zh } from '../utils/tagI18n';
+import { typeLabel, typeColor, platformLabel, themeLabel, zh } from '../utils/taxonomy';
 import { buildPrompt } from '../utils/prompt';
 import { TopBar } from '../components/TopBar';
 import { FavoriteButton } from '../components/FavoriteButton';

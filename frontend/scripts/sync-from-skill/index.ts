@@ -1,11 +1,13 @@
 import fs from 'node:fs/promises';
-import yaml from 'js-yaml';
+import path from 'node:path';
 import { walkReferences } from './walk';
 import {
   validateTags,
   validateType,
   validatePlatforms,
   validateRefs,
+  validateCategory,
+  validateTheme,
   validateRefTargets,
   validateUses,
   validatePreview,
@@ -15,26 +17,21 @@ import { emit } from './emit';
 import { normalizePlatforms, normalizeTheme } from './normalize';
 import {
   REFERENCES_DIR,
-  TAGS_FILE,
-  PLATFORMS_FILE,
+  TAXONOMY_SRC,
+  TAXONOMY_OUT,
   PREVIEW_DIR,
   REGISTRY_OUT,
 } from './config';
 import type {
-  PlatformDict,
   RegistryItem,
-  TagDict,
+  Taxonomy,
   ValidationIssue,
 } from './types';
 
 async function main() {
-  const rawTagDict = yaml.load(await fs.readFile(TAGS_FILE, 'utf-8')) as Record<string, string[]>;
-  const tagDict: TagDict = {
-    aesthetic: rawTagDict.aesthetic ?? [],
-    mood: rawTagDict.mood ?? [],
-    stack: rawTagDict.stack ?? [],
-  };
-  const platformDict = yaml.load(await fs.readFile(PLATFORMS_FILE, 'utf-8')) as PlatformDict;
+  const taxonomyRaw = await fs.readFile(TAXONOMY_SRC, 'utf-8');
+  const taxonomy = JSON.parse(taxonomyRaw) as Taxonomy;
+
   const entries = await walkReferences(REFERENCES_DIR);
 
   const issues: ValidationIssue[] = [];
@@ -42,10 +39,12 @@ async function main() {
   const items: RegistryItem[] = [];
 
   for (const e of entries) {
-    issues.push(...validateType(e.frontmatter));
-    issues.push(...validatePlatforms(e.frontmatter));
+    issues.push(...validateType(e.frontmatter, taxonomy));
+    issues.push(...validatePlatforms(e.frontmatter, taxonomy));
+    issues.push(...validateTheme(e.frontmatter, taxonomy));
     issues.push(...validateRefs(e.frontmatter));
-    issues.push(...validateTags(e.frontmatter, tagDict));
+    issues.push(...validateCategory(e.frontmatter, taxonomy));
+    issues.push(...validateTags(e.frontmatter, taxonomy));
     const { hasPreviewFile, issues: pIssues } = await validatePreview(e.frontmatter, PREVIEW_DIR);
     issues.push(...pIssues);
 
@@ -55,7 +54,7 @@ async function main() {
       issues.push({ level: 'warning', entryId: e.frontmatter.id, message: themeWarning });
     }
     const { theme: _legacyTheme, ...restTags } = e.frontmatter.tags;
-    void _legacyTheme; // drop legacy field from output
+    void _legacyTheme;
 
     items.push({
       ...e.frontmatter,
@@ -81,8 +80,14 @@ async function main() {
     process.exit(1);
   }
 
-  await emit(items, tagDict, platformDict, REGISTRY_OUT);
+  // 复制 taxonomy 到前端 src/data（build 产物，前端直接 import）
+  await fs.mkdir(path.dirname(TAXONOMY_OUT), { recursive: true });
+  await fs.writeFile(TAXONOMY_OUT, JSON.stringify(taxonomy, null, 2) + '\n', 'utf-8');
+
+  await emit(items, REGISTRY_OUT);
+
   console.log(`✓ synced ${items.length} items to ${REGISTRY_OUT}`);
+  console.log(`✓ copied taxonomy to ${TAXONOMY_OUT}`);
   if (warnings.length) console.log(`  (with ${warnings.length} warnings)`);
 }
 

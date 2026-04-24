@@ -1,6 +1,33 @@
 import { describe, it, expect } from 'vitest';
 import { validateType, validatePlatforms, validateRefs } from './validate';
-import type { Frontmatter } from './types';
+import type { Frontmatter, Taxonomy } from './types';
+
+const taxonomy: Taxonomy = {
+  type: {
+    product: { zh: '产品', color: 'purple' },
+    style: { zh: '风格', color: 'magenta' },
+    page: { zh: '页面', color: 'geekblue' },
+    block: { zh: '模块', color: 'cyan' },
+    component: { zh: '组件', color: 'green' },
+    token: { zh: '原语', color: 'orange' },
+  },
+  platform: {
+    web: { zh: 'Web' },
+    ios: { zh: 'iOS' },
+    android: { zh: 'Android' },
+    any: { zh: '通用' },
+  },
+  theme: { light: { zh: '浅色' }, dark: { zh: '深色' }, both: { zh: '双主题' } },
+  category: {},
+  tag: {
+    aesthetic: { groupZh: '调性', values: { minimal: { zh: '极简' } } },
+    mood: { groupZh: '气质', values: { calm: { zh: '平静' } } },
+    stack: {
+      groupZh: '技术栈',
+      values: { 'react-antd-tailwind': { zh: 'React + Antd + Tailwind' } },
+    },
+  },
+};
 
 function baseFm(overrides: Partial<Frontmatter> = {}): Frontmatter {
   return {
@@ -19,17 +46,17 @@ function baseFm(overrides: Partial<Frontmatter> = {}): Frontmatter {
 
 describe('validateType', () => {
   it('accepts new types', () => {
-    expect(validateType(baseFm({ type: 'product' }))).toEqual([]);
-    expect(validateType(baseFm({ type: 'style' }))).toEqual([]);
-    expect(validateType(baseFm({ type: 'page' }))).toEqual([]);
-    expect(validateType(baseFm({ type: 'block' }))).toEqual([]);
-    expect(validateType(baseFm({ type: 'component' }))).toEqual([]);
-    expect(validateType(baseFm({ type: 'token' }))).toEqual([]);
+    expect(validateType(baseFm({ type: 'product' }), taxonomy)).toEqual([]);
+    expect(validateType(baseFm({ type: 'style' }), taxonomy)).toEqual([]);
+    expect(validateType(baseFm({ type: 'page' }), taxonomy)).toEqual([]);
+    expect(validateType(baseFm({ type: 'block' }), taxonomy)).toEqual([]);
+    expect(validateType(baseFm({ type: 'component' }), taxonomy)).toEqual([]);
+    expect(validateType(baseFm({ type: 'token' }), taxonomy)).toEqual([]);
   });
 
   it('rejects unknown types', () => {
     const fm = baseFm({ type: 'foobar' as Frontmatter['type'] });
-    const issues = validateType(fm);
+    const issues = validateType(fm, taxonomy);
     expect(issues).toHaveLength(1);
     expect(issues[0].level).toBe('error');
     expect(issues[0].entryId).toBe(fm.id);
@@ -39,19 +66,21 @@ describe('validateType', () => {
 
 describe('validatePlatforms', () => {
   it('accepts empty / undefined platforms', () => {
-    expect(validatePlatforms(baseFm())).toEqual([]);
-    expect(validatePlatforms(baseFm({ platforms: [] }))).toEqual([]);
+    expect(validatePlatforms(baseFm(), taxonomy)).toEqual([]);
+    expect(validatePlatforms(baseFm({ platforms: [] }), taxonomy)).toEqual([]);
   });
 
   it('accepts all valid platforms', () => {
-    expect(validatePlatforms(baseFm({ platforms: ['web', 'ios', 'android', 'any'] }))).toEqual([]);
+    expect(
+      validatePlatforms(baseFm({ platforms: ['web', 'ios', 'android', 'any'] }), taxonomy),
+    ).toEqual([]);
   });
 
   it('rejects unknown platforms', () => {
     const fm = baseFm({
       platforms: ['web', 'windows' as never, 'linux' as never],
     });
-    const issues = validatePlatforms(fm);
+    const issues = validatePlatforms(fm, taxonomy);
     expect(issues).toHaveLength(2);
     expect(issues.every((i) => i.level === 'error')).toBe(true);
     expect(issues[0].message).toMatch(/unknown platform: windows/);

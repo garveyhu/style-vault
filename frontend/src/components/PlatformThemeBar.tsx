@@ -1,4 +1,4 @@
-import { platformLabel, themeLabel } from '../utils/i18n';
+import { platformLabel, themeLabel } from '../utils/taxonomy';
 import type { Platform, Theme } from '../../scripts/sync-from-skill/types';
 
 export interface PlatformThemeValue {

@@ -15,6 +15,8 @@ export async function walkReferences(root: string): Promise<Entry[]> {
     const base = path.basename(rel);
     if (base === '_CATEGORY.md') continue;
     if (rel === 'README.md') continue;
+    // skip meta folders like _taxonomy/
+    if (rel.split('/').some((seg) => seg.startsWith('_'))) continue;
 
     const content = await fs.readFile(path.join(root, rel), 'utf-8');
     try {

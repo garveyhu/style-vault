@@ -2,7 +2,7 @@ import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { useRegistry, useItem, isRegistryMissing } from '../data/useRegistry';
 import { TopBar } from '../components/TopBar';
 import { FavoriteButton } from '../components/FavoriteButton';
-import { platformLabel, themeLabel } from '../utils/i18n';
+import { platformLabel, themeLabel, categoryLabel, categoryDot } from '../utils/taxonomy';
 import { getPreviewComponent } from '../preview/registry';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 
@@ -54,8 +54,11 @@ export default function ProductDetailPage() {
         <div className="pointer-events-none absolute -right-24 bottom-0 h-[300px] w-[300px] rounded-full bg-slate-200/50 blur-3xl" />
         <div className="relative mx-auto max-w-[1100px] px-8 pb-20 pt-20 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-500">
-            <span className="h-1.5 w-1.5 rounded-full bg-cyan-500" />
-            产品 · {product.category ?? 'Product'}
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ background: categoryDot(product.category) }}
+            />
+            产品 · {categoryLabel(product.category)}
           </div>
           <h1 className="mx-auto mt-5 max-w-[900px] font-display text-[64px] font-semibold leading-[1.03] tracking-[-0.025em] text-slate-900">
             {product.name}
