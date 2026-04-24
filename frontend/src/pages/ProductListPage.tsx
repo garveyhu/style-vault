@@ -33,7 +33,7 @@ export default function ProductListPage() {
             {PLATFORM_TEXT[platform]} 产品集
           </h1>
           <p className="mt-2 max-w-[600px] text-[13px] leading-relaxed text-slate-500">
-            真实 {PLATFORM_TEXT[platform]} 产品的完整外壳——每个都把风格、页面、模块、组件与原语捆绑在一起。
+            一个产品 = 一套风格 + 若干页面、模块、组件与原语。
           </p>
         </div>
       </section>

@@ -51,10 +51,10 @@ export default function BrowsePage() {
       <section className="bg-[#fafafa]">
         <div className="mx-auto max-w-[1600px] px-8 pt-10">
           <h1 className="font-display text-[28px] font-semibold leading-[1.15] tracking-[-0.015em] text-slate-900 md:text-[32px]">
-            {PLATFORM_TEXT[platform]} 设计灵感
+            {PLATFORM_TEXT[platform]}
           </h1>
           <p className="mt-2 max-w-[560px] text-[13px] leading-relaxed text-slate-500">
-            看看顶尖产品是怎么做 {PLATFORM_TEXT[platform]} UX 的。
+            按粒度浏览——从完整风格到单个原语。
           </p>
         </div>
       </section>

@@ -24,24 +24,24 @@ const PLATFORM_TEXT = { web: 'Web', ios: 'iOS', android: 'Android' } as const;
 
 const HERO_COPY: Record<CategoryKey, { title: string; desc: string }> = {
   style: {
-    title: '风格语言，从真实产品里来',
-    desc: '一整套可直接引用的设计语言——配色、字体、气质绑死在一起。',
+    title: '风格',
+    desc: '完整的设计语言：配色、字体、节奏共同构成一个整体。',
   },
   page: {
-    title: '整页样板，拿来即用',
-    desc: '一屏能独立渲染的页面结构，背后是多个 Block 的组合。',
+    title: '页面',
+    desc: '可独立使用的整页结构，由若干模块组合而成。',
   },
   block: {
-    title: '可复用的场景模块',
-    desc: 'Hero、Pricing 表、FAQ…… 页面里的"一块"，比组件大、比页面小。',
+    title: '模块',
+    desc: '页面中的可复用段落。比组件大，比页面小。',
   },
   component: {
-    title: '单一交互组件',
-    desc: 'Button / Input / Tag…… 可独立复用的 UI 原子。',
+    title: '组件',
+    desc: '最小粒度的可复用单元：Button、Input、Tag 等。',
   },
   token: {
-    title: '设计原语 / 资源',
-    desc: '没有交互形态的值或资源：调色板、字体对、动效曲线、边框、阴影、图标集。',
+    title: '原语',
+    desc: '设计值与资源：调色板、字体、动效、边框、图标。',
   },
 };
 

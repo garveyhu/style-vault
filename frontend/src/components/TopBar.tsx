@@ -57,10 +57,11 @@ export function TopBar() {
           </Link>
         </nav>
 
-        {/* 居中：设备端切换（只在 browse/products 类路径显示）—— Editorial 下划线 */}
-        <div className="flex flex-1 justify-center">
-          {showPlatformPill && (
-            <div className="hidden items-baseline gap-7 md:inline-flex">
+        {/* 占位撑开左右 cluster；平台切换用 absolute 真正视口居中 */}
+        <div className="flex-1" />
+        {showPlatformPill && (
+          <div className="pointer-events-none absolute inset-y-0 left-0 right-0 hidden items-center justify-center md:flex">
+            <div className="pointer-events-auto inline-flex items-baseline gap-7">
               {(['web', 'ios', 'android'] as const).map((p) => {
                 const on = platform === p;
                 return (
@@ -76,8 +77,8 @@ export function TopBar() {
                 );
               })}
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* 右侧：收藏 + 登录 */}
         <div className="flex items-center gap-2">
@@ -105,7 +106,6 @@ export function TopBar() {
                     disabled: true,
                   },
                   { type: 'divider' },
-                  { key: 'favorites', label: '我的收藏', onClick: () => nav('/favorites') },
                   { key: 'logout', label: '退出登录', onClick: () => logout() },
                 ],
               }}
