@@ -71,11 +71,9 @@ export default function BrowsePage() {
                   <h2 className="font-display text-[22px] font-semibold tracking-[-0.015em] text-slate-900">
                     {PLATFORM_TEXT[platform]} {typePlural[type]}
                   </h2>
-                  <Link
-                    to={MORE_LINK[type]}
-                    className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-[12px] font-medium text-slate-700 transition hover:border-slate-300 hover:text-slate-900"
-                  >
-                    查看更多 <ArrowRightOutlined className="text-[10px]" />
+                  <Link to={MORE_LINK[type]} className="sv-text-link">
+                    查看更多
+                    <ArrowRightOutlined className="sv-text-link-arrow text-[11px]" />
                   </Link>
                 </header>
 

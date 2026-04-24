@@ -57,10 +57,10 @@ export function TopBar() {
           </Link>
         </nav>
 
-        {/* 居中：设备端切换（只在 browse/products 类路径显示） */}
+        {/* 居中：设备端切换（只在 browse/products 类路径显示）—— Editorial 下划线 */}
         <div className="flex flex-1 justify-center">
           {showPlatformPill && (
-            <div className="hidden items-center rounded-full border border-slate-200 bg-slate-50 p-0.5 md:flex">
+            <div className="hidden items-baseline gap-7 md:inline-flex">
               {(['web', 'ios', 'android'] as const).map((p) => {
                 const on = platform === p;
                 return (
@@ -68,11 +68,8 @@ export function TopBar() {
                     key={p}
                     type="button"
                     onClick={() => setPlatform(p)}
-                    className={`h-7 rounded-full px-4 text-[12px] font-medium transition ${
-                      on
-                        ? 'bg-white text-slate-900 shadow-sm'
-                        : 'text-slate-500 hover:text-slate-800'
-                    }`}
+                    className="sv-underline-tab"
+                    data-on={on}
                   >
                     {PLATFORM_LABEL[p]}
                   </button>

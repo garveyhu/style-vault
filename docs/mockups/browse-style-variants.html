@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Browse · 样式选型对比</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .font-display {
+        font-family: "Fraunces", "IBM Plex Sans", serif;
+        letter-spacing: -0.01em;
+      }
+      .font-mono {
+        font-family: "IBM Plex Mono", ui-monospace, monospace;
+      }
+      .variant-card {
+        position: relative;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 28px 24px 24px;
+        min-height: 120px;
+      }
+      .variant-card-dark {
+        background: #0f172a;
+        border-color: #1e293b;
+      }
+      .variant-label {
+        position: absolute;
+        top: -11px;
+        left: 18px;
+        padding: 2px 10px;
+        background: #0f172a;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        border-radius: 999px;
+      }
+      .variant-caption {
+        margin-top: 16px;
+        font-size: 11px;
+        color: #94a3b8;
+        letter-spacing: 0.02em;
+      }
+
+      /* ============ A. Platform Pills ============ */
+
+      /* A1 现行（柔感灰底 segmented） */
+      .a1 {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px;
+        border: 1px solid #e2e8f0;
+        background: #f8fafc;
+        border-radius: 999px;
+      }
+      .a1 button {
+        height: 28px;
+        padding: 0 16px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #64748b;
+        border-radius: 999px;
+        transition: all 180ms ease;
+      }
+      .a1 button[data-on="true"] {
+        background: #fff;
+        color: #0f172a;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+      }
+
+      /* A2 Editorial 下划线 tabs —— 无底，只靠间距和下划线 */
+      .a2 {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 26px;
+      }
+      .a2 button {
+        position: relative;
+        font-size: 13px;
+        font-weight: 500;
+        color: #94a3b8;
+        letter-spacing: 0.02em;
+        padding-bottom: 8px;
+        transition: color 180ms ease;
+      }
+      .a2 button[data-on="true"] {
+        color: #0f172a;
+      }
+      .a2 button::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #0891b2, #0f172a);
+        border-radius: 2px;
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      .a2 button[data-on="true"]::after {
+        transform: scaleX(1);
+      }
+
+      /* A3 pageflows 同款（深色 segmented，白色 active） */
+      .a3 {
+        display: inline-flex;
+        align-items: center;
+        padding: 3px;
+        background: #0f172a;
+        border-radius: 999px;
+      }
+      .a3 button {
+        height: 30px;
+        padding: 0 18px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #94a3b8;
+        border-radius: 999px;
+        transition: all 180ms ease;
+      }
+      .a3 button[data-on="true"] {
+        background: #fff;
+        color: #0f172a;
+      }
+
+      /* A4 Minimal ring —— 无容器，active 单独 ring */
+      .a4 {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .a4 button {
+        height: 30px;
+        padding: 0 16px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #94a3b8;
+        border-radius: 999px;
+        border: 1px solid transparent;
+        transition: all 180ms ease;
+      }
+      .a4 button:hover {
+        color: #0f172a;
+      }
+      .a4 button[data-on="true"] {
+        color: #0f172a;
+        border-color: #0f172a;
+        background: #fff;
+      }
+
+      /* ============ B. Category Tabs ============ */
+
+      /* B1 现行 —— text pill active slate-900 */
+      .b1 {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .b1 button {
+        padding: 6px 14px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #64748b;
+        transition: all 180ms ease;
+      }
+      .b1 button:hover {
+        color: #0f172a;
+      }
+      .b1 button[data-on="true"] {
+        background: #0f172a;
+        color: #fff;
+      }
+
+      /* B2 Editorial 下划线 tabs（大字号） */
+      .b2 {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 28px;
+      }
+      .b2 button {
+        position: relative;
+        font-size: 16px;
+        font-weight: 500;
+        color: #94a3b8;
+        padding-bottom: 14px;
+        transition: color 180ms ease;
+      }
+      .b2 button[data-on="true"] {
+        color: #0f172a;
+      }
+      .b2 button::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 2px;
+        background: #0f172a;
+        border-radius: 2px;
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      .b2 button[data-on="true"]::after {
+        transform: scaleX(1);
+      }
+
+      /* B3 Serif + dot 前缀 */
+      .b3 {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 28px;
+      }
+      .b3 button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Fraunces", serif;
+        font-size: 20px;
+        font-weight: 500;
+        color: #94a3b8;
+        letter-spacing: -0.005em;
+        transition: color 220ms ease;
+      }
+      .b3 button .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #cbd5e1;
+        transition: all 220ms ease;
+      }
+      .b3 button[data-on="true"] {
+        color: #0f172a;
+      }
+      .b3 button[data-on="true"] .dot {
+        background: #0891b2;
+        box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.15);
+      }
+
+      /* B4 Mono 编号 + label */
+      .b4 {
+        display: inline-flex;
+        align-items: center;
+        gap: 32px;
+      }
+      .b4 button {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 8px;
+        transition: opacity 180ms ease;
+      }
+      .b4 button .n {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        letter-spacing: 0.1em;
+        color: #94a3b8;
+      }
+      .b4 button .label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #94a3b8;
+        transition: color 180ms ease;
+      }
+      .b4 button[data-on="true"] .label {
+        color: #0f172a;
+      }
+      .b4 button[data-on="true"] .n {
+        color: #0891b2;
+      }
+      .b4 button:not([data-on="true"]):hover .label {
+        color: #334155;
+      }
+
+      /* ============ C. "查看更多" CTA ============ */
+
+      /* C1 现行 —— rounded border pill */
+      .c1 {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 16px;
+        border-radius: 999px;
+        border: 1px solid #e2e8f0;
+        background: #fff;
+        font-size: 12px;
+        font-weight: 500;
+        color: #334155;
+        transition: all 180ms ease;
+      }
+      .c1:hover {
+        border-color: #cbd5e1;
+        color: #0f172a;
+      }
+
+      /* C2 文字链 + 箭头 hover 位移 */
+      .c2 {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #0f172a;
+        position: relative;
+        padding-bottom: 2px;
+      }
+      .c2 .arrow {
+        display: inline-block;
+        transition: transform 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      .c2:hover .arrow {
+        transform: translateX(4px);
+      }
+      .c2::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background: #0f172a;
+        transform: scaleX(0.35);
+        transform-origin: left center;
+        transition: transform 260ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      .c2:hover::after {
+        transform: scaleX(1);
+      }
+
+      /* C3 Editorial serif "See all N →" */
+      .c3 {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 8px;
+        font-family: "Fraunces", serif;
+        font-size: 16px;
+        color: #0f172a;
+        position: relative;
+      }
+      .c3 .num {
+        color: #0891b2;
+        font-weight: 500;
+      }
+      .c3 .arrow {
+        font-size: 13px;
+        transition: transform 220ms ease;
+      }
+      .c3:hover .arrow {
+        transform: translateX(4px);
+      }
+      .c3::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -4px;
+        height: 1px;
+        background: linear-gradient(90deg, #0891b2, #0f172a);
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: transform 300ms ease;
+      }
+      .c3:hover::after {
+        transform: scaleX(1);
+      }
+
+      /* C4 大标签 icon-first（磁悬浮） */
+      .c4 {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 18px;
+        border-radius: 14px;
+        background: #0f172a;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 500;
+        box-shadow: 0 12px 28px -12px rgba(15, 23, 42, 0.45);
+        transition: all 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      .c4:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 16px 32px -14px rgba(15, 23, 42, 0.55);
+      }
+      .c4 .arrow-circle {
+        display: inline-flex;
+        width: 20px;
+        height: 20px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: #fff;
+        color: #0f172a;
+        font-size: 11px;
+        transition: transform 220ms ease;
+      }
+      .c4:hover .arrow-circle {
+        transform: rotate(-30deg);
+      }
+    </style>
+  </head>
+  <body class="bg-[#fafafa]">
+    <!-- ========== Intro ========== -->
+    <header class="mx-auto max-w-[1400px] px-8 pb-6 pt-20">
+      <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-slate-500">
+        <span class="h-1.5 w-1.5 rounded-full bg-cyan-500"></span>
+        Browse UI · 选型对比
+      </div>
+      <h1 class="mt-5 font-display text-[44px] font-semibold leading-[1.08] tracking-[-0.02em]">
+        从下面每组各选一个你最喜欢的
+      </h1>
+      <p class="mt-3 max-w-[600px] text-[14px] leading-relaxed text-slate-500">
+        三组元素、每组 4 个方向。告诉我比如 "A2 + B3 + C4"，我就直接落地到代码里。
+      </p>
+    </header>
+
+    <!-- ========== A. Platform Pill ========== -->
+    <section class="mx-auto max-w-[1400px] px-8 py-10">
+      <div class="mb-6 flex items-baseline gap-4">
+        <span class="font-mono text-[13px] tracking-widest text-slate-400">A</span>
+        <h2 class="font-display text-[24px] font-semibold tracking-[-0.015em]">
+          设备端切换（Platform Pill）
+        </h2>
+        <span class="text-[12px] text-slate-400">· 在 TopBar 居中</span>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div class="variant-card">
+          <span class="variant-label">A1 · 现行</span>
+          <div class="flex h-[60px] items-center justify-center">
+            <div class="a1">
+              <button data-on="true">Web</button>
+              <button>iOS</button>
+              <button>Android</button>
+            </div>
+          </div>
+          <div class="variant-caption">柔感灰底 segmented，active 白底带阴影</div>
+        </div>
+
+        <div class="variant-card">
+          <span class="variant-label">A2 · Editorial 下划线</span>
+          <div class="flex h-[60px] items-center justify-center">
+            <div class="a2">
+              <button data-on="true">Web</button>
+              <button>iOS</button>
+              <button>Android</button>
+            </div>
+          </div>
+          <div class="variant-caption">无容器，active 一条 cyan→slate 渐变下划线</div>
+        </div>
+
+        <div class="variant-card variant-card-dark">
+          <span class="variant-label">A3 · pageflows 同款</span>
+          <div class="flex h-[60px] items-center justify-center">
+            <div class="a3">
+              <button data-on="true">Web</button>
+              <button>iOS</button>
+              <button>Android</button>
+            </div>
+          </div>
+          <div class="variant-caption" style="color:#64748b">
+            深色 segmented + 白底 active；即便整站是浅色，依然能撑住"权威感"
+          </div>
+        </div>
+
+        <div class="variant-card">
+          <span class="variant-label">A4 · 极简 Ring</span>
+          <div class="flex h-[60px] items-center justify-center">
+            <div class="a4">
+              <button data-on="true">Web</button>
+              <button>iOS</button>
+              <button>Android</button>
+            </div>
+          </div>
+          <div class="variant-caption">inactive 裸文字，active 套一圈 slate-900 细边</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== B. Category Tabs ========== -->
+    <section class="mx-auto max-w-[1400px] px-8 py-10">
+      <div class="mb-6 flex items-baseline gap-4">
+        <span class="font-mono text-[13px] tracking-widest text-slate-400">B</span>
+        <h2 class="font-display text-[24px] font-semibold tracking-[-0.015em]">
+          分类 Tabs（风格/页面/模块/组件/原语）
+        </h2>
+        <span class="text-[12px] text-slate-400">· TopBar 下方 sticky</span>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6">
+        <div class="variant-card">
+          <span class="variant-label">B1 · 现行</span>
+          <div class="flex h-[64px] items-center pl-2">
+            <div class="b1">
+              <button>风格</button>
+              <button>页面</button>
+              <button data-on="true">模块</button>
+              <button>组件</button>
+              <button>原语</button>
+            </div>
+          </div>
+          <div class="variant-caption">小号 pill，active slate-900；最朴素</div>
+        </div>
+
+        <div class="variant-card">
+          <span class="variant-label">B2 · Editorial 大字下划线</span>
+          <div class="flex h-[80px] items-center pl-2">
+            <div class="b2">
+              <button>风格</button>
+              <button>页面</button>
+              <button data-on="true">模块</button>
+              <button>组件</button>
+              <button>原语</button>
+            </div>
+          </div>
+          <div class="variant-caption">
+            字号升一档（16px），active slate-900 + 2px 下划线，有 NYT/杂志感
+          </div>
+        </div>
+
+        <div class="variant-card">
+          <span class="variant-label">B3 · Serif + 色点 halo</span>
+          <div class="flex h-[90px] items-center pl-2">
+            <div class="b3">
+              <button><span class="dot"></span>风格</button>
+              <button><span class="dot"></span>页面</button>
+              <button data-on="true"><span class="dot"></span>模块</button>
+              <button><span class="dot"></span>组件</button>
+              <button><span class="dot"></span>原语</button>
+            </div>
+          </div>
+          <div class="variant-caption">
+            Fraunces 衬线 20px + 一颗小圆点，active cyan 点带 halo；编辑优雅感最强
+          </div>
+        </div>
+
+        <div class="variant-card">
+          <span class="variant-label">B4 · Mono 编号 + label</span>
+          <div class="flex h-[80px] items-center pl-2">
+            <div class="b4">
+              <button><span class="n">01</span><span class="label">风格</span></button>
+              <button><span class="n">02</span><span class="label">页面</span></button>
+              <button data-on="true"><span class="n">03</span><span class="label">模块</span></button>
+              <button><span class="n">04</span><span class="label">组件</span></button>
+              <button><span class="n">05</span><span class="label">原语</span></button>
+            </div>
+          </div>
+          <div class="variant-caption">
+            Plex Mono 小号数字 + Sans label，active label 变黑、数字变 cyan；工业 + 设计语言感
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== C. See More ========== -->
+    <section class="mx-auto max-w-[1400px] px-8 py-10 pb-28">
+      <div class="mb-6 flex items-baseline gap-4">
+        <span class="font-mono text-[13px] tracking-widest text-slate-400">C</span>
+        <h2 class="font-display text-[24px] font-semibold tracking-[-0.015em]">
+          "查看更多" CTA
+        </h2>
+        <span class="text-[12px] text-slate-400">· 每个 section 右侧</span>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div class="variant-card">
+          <span class="variant-label">C1 · 现行</span>
+          <div class="flex h-[90px] items-center justify-center">
+            <button class="c1">查看更多 <span class="text-[10px]">→</span></button>
+          </div>
+          <div class="variant-caption">细边 pill，最无声</div>
+        </div>
+
+        <div class="variant-card">
+          <span class="variant-label">C2 · 文字链 + 动箭头</span>
+          <div class="flex h-[90px] items-center justify-center">
+            <a href="#" class="c2">查看更多 <span class="arrow text-[11px]">→</span></a>
+          </div>
+          <div class="variant-caption">
+            无按钮底，hover 时下划线拉满 + 箭头右移；最克制
+          </div>
+        </div>
+
+        <div class="variant-card">
+          <span class="variant-label">C3 · Editorial serif</span>
+          <div class="flex h-[90px] items-center justify-center">
+            <a href="#" class="c3">
+              查看全部 <span class="num">12</span> 个风格 <span class="arrow">→</span>
+            </a>
+          </div>
+          <div class="variant-caption">
+            Fraunces 衬线 + cyan 数字高亮 + 渐变下划线；有内容感（告诉人还有多少）
+          </div>
+        </div>
+
+        <div class="variant-card variant-card-dark">
+          <span class="variant-label">C4 · 磁悬浮深色</span>
+          <div class="flex h-[90px] items-center justify-center">
+            <a href="#" class="c4">
+              查看更多
+              <span class="arrow-circle">→</span>
+            </a>
+          </div>
+          <div class="variant-caption" style="color:#64748b">
+            深色按钮 + 内嵌白色圆箭头；hover 上浮 + 箭头旋转，权重最重
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="mx-auto max-w-[1400px] border-t border-slate-200 px-8 py-10 text-center">
+      <p class="text-[13px] text-slate-500">
+        告诉我选哪组，比如 <span class="font-mono text-slate-800">A3 + B3 + C2</span>，我就一次落地。
+      </p>
+    </footer>
+  </body>
+</html>
