@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import {
   FullscreenOutlined,
   HeartOutlined,
@@ -51,7 +51,9 @@ export function StyleCard({
   onClick: () => void;
 }) {
   const previewRef = useRef<HTMLDivElement | null>(null);
-  const [scale, setScale] = useState(0.28);
+  // null = 还没测量 · 首次 paint 前 useLayoutEffect 会同步设好真实 scale，
+  // 避免用"猜测值"渲染一帧再纠正引发闪烁（切分类时每张卡都 remount 放大这个问题）
+  const [scale, setScale] = useState<number | null>(null);
   const [hovered, setHovered] = useState(false);
   const { user } = useAuth();
   const { isFavorited, toggleFavorite } = useFavorites();
@@ -70,15 +72,19 @@ export function StyleCard({
     }
   };
 
-  // ResizeObserver 按容器宽度动态算 scale，保证 1440 虚拟画布精确缩略填满
-  useEffect(() => {
+  // useLayoutEffect + 首次同步测量 —— 在 paint 之前就设好正确 scale，
+  // 避免首帧用初始猜测值渲染引发"一闪"（卡片宽度浮动时 40%+ scale 差距非常明显）
+  useLayoutEffect(() => {
     const el = previewRef.current;
     if (!el) return;
+    const applyWidth = (w: number) => {
+      if (w > 0) setScale(w / PREVIEW_VIRTUAL_WIDTH);
+    };
+    // 1. 初次同步测量 · layoutEffect 内 setState 会在 paint 前结束
+    applyWidth(el.getBoundingClientRect().width);
+    // 2. 之后继续监听容器宽度变化（响应式列数变化时跟着重算）
     const ro = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const w = entry.contentRect.width;
-        if (w > 0) setScale(w / PREVIEW_VIRTUAL_WIDTH);
-      }
+      for (const entry of entries) applyWidth(entry.contentRect.width);
     });
     ro.observe(el);
     return () => ro.disconnect();
@@ -114,17 +120,20 @@ export function StyleCard({
         style={{ height: sizing.h }}
       >
         {hasPreview && PreviewComp ? (
-          <div
-            className="pointer-events-none absolute left-0 top-0 origin-top-left"
-            style={{
-              width: `${PREVIEW_VIRTUAL_WIDTH}px`,
-              height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
-              transform: `scale(${scale})`,
-            }}
-            aria-hidden
-          >
-            <PreviewComp />
-          </div>
+          // scale 为 null 时先不渲染 · bg-slate-50 容器占位不闪
+          scale !== null && (
+            <div
+              className="pointer-events-none absolute left-0 top-0 origin-top-left"
+              style={{
+                width: `${PREVIEW_VIRTUAL_WIDTH}px`,
+                height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
+                transform: `scale(${scale})`,
+              }}
+              aria-hidden
+            >
+              <PreviewComp />
+            </div>
+          )
         ) : (
           <div className="flex h-full items-center justify-center text-[12px] text-slate-400">
             暂无预览
