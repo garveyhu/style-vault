@@ -61,12 +61,24 @@ export default function FavoritesPage() {
             </button>
           </div>
         ) : (
-          <div className="columns-1 gap-6 md:columns-2 lg:columns-3 xl:columns-4">
+          <div
+            className="grid justify-start gap-4"
+            style={{
+              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 400px))',
+            }}
+          >
             {items.map((item) => (
               <StyleCard
                 key={item.id}
                 item={item}
-                onClick={() => nav(`/item/${item.id}`)}
+                onClick={() => {
+                  if (item.type === 'product') {
+                    const slug = item.id.replace(/^products\//, '');
+                    nav(`/products/${slug}`);
+                  } else {
+                    nav(`/item/${item.id}`);
+                  }
+                }}
               />
             ))}
           </div>

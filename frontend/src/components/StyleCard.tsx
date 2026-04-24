@@ -9,6 +9,7 @@ import { typeLabel, platformLabel } from '../utils/i18n';
 import { zh } from '../utils/tagI18n';
 import { useFavorites } from '../auth/FavoritesContext';
 import { useAuth } from '../auth/AuthContext';
+import { useRegistry } from '../data/useRegistry';
 import { getPreviewComponent } from '../preview/registry';
 
 const PREVIEW_VIRTUAL_WIDTH = 1440;
@@ -85,7 +86,17 @@ export function StyleCard({
   }, []);
 
   const sizing = SIZE_BY_TYPE[item.type] ?? SIZE_BY_TYPE.block;
-  const PreviewComp = getPreviewComponent(item.preview);
+
+  // 产品本身无 preview，退化去找 refs.pages[0] 或 refs.style 的 preview 当封面
+  const reg = useRegistry();
+  const coverPreview =
+    item.type === 'product'
+      ? resolveProductCover(item, reg.items)
+      : item.preview;
+  const hasPreview =
+    item.type === 'product' ? Boolean(coverPreview) : item.hasPreviewFile;
+  const PreviewComp = getPreviewComponent(coverPreview);
+
   const showPlatformChips =
     item.platforms.length > 0 && !item.platforms.includes('any');
 
@@ -103,7 +114,7 @@ export function StyleCard({
         className="relative w-full overflow-hidden bg-slate-50"
         style={{ height: sizing.h }}
       >
-        {item.hasPreviewFile && PreviewComp ? (
+        {hasPreview && PreviewComp ? (
           <div
             className="pointer-events-none absolute left-0 top-0 origin-top-left"
             style={{
@@ -205,6 +216,23 @@ export function StyleCard({
       </div>
     </article>
   );
+}
+
+function resolveProductCover(
+  product: RegistryItem,
+  all: RegistryItem[],
+): string | null {
+  const firstPageId = product.refs?.pages?.[0];
+  if (firstPageId) {
+    const p = all.find((i) => i.id === firstPageId);
+    if (p?.preview) return p.preview;
+  }
+  const styleId = product.refs?.style;
+  if (styleId) {
+    const s = all.find((i) => i.id === styleId);
+    if (s?.preview) return s.preview;
+  }
+  return null;
 }
 
 export default StyleCard;

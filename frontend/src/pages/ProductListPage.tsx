@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
+import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { useRegistry, isRegistryMissing } from '../data/useRegistry';
 import { TopBar } from '../components/TopBar';
 import { platformLabel } from '../utils/i18n';
 import { usePlatform, matchesPlatform } from '../contexts/PlatformContext';
 import { getPreviewComponent } from '../preview/registry';
+import { useAuth } from '../auth/AuthContext';
+import { useFavorites } from '../auth/FavoritesContext';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 
 const PLATFORM_TEXT = { web: 'Web', ios: 'iOS', android: 'Android' } as const;
@@ -88,6 +91,22 @@ function ProductCard({
   const previewRef = useRef<HTMLDivElement | null>(null);
   const [scale, setScale] = useState(0.28);
   const CoverComp = coverItem ? getPreviewComponent(coverItem.preview) : null;
+  const { user } = useAuth();
+  const { isFavorited, toggleFavorite } = useFavorites();
+  const favorited = isFavorited(product.id);
+
+  const handleToggleFav = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!user) {
+      onClick();
+      return;
+    }
+    try {
+      await toggleFavorite(product.id);
+    } catch {
+      /* 回滚由 FavoritesContext 处理 */
+    }
+  };
 
   useEffect(() => {
     const el = previewRef.current;
@@ -138,21 +157,37 @@ function ProductCard({
 
       {/* 信息区 —— 节奏对齐 StyleCard */}
       <div className="space-y-1.5 p-4">
-        <div className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.12em] text-slate-500">
-          <span className="flex items-center gap-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />
-            {product.category ?? '产品'}
-          </span>
-          {product.platforms.length > 0 && !product.platforms.includes('any') && (
-            <>
-              <span className="text-slate-300">·</span>
-              <span className="text-slate-400">
-                {product.platforms
-                  .map((pl) => platformLabel[pl] ?? pl)
-                  .join(' · ')}
-              </span>
-            </>
-          )}
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex min-w-0 items-center gap-2 text-[10px] font-medium uppercase tracking-[0.12em] text-slate-500">
+            <span className="flex items-center gap-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />
+              {product.category ?? '产品'}
+            </span>
+            {product.platforms.length > 0 &&
+              !product.platforms.includes('any') && (
+                <>
+                  <span className="text-slate-300">·</span>
+                  <span className="text-slate-400">
+                    {product.platforms
+                      .map((pl) => platformLabel[pl] ?? pl)
+                      .join(' · ')}
+                  </span>
+                </>
+              )}
+          </div>
+          <button
+            type="button"
+            onClick={handleToggleFav}
+            aria-label={favorited ? '取消收藏' : '收藏'}
+            className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[13px] transition
+              ${
+                favorited
+                  ? 'text-slate-900 hover:text-slate-700'
+                  : 'text-slate-300 hover:text-slate-900'
+              }`}
+          >
+            {favorited ? <HeartFilled /> : <HeartOutlined />}
+          </button>
         </div>
 
         <h3 className="m-0 font-display text-[15px] font-semibold leading-snug tracking-tight text-slate-900">

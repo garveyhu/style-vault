@@ -1,6 +1,7 @@
 import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import { useRegistry, useItem, isRegistryMissing } from '../data/useRegistry';
 import { TopBar } from '../components/TopBar';
+import { FavoriteButton } from '../components/FavoriteButton';
 import { platformLabel, themeLabel } from '../utils/i18n';
 import { getPreviewComponent } from '../preview/registry';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
@@ -74,6 +75,7 @@ export default function ProductDetailPage() {
             <span className="rounded-full border border-slate-200 bg-white px-4 py-1 text-[12px] text-slate-600">
               {themeLabel[product.theme] ?? product.theme}
             </span>
+            <FavoriteButton entryId={product.id} size="md" variant="icon" />
           </div>
         </div>
       </section>
