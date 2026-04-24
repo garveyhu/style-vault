@@ -83,13 +83,11 @@ export default function GhostButtonPreview() {
       <style>{`@keyframes ghost-btn-spin { to { transform: rotate(360deg); } }`}</style>
       <div
         style={{
-          minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
-          gap: 48,
-          padding: 48,
+          gap: 40,
+          padding: '64px 48px',
           color: '#e2e8f0',
           fontFamily: "'IBM Plex Sans', system-ui, sans-serif",
           background: '#020617',
