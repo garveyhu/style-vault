@@ -98,10 +98,10 @@ export function StyleCard({
       data-hover={hovered}
       className="sv-card group relative mb-5 block w-full cursor-pointer overflow-hidden rounded-xl border border-slate-200/80 bg-white [break-inside:avoid]"
     >
-      {/* ============ Preview 区：默认完全干净，hover 时右下浮出玻璃态按钮组 ============ */}
+      {/* ============ Preview 区：默认完全干净，hover 时浮出玻璃态操作 ============ */}
       <div
         ref={previewRef}
-        className="sv-preview-embedded relative w-full overflow-hidden bg-slate-50"
+        className="relative w-full overflow-hidden bg-slate-50"
         style={{ height: sizing.h }}
       >
         {item.hasPreviewFile && PreviewComp ? (
@@ -110,9 +110,7 @@ export function StyleCard({
             style={{
               width: `${PREVIEW_VIRTUAL_WIDTH}px`,
               height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
-              // 在 width-fit scale 基础上再放大 1.2x，让预览内容填得更满；
-              // 超出部分由外层 overflow-hidden 自然裁掉
-              transform: `scale(${scale * 1.2})`,
+              transform: `scale(${scale})`,
             }}
             aria-hidden
           >
@@ -124,31 +122,32 @@ export function StyleCard({
           </div>
         )}
 
-        {/* hover 时右下浮出的玻璃态按钮组 —— 无暗色遮罩、不遮挡预览主体 */}
+        {/* hover 时右上角浮出：全屏预览（图标 only，无 tooltip） */}
+        {item.hasPreviewFile && item.preview && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              window.open(item.preview!, '_blank');
+            }}
+            aria-label="全屏预览"
+            className={`absolute right-2.5 top-2.5 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-white/70 bg-white/85 text-slate-700 shadow-sm backdrop-blur-md transition-all duration-200 hover:bg-white hover:text-slate-900 ${
+              hovered ? 'opacity-100' : 'pointer-events-none opacity-0'
+            }`}
+          >
+            <FullscreenOutlined className="text-[11px]" />
+          </button>
+        )}
+
+        {/* hover 时右下角浮出：查看 → */}
         <div
-          className={`absolute bottom-2.5 right-2.5 z-10 flex items-center gap-1.5 transition-all duration-200 ${
+          className={`absolute bottom-2.5 right-2.5 z-10 flex items-center gap-1 rounded-full border border-white/70 bg-white/85 px-2.5 py-1 text-[11px] font-medium text-slate-900 shadow-sm backdrop-blur-md transition-all duration-200 ${
             hovered
               ? 'translate-y-0 opacity-100'
               : 'pointer-events-none translate-y-1 opacity-0'
           }`}
         >
-          {item.hasPreviewFile && item.preview && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                window.open(item.preview!, '_blank');
-              }}
-              title="全屏预览"
-              aria-label="全屏预览"
-              className="flex h-7 w-7 items-center justify-center rounded-full border border-white/70 bg-white/85 text-slate-700 shadow-sm backdrop-blur-md transition hover:bg-white hover:text-slate-900"
-            >
-              <FullscreenOutlined className="text-[11px]" />
-            </button>
-          )}
-          <div className="flex items-center gap-1 rounded-full border border-white/70 bg-white/85 px-2.5 py-1 text-[11px] font-medium text-slate-900 shadow-sm backdrop-blur-md">
-            查看 <ArrowRightOutlined className="text-[9px]" />
-          </div>
+          查看 <ArrowRightOutlined className="text-[9px]" />
         </div>
       </div>
 
