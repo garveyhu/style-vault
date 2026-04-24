@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  ArrowRightOutlined,
   FullscreenOutlined,
   HeartOutlined,
   HeartFilled,
@@ -98,7 +97,7 @@ export function StyleCard({
       data-hover={hovered}
       className="sv-card group relative mb-5 block w-full cursor-pointer overflow-hidden rounded-xl border border-slate-200/80 bg-white [break-inside:avoid]"
     >
-      {/* ============ Preview 区：默认完全干净，hover 时浮出玻璃态操作 ============ */}
+      {/* ============ Preview 区：默认完全干净，hover 不叠任何按钮 ============ */}
       <div
         ref={previewRef}
         className="relative w-full overflow-hidden bg-slate-50"
@@ -121,34 +120,6 @@ export function StyleCard({
             暂无预览
           </div>
         )}
-
-        {/* hover 时右上角浮出：全屏预览（图标 only，无 tooltip） */}
-        {item.hasPreviewFile && item.preview && (
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              window.open(item.preview!, '_blank');
-            }}
-            aria-label="全屏预览"
-            className={`absolute right-2.5 top-2.5 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-white/70 bg-white/85 text-slate-700 shadow-sm backdrop-blur-md transition-all duration-200 hover:bg-white hover:text-slate-900 ${
-              hovered ? 'opacity-100' : 'pointer-events-none opacity-0'
-            }`}
-          >
-            <FullscreenOutlined className="text-[11px]" />
-          </button>
-        )}
-
-        {/* hover 时右下角浮出：查看 → */}
-        <div
-          className={`absolute bottom-2.5 right-2.5 z-10 flex items-center gap-1 rounded-full border border-white/70 bg-white/85 px-2.5 py-1 text-[11px] font-medium text-slate-900 shadow-sm backdrop-blur-md transition-all duration-200 ${
-            hovered
-              ? 'translate-y-0 opacity-100'
-              : 'pointer-events-none translate-y-1 opacity-0'
-          }`}
-        >
-          查看 <ArrowRightOutlined className="text-[9px]" />
-        </div>
       </div>
 
       {/* ============ 信息区：type + platforms 一行 + 标题 + 描述 + tags ============ */}
@@ -174,20 +145,34 @@ export function StyleCard({
               </>
             )}
           </div>
-          <button
-            type="button"
-            onClick={handleToggleFav}
-            title={favorited ? '取消收藏' : '收藏'}
-            aria-label={favorited ? '取消收藏' : '收藏'}
-            className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[13px] transition
-              ${
-                favorited
-                  ? 'text-emerald-500 hover:text-emerald-600'
-                  : 'text-slate-300 hover:text-emerald-500'
-              }`}
-          >
-            {favorited ? <HeartFilled /> : <HeartOutlined />}
-          </button>
+          <div className="flex shrink-0 items-center gap-1">
+            {item.hasPreviewFile && item.preview && (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(item.preview!, '_blank');
+                }}
+                aria-label="全屏预览"
+                className="flex h-6 w-6 items-center justify-center rounded-md text-[12px] text-slate-300 transition hover:text-slate-700"
+              >
+                <FullscreenOutlined />
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={handleToggleFav}
+              aria-label={favorited ? '取消收藏' : '收藏'}
+              className={`flex h-6 w-6 items-center justify-center rounded-md text-[13px] transition
+                ${
+                  favorited
+                    ? 'text-emerald-500 hover:text-emerald-600'
+                    : 'text-slate-300 hover:text-emerald-500'
+                }`}
+            >
+              {favorited ? <HeartFilled /> : <HeartOutlined />}
+            </button>
+          </div>
         </div>
 
         <h3 className="m-0 font-display text-[15px] font-semibold leading-snug tracking-tight text-slate-900">
