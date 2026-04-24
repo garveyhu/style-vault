@@ -9,6 +9,7 @@ import { CategoryTabs } from '../components/CategoryTabs';
 import { FiltersPanel } from '../components/FiltersPanel';
 import { emptyFilterValue, type FilterValue } from '../components/TagFilterBar';
 import { usePlatform, matchesPlatform } from '../contexts/PlatformContext';
+import { useCols } from '../hooks/useCols';
 import { tagDict } from '../utils/taxonomy';
 
 const GROUP_KEYS = ['aesthetic', 'mood', 'stack'] as const;
@@ -48,6 +49,7 @@ const HERO_COPY: Record<CategoryKey, { title: string; desc: string }> = {
 
 export default function BrowseCategoryPage() {
   const reg = useRegistry();
+  const cols = useCols();
   const params = useParams();
   const nav = useNavigate();
   const { platform } = usePlatform();
@@ -133,8 +135,9 @@ export default function BrowseCategoryPage() {
           <div
             className="grid gap-4"
             style={{
-              // 方案 A · auto-fit + 1fr · 卡片自动拉伸填满可用宽度，消除右侧留白
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              // 与 BrowsePage 首页统一：用 useCols 的断点列数 · 保证同一显示设备下
+              // 两个页面的卡片宽度一致（例如 Mac lg=4 · 4K 2xl=6）
+              gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
             }}
           >
             {filtered.map((item) => (
