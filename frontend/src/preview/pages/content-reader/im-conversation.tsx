@@ -64,6 +64,12 @@ export default function IMConversationPreview() {
 
   return (
     <PreviewFrame bg="#ffffff" padded={false}>
+      {/* 隐藏 preview 里所有 overlay 滚动条 · 避免 setScrollTop 后 macOS 系统
+          滚动条"出现再渐隐"的动画干扰静态预览感 */}
+      <style>{`
+        .sv-im-scroll::-webkit-scrollbar { display: none; width: 0; height: 0; }
+        .sv-im-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+      `}</style>
       <div style={{ fontFamily: 'Inter, system-ui, sans-serif', color: '#0f172a', height: 700, display: 'flex', overflow: 'hidden', maxWidth: 1152, margin: '0 auto', background: '#fff' }}>
 
         {/* 左：会话列表 */}
@@ -82,7 +88,7 @@ export default function IMConversationPreview() {
             </button>
           </div>
 
-          <div style={{ flex: 1, overflowY: 'auto' }}>
+          <div className="sv-im-scroll" style={{ flex: 1, overflowY: 'auto' }}>
             {CONVERSATIONS.map((c) => {
               const isActive = selected === c.id;
               return (
@@ -157,7 +163,7 @@ export default function IMConversationPreview() {
           </div>
 
           {/* Thread body */}
-          <div ref={threadBodyRef} style={{
+          <div ref={threadBodyRef} className="sv-im-scroll" style={{
             flex: 1, overflowY: 'auto', padding: 16,
             background: 'linear-gradient(to bottom, #f8fafc, rgba(248,250,252,0.5))',
           }}>
