@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-24T11:17:31.310Z",
+  "version": "2026-04-24T13:02:03.761Z",
   "items": [
     {
       "id": "blocks/display/gradient-stat-card",
@@ -104,7 +104,6 @@
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
         "pages/dashboard/user-home",
-        "pages/detail/skill-article-detail",
         "pages/landing/skill-community-home"
       ],
       "hasPreviewFile": true,
@@ -248,7 +247,7 @@
       "id": "blocks/form/profile-edit-form",
       "type": "block",
       "name": "资料编辑表单",
-      "description": "avatar picker + 昵称 + bio + 性别 + 生日 + 地区 + 保存，典型\"用户资料\"多字段表单",
+      "description": "iOS 风列表点击编辑——每行 [label · value · ChevronRight]，点击弹独立 modal 修改",
       "platforms": [
         "web"
       ],
@@ -268,8 +267,6 @@
       },
       "uses": [
         "tokens/palettes/skillhub-teal-mist",
-        "components/inputs/soft-form-input",
-        "components/buttons/dark-primary-cta",
         "components/avatars-icons/letter-avatar"
       ],
       "preview": "/preview/blocks/form/profile-edit-form",
@@ -381,14 +378,13 @@
         "pages/dashboard/admin-overview",
         "pages/dashboard/user-home",
         "pages/detail/practice-post-detail",
-        "pages/detail/skill-article-detail",
         "pages/form-flow/practice-compose",
+        "pages/detail/user-public-profile",
         "pages/form-flow/profile-edit",
-        "pages/form-flow/skill-publish-wizard",
         "pages/landing/skill-community-home",
         "pages/list-table/admin-console",
-        "pages/detail/user-public-profile",
-        "pages/list-table/practice-plaza"
+        "pages/list-table/practice-plaza",
+        "pages/form-flow/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/nav/glass-pill-navbar.md"
@@ -427,10 +423,10 @@
         "pages/content-reader/im-conversation",
         "pages/dashboard/user-home",
         "pages/detail/practice-post-detail",
-        "pages/detail/skill-article-detail",
-        "pages/landing/skill-community-home",
         "pages/detail/user-public-profile",
-        "pages/list-table/practice-plaza"
+        "pages/landing/skill-community-home",
+        "pages/list-table/practice-plaza",
+        "pages/detail/skill-article-detail"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/avatars-icons/letter-avatar.md"
@@ -497,17 +493,15 @@
       "preview": "/preview/components/buttons/dark-primary-cta",
       "usedBy": [
         "blocks/form/auth-split-form",
-        "blocks/form/profile-edit-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/im-conversation",
         "pages/dashboard/user-home",
         "pages/detail/practice-post-detail",
-        "pages/detail/skill-article-detail",
         "pages/form-flow/practice-compose",
-        "pages/form-flow/profile-edit",
-        "pages/form-flow/skill-publish-wizard",
         "pages/detail/user-public-profile",
-        "pages/list-table/practice-plaza"
+        "pages/form-flow/profile-edit",
+        "pages/list-table/practice-plaza",
+        "pages/form-flow/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/buttons/dark-primary-cta.md"
@@ -607,7 +601,6 @@
       "preview": "/preview/components/inputs/soft-form-input",
       "usedBy": [
         "blocks/form/auth-split-form",
-        "blocks/form/profile-edit-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/im-conversation",
         "pages/form-flow/practice-compose",
@@ -646,10 +639,9 @@
         "blocks/display/leaderboard-row",
         "styles/community-social/skillhub-soft-modernist",
         "pages/detail/practice-post-detail",
-        "pages/detail/skill-article-detail",
         "pages/form-flow/practice-compose",
-        "pages/landing/skill-community-home",
         "pages/detail/user-public-profile",
+        "pages/landing/skill-community-home",
         "pages/list-table/practice-plaza"
       ],
       "hasPreviewFile": true,
@@ -838,7 +830,7 @@
       "id": "pages/detail/skill-article-detail",
       "type": "page",
       "name": "Skill 技能详情页",
-      "description": "长文 markdown 主栏 + 右侧 sticky sidebar（作者 / 操作 / 评分 / 相关）+ 底部评论区",
+      "description": "顶部 breadcrumb + 安装命令条 + SUMMARY box + SKILL.md 文档 + 280px 元信息 sidebar + timeline 评论区",
       "platforms": [
         "web"
       ],
@@ -857,11 +849,7 @@
         ]
       },
       "uses": [
-        "blocks/nav/glass-pill-navbar",
-        "blocks/display/skill-card",
         "components/avatars-icons/letter-avatar",
-        "components/buttons/dark-primary-cta",
-        "components/tags-badges/teal-pill",
         "tokens/palettes/skillhub-teal-mist",
         "tokens/typography/pairs/inter-jetbrains-duo"
       ],
@@ -1373,6 +1361,62 @@
       "skillPath": "styles/saas-tool/cold-industrial-saas/README.md"
     },
     {
+      "id": "tokens/layout/auto-fit-fluid",
+      "type": "token",
+      "name": "弹性自适应栅格",
+      "description": "auto-fit + minmax(min, 1fr) · 永远填行 · 卡宽随数据量与容器宽度浮动",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/layout/auto-fit-fluid",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/layout/auto-fit-fluid.md"
+    },
+    {
+      "id": "tokens/layout/fixed-cols-row",
+      "type": "token",
+      "name": "断点列数 · 一行快照栅格",
+      "description": "useCols + slice(0, cols) · 列数 = 显示数 · 卡宽在同屏下恒定不受数据量影响",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/layout/fixed-cols-row",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/layout/fixed-cols-row.md"
+    },
+    {
       "id": "tokens/motion/gentle-flow",
       "type": "token",
       "name": "温和流动动效系统",
@@ -1403,8 +1447,8 @@
         "blocks/marketing/gradient-hero",
         "components/buttons/border-trace-cta",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/form-flow/skill-publish-wizard",
-        "pages/landing/skill-community-home"
+        "pages/landing/skill-community-home",
+        "pages/form-flow/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/gentle-flow.md"
@@ -1439,28 +1483,28 @@
         "blocks/display/skill-card",
         "blocks/feedback/empty-state",
         "blocks/feedback/skeleton-card",
-        "blocks/form/auth-split-form",
-        "blocks/form/profile-edit-form",
         "blocks/marketing/gradient-hero",
         "blocks/nav/glass-pill-navbar",
+        "components/avatars-icons/letter-avatar",
+        "blocks/form/auth-split-form",
+        "blocks/form/profile-edit-form",
         "components/buttons/border-trace-cta",
         "components/buttons/dark-primary-cta",
         "components/indicators/pulse-dot",
         "components/inputs/soft-form-input",
-        "components/avatars-icons/letter-avatar",
         "components/tags-badges/teal-pill",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/auth/auth-split",
         "pages/content-reader/im-conversation",
         "pages/dashboard/admin-overview",
+        "pages/auth/auth-split",
         "pages/dashboard/user-home",
-        "pages/detail/skill-article-detail",
+        "pages/detail/user-public-profile",
         "pages/form-flow/profile-edit",
-        "pages/form-flow/skill-publish-wizard",
         "pages/landing/skill-community-home",
         "pages/list-table/admin-console",
-        "pages/detail/user-public-profile",
-        "pages/list-table/practice-plaza"
+        "pages/list-table/practice-plaza",
+        "pages/detail/skill-article-detail",
+        "pages/form-flow/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/skillhub-teal-mist.md"
@@ -1587,16 +1631,16 @@
       "uses": [],
       "preview": "/preview/tokens/typography/pairs/inter-jetbrains-duo",
       "usedBy": [
-        "blocks/form/auth-split-form",
         "blocks/marketing/gradient-hero",
+        "blocks/form/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/auth/auth-split",
         "pages/dashboard/admin-overview",
+        "pages/auth/auth-split",
         "pages/detail/practice-post-detail",
-        "pages/detail/skill-article-detail",
         "pages/form-flow/practice-compose",
         "pages/landing/skill-community-home",
-        "pages/list-table/admin-console"
+        "pages/list-table/admin-console",
+        "pages/detail/skill-article-detail"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/inter-jetbrains-duo.md"
