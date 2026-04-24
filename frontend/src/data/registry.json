@@ -1,6 +1,78 @@
 {
-  "version": "2026-04-24T04:50:33.639Z",
+  "version": "2026-04-24T09:30:28.170Z",
   "items": [
+    {
+      "id": "blocks/display/leaderboard-row",
+      "type": "block",
+      "name": "榜单行",
+      "description": "4 列网格榜单行——#秩 / 名称+描述 / 分类 pill / stats；Top3 用红黄蓝高亮",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/motion/gentle-flow",
+        "components/avatars-icons/letter-avatar",
+        "components/tags-badges/teal-pill"
+      ],
+      "preview": "/preview/blocks/display/leaderboard-row",
+      "usedBy": [
+        "pages/landing/skill-community-home",
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/leaderboard-row.md"
+    },
+    {
+      "id": "blocks/display/skill-card",
+      "type": "block",
+      "name": "Skill 卡片",
+      "description": "字母头像 + 版本胶囊 + 3 项 stats + 底部分隔线 + hover 边框变 teal + y:-4 浮起",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/shadow/ambient-float",
+        "tokens/motion/gentle-flow",
+        "components/avatars-icons/letter-avatar"
+      ],
+      "preview": "/preview/blocks/display/skill-card",
+      "usedBy": [
+        "pages/landing/skill-community-home",
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/skill-card.md"
+    },
     {
       "id": "blocks/display/table",
       "type": "block",
@@ -25,7 +97,9 @@
       "uses": [],
       "preview": "/preview/blocks/display/table",
       "usedBy": [
-        "blocks/layout/toolbar-bar"
+        "blocks/layout/toolbar-bar",
+        "pages/list-table/admin-console",
+        "styles/community-social/skillhub-soft-modernist"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/table.md"
@@ -55,9 +129,152 @@
         "blocks/display/table"
       ],
       "preview": "/preview/blocks/layout/toolbar-bar",
-      "usedBy": [],
+      "usedBy": [
+        "pages/list-table/admin-console",
+        "styles/community-social/skillhub-soft-modernist"
+      ],
       "hasPreviewFile": true,
       "skillPath": "blocks/layout/toolbar-bar.md"
+    },
+    {
+      "id": "blocks/marketing/gradient-hero",
+      "type": "block",
+      "name": "流光渐变 Hero",
+      "description": "超大号 Hero 标题 + 某一强调词用 4 色流动渐变 + 双 CTA（追光主 + ghost 次）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/typography/pairs/inter-jetbrains-duo",
+        "tokens/motion/gentle-flow",
+        "components/buttons/border-trace-cta"
+      ],
+      "preview": "/preview/blocks/marketing/gradient-hero",
+      "usedBy": [
+        "pages/landing/skill-community-home",
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/marketing/gradient-hero.md"
+    },
+    {
+      "id": "blocks/nav/glass-pill-navbar",
+      "type": "block",
+      "name": "玻璃 Pill 导航栏",
+      "description": "玻璃层 + 内嵌白色圆角 pill + 3 列 grid（品牌 / 中心导航 / 鉴权）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/shadow/ambient-float"
+      ],
+      "preview": "/preview/blocks/nav/glass-pill-navbar",
+      "usedBy": [
+        "pages/landing/skill-community-home",
+        "pages/list-table/admin-console",
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/glass-pill-navbar.md"
+    },
+    {
+      "id": "components/avatars-icons/letter-avatar",
+      "type": "component",
+      "name": "12 色柔和字母头像",
+      "description": "基于 index 的 12 色柔和轮转底色 + 白色粗体首字母的圆形头像",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist"
+      ],
+      "preview": "/preview/components/avatars-icons/letter-avatar",
+      "usedBy": [
+        "blocks/display/leaderboard-row",
+        "blocks/display/skill-card",
+        "pages/landing/skill-community-home",
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/avatars-icons/letter-avatar.md"
+    },
+    {
+      "id": "components/buttons/border-trace-cta",
+      "type": "component",
+      "name": "追光边框 CTA",
+      "description": "黑底 CTA 外缘跑 SVG 双环追光（cyan 主线 + purple 副线），品牌级召唤按钮",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/motion/gentle-flow"
+      ],
+      "preview": "/preview/components/buttons/border-trace-cta",
+      "usedBy": [
+        "blocks/marketing/gradient-hero",
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/buttons/border-trace-cta.md"
     },
     {
       "id": "components/buttons/ghost-button",
@@ -93,6 +310,40 @@
       "skillPath": "components/buttons/ghost-button.md"
     },
     {
+      "id": "components/tags-badges/teal-pill",
+      "type": "component",
+      "name": "Teal 胶囊标签",
+      "description": "圆角 full 的 teal 系分类标签，用于 skill 分类 / 版本号等轻量元信息",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist"
+      ],
+      "preview": "/preview/components/tags-badges/teal-pill",
+      "usedBy": [
+        "blocks/display/leaderboard-row",
+        "pages/landing/skill-community-home",
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/tags-badges/teal-pill.md"
+    },
+    {
       "id": "pages/landing/saas-landing",
       "type": "page",
       "name": "SaaS 落地页",
@@ -120,6 +371,82 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/landing/saas-landing/README.md"
+    },
+    {
+      "id": "pages/landing/skill-community-home",
+      "type": "page",
+      "name": "技能社区首页",
+      "description": "Hero 流光 → TOP 榜单 → 分类图标导航 → 搜索 → Skill 网格 + 分页",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/glass-pill-navbar",
+        "blocks/marketing/gradient-hero",
+        "blocks/display/leaderboard-row",
+        "blocks/display/skill-card",
+        "components/tags-badges/teal-pill",
+        "components/avatars-icons/letter-avatar",
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/typography/pairs/inter-jetbrains-duo",
+        "tokens/motion/gentle-flow"
+      ],
+      "preview": "/preview/pages/landing/skill-community-home",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/landing/skill-community-home/README.md"
+    },
+    {
+      "id": "pages/list-table/admin-console",
+      "type": "page",
+      "name": "多域管理后台",
+      "description": "Tabs 切多个管理域 + 每 Tab 里 toolbar-bar + table 的标准列表页",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/glass-pill-navbar",
+        "blocks/layout/toolbar-bar",
+        "blocks/display/table",
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/typography/pairs/inter-jetbrains-duo"
+      ],
+      "preview": "/preview/pages/list-table/admin-console",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/list-table/admin-console/README.md"
     },
     {
       "id": "products/acme-cold-saas",
@@ -167,6 +494,104 @@
       "skillPath": "products/acme-cold-saas/README.md"
     },
     {
+      "id": "products/skillhub",
+      "type": "product",
+      "name": "SkillHub · AI 技能社区平台",
+      "description": "聚合 Git 仓库扫描 SKILL.md 的技能发现、投稿、实践与管理平台",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "category": "productivity",
+      "refs": {
+        "style": "styles/community-social/skillhub-soft-modernist",
+        "pages": [
+          "pages/landing/skill-community-home",
+          "pages/list-table/admin-console"
+        ],
+        "blocks": [
+          "blocks/nav/glass-pill-navbar",
+          "blocks/marketing/gradient-hero",
+          "blocks/display/skill-card",
+          "blocks/display/leaderboard-row",
+          "blocks/display/table",
+          "blocks/layout/toolbar-bar"
+        ],
+        "components": [
+          "components/tags-badges/teal-pill",
+          "components/avatars-icons/letter-avatar",
+          "components/buttons/border-trace-cta"
+        ],
+        "tokens": {
+          "palette": "tokens/palettes/skillhub-teal-mist",
+          "typography": "tokens/typography/pairs/inter-jetbrains-duo",
+          "motion": "tokens/motion/gentle-flow",
+          "shadow": "tokens/shadow/ambient-float"
+        }
+      },
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": false,
+      "skillPath": "products/skillhub/README.md"
+    },
+    {
+      "id": "styles/community-social/skillhub-soft-modernist",
+      "type": "style",
+      "name": "SkillHub 柔雾现代风",
+      "description": "浅色底 + teal 主色 + 玻璃 pill 导航 + 彩虹流光 + 12 色柔和头像 + framer-motion 微动，社区 × 工具双重气质",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/typography/pairs/inter-jetbrains-duo",
+        "tokens/motion/gentle-flow",
+        "tokens/shadow/ambient-float",
+        "components/tags-badges/teal-pill",
+        "components/avatars-icons/letter-avatar",
+        "components/buttons/border-trace-cta",
+        "blocks/nav/glass-pill-navbar",
+        "blocks/marketing/gradient-hero",
+        "blocks/display/skill-card",
+        "blocks/display/leaderboard-row",
+        "blocks/display/table",
+        "blocks/layout/toolbar-bar",
+        "pages/landing/skill-community-home",
+        "pages/list-table/admin-console"
+      ],
+      "preview": "/preview/styles/community-social/skillhub-soft-modernist",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "styles/community-social/skillhub-soft-modernist/README.md"
+    },
+    {
       "id": "styles/saas-tool/cold-industrial-saas",
       "type": "style",
       "name": "冷感工业 SaaS",
@@ -198,6 +623,80 @@
       "usedBy": [],
       "hasPreviewFile": true,
       "skillPath": "styles/saas-tool/cold-industrial-saas/README.md"
+    },
+    {
+      "id": "tokens/motion/gentle-flow",
+      "type": "token",
+      "name": "温和流动动效系统",
+      "description": "framer-motion 入场 + hover 浮起 + active 缩放 + CSS 关键帧流光 + SVG 追光",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/motion/gentle-flow",
+      "usedBy": [
+        "blocks/display/leaderboard-row",
+        "blocks/display/skill-card",
+        "blocks/marketing/gradient-hero",
+        "components/buttons/border-trace-cta",
+        "pages/landing/skill-community-home",
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/motion/gentle-flow.md"
+    },
+    {
+      "id": "tokens/palettes/skillhub-teal-mist",
+      "type": "token",
+      "name": "SkillHub 柔雾 Teal 调色板",
+      "description": "Teal 主色 50-900 + Slate 中性 + 12 色柔和头像板 + Top3 红黄蓝 + 四色流动渐变",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/palettes/skillhub-teal-mist",
+      "usedBy": [
+        "blocks/display/leaderboard-row",
+        "blocks/display/skill-card",
+        "blocks/marketing/gradient-hero",
+        "blocks/nav/glass-pill-navbar",
+        "components/buttons/border-trace-cta",
+        "components/avatars-icons/letter-avatar",
+        "components/tags-badges/teal-pill",
+        "pages/landing/skill-community-home",
+        "pages/list-table/admin-console",
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/palettes/skillhub-teal-mist.md"
     },
     {
       "id": "tokens/palettes/slate-cyan-ice",
@@ -232,6 +731,38 @@
       "skillPath": "tokens/palettes/slate-cyan-ice.md"
     },
     {
+      "id": "tokens/shadow/ambient-float",
+      "type": "token",
+      "name": "环境悬浮阴影",
+      "description": "超轻环境阴影（≤0.04 透明度）+ hover:shadow-md 浮起 + 脉冲辉光",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/shadow/ambient-float",
+      "usedBy": [
+        "blocks/display/skill-card",
+        "blocks/nav/glass-pill-navbar",
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/shadow/ambient-float.md"
+    },
+    {
       "id": "tokens/typography/pairs/ibm-plex-duo",
       "type": "token",
       "name": "IBM Plex 双字体",
@@ -261,6 +792,39 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/ibm-plex-duo.md"
+    },
+    {
+      "id": "tokens/typography/pairs/inter-jetbrains-duo",
+      "type": "token",
+      "name": "Inter × JetBrains Mono 字体对",
+      "description": "Inter + Space Grotesk 备选（正文）· JetBrains Mono（等宽）· 开启 Inter 现代字形特性",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/typography/pairs/inter-jetbrains-duo",
+      "usedBy": [
+        "blocks/marketing/gradient-hero",
+        "pages/landing/skill-community-home",
+        "pages/list-table/admin-console",
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/typography/pairs/inter-jetbrains-duo.md"
     }
   ]
 }
