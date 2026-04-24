@@ -2,11 +2,10 @@ import { useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
 /**
- * 顶部分类 sticky 栏：产品 / 风格 / 页面 / 模块 / 组件 / 原语
- * 下滑时固定在 TopBar 下面，作为全站内容浏览的主导航。
+ * 浏览分类 sticky 栏：风格 / 页面 / 模块 / 组件 / 原语
+ * 下滑时固定在 TopBar 下面。产品集是独立入口，不放在这里。
  */
 const TABS: Array<{ key: string; label: string; to: string }> = [
-  { key: 'product', label: '产品', to: '/products' },
   { key: 'style', label: '风格', to: '/browse/style' },
   { key: 'page', label: '页面', to: '/browse/page' },
   { key: 'block', label: '模块', to: '/browse/block' },
@@ -17,9 +16,7 @@ const TABS: Array<{ key: string; label: string; to: string }> = [
 export function CategoryTabs() {
   const location = useLocation();
   const activeKey = useMemo(() => {
-    const p = location.pathname;
-    if (p.startsWith('/products')) return 'product';
-    const m = p.match(/^\/browse\/([^/?]+)/);
+    const m = location.pathname.match(/^\/browse\/([^/?]+)/);
     return m ? m[1] : null; // 在 /browse 总览无激活项
   }, [location.pathname]);
 

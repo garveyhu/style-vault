@@ -9,21 +9,13 @@ import { CategoryTabs } from '../components/CategoryTabs';
 import { usePlatform, matchesPlatform } from '../contexts/PlatformContext';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 
-type OverviewType = 'product' | 'style' | 'page' | 'block' | 'component' | 'token';
+type OverviewType = 'style' | 'page' | 'block' | 'component' | 'token';
 
-const ORDER: OverviewType[] = [
-  'product',
-  'style',
-  'page',
-  'block',
-  'component',
-  'token',
-];
+const ORDER: OverviewType[] = ['style', 'page', 'block', 'component', 'token'];
 
 const PREVIEW_PER_ROW = 3;
 
 const MORE_LINK: Record<OverviewType, string> = {
-  product: '/products',
   style: '/browse/style',
   page: '/browse/page',
   block: '/browse/block',
@@ -93,14 +85,7 @@ export default function BrowsePage() {
                     <StyleCard
                       key={item.id}
                       item={item}
-                      onClick={() => {
-                        if (item.type === 'product') {
-                          const slug = item.id.replace(/^products\//, '');
-                          nav(`/products/${slug}`);
-                        } else {
-                          nav(`/item/${item.id}`);
-                        }
-                      }}
+                      onClick={() => nav(`/item/${item.id}`)}
                     />
                   ))}
                 </div>
