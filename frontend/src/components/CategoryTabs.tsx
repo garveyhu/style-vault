@@ -24,18 +24,18 @@ export function CategoryTabs() {
   }, [location.pathname]);
 
   return (
-    <div className="sticky top-[72px] z-40 border-b border-slate-100 bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-[1600px] items-center gap-2 overflow-x-auto px-8 py-3">
+    <div className="sticky top-[72px] z-40 bg-[#fafafa]/90 backdrop-blur-md">
+      <div className="mx-auto flex max-w-[1600px] items-center gap-1 overflow-x-auto px-8 py-3">
         {TABS.map((t) => {
           const on = t.key === activeKey;
           return (
             <NavLink
               key={t.key}
               to={t.to}
-              className={`shrink-0 rounded-full px-4 py-1.5 text-[13px] font-medium transition ${
+              className={`shrink-0 rounded-full px-4 py-1.5 text-[14px] font-medium transition ${
                 on
-                  ? 'bg-slate-900 text-white shadow-sm'
-                  : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                  ? 'bg-slate-900 text-white'
+                  : 'text-slate-500 hover:text-slate-900'
               }`}
             >
               {t.label}

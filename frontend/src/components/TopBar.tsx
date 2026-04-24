@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Avatar, Dropdown } from 'antd';
 import { HeartOutlined } from '@ant-design/icons';
 import { LoginModal } from './LoginModal';
@@ -12,15 +12,24 @@ const PLATFORM_LABEL: Record<PlatformSel, string> = {
   android: 'Android',
 };
 
+function shouldShowPlatformPill(pathname: string): boolean {
+  if (pathname === '/browse') return true;
+  if (pathname.startsWith('/browse/')) return true;
+  if (pathname === '/products') return true;
+  return false;
+}
+
 export function TopBar() {
   const [loginOpen, setLoginOpen] = useState(false);
   const { user, logout, loading } = useAuth();
   const { platform, setPlatform } = usePlatform();
   const nav = useNavigate();
+  const { pathname } = useLocation();
+  const showPlatformPill = shouldShowPlatformPill(pathname);
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto flex h-[72px] max-w-[1600px] items-center gap-8 px-8">
+      <div className="relative mx-auto flex h-[72px] max-w-[1600px] items-center gap-8 px-8">
         {/* Logo + 简洁中文站名 */}
         <Link to="/" className="group flex shrink-0 items-center gap-2.5">
           <img
@@ -48,28 +57,29 @@ export function TopBar() {
           </Link>
         </nav>
 
-        {/* 中间留白 */}
-        <div className="flex-1" />
-
-        {/* 设备端切换 —— 三选一，必选一个 */}
-        <div className="hidden items-center rounded-full border border-slate-200 bg-slate-50 p-0.5 md:flex">
-          {(['web', 'ios', 'android'] as const).map((p) => {
-            const on = platform === p;
-            return (
-              <button
-                key={p}
-                type="button"
-                onClick={() => setPlatform(p)}
-                className={`h-7 rounded-full px-3 text-[12px] font-medium transition ${
-                  on
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-800'
-                }`}
-              >
-                {PLATFORM_LABEL[p]}
-              </button>
-            );
-          })}
+        {/* 居中：设备端切换（只在 browse/products 类路径显示） */}
+        <div className="flex flex-1 justify-center">
+          {showPlatformPill && (
+            <div className="hidden items-center rounded-full border border-slate-200 bg-slate-50 p-0.5 md:flex">
+              {(['web', 'ios', 'android'] as const).map((p) => {
+                const on = platform === p;
+                return (
+                  <button
+                    key={p}
+                    type="button"
+                    onClick={() => setPlatform(p)}
+                    className={`h-7 rounded-full px-4 text-[12px] font-medium transition ${
+                      on
+                        ? 'bg-white text-slate-900 shadow-sm'
+                        : 'text-slate-500 hover:text-slate-800'
+                    }`}
+                  >
+                    {PLATFORM_LABEL[p]}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
         {/* 右侧：收藏 + 登录 */}

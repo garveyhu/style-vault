@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import { Popover } from 'antd';
-import { FilterOutlined, DownOutlined } from '@ant-design/icons';
+import { FilterOutlined } from '@ant-design/icons';
 import { useRegistry, isRegistryMissing } from '../data/useRegistry';
 import { StyleCard } from '../components/StyleCard';
 import { TopBar } from '../components/TopBar';
@@ -19,12 +19,6 @@ const VALID_CATEGORIES: ReadonlySet<CategoryKey> = new Set([
   'component',
   'token',
 ]);
-type SortKey = 'popular' | 'latest';
-
-const SORT_LABEL: Record<SortKey, string> = {
-  popular: '热门',
-  latest: '最新',
-};
 
 const PLATFORM_TEXT = { web: 'Web', ios: 'iOS', android: 'Android' } as const;
 
@@ -56,7 +50,6 @@ export default function BrowseCategoryPage() {
   const params = useParams();
   const nav = useNavigate();
   const { platform } = usePlatform();
-  const [sort, setSort] = useState<SortKey>('popular');
   const [filters, setFilters] = useState<FilterValue>(emptyFilterValue);
 
   const type = params.type as CategoryKey | undefined;
@@ -91,49 +84,46 @@ export default function BrowseCategoryPage() {
       <CategoryTabs />
 
       <section className="bg-[#fafafa]">
-        <div className="mx-auto max-w-[1600px] px-8 pb-4 pt-12">
+        <div className="mx-auto max-w-[1600px] px-8 pb-4 pt-10">
           <div className="flex flex-wrap items-start justify-between gap-6">
             <div className="min-w-0">
-              <h1 className="font-display text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-slate-900 md:text-[44px]">
+              <h1 className="font-display text-[28px] font-semibold leading-[1.15] tracking-[-0.015em] text-slate-900 md:text-[32px]">
                 {hero.title}
               </h1>
-              <p className="mt-2 max-w-[600px] text-[14px] leading-relaxed text-slate-500">
+              <p className="mt-2 max-w-[600px] text-[13px] leading-relaxed text-slate-500">
                 {hero.desc}
               </p>
             </div>
-            <div className="flex shrink-0 items-center gap-2">
-              <Popover
-                trigger="click"
-                placement="bottomRight"
-                arrow={false}
-                content={
-                  <FiltersPanel
-                    dict={reg.tagDict}
-                    value={filters}
-                    onChange={setFilters}
-                  />
-                }
-                overlayInnerStyle={{ padding: 0, borderRadius: 16 }}
+            <Popover
+              trigger="click"
+              placement="bottomRight"
+              arrow={false}
+              content={
+                <FiltersPanel
+                  dict={reg.tagDict}
+                  value={filters}
+                  onChange={setFilters}
+                />
+              }
+              overlayInnerStyle={{ padding: 0, borderRadius: 16 }}
+            >
+              <button
+                type="button"
+                className={`flex h-9 shrink-0 items-center gap-2 rounded-full border px-4 text-[12px] font-medium transition ${
+                  activeFilterCount > 0
+                    ? 'border-slate-900 bg-slate-900 text-white'
+                    : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                }`}
               >
-                <button
-                  type="button"
-                  className={`flex h-9 items-center gap-2 rounded-full border px-4 text-[12px] font-medium transition ${
-                    activeFilterCount > 0
-                      ? 'border-slate-900 bg-slate-900 text-white'
-                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
-                  }`}
-                >
-                  <FilterOutlined className="text-[13px]" />
-                  筛选
-                  {activeFilterCount > 0 && (
-                    <span className="flex h-4 min-w-[18px] items-center justify-center rounded-full bg-white/20 px-1 text-[10px] font-semibold tabular-nums text-white">
-                      {activeFilterCount}
-                    </span>
-                  )}
-                </button>
-              </Popover>
-              <SortDropdown sort={sort} onChange={setSort} />
-            </div>
+                <FilterOutlined className="text-[13px]" />
+                筛选
+                {activeFilterCount > 0 && (
+                  <span className="flex h-4 min-w-[18px] items-center justify-center rounded-full bg-white/20 px-1 text-[10px] font-semibold tabular-nums text-white">
+                    {activeFilterCount}
+                  </span>
+                )}
+              </button>
+            </Popover>
           </div>
         </div>
       </section>
@@ -164,50 +154,3 @@ export default function BrowseCategoryPage() {
   );
 }
 
-function SortDropdown({
-  sort,
-  onChange,
-}: {
-  sort: SortKey;
-  onChange: (s: SortKey) => void;
-}) {
-  const [open, setOpen] = useState(false);
-  return (
-    <Popover
-      open={open}
-      onOpenChange={setOpen}
-      trigger="click"
-      placement="bottomRight"
-      arrow={false}
-      content={
-        <div className="w-[140px] overflow-hidden rounded-xl border border-slate-200 bg-white p-1 shadow-[0_12px_40px_-12px_rgba(15,23,42,0.2)]">
-          {(['popular', 'latest'] as const).map((s) => (
-            <button
-              key={s}
-              type="button"
-              onClick={() => {
-                onChange(s);
-                setOpen(false);
-              }}
-              className={`flex w-full items-center rounded-lg px-3 py-2 text-left text-[13px] transition ${
-                sort === s
-                  ? 'bg-slate-900 text-white'
-                  : 'text-slate-700 hover:bg-slate-50'
-              }`}
-            >
-              {SORT_LABEL[s]}
-            </button>
-          ))}
-        </div>
-      }
-      overlayInnerStyle={{ padding: 0, borderRadius: 12 }}
-    >
-      <button
-        type="button"
-        className="flex h-9 items-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 text-[12px] font-medium text-slate-700 transition hover:border-slate-300"
-      >
-        {SORT_LABEL[sort]} <DownOutlined className="text-[9px] text-slate-400" />
-      </button>
-    </Popover>
-  );
-}
