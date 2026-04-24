@@ -131,9 +131,10 @@ export default function BrowseCategoryPage() {
           </div>
         ) : (
           <div
-            className="grid justify-start gap-4"
+            className="grid gap-4"
             style={{
-              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 400px))',
+              // 方案 A · auto-fit + 1fr · 卡片自动拉伸填满可用宽度，消除右侧留白
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
             }}
           >
             {filtered.map((item) => (

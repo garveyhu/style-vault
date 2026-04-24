@@ -7,13 +7,12 @@ import { StyleCard } from '../components/StyleCard';
 import { TopBar } from '../components/TopBar';
 import { CategoryTabs } from '../components/CategoryTabs';
 import { usePlatform, matchesPlatform } from '../contexts/PlatformContext';
+import { useCols } from '../hooks/useCols';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 
 type OverviewType = 'style' | 'page' | 'block' | 'component' | 'token';
 
 const ORDER: OverviewType[] = ['style', 'page', 'block', 'component', 'token'];
-
-const PREVIEW_COUNT = 4;
 
 const MORE_LINK: Record<OverviewType, string> = {
   style: '/browse/style',
@@ -29,6 +28,7 @@ export default function BrowsePage() {
   const reg = useRegistry();
   const nav = useNavigate();
   const { platform } = usePlatform();
+  const cols = useCols();
 
   const rows = useMemo(() => {
     if (!reg?.items) return [] as Array<{ type: OverviewType; items: RegistryItem[] }>;
@@ -52,7 +52,8 @@ export default function BrowsePage() {
         <div className="space-y-14">
           {rows.map(({ type, items }) => {
             if (items.length === 0) return null;
-            const preview = items.slice(0, PREVIEW_COUNT);
+            // 只展一行 · 列数 = 显示数 · 最多 6（4K 的 2xl 断点量）
+            const preview = items.slice(0, cols);
             return (
               <section key={type}>
                 <header className="mb-5 flex items-baseline justify-between gap-4">
@@ -65,11 +66,11 @@ export default function BrowsePage() {
                   </Link>
                 </header>
 
-                {/* 与 BrowseCategoryPage 使用同一栅格：自适应 300–400px 卡宽 */}
+                {/* 方案 C · useCols 感知列数 + slice(0, cols) 只展一行 */}
                 <div
-                  className="grid justify-start gap-4"
+                  className="grid gap-4"
                   style={{
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 400px))',
+                    gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
                   }}
                 >
                   {preview.map((item) => (
