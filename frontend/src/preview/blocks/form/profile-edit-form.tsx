@@ -79,10 +79,10 @@ export default function ProfileEditFormPreview() {
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
             <div style={{
               width: 96, height: 96, borderRadius: 999,
-              background: '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '0 0 0 2px #f1f5f9',
+              background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 0 0 4px #f8fafc',
             }}>
-              <SelectedIcon size={48} color="#0ea5e9" />
+              <SelectedIcon size={48} color="#64748b" />
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: 8 }}>
               {AVATAR_OPTIONS.map((opt) => {

@@ -18,6 +18,9 @@ const ADMIN_PAGINATION = {
 };
 
 const ADMIN_THEME = {
+  token: {
+    colorPrimary: '#0f172a',
+  },
   components: {
     Select: {
       optionSelectedBg: '#e2e8f0',
@@ -36,7 +39,7 @@ function AdminTable<T extends object>(props: TableProps<T>) {
         size="small"
         bordered={false}
         {...props}
-        className={`[&_.ant-table]:!border-0 [&_.ant-table-container]:!border-0 [&_.ant-table-cell]:!border-inline-end-0 [&_.ant-table-row:hover>*]:!bg-slate-50/80 [&_.ant-table-row-selected>*]:!bg-blue-50/50 [&_.ant-table-expanded-row>*]:!bg-slate-50/50 ${props.className || ''}`}
+        className={`[&_.ant-table]:!border-0 [&_.ant-table-container]:!border-0 [&_.ant-table-cell]:!border-inline-end-0 [&_.ant-table-row:hover>*]:!bg-slate-50/80 [&_.ant-table-row-selected>*]:!bg-slate-100/60 [&_.ant-table-expanded-row>*]:!bg-slate-50/50 ${props.className || ''}`}
         pagination={
           props.pagination === false
             ? false

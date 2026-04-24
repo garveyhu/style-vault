@@ -211,7 +211,7 @@ export default function ProfileEditPagePreview() {
                   }}>取消</button>
                   <button onClick={() => setModal(null)} style={{
                     padding: '6px 16px', borderRadius: 6, border: 'none',
-                    background: '#1677ff', color: '#fff', fontSize: 14, cursor: 'pointer', fontFamily: 'inherit',
+                    background: '#0f172a', color: '#fff', fontSize: 14, cursor: 'pointer', fontFamily: 'inherit',
                   }}>保存</button>
                 </div>
               )}

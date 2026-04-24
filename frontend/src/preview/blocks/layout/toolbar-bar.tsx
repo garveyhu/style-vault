@@ -3,6 +3,9 @@ import type { ReactNode } from 'react';
 import { PreviewFrame } from '../../_layout';
 
 const ADMIN_THEME = {
+  token: {
+    colorPrimary: '#0f172a',
+  },
   components: {
     Select: {
       optionSelectedBg: '#e2e8f0',
@@ -58,6 +61,7 @@ const DATA: Row[] = [
 export default function ToolbarBarPreview() {
   return (
     <PreviewFrame bg="#f8fafc">
+      <ConfigProvider theme={ADMIN_THEME}>
       <div style={{ maxWidth: 1100, margin: '0 auto', background: '#fff', padding: 24, borderRadius: 4 }}>
         <h2 style={{ fontSize: 18, fontWeight: 600, margin: '0 0 16px' }}>技能列表</h2>
 
@@ -102,13 +106,14 @@ export default function ToolbarBarPreview() {
               key: 'status',
               width: 100,
               render: (s: string) => (
-                <Tag color={s === '已上线' ? 'green' : s === '草稿' ? 'blue' : 'default'}>{s}</Tag>
+                <Tag color={s === '已上线' ? 'green' : 'default'}>{s}</Tag>
               ),
             },
             { title: '所有者', dataIndex: 'owner', key: 'owner', width: 140 },
           ]}
         />
       </div>
+      </ConfigProvider>
     </PreviewFrame>
   );
 }
