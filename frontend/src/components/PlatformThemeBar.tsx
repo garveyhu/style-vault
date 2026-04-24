@@ -24,8 +24,8 @@ export function PlatformThemeBar({
   return (
     <div className="flex flex-wrap items-center gap-6">
       <div className="flex items-center gap-2">
-        <span className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
-          Platform
+        <span className="text-[11px] font-medium tracking-wider text-slate-400">
+          平台
         </span>
         {PLATFORM_OPTIONS.map((p) => {
           const on = value.platform === p;
@@ -40,14 +40,14 @@ export function PlatformThemeBar({
                   : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900'
               }`}
             >
-              {p === 'all' ? 'All' : platformLabel[p]}
+              {p === 'all' ? '全部' : platformLabel[p]}
             </button>
           );
         })}
       </div>
       <div className="flex items-center gap-2">
-        <span className="text-[11px] uppercase tracking-[0.18em] text-slate-400">
-          Theme
+        <span className="text-[11px] font-medium tracking-wider text-slate-400">
+          主题
         </span>
         {THEME_OPTIONS.map((t) => {
           const on = value.theme === t;
@@ -62,7 +62,7 @@ export function PlatformThemeBar({
                   : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900'
               }`}
             >
-              {t === 'any' ? 'Any' : themeLabel[t]}
+              {t === 'any' ? '任意' : themeLabel[t]}
             </button>
           );
         })}

@@ -16,10 +16,10 @@ export default function ProductListPage() {
       <div className="mx-auto max-w-[1400px] px-8 py-12">
         <div className="mb-10">
           <h1 className="font-display text-[44px] font-semibold tracking-[-0.02em] text-slate-900">
-            Products
+            产品集 <span className="text-slate-300">·</span> <span className="text-slate-500">Products</span>
           </h1>
           <p className="mt-2 text-[15px] text-slate-500">
-            A curated set of complete product shells — each one bundling a Style, Pages, Blocks, Components and Tokens.
+            完整产品外壳的精选——每个产品都把一套风格、若干页面、模块、组件与原语捆绑成一个可复用的整体。
           </p>
         </div>
 
@@ -59,11 +59,11 @@ export default function ProductListPage() {
                       {p.description}
                     </p>
                     <div className="mt-4 flex gap-3 text-[12px] text-slate-400">
-                      <span>{p.refs?.pages?.length ?? 0} Pages</span>
+                      <span>{p.refs?.pages?.length ?? 0} 页面</span>
                       <span>·</span>
-                      <span>{p.refs?.blocks?.length ?? 0} Blocks</span>
+                      <span>{p.refs?.blocks?.length ?? 0} 模块</span>
                       <span>·</span>
-                      <span>{p.refs?.components?.length ?? 0} Components</span>
+                      <span>{p.refs?.components?.length ?? 0} 组件</span>
                     </div>
                   </div>
                 </button>

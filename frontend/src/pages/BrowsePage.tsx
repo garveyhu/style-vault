@@ -125,10 +125,10 @@ export default function BrowsePage() {
           {/* 左：标题 + 副 */}
           <div>
             <h1 className="sv-anim-fade-up sv-delay-0 font-display text-[64px] font-extrabold leading-[1.02] tracking-[-0.04em] text-slate-900 md:text-[80px] lg:text-[96px]">
-              Discover your
+              浏览你的
               <br />
-              <span className="bg-gradient-to-br from-emerald-700 via-slate-800 to-slate-900 bg-clip-text text-transparent">
-                style vault.
+              <span className="bg-gradient-to-br from-cyan-700 via-slate-800 to-slate-900 bg-clip-text text-transparent">
+                风格库。
               </span>
             </h1>
 

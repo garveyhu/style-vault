@@ -29,20 +29,20 @@ export default function HomePage() {
         <div className="relative mx-auto flex min-h-[calc(100vh-72px)] max-w-[1200px] flex-col items-center justify-center px-8 py-24 text-center">
           <div className="sv-anim-fade-up sv-delay-0 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/85 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-slate-500 backdrop-blur-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-500" />
-            Style Vault · v2
+            Style Vault · 风格库 v2
           </div>
 
-          <h1 className="sv-anim-fade-up sv-delay-150 mt-8 max-w-[1000px] font-display text-[72px] font-semibold leading-[1.02] tracking-[-0.035em] text-slate-900 md:text-[96px]">
-            A vault of distinctive UI styles,
+          <h1 className="sv-anim-fade-up sv-delay-150 mt-8 max-w-[1000px] font-display text-[64px] font-semibold leading-[1.08] tracking-[-0.03em] text-slate-900 md:text-[88px]">
+            为 AI 编码而造的
             <br />
             <span className="bg-gradient-to-br from-cyan-700 via-slate-800 to-slate-900 bg-clip-text text-transparent">
-              from token to product.
+              设计风格库
             </span>
           </h1>
 
-          <p className="sv-anim-fade-up sv-delay-300 mx-auto mt-8 max-w-[640px] text-[17px] leading-[1.7] text-slate-500">
-            Six layers. Six clear categories. Built to feed AI coding with style
-            that doesn't look AI-made.
+          <p className="sv-anim-fade-up sv-delay-300 mx-auto mt-8 max-w-[560px] text-[17px] leading-[1.8] text-slate-500">
+            六个层级，六道清晰边界。<br />
+            让 AI 写出的代码，不再有千篇一律的"AI 味"。
           </p>
 
           <div className="sv-anim-fade-up sv-delay-500 mt-12">
@@ -51,7 +51,7 @@ export default function HomePage() {
               onClick={() => nav('/browse')}
               className="group inline-flex h-14 items-center gap-3 rounded-full bg-slate-900 px-9 text-[15px] font-medium text-white shadow-[0_20px_48px_-20px_rgba(15,23,42,0.6)] transition hover:bg-slate-800"
             >
-              Browse the Vault
+              进入风格库
               <ArrowRightOutlined className="transition group-hover:translate-x-1" />
             </button>
           </div>
@@ -64,7 +64,7 @@ export default function HomePage() {
       <section className="border-b border-slate-100 bg-slate-50">
         <div className="mx-auto max-w-[1200px] px-8 py-16 text-center">
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-slate-400">
-            Covering the full aesthetic range
+            覆盖完整的美学光谱 · Curated aesthetic range
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-60">
             {wallItems.map((name) => (
@@ -86,21 +86,21 @@ export default function HomePage() {
         <div className="space-y-36">
           <ValueBlock
             n="01"
-            title="Six layers, from token to product."
-            body="From the smallest color swatch to a complete product shell, every layer has a clear boundary. Tokens feed Components feed Blocks feed Pages feed Styles feed Products—each can stand alone or nest."
+            title="六层结构，从 Token 到 Product。"
+            body="从最小的色卡到完整的产品外壳，每一层都有明确的边界。Tokens 喂 Components，Components 拼 Blocks，Blocks 组 Pages，Pages 成 Styles，Styles 汇聚为 Products——每层都能单独取用，也可层层嵌套。"
             illust={<LayerStack />}
           />
           <ValueBlock
             n="02"
-            title="Built for AI coding."
-            body="Every entry ships with a curated prompt payload. Copy it into your AI copilot and get style-faithful code out the other end—no generic 'AI-slop' aesthetic."
+            title="为 AI 编码而生。"
+            body="每条资产都附带一份精心调好的 Prompt 模板。粘进你的 AI Copilot，产出的代码自带风格，不再有那种一眼就能认出的「AI slop」审美。"
             illust={<PromptPayload />}
             flip
           />
           <ValueBlock
             n="03"
-            title="Cross-platform by design."
-            body="Browse by Web, iOS, or Android. Styles travel across surfaces; individual components may differ, but the vibe stays—by design."
+            title="天生跨端，调性如一。"
+            body="按 Web / iOS / Android 浏览。同一种风格在不同端之间流转——具体组件可以不同，但整体调性始终如一。"
             illust={<PlatformTrio />}
           />
         </div>
@@ -114,13 +114,13 @@ export default function HomePage() {
           <div className="pointer-events-none absolute -left-24 top-10 h-[260px] w-[260px] rounded-full bg-cyan-500/10 blur-3xl" />
           <div className="pointer-events-none absolute -right-24 bottom-10 h-[200px] w-[200px] rounded-full bg-slate-500/15 blur-3xl" />
 
-          <p className="relative font-display text-[44px] font-medium leading-[1.15] tracking-[-0.02em] md:text-[52px]">
-            Good design is <span className="italic text-cyan-300">seen</span>.
+          <p className="relative font-display text-[40px] font-medium leading-[1.2] tracking-[-0.015em] md:text-[52px]">
+            好设计会被<span className="italic text-cyan-300">看见</span>，
             <br />
-            Great design is <span className="italic text-cyan-300">remembered</span>.
+            伟大的设计会被<span className="italic text-cyan-300">记住</span>。
           </p>
           <p className="relative mt-10 text-[11px] font-medium uppercase tracking-[0.28em] text-slate-400">
-            Style Vault · Curated for makers
+            Style Vault · 为匠人精选
           </p>
         </div>
       </section>
@@ -131,9 +131,9 @@ export default function HomePage() {
       <footer className="bg-white">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-4 px-8 py-10 text-[12px] text-slate-400">
           <span className="flex items-center gap-2">
-            <img src="/logo.svg" alt="" className="h-5 w-5 opacity-70" />
+            <img src="/logo.svg" alt="" className="h-5 w-5 opacity-80" />
             <span className="font-display text-[14px] font-medium text-slate-500">
-              Style Vault
+              Style Vault · 风格库
             </span>
           </span>
           <span>© 2026 Style Vault</span>

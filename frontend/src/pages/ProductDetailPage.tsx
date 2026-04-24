@@ -54,7 +54,7 @@ export default function ProductDetailPage() {
         <div className="relative mx-auto max-w-[1100px] px-8 pb-20 pt-20 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-slate-500">
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-500" />
-            PRODUCT · {product.category ?? ''}
+            产品 · {product.category ?? 'Product'}
           </div>
           <h1 className="mx-auto mt-5 max-w-[900px] font-display text-[64px] font-semibold leading-[1.03] tracking-[-0.025em] text-slate-900">
             {product.name}
@@ -83,22 +83,22 @@ export default function ProductDetailPage() {
         <div className="grid grid-cols-[160px_1fr] gap-14">
           <aside className="sticky top-24 h-max">
             <div className="mb-3 text-[10px] uppercase tracking-[0.22em] text-slate-400">
-              On this page
+              本页导航
             </div>
             <ul className="space-y-2.5 text-[13px]">
               <li>
                 <a href="#style" className="text-slate-500 hover:text-slate-900">
-                  01 · Style
+                  01 · 风格
                 </a>
               </li>
               <li>
                 <a href="#pages" className="text-slate-500 hover:text-slate-900">
-                  02 · Pages
+                  02 · 页面
                 </a>
               </li>
               <li>
                 <a href="#blocks" className="text-slate-500 hover:text-slate-900">
-                  03 · Blocks
+                  03 · 模块
                 </a>
               </li>
               <li>
@@ -106,12 +106,12 @@ export default function ProductDetailPage() {
                   href="#components"
                   className="text-slate-500 hover:text-slate-900"
                 >
-                  04 · Components
+                  04 · 组件
                 </a>
               </li>
               <li>
                 <a href="#tokens" className="text-slate-500 hover:text-slate-900">
-                  05 · Tokens
+                  05 · 原语
                 </a>
               </li>
             </ul>
@@ -124,7 +124,7 @@ export default function ProductDetailPage() {
                 <div className="flex items-baseline gap-4">
                   <span className="font-mono text-[12px] text-slate-400">01</span>
                   <h2 className="font-display text-[36px] font-semibold">
-                    The Style
+                    设计风格
                   </h2>
                 </div>
                 <button
@@ -137,7 +137,7 @@ export default function ProductDetailPage() {
                     </div>
                     <div className="p-7">
                       <div className="text-[11px] uppercase tracking-[0.2em] text-cyan-600">
-                        Design Language
+                        设计语言
                       </div>
                       <div className="mt-3 font-display text-[24px] font-semibold">
                         {style.name}
@@ -155,7 +155,7 @@ export default function ProductDetailPage() {
             <article id="pages">
               <div className="flex items-baseline gap-4">
                 <span className="font-mono text-[12px] text-slate-400">02</span>
-                <h2 className="font-display text-[36px] font-semibold">Pages</h2>
+                <h2 className="font-display text-[36px] font-semibold">页面</h2>
                 <span className="text-[13px] text-slate-400">· {pages.length}</span>
               </div>
               <div className="mt-8 space-y-10">
@@ -176,7 +176,7 @@ export default function ProductDetailPage() {
                           onClick={() => nav(`/item/${p.id}`)}
                           className="text-[12px] text-slate-500 underline decoration-dotted"
                         >
-                          Open →
+                          查看 →
                         </button>
                       </div>
                       <div
@@ -195,7 +195,7 @@ export default function ProductDetailPage() {
             <article id="blocks">
               <div className="flex items-baseline gap-4">
                 <span className="font-mono text-[12px] text-slate-400">03</span>
-                <h2 className="font-display text-[36px] font-semibold">Blocks</h2>
+                <h2 className="font-display text-[36px] font-semibold">模块</h2>
                 <span className="text-[13px] text-slate-400">
                   · {blocks.length}
                 </span>
@@ -226,9 +226,7 @@ export default function ProductDetailPage() {
             <article id="components">
               <div className="flex items-baseline gap-4">
                 <span className="font-mono text-[12px] text-slate-400">04</span>
-                <h2 className="font-display text-[36px] font-semibold">
-                  Components
-                </h2>
+                <h2 className="font-display text-[36px] font-semibold">组件</h2>
                 <span className="text-[13px] text-slate-400">
                   · {components.length}
                 </span>
@@ -257,7 +255,7 @@ export default function ProductDetailPage() {
               <article id="tokens">
                 <div className="flex items-baseline gap-4">
                   <span className="font-mono text-[12px] text-slate-400">05</span>
-                  <h2 className="font-display text-[36px] font-semibold">Tokens</h2>
+                  <h2 className="font-display text-[36px] font-semibold">原语</h2>
                 </div>
                 <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
                   {paletteItem && (
@@ -266,7 +264,7 @@ export default function ProductDetailPage() {
                       className="rounded-2xl border border-slate-200 bg-white p-6 text-left transition hover:border-slate-300"
                     >
                       <div className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
-                        Palette
+                        调色板
                       </div>
                       <div className="mt-2 font-display text-[18px] font-semibold">
                         {paletteItem.name}
@@ -282,7 +280,7 @@ export default function ProductDetailPage() {
                       className="rounded-2xl border border-slate-200 bg-white p-6 text-left transition hover:border-slate-300"
                     >
                       <div className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
-                        Typography
+                        字体系统
                       </div>
                       <div className="mt-2 font-display text-[18px] font-semibold">
                         {typoItem.name}
