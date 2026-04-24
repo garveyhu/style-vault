@@ -32,60 +32,37 @@ graph TB
 
 ---
 
-## 本仓做什么
-
-一个 **React 19 + Vite + TypeScript** 前端网站，功能：
-
-- **浏览** —— 按粒度（6 层 × 3 平台）翻看所有资产
-- **发现** —— 产品集、分类筛选、标签过滤、搜索
-- **分发 prompt** —— 每条资产详情页都带"复制 prompt"卡片，粘到本地 AI 即可复刻
-- **收藏** —— 登录后收藏喜欢的风格（后端账号体系）
-- **Preview 预览** —— 每条非 token 资产都有 live preview 的 React 组件
-
-## 典型用户流
-
-```
-浏览网站 → 找到喜欢的风格
-       ↓
-复制 prompt 卡片（含资产 id）
-       ↓
-粘贴到本地 Claude Code / AI 会话
-       ↓
-AI 装了 style-vault skill，读 MD + 合并 tokens → 产出代码
-```
-
----
-
-## 技术栈
-
-- **前端**：React 19 + Vite + TypeScript + Tailwind CSS + Ant Design
-  - 路由 React Router v7；状态 React Context（Auth / Platform / Favorites）
-  - 预览渲染：`src/preview/**/*.tsx` 动态加载，ResizeObserver 做封面等比缩放
-  - 数据源：`src/data/registry.json` + `src/data/taxonomy.json` 都是 `yarn sync` 从 skill 仓生成的 build 产物
-- **后端**：FastAPI + SQLAlchemy + Alembic + SQLite
-  - 账号登录（JWT）+ 收藏持久化
-  - 详情见 [backend/README.md](backend/README.md)
-
----
-
 ## 安装
 
 ### 消费者（只是想用 vault 里的风格）
 
-本网站和 [`style-vault` skill](https://github.com/garveyhu/awesome-skills/tree/main/style-vault) **是绑定的**——单装其中一个不 work。两步：
+本网站和 [`style-vault` skill](https://github.com/garveyhu/awesome-skills/tree/main/style-vault) **是绑定的**——单装一边不 work。三步：
 
-1. **装 `style-vault` skill** 到你 Claude Code 的 skills 目录（从 [awesome-skills](https://github.com/garveyhu/awesome-skills) 克隆或下载 `style-vault/` 子目录）
-2. **clone 本网站仓**跑本地 `yarn dev`，或者用托管好的版本
+1. **装 `style-vault` skill** 到你 Claude Code 的 skills 目录（从 [awesome-skills](https://github.com/garveyhu/awesome-skills) 取 `style-vault/` 子目录）
+
+2. **clone 本网站仓** 到本机任意位置：
+
+   ```bash
+   git clone https://github.com/garveyhu/style-vault.git
+   ```
+
+3. **编辑 `~/.agents/path.json`**（此路径是**硬约束**，写死在 skill 和 sync 脚本里，不能改），加入 `"style-vault"` 字段指向你 clone 下来的仓：
+
+   ```json
+   {
+     "style-vault": "/absolute/path/to/style-vault"
+   }
+   ```
 
 用法：浏览网站 → 复制 prompt 卡片 → 粘到本地 Claude Code（装了 skill 的）→ AI 复刻风格。
 
 ### 创作者（想往 vault 里加 / 改 / 删风格）
 
-除了上面两步，再装第三件：
+上述三步之外，再装**第二个 skill**：
 
-3. **装 `style-vault-sediment` skill** 到同一个 skills 目录下（作为 `style-vault/` 的兄弟目录，从 awesome-skills 取 `style-vault-sediment/` 子目录）
+4. **装 `style-vault-sediment` skill** 到同一个 skills 目录下（作为 `style-vault/` 的兄弟目录，从 awesome-skills 取 `style-vault-sediment/` 子目录）
 
-然后在 Claude Code 里说"沉淀 xxx"就能写入。
+然后在 Claude Code 里说"沉淀 xxx"就能触发写入流程。
 
 ## 快速开始（开发 / 自己跑起来）
 
