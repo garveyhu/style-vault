@@ -25,7 +25,7 @@ export default function FavoritesPage() {
       <section className="border-b border-slate-100 bg-white">
         <div className="mx-auto max-w-[1600px] px-8 py-12">
           <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-slate-400">
-            <HeartFilled className="text-emerald-500" />
+            <HeartFilled className="text-slate-900" />
             MY FAVORITES
           </div>
           <h1 className="mt-3 font-display text-[48px] font-semibold tracking-[-0.025em] text-slate-900">

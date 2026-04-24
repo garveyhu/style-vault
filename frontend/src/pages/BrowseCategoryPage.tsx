@@ -84,16 +84,11 @@ export default function BrowseCategoryPage() {
       <CategoryTabs />
 
       <section className="bg-[#fafafa]">
-        <div className="mx-auto max-w-[1600px] px-8 pb-4 pt-10">
-          <div className="flex flex-wrap items-start justify-between gap-6">
-            <div className="min-w-0">
-              <h1 className="font-display text-[28px] font-semibold leading-[1.15] tracking-[-0.015em] text-slate-900 md:text-[32px]">
-                {hero.title}
-              </h1>
-              <p className="mt-2 max-w-[600px] text-[13px] leading-relaxed text-slate-500">
-                {hero.desc}
-              </p>
-            </div>
+        <div className="mx-auto max-w-[1600px] px-8 pb-4 pt-8">
+          <div className="flex flex-wrap items-center justify-between gap-6">
+            <p className="max-w-[680px] text-[14px] leading-relaxed text-slate-500">
+              {hero.desc}
+            </p>
             <Popover
               trigger="click"
               placement="bottomRight"

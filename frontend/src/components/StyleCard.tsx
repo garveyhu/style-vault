@@ -166,8 +166,8 @@ export function StyleCard({
               className={`flex h-6 w-6 items-center justify-center rounded-md text-[13px] transition
                 ${
                   favorited
-                    ? 'text-emerald-500 hover:text-emerald-600'
-                    : 'text-slate-300 hover:text-emerald-500'
+                    ? 'text-slate-900 hover:text-slate-700'
+                    : 'text-slate-300 hover:text-slate-900'
                 }`}
             >
               {favorited ? <HeartFilled /> : <HeartOutlined />}
