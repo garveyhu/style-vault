@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  FullscreenOutlined,
   ArrowRightOutlined,
   HeartOutlined,
   HeartFilled,
@@ -15,14 +14,14 @@ import { getPreviewComponent } from '../preview/registry';
 const PREVIEW_VIRTUAL_WIDTH = 1440;
 const PREVIEW_VIRTUAL_HEIGHT = 900;
 
-/** 按 type 分 L/M/S 三档高度（CSS columns 多列里必须固定像素高度） */
+/** 按 type 分 L/M/S 三档高度 —— 比例比旧版收紧一档 */
 const SIZE_BY_TYPE: Record<string, { h: number; w: number }> = {
-  product: { h: 260, w: 420 },
-  style: { h: 260, w: 420 },
-  page: { h: 260, w: 420 },
-  block: { h: 220, w: 360 },
-  component: { h: 200, w: 320 },
-  token: { h: 200, w: 320 },
+  product: { h: 220, w: 420 },
+  style: { h: 220, w: 420 },
+  page: { h: 220, w: 420 },
+  block: { h: 180, w: 360 },
+  component: { h: 160, w: 320 },
+  token: { h: 160, w: 320 },
 };
 
 function typeDotColor(type: string): string {
@@ -87,6 +86,8 @@ export function StyleCard({
 
   const sizing = SIZE_BY_TYPE[item.type] ?? SIZE_BY_TYPE.block;
   const PreviewComp = getPreviewComponent(item.preview);
+  const showPlatformChips =
+    item.platforms.length > 0 && !item.platforms.includes('any');
 
   return (
     <article
@@ -94,9 +95,9 @@ export function StyleCard({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       data-hover={hovered}
-      className="sv-card group relative mb-6 block w-full cursor-pointer overflow-hidden rounded-2xl border border-slate-200/80 bg-white [break-inside:avoid]"
+      className="sv-card group relative mb-5 block w-full cursor-pointer overflow-hidden rounded-xl border border-slate-200/80 bg-white [break-inside:avoid]"
     >
-      {/* Preview 区（height 固定，width 跟卡片自适应） */}
+      {/* ============ Preview 区：默认完全干净，hover 时底部出「查看」CTA ============ */}
       <div
         ref={previewRef}
         className="relative w-full overflow-hidden bg-slate-50"
@@ -115,119 +116,96 @@ export function StyleCard({
             <PreviewComp />
           </div>
         ) : (
-          <div className="flex h-full items-center justify-center text-sm text-slate-400">
+          <div className="flex h-full items-center justify-center text-[12px] text-slate-400">
             暂无预览
           </div>
         )}
 
-        {/* hover overlay（state 驱动，不依赖 CSS :hover） */}
+        {/* hover overlay —— 只在 hover 时出现，平时不遮挡预览 */}
         <div
-          className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-black/55 via-black/15 to-transparent transition-opacity duration-300 ${
+          className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 h-20 bg-gradient-to-t from-black/50 via-black/10 to-transparent transition-opacity duration-300 ${
             hovered ? 'opacity-100' : 'opacity-0'
           }`}
         />
         <div
-          className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 p-4 transition-all duration-300 ${
-            hovered ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0'
+          className={`pointer-events-none absolute inset-x-0 bottom-0 z-10 p-3 transition-all duration-300 ${
+            hovered ? 'translate-y-0 opacity-100' : 'translate-y-1 opacity-0'
           }`}
         >
-          <div className="flex items-end justify-between gap-3">
-            <div className="min-w-0 flex-1">
-              <div className="text-[11px] uppercase tracking-[0.12em] text-white/70">
-                {typeLabel[item.type]}
-              </div>
-              <div className="mt-0.5 truncate font-display text-[18px] font-semibold leading-tight text-white drop-shadow-sm">
-                {item.name}
-              </div>
-            </div>
-            <div className="pointer-events-auto flex shrink-0 items-center gap-1.5 rounded-full bg-white/95 px-3 py-1.5 text-[12px] font-medium text-slate-900 shadow-sm transition hover:bg-white">
-              查看 <ArrowRightOutlined className="text-[10px]" />
+          <div className="flex items-center justify-end">
+            <div className="pointer-events-auto flex items-center gap-1.5 rounded-full bg-white/95 px-3 py-1 text-[11px] font-medium text-slate-900 shadow-sm">
+              查看 <ArrowRightOutlined className="text-[9px]" />
             </div>
           </div>
         </div>
+      </div>
 
-        {/* 左上：平台徽标（常驻，[any] 隐藏） */}
-        {item.platforms.length > 0 && !item.platforms.includes('any') && (
-          <div className="pointer-events-none absolute left-3 top-3 z-10 flex items-center gap-1">
-            {item.platforms.map((p) => (
-              <span
-                key={p}
-                className="rounded-md bg-slate-900/85 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white shadow-sm backdrop-blur-sm"
-              >
-                {platformLabel[p] ?? p}
-              </span>
-            ))}
+      {/* ============ 信息区：type + platforms 一行 + 标题 + 描述 + tags ============ */}
+      <div className="space-y-1.5 p-4">
+        {/* 顶行：type 徽标 + platform chips + 右侧收藏按钮 */}
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex min-w-0 items-center gap-2 text-[10px] font-medium uppercase tracking-[0.12em] text-slate-500">
+            <span className="flex items-center gap-1.5">
+              <span className={`h-1.5 w-1.5 rounded-full ${typeDotColor(item.type)}`} />
+              {typeLabel[item.type]}
+            </span>
+            {showPlatformChips && (
+              <>
+                <span className="text-slate-300">·</span>
+                <span className="flex items-center gap-1 text-slate-400">
+                  {item.platforms.map((p, i) => (
+                    <span key={p}>
+                      {i > 0 && <span className="mx-1 text-slate-300">·</span>}
+                      {platformLabel[p] ?? p}
+                    </span>
+                  ))}
+                </span>
+              </>
+            )}
           </div>
-        )}
-
-        {/* 右上：收藏 + 全屏 */}
-        <div className="pointer-events-none absolute right-3 top-3 z-10 flex items-center gap-1.5">
           <button
             type="button"
             onClick={handleToggleFav}
             title={favorited ? '取消收藏' : '收藏'}
             aria-label={favorited ? '取消收藏' : '收藏'}
-            className={`pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg shadow-sm backdrop-blur-sm transition-all duration-200
+            className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-[13px] transition
               ${
                 favorited
-                  ? 'bg-emerald-500 text-white opacity-100 hover:bg-emerald-600'
-                  : `bg-white/95 text-slate-500 hover:bg-white hover:text-emerald-500 ${
-                      hovered ? 'opacity-100' : 'opacity-0'
-                    }`
+                  ? 'text-emerald-500 hover:text-emerald-600'
+                  : 'text-slate-300 hover:text-emerald-500'
               }`}
           >
             {favorited ? <HeartFilled /> : <HeartOutlined />}
           </button>
-
-          {item.hasPreviewFile && item.preview && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                window.open(item.preview!, '_blank');
-              }}
-              title="全屏预览"
-              className={`pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg bg-white/95 text-slate-600 shadow-sm backdrop-blur-sm transition-all duration-200 hover:bg-white hover:text-slate-900 ${
-                hovered ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              <FullscreenOutlined />
-            </button>
-          )}
         </div>
 
-      </div>
-
-      {/* 信息区 */}
-      <div className="space-y-2 p-5">
-        <div className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.14em] text-slate-500">
-          <span className={`h-1.5 w-1.5 rounded-full ${typeDotColor(item.type)}`} />
-          {typeLabel[item.type]}
-        </div>
-        <h3 className="m-0 font-display text-[16px] font-semibold leading-snug tracking-tight text-slate-900">
+        <h3 className="m-0 font-display text-[15px] font-semibold leading-snug tracking-tight text-slate-900">
           {item.name}
         </h3>
-        <p className="line-clamp-2 min-h-[36px] text-[13px] leading-relaxed text-slate-500">
+        <p className="line-clamp-2 text-[12px] leading-relaxed text-slate-500">
           {item.description}
         </p>
-        <div className="flex flex-wrap gap-1.5 pt-1">
-          {item.tags.aesthetic.slice(0, 3).map((t) => (
-            <span
-              key={`a-${t}`}
-              className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] text-slate-600"
-            >
-              {zh('aesthetic', t)}
-            </span>
-          ))}
-          {item.tags.mood.slice(0, 2).map((t) => (
-            <span
-              key={`m-${t}`}
-              className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] text-slate-600"
-            >
-              {zh('mood', t)}
-            </span>
-          ))}
-        </div>
+
+        {(item.tags.aesthetic.length > 0 || item.tags.mood.length > 0) && (
+          <div className="flex flex-wrap gap-1 pt-1">
+            {item.tags.aesthetic.slice(0, 3).map((t) => (
+              <span
+                key={`a-${t}`}
+                className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-600"
+              >
+                {zh('aesthetic', t)}
+              </span>
+            ))}
+            {item.tags.mood.slice(0, 2).map((t) => (
+              <span
+                key={`m-${t}`}
+                className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-600"
+              >
+                {zh('mood', t)}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </article>
   );

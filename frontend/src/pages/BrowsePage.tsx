@@ -135,7 +135,7 @@ export default function BrowsePage() {
       </section>
 
       {/* ============ 分类 sections ============ */}
-      <main className="mx-auto max-w-[1600px] px-8 pb-20 pt-10">
+      <main className="mx-auto max-w-[1600px] px-8 pb-16 pt-8">
         {!hasAnyResults ? (
           <EmptyState
             onReset={() => {
@@ -144,7 +144,7 @@ export default function BrowsePage() {
             }}
           />
         ) : (
-          <div className="space-y-12">
+          <div className="space-y-10">
             {sections
               .filter((s) => s.items.length > 0)
               .map(({ type, items }, secIdx) => {
@@ -153,12 +153,12 @@ export default function BrowsePage() {
                 const num = String(secIdx + 1).padStart(2, "0");
                 return (
                   <section key={type}>
-                    <header className="mb-5 flex items-baseline justify-between gap-4">
+                    <header className="mb-4 flex items-baseline justify-between gap-4">
                       <div className="flex items-baseline gap-3">
-                        <span className="font-mono text-[13px] tracking-wider text-slate-400">
+                        <span className="font-mono text-[12px] tracking-wider text-slate-400">
                           {num}
                         </span>
-                        <h2 className="font-display text-[26px] font-semibold tracking-[-0.015em] text-slate-900">
+                        <h2 className="font-display text-[22px] font-semibold tracking-[-0.015em] text-slate-900">
                           {typePlural[type]}
                         </h2>
                         <span className="text-[12px] text-slate-400">
@@ -183,10 +183,10 @@ export default function BrowsePage() {
                         少量条目时不会被撑到空旷尺寸，也不会挤到一起 */}
                     <div
                       id={`sec-${type}`}
-                      className="grid justify-start gap-5"
+                      className="grid justify-start gap-4"
                       style={{
                         gridTemplateColumns:
-                          "repeat(auto-fill, minmax(340px, 480px))",
+                          "repeat(auto-fill, minmax(300px, 400px))",
                       }}
                     >
                       {preview.map((item) => (
