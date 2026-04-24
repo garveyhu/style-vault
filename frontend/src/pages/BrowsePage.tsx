@@ -70,25 +70,33 @@ export default function BrowsePage() {
     <div className="min-h-screen bg-[#fafafa]">
       <TopBar />
 
-      {/* ============ 标题区 ============ */}
-      <section className="border-b border-slate-100 bg-white">
-        <div className="mx-auto max-w-[1600px] px-8 pb-6 pt-14">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <div className="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-400">
+      {/* ============ 标题区 + Filter（融合进一体） ============ */}
+      <section className="relative overflow-hidden bg-[#fafafa]">
+        {/* 极淡的 cyan 光晕做软过渡，消解顶部与下方的割裂感 */}
+        <div className="pointer-events-none absolute -left-40 -top-32 h-[380px] w-[380px] rounded-full bg-cyan-100/40 blur-3xl" />
+        <div className="pointer-events-none absolute right-0 -top-20 h-[260px] w-[260px] rounded-full bg-slate-200/45 blur-3xl" />
+
+        <div className="relative mx-auto max-w-[1600px] px-8 pt-14">
+          {/* 标题行：左标题 + 右小 CTA */}
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div className="min-w-0">
+              <div className="inline-flex items-center gap-2.5 text-[11px] font-medium uppercase tracking-[0.22em] text-slate-500">
+                <span className="h-[3px] w-10 rounded-full bg-gradient-to-r from-cyan-500 to-slate-800" />
                 Design Inspiration
               </div>
-              <h1 className="mt-3 font-display text-[44px] font-semibold leading-[1.08] tracking-[-0.025em] text-slate-900 md:text-[56px]">
+              <h1 className="mt-4 font-display text-[40px] font-semibold leading-[1.05] tracking-[-0.02em] text-slate-900 md:text-[52px]">
                 设计灵感
               </h1>
-              <p className="mt-2 max-w-[640px] text-[14px] leading-relaxed text-slate-500">
-                从产品到原语，看看真实设计是怎么一层层落下来的。按平台、主题或风格筛，灵感秒找到。
-              </p>
             </div>
+            <p className="mb-2 max-w-[440px] text-[14px] leading-relaxed text-slate-500">
+              从产品到原语——看真实设计是怎么一层层落下来的。
+              <br />
+              按平台 / 主题 / 风格筛，灵感秒到手。
+            </p>
           </div>
 
-          {/* ============ Filter 行：Platform + Theme + Filters popover ============ */}
-          <div className="mt-10 flex flex-wrap items-center justify-between gap-5">
+          {/* Filter 行：同 bg，靠细分割线分区不靠色块 */}
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-5 border-t border-slate-200/70 pt-6">
             <PlatformThemeBar value={ptf} onChange={setPtf} />
 
             <Popover
@@ -127,7 +135,7 @@ export default function BrowsePage() {
       </section>
 
       {/* ============ 分类 sections ============ */}
-      <main className="mx-auto max-w-[1600px] px-8 py-12">
+      <main className="mx-auto max-w-[1600px] px-8 pb-20 pt-10">
         {!hasAnyResults ? (
           <EmptyState
             onReset={() => {
@@ -136,51 +144,62 @@ export default function BrowsePage() {
             }}
           />
         ) : (
-          <div className="space-y-20">
-            {sections.map(({ type, items }) => {
-              if (items.length === 0) return null;
-              const preview = items.slice(0, PREVIEW_PER_SECTION);
-              const hasMore = items.length > PREVIEW_PER_SECTION;
-              return (
-                <section key={type}>
-                  <header className="mb-6 flex items-baseline justify-between gap-4">
-                    <div className="flex items-baseline gap-3">
-                      <h2 className="font-display text-[28px] font-semibold tracking-[-0.015em] text-slate-900">
-                        {typePlural[type]}
-                      </h2>
-                      <span className="text-[13px] text-slate-400">
-                        · 共 {items.length} 个
-                      </span>
-                    </div>
-                    {hasMore && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const el = document.getElementById(`sec-${type}`);
-                          el?.scrollIntoView({ behavior: "smooth", block: "start" });
-                        }}
-                        className="flex items-center gap-1 text-[13px] font-medium text-slate-500 transition hover:text-slate-900"
-                      >
-                        查看全部 <ArrowRightOutlined className="text-[11px]" />
-                      </button>
-                    )}
-                  </header>
+          <div className="space-y-12">
+            {sections
+              .filter((s) => s.items.length > 0)
+              .map(({ type, items }, secIdx) => {
+                const preview = items.slice(0, PREVIEW_PER_SECTION);
+                const hasMore = items.length > PREVIEW_PER_SECTION;
+                const num = String(secIdx + 1).padStart(2, "0");
+                return (
+                  <section key={type}>
+                    <header className="mb-5 flex items-baseline justify-between gap-4">
+                      <div className="flex items-baseline gap-3">
+                        <span className="font-mono text-[13px] tracking-wider text-slate-400">
+                          {num}
+                        </span>
+                        <h2 className="font-display text-[26px] font-semibold tracking-[-0.015em] text-slate-900">
+                          {typePlural[type]}
+                        </h2>
+                        <span className="text-[12px] text-slate-400">
+                          · 共 {items.length} 个
+                        </span>
+                      </div>
+                      {hasMore && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const el = document.getElementById(`sec-${type}`);
+                            el?.scrollIntoView({ behavior: "smooth", block: "start" });
+                          }}
+                          className="flex items-center gap-1 text-[13px] font-medium text-slate-500 transition hover:text-slate-900"
+                        >
+                          查看全部 <ArrowRightOutlined className="text-[11px]" />
+                        </button>
+                      )}
+                    </header>
 
-                  <div
-                    id={`sec-${type}`}
-                    className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
-                  >
-                    {preview.map((item) => (
-                      <StyleCard
-                        key={item.id}
-                        item={item}
-                        onClick={() => nav(`/item/${item.id}`)}
-                      />
-                    ))}
-                  </div>
-                </section>
-              );
-            })}
+                    {/* auto-fill grid：卡片 340–480px 之间按容器宽度自适应，从左往右摆，
+                        少量条目时不会被撑到空旷尺寸，也不会挤到一起 */}
+                    <div
+                      id={`sec-${type}`}
+                      className="grid justify-start gap-5"
+                      style={{
+                        gridTemplateColumns:
+                          "repeat(auto-fill, minmax(340px, 480px))",
+                      }}
+                    >
+                      {preview.map((item) => (
+                        <StyleCard
+                          key={item.id}
+                          item={item}
+                          onClick={() => nav(`/item/${item.id}`)}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                );
+              })}
           </div>
         )}
       </main>
