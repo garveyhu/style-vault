@@ -1,10 +1,10 @@
 {
-  "version": "2026-04-24T00:35:18.620Z",
+  "version": "2026-04-24T03:06:15.783Z",
   "items": [
     {
       "id": "blocks/display/table",
       "type": "block",
-      "name": "Admin Table",
+      "name": "管理后台表格",
       "description": "管理后台无边框表格，统一分页、中文本地化、行 hover 减淡",
       "platforms": [
         "web"
@@ -33,7 +33,7 @@
     {
       "id": "blocks/layout/toolbar-bar",
       "type": "block",
-      "name": "Admin Toolbar Bar",
+      "name": "管理后台工具栏",
       "description": "表格顶部工具栏，搜索+筛选左对齐，功能按钮右对齐",
       "platforms": [
         "web"
@@ -62,7 +62,7 @@
     {
       "id": "components/buttons/ghost-button",
       "type": "component",
-      "name": "Ghost Button",
+      "name": "幽灵按钮",
       "description": "幽灵按钮——透明底 + 1px 描边，只在 hover 时显色",
       "platforms": [
         "web"
@@ -95,7 +95,7 @@
     {
       "id": "pages/landing/saas-landing",
       "type": "page",
-      "name": "SaaS Landing",
+      "name": "SaaS 落地页",
       "description": "标准 SaaS 落地页骨架：Hero / Feature Grid / Pricing / CTA",
       "platforms": [
         "web"
@@ -124,13 +124,13 @@
     {
       "id": "products/acme-cold-saas",
       "type": "product",
-      "name": "Acme · Cold Industrial SaaS",
-      "description": "A productivity cockpit for quant teams — dense tables, monospace numbers, no warmth.",
+      "name": "Acme · 冷感工业 SaaS",
+      "description": "为量化团队打造的效率驾驶舱——密集表格、等宽数字、无暖色装饰。",
       "platforms": [
         "web"
       ],
       "theme": "dark",
-      "category": "productivity-tool",
+      "category": "效率工具",
       "refs": {
         "style": "styles/saas-tool/cold-industrial-saas",
         "pages": [
@@ -169,7 +169,7 @@
     {
       "id": "styles/saas-tool/cold-industrial-saas",
       "type": "style",
-      "name": "Cold Industrial SaaS",
+      "name": "冷感工业 SaaS",
       "description": "冷感留白 + IBM Plex 双字体 + 几何切割，工具型 SaaS 的整站调性",
       "platforms": [
         "web"
@@ -234,7 +234,7 @@
     {
       "id": "tokens/typography/pairs/ibm-plex-duo",
       "type": "token",
-      "name": "IBM Plex Duo",
+      "name": "IBM Plex 双字体",
       "description": "IBM Plex Sans + IBM Plex Mono，技术感与中性感兼具的字体搭配",
       "platforms": [
         "any"
