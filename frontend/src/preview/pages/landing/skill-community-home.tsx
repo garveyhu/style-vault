@@ -1,4 +1,4 @@
-import { ArrowRight, Box, Compass, Heart, MessageCircle, MessageSquare, Search, Settings, Sparkles, Star, Upload, User, Users } from 'lucide-react';
+import { ArrowRight, Box, Compass, Heart, MessageCircle, MessageSquare, Search, Settings, Sparkles, Star, Upload, Users } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { PreviewFrame } from '../../_layout';
 

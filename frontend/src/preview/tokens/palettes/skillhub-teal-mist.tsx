@@ -1,7 +1,6 @@
 import { PreviewFrame } from '../../_layout';
 
 type Swatch = { name: string; hex: string; note?: string };
-type Group = { group: string; items: Swatch[] };
 
 const PRIMARY: Swatch[] = [
   { name: 'primary-50', hex: '#f0fdfa' },
