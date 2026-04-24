@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import { Suspense, lazy } from 'react';
+import HomePage from './pages/HomePage';
 import BrowsePage from './pages/BrowsePage';
 import DetailPage from './pages/DetailPage';
 import NotInstalledPage from './pages/NotInstalledPage';
@@ -30,7 +31,8 @@ export default function App() {
         <ScrollToTop />
         <Suspense fallback={<GlobalLoading />}>
           <Routes>
-            <Route path="/" element={<BrowsePage />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/browse" element={<BrowsePage />} />
             <Route path="/item/*" element={<DetailPage />} />
             <Route path="/products" element={<ProductListPage />} />
             <Route path="/products/:slug" element={<ProductDetailPage />} />

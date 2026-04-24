@@ -58,6 +58,12 @@ export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
 
         <nav className="hidden items-center gap-6 md:flex">
           <Link
+            to="/browse"
+            className="text-[13px] font-medium text-slate-600 transition hover:text-slate-900"
+          >
+            Browse
+          </Link>
+          <Link
             to="/products"
             className="text-[13px] font-medium text-slate-600 transition hover:text-slate-900"
           >
