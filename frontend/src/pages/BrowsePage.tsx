@@ -47,15 +47,6 @@ export default function BrowsePage() {
       <TopBar />
       <CategoryTabs />
 
-      {/* ===== 简短描述 ===== */}
-      <section className="bg-[#fafafa]">
-        <div className="mx-auto max-w-[1600px] px-8 pt-8">
-          <p className="max-w-[680px] text-[14px] leading-relaxed text-slate-500">
-            按粒度浏览——从完整风格到单个原语。
-          </p>
-        </div>
-      </section>
-
       {/* ===== 每类别一行 ===== */}
       <main className="mx-auto max-w-[1600px] px-8 pb-20 pt-10">
         <div className="space-y-14">
