@@ -6,6 +6,7 @@ import {
   validateType,
   validatePlatforms,
   validateRefs,
+  validateRefTargets,
   validateUses,
   validatePreview,
   computeUsedBy,
@@ -68,6 +69,7 @@ async function main() {
     });
   }
   issues.push(...validateUses(entries));
+  issues.push(...validateRefTargets(entries));
 
   const errors = issues.filter((i) => i.level === 'error');
   const warnings = issues.filter((i) => i.level === 'warning');

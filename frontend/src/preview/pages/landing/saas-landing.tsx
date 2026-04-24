@@ -1,8 +1,8 @@
 import { PreviewFrame } from '../../_layout';
 
 /**
- * SaaS Landing archetype preview
- * 仅结构，色字通过 CSS 变量 / Tailwind 占位展示，vibe 可覆盖。
+ * SaaS Landing page preview
+ * 仅结构，色字通过 CSS 变量 / Tailwind 占位展示，Style 可覆盖。
  */
 export default function SaasLandingPreview() {
   return (
@@ -38,7 +38,7 @@ export default function SaasLandingPreview() {
           </h1>
           <p className="text-lg opacity-70 max-w-xl mb-8">
             支撑副文两行，交代产品定位与目标受众。节奏紧凑但不拥挤，
-            留白由 archetype 规定，色字由 vibe 注入。
+            留白由 Page 规定，色字由 Style 注入。
           </p>
           <div className="flex gap-3">
             <button
@@ -75,8 +75,8 @@ export default function SaasLandingPreview() {
           <h2 className="text-3xl font-semibold mb-12">Everything you need</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { t: 'Composable', d: '按需组合的 atom/composite，不绑死一套 design system。' },
-              { t: 'Themable', d: 'vibe 注入整站调性，archetype 保持结构不变。' },
+              { t: 'Composable', d: '按需组合的 Component / Block，不绑死一套 design system。' },
+              { t: 'Themable', d: 'Style 注入整站调性，Page 保持结构不变。' },
               { t: 'Type-safe', d: '完整 TypeScript 类型，Ant Design 底座稳。' },
               { t: 'Ship ready', d: '真实 preview 可点，不止是截图或 Figma。' },
               { t: 'Open', d: '本地 Markdown + frontmatter，无平台锁定。' },

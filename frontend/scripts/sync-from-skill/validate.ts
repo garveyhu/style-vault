@@ -50,6 +50,40 @@ export function validateTags(fm: Frontmatter, dict: TagDict): ValidationIssue[] 
   return issues;
 }
 
+export function validateRefTargets(entries: Entry[]): ValidationIssue[] {
+  const allIds = new Set(entries.map((e) => e.frontmatter.id));
+  const issues: ValidationIssue[] = [];
+  for (const e of entries) {
+    if (e.frontmatter.type !== 'product') continue;
+    const refs = e.frontmatter.refs;
+    if (!refs) continue;
+
+    const check = (ref: string | undefined, label: string) => {
+      if (!ref) return;
+      if (!allIds.has(ref)) {
+        issues.push({
+          level: 'error',
+          entryId: e.frontmatter.id,
+          message: `product ref ${label} does not resolve: ${ref}`,
+        });
+      }
+    };
+
+    check(refs.style, 'style');
+    (refs.pages ?? []).forEach((r, i) => check(r, `pages[${i}]`));
+    (refs.blocks ?? []).forEach((r, i) => check(r, `blocks[${i}]`));
+    (refs.components ?? []).forEach((r, i) => check(r, `components[${i}]`));
+    if (refs.tokens) {
+      check(refs.tokens.palette, 'tokens.palette');
+      check(refs.tokens.typography, 'tokens.typography');
+      check(refs.tokens.motion, 'tokens.motion');
+      check(refs.tokens.border, 'tokens.border');
+      check(refs.tokens.iconography, 'tokens.iconography');
+    }
+  }
+  return issues;
+}
+
 export function validateUses(entries: Entry[]): ValidationIssue[] {
   const allIds = new Set(entries.map((e) => e.frontmatter.id));
   const issues: ValidationIssue[] = [];
