@@ -59,20 +59,46 @@ AI 装了 style-vault skill，读 MD + 合并 tokens → 产出代码
 ## 技术栈
 
 - **前端**：React 19 + Vite + TypeScript + Tailwind CSS + Ant Design
-- **路由**：React Router v7
-- **状态**：React Context（Auth / Platform / Favorites）
-- **预览渲染**：`src/preview/**/*.tsx` 动态加载，ResizeObserver 做封面等比缩放
-- **数据源**：`src/data/registry.json` + `src/data/taxonomy.json` 都是 `yarn sync` 从 skill 仓生成的 build 产物
+  - 路由 React Router v7；状态 React Context（Auth / Platform / Favorites）
+  - 预览渲染：`src/preview/**/*.tsx` 动态加载，ResizeObserver 做封面等比缩放
+  - 数据源：`src/data/registry.json` + `src/data/taxonomy.json` 都是 `yarn sync` 从 skill 仓生成的 build 产物
+- **后端**：FastAPI + SQLAlchemy + Alembic + SQLite
+  - 账号登录（JWT）+ 收藏持久化
+  - 详情见 [backend/README.md](backend/README.md)
 
 ---
 
-## 快速开始
+## 安装
+
+### 消费者（只是想用 vault 里的风格）
+
+本网站和 [`style-vault` skill](https://github.com/garveyhu/awesome-skills/tree/main/style-vault) **是绑定的**——单装其中一个不 work。两步：
+
+1. **装 `style-vault` skill** 到 `~/.agents/skills/style-vault/`（从 [awesome-skills](https://github.com/garveyhu/awesome-skills) 克隆或下载）
+2. **clone 本网站仓**跑本地 `yarn dev`，或者用托管好的版本
+
+用法：浏览网站 → 复制 prompt 卡片 → 粘到本地 Claude Code（装了 skill 的）→ AI 复刻风格。
+
+### 创作者（想往 vault 里加 / 改 / 删风格）
+
+除了上面两步，再装第三件：
+
+3. **装 `style-vault-sediment` skill** 到 `~/.agents/skills/style-vault-sediment/`（同样从 awesome-skills）
+
+然后在 Claude Code 里说"沉淀 xxx"就能写入。
+
+## 快速开始（开发 / 自己跑起来）
 
 ```bash
+# 前端
 cd frontend
 yarn install
-yarn sync      # 从 skill 仓同步 taxonomy + 所有资产条目
+yarn sync      # 从 skill 仓同步 taxonomy + 所有资产条目（必须 style-vault skill 已装）
 yarn dev       # http://localhost:5173
+
+# 后端（可选：要用登录/收藏才跑）
+cd ../backend
+./run.sh
 ```
 
 ### 常用命令
@@ -114,7 +140,11 @@ style-vault/
 │   ├── scripts/
 │   │   └── sync-from-skill/            yarn sync 的实现（扫 skill → 产出 registry+taxonomy）
 │   └── tests/
-└── (可选)backend/                       用户账号 + 收藏的后端（本 repo 暂未包含）
+└── backend/                            用户账号 + 收藏的后端（FastAPI + SQLite）
+    ├── src/
+    ├── migrations/                     Alembic 迁移
+    ├── config/
+    └── run.sh
 ```
 
 ---
