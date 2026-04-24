@@ -1,6 +1,40 @@
 {
-  "version": "2026-04-24T09:30:28.170Z",
+  "version": "2026-04-24T11:17:31.310Z",
   "items": [
+    {
+      "id": "blocks/display/gradient-stat-card",
+      "type": "block",
+      "name": "渐变图标统计卡",
+      "description": "运营概览专用——icon 独占右侧 42×42 渐变圆角底 + 色阴影 + 左侧大号数字",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/shadow/ambient-float"
+      ],
+      "preview": "/preview/blocks/display/gradient-stat-card",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/dashboard/admin-overview"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/gradient-stat-card.md"
+    },
     {
       "id": "blocks/display/leaderboard-row",
       "type": "block",
@@ -31,8 +65,9 @@
       ],
       "preview": "/preview/blocks/display/leaderboard-row",
       "usedBy": [
+        "styles/community-social/skillhub-soft-modernist",
         "pages/landing/skill-community-home",
-        "styles/community-social/skillhub-soft-modernist"
+        "pages/list-table/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/leaderboard-row.md"
@@ -67,8 +102,10 @@
       ],
       "preview": "/preview/blocks/display/skill-card",
       "usedBy": [
-        "pages/landing/skill-community-home",
-        "styles/community-social/skillhub-soft-modernist"
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/dashboard/user-home",
+        "pages/detail/skill-article-detail",
+        "pages/landing/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/skill-card.md"
@@ -98,11 +135,150 @@
       "preview": "/preview/blocks/display/table",
       "usedBy": [
         "blocks/layout/toolbar-bar",
-        "pages/list-table/admin-console",
-        "styles/community-social/skillhub-soft-modernist"
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/list-table/admin-console"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/table.md"
+    },
+    {
+      "id": "blocks/feedback/empty-state",
+      "type": "block",
+      "name": "空态",
+      "description": "虚线容器 + 灰色 icon + 标题 + 一行提示，无 CTA 的克制空态",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist"
+      ],
+      "preview": "/preview/blocks/feedback/empty-state",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/dashboard/user-home",
+        "pages/list-table/practice-plaza"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/feedback/empty-state.md"
+    },
+    {
+      "id": "blocks/feedback/skeleton-card",
+      "type": "block",
+      "name": "骨架卡片",
+      "description": "和 skill-card / 其它主卡等尺寸的 animate-pulse 骨架占位",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/motion/gentle-flow"
+      ],
+      "preview": "/preview/blocks/feedback/skeleton-card",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/feedback/skeleton-card.md"
+    },
+    {
+      "id": "blocks/form/auth-split-form",
+      "type": "block",
+      "name": "分屏登录注册表单",
+      "description": "两屏切换（密码 / 注册）+ slate 渐变方块 logo + soft-form-input 字段 + dark CTA",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/typography/pairs/inter-jetbrains-duo",
+        "components/inputs/soft-form-input",
+        "components/buttons/dark-primary-cta"
+      ],
+      "preview": "/preview/blocks/form/auth-split-form",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/auth/auth-split"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/form/auth-split-form.md"
+    },
+    {
+      "id": "blocks/form/profile-edit-form",
+      "type": "block",
+      "name": "资料编辑表单",
+      "description": "avatar picker + 昵称 + bio + 性别 + 生日 + 地区 + 保存，典型\"用户资料\"多字段表单",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist",
+        "components/inputs/soft-form-input",
+        "components/buttons/dark-primary-cta",
+        "components/avatars-icons/letter-avatar"
+      ],
+      "preview": "/preview/blocks/form/profile-edit-form",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/form-flow/profile-edit"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/form/profile-edit-form.md"
     },
     {
       "id": "blocks/layout/toolbar-bar",
@@ -130,8 +306,8 @@
       ],
       "preview": "/preview/blocks/layout/toolbar-bar",
       "usedBy": [
-        "pages/list-table/admin-console",
-        "styles/community-social/skillhub-soft-modernist"
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/list-table/admin-console"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/layout/toolbar-bar.md"
@@ -166,8 +342,8 @@
       ],
       "preview": "/preview/blocks/marketing/gradient-hero",
       "usedBy": [
-        "pages/landing/skill-community-home",
-        "styles/community-social/skillhub-soft-modernist"
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/landing/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/marketing/gradient-hero.md"
@@ -200,9 +376,19 @@
       ],
       "preview": "/preview/blocks/nav/glass-pill-navbar",
       "usedBy": [
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/content-reader/im-conversation",
+        "pages/dashboard/admin-overview",
+        "pages/dashboard/user-home",
+        "pages/detail/practice-post-detail",
+        "pages/detail/skill-article-detail",
+        "pages/form-flow/practice-compose",
+        "pages/form-flow/profile-edit",
+        "pages/form-flow/skill-publish-wizard",
         "pages/landing/skill-community-home",
         "pages/list-table/admin-console",
-        "styles/community-social/skillhub-soft-modernist"
+        "pages/detail/user-public-profile",
+        "pages/list-table/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/nav/glass-pill-navbar.md"
@@ -236,8 +422,15 @@
       "usedBy": [
         "blocks/display/leaderboard-row",
         "blocks/display/skill-card",
+        "blocks/form/profile-edit-form",
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/content-reader/im-conversation",
+        "pages/dashboard/user-home",
+        "pages/detail/practice-post-detail",
+        "pages/detail/skill-article-detail",
         "pages/landing/skill-community-home",
-        "styles/community-social/skillhub-soft-modernist"
+        "pages/detail/user-public-profile",
+        "pages/list-table/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/avatars-icons/letter-avatar.md"
@@ -277,6 +470,49 @@
       "skillPath": "components/buttons/border-trace-cta.md"
     },
     {
+      "id": "components/buttons/dark-primary-cta",
+      "type": "component",
+      "name": "黑底主 CTA",
+      "description": "全站统一的黑底 CTA（#1a1a1a / slate-900）+ active:scale-95 + hover:bg-[#333] 的黑白按钮骨架",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist"
+      ],
+      "preview": "/preview/components/buttons/dark-primary-cta",
+      "usedBy": [
+        "blocks/form/auth-split-form",
+        "blocks/form/profile-edit-form",
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/content-reader/im-conversation",
+        "pages/dashboard/user-home",
+        "pages/detail/practice-post-detail",
+        "pages/detail/skill-article-detail",
+        "pages/form-flow/practice-compose",
+        "pages/form-flow/profile-edit",
+        "pages/form-flow/skill-publish-wizard",
+        "pages/detail/user-public-profile",
+        "pages/list-table/practice-plaza"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/buttons/dark-primary-cta.md"
+    },
+    {
       "id": "components/buttons/ghost-button",
       "type": "component",
       "name": "幽灵按钮",
@@ -310,6 +546,77 @@
       "skillPath": "components/buttons/ghost-button.md"
     },
     {
+      "id": "components/indicators/pulse-dot",
+      "type": "component",
+      "name": "脉冲状态点",
+      "description": "6-8px 圆点 + 颜色辉光 + animate-pulse 的状态指示器",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/shadow/ambient-float"
+      ],
+      "preview": "/preview/components/indicators/pulse-dot",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/content-reader/im-conversation"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/indicators/pulse-dot.md"
+    },
+    {
+      "id": "components/inputs/soft-form-input",
+      "type": "component",
+      "name": "柔边表单输入",
+      "description": "统一的表单级输入——slate-300 边 + rounded-xl + primary-500/20 focus ring",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/skillhub-teal-mist"
+      ],
+      "preview": "/preview/components/inputs/soft-form-input",
+      "usedBy": [
+        "blocks/form/auth-split-form",
+        "blocks/form/profile-edit-form",
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/content-reader/im-conversation",
+        "pages/form-flow/practice-compose",
+        "pages/form-flow/skill-publish-wizard"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/inputs/soft-form-input.md"
+    },
+    {
       "id": "components/tags-badges/teal-pill",
       "type": "component",
       "name": "Teal 胶囊标签",
@@ -337,11 +644,376 @@
       "preview": "/preview/components/tags-badges/teal-pill",
       "usedBy": [
         "blocks/display/leaderboard-row",
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/detail/practice-post-detail",
+        "pages/detail/skill-article-detail",
+        "pages/form-flow/practice-compose",
         "pages/landing/skill-community-home",
-        "styles/community-social/skillhub-soft-modernist"
+        "pages/detail/user-public-profile",
+        "pages/list-table/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/tags-badges/teal-pill.md"
+    },
+    {
+      "id": "pages/auth/auth-split",
+      "type": "page",
+      "name": "登录注册分屏",
+      "description": "左表单 / 右视觉（slate 渐变 + slogan）的经典双栏登录页",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/form/auth-split-form",
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/typography/pairs/inter-jetbrains-duo"
+      ],
+      "preview": "/preview/pages/auth/auth-split",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/auth/auth-split/README.md"
+    },
+    {
+      "id": "pages/content-reader/im-conversation",
+      "type": "page",
+      "name": "消息会话",
+      "description": "左会话列表 + 右消息流的经典 IM 布局，带搜索 / 未读 / 气泡区分自己对方",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/glass-pill-navbar",
+        "components/avatars-icons/letter-avatar",
+        "components/indicators/pulse-dot",
+        "components/buttons/dark-primary-cta",
+        "components/inputs/soft-form-input",
+        "tokens/palettes/skillhub-teal-mist"
+      ],
+      "preview": "/preview/pages/content-reader/im-conversation",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/content-reader/im-conversation/README.md"
+    },
+    {
+      "id": "pages/dashboard/admin-overview",
+      "type": "page",
+      "name": "运营概览页",
+      "description": "管理后台 overview tab 独立成页——4 格渐变 stat card + 数据分布条 + 趋势迷你卡",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/glass-pill-navbar",
+        "blocks/display/gradient-stat-card",
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/typography/pairs/inter-jetbrains-duo"
+      ],
+      "preview": "/preview/pages/dashboard/admin-overview",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/dashboard/admin-overview/README.md"
+    },
+    {
+      "id": "pages/dashboard/user-home",
+      "type": "page",
+      "name": "用户中心主页",
+      "description": "顶部用户卡 + 操作区 + Tabs（我的技能 / 实践 / 点赞 / 收藏 / 投稿记录 / 关注）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/glass-pill-navbar",
+        "blocks/display/skill-card",
+        "blocks/feedback/empty-state",
+        "components/buttons/dark-primary-cta",
+        "components/avatars-icons/letter-avatar",
+        "tokens/palettes/skillhub-teal-mist"
+      ],
+      "preview": "/preview/pages/dashboard/user-home",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/dashboard/user-home/README.md"
+    },
+    {
+      "id": "pages/detail/practice-post-detail",
+      "type": "page",
+      "name": "实践帖详情页",
+      "description": "单栏长文 + 顶部元信息（作者/时间/关联 skill）+ 底部互动 + 评论",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/glass-pill-navbar",
+        "components/avatars-icons/letter-avatar",
+        "components/buttons/dark-primary-cta",
+        "components/tags-badges/teal-pill",
+        "tokens/typography/pairs/inter-jetbrains-duo"
+      ],
+      "preview": "/preview/pages/detail/practice-post-detail",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/detail/practice-post-detail/README.md"
+    },
+    {
+      "id": "pages/detail/skill-article-detail",
+      "type": "page",
+      "name": "Skill 技能详情页",
+      "description": "长文 markdown 主栏 + 右侧 sticky sidebar（作者 / 操作 / 评分 / 相关）+ 底部评论区",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/glass-pill-navbar",
+        "blocks/display/skill-card",
+        "components/avatars-icons/letter-avatar",
+        "components/buttons/dark-primary-cta",
+        "components/tags-badges/teal-pill",
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/typography/pairs/inter-jetbrains-duo"
+      ],
+      "preview": "/preview/pages/detail/skill-article-detail",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/detail/skill-article-detail/README.md"
+    },
+    {
+      "id": "pages/detail/user-public-profile",
+      "type": "page",
+      "name": "用户公开主页",
+      "description": "浏览他人主页——大 hero 头像 + 关注按钮 + 实践列表 + 相关技能",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/glass-pill-navbar",
+        "components/buttons/dark-primary-cta",
+        "components/avatars-icons/letter-avatar",
+        "components/tags-badges/teal-pill",
+        "tokens/palettes/skillhub-teal-mist"
+      ],
+      "preview": "/preview/pages/detail/user-public-profile",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/detail/user-public-profile/README.md"
+    },
+    {
+      "id": "pages/form-flow/practice-compose",
+      "type": "page",
+      "name": "实践帖发布编辑器",
+      "description": "大标题输入 + 关联 skill 多选 + Markdown 编辑器 + 预览切换 + 发布 CTA",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/glass-pill-navbar",
+        "components/buttons/dark-primary-cta",
+        "components/inputs/soft-form-input",
+        "components/tags-badges/teal-pill",
+        "tokens/typography/pairs/inter-jetbrains-duo"
+      ],
+      "preview": "/preview/pages/form-flow/practice-compose",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/form-flow/practice-compose/README.md"
+    },
+    {
+      "id": "pages/form-flow/profile-edit",
+      "type": "page",
+      "name": "编辑资料页",
+      "description": "单栏长表单（头像 section + 基本信息 section + 危险区），顶部返回 + 保存",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/glass-pill-navbar",
+        "blocks/form/profile-edit-form",
+        "components/buttons/dark-primary-cta",
+        "tokens/palettes/skillhub-teal-mist"
+      ],
+      "preview": "/preview/pages/form-flow/profile-edit",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/form-flow/profile-edit/README.md"
+    },
+    {
+      "id": "pages/form-flow/skill-publish-wizard",
+      "type": "page",
+      "name": "技能发布向导",
+      "description": "3 步向导（添加来源 → 预览确认 → 完成）· 拖拽 / URL / 归档上传 · 实时校验",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/glass-pill-navbar",
+        "components/buttons/dark-primary-cta",
+        "components/inputs/soft-form-input",
+        "tokens/palettes/skillhub-teal-mist",
+        "tokens/motion/gentle-flow"
+      ],
+      "preview": "/preview/pages/form-flow/skill-publish-wizard",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/form-flow/skill-publish-wizard/README.md"
     },
     {
       "id": "pages/landing/saas-landing",
@@ -449,6 +1121,44 @@
       "skillPath": "pages/list-table/admin-console/README.md"
     },
     {
+      "id": "pages/list-table/practice-plaza",
+      "type": "page",
+      "name": "实践广场",
+      "description": "紧凑 hero + 排序切换 + 过滤胶囊 + 帖子卡列表 + 榜单侧栏",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/glass-pill-navbar",
+        "blocks/display/leaderboard-row",
+        "blocks/feedback/empty-state",
+        "components/buttons/dark-primary-cta",
+        "components/avatars-icons/letter-avatar",
+        "components/tags-badges/teal-pill",
+        "tokens/palettes/skillhub-teal-mist"
+      ],
+      "preview": "/preview/pages/list-table/practice-plaza",
+      "usedBy": [
+        "styles/community-social/skillhub-soft-modernist"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/list-table/practice-plaza/README.md"
+    },
+    {
       "id": "products/acme-cold-saas",
       "type": "product",
       "name": "Acme · 冷感工业 SaaS",
@@ -507,20 +1217,39 @@
         "style": "styles/community-social/skillhub-soft-modernist",
         "pages": [
           "pages/landing/skill-community-home",
-          "pages/list-table/admin-console"
+          "pages/detail/skill-article-detail",
+          "pages/form-flow/skill-publish-wizard",
+          "pages/list-table/practice-plaza",
+          "pages/detail/practice-post-detail",
+          "pages/form-flow/practice-compose",
+          "pages/content-reader/im-conversation",
+          "pages/dashboard/user-home",
+          "pages/form-flow/profile-edit",
+          "pages/detail/user-public-profile",
+          "pages/auth/auth-split",
+          "pages/list-table/admin-console",
+          "pages/dashboard/admin-overview"
         ],
         "blocks": [
           "blocks/nav/glass-pill-navbar",
           "blocks/marketing/gradient-hero",
           "blocks/display/skill-card",
           "blocks/display/leaderboard-row",
+          "blocks/display/gradient-stat-card",
           "blocks/display/table",
-          "blocks/layout/toolbar-bar"
+          "blocks/layout/toolbar-bar",
+          "blocks/form/auth-split-form",
+          "blocks/form/profile-edit-form",
+          "blocks/feedback/skeleton-card",
+          "blocks/feedback/empty-state"
         ],
         "components": [
+          "components/buttons/dark-primary-cta",
+          "components/buttons/border-trace-cta",
+          "components/inputs/soft-form-input",
           "components/tags-badges/teal-pill",
           "components/avatars-icons/letter-avatar",
-          "components/buttons/border-trace-cta"
+          "components/indicators/pulse-dot"
         ],
         "tokens": {
           "palette": "tokens/palettes/skillhub-teal-mist",
@@ -574,17 +1303,36 @@
         "tokens/typography/pairs/inter-jetbrains-duo",
         "tokens/motion/gentle-flow",
         "tokens/shadow/ambient-float",
+        "components/buttons/dark-primary-cta",
+        "components/buttons/border-trace-cta",
+        "components/inputs/soft-form-input",
         "components/tags-badges/teal-pill",
         "components/avatars-icons/letter-avatar",
-        "components/buttons/border-trace-cta",
+        "components/indicators/pulse-dot",
         "blocks/nav/glass-pill-navbar",
         "blocks/marketing/gradient-hero",
         "blocks/display/skill-card",
         "blocks/display/leaderboard-row",
+        "blocks/display/gradient-stat-card",
         "blocks/display/table",
         "blocks/layout/toolbar-bar",
+        "blocks/form/auth-split-form",
+        "blocks/form/profile-edit-form",
+        "blocks/feedback/skeleton-card",
+        "blocks/feedback/empty-state",
         "pages/landing/skill-community-home",
-        "pages/list-table/admin-console"
+        "pages/detail/skill-article-detail",
+        "pages/form-flow/skill-publish-wizard",
+        "pages/list-table/practice-plaza",
+        "pages/detail/practice-post-detail",
+        "pages/form-flow/practice-compose",
+        "pages/content-reader/im-conversation",
+        "pages/dashboard/user-home",
+        "pages/form-flow/profile-edit",
+        "pages/detail/user-public-profile",
+        "pages/auth/auth-split",
+        "pages/list-table/admin-console",
+        "pages/dashboard/admin-overview"
       ],
       "preview": "/preview/styles/community-social/skillhub-soft-modernist",
       "usedBy": [],
@@ -651,10 +1399,12 @@
       "usedBy": [
         "blocks/display/leaderboard-row",
         "blocks/display/skill-card",
+        "blocks/feedback/skeleton-card",
         "blocks/marketing/gradient-hero",
         "components/buttons/border-trace-cta",
-        "pages/landing/skill-community-home",
-        "styles/community-social/skillhub-soft-modernist"
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/form-flow/skill-publish-wizard",
+        "pages/landing/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/gentle-flow.md"
@@ -684,16 +1434,33 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/skillhub-teal-mist",
       "usedBy": [
+        "blocks/display/gradient-stat-card",
         "blocks/display/leaderboard-row",
         "blocks/display/skill-card",
+        "blocks/feedback/empty-state",
+        "blocks/feedback/skeleton-card",
+        "blocks/form/auth-split-form",
+        "blocks/form/profile-edit-form",
         "blocks/marketing/gradient-hero",
         "blocks/nav/glass-pill-navbar",
         "components/buttons/border-trace-cta",
+        "components/buttons/dark-primary-cta",
+        "components/indicators/pulse-dot",
+        "components/inputs/soft-form-input",
         "components/avatars-icons/letter-avatar",
         "components/tags-badges/teal-pill",
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/auth/auth-split",
+        "pages/content-reader/im-conversation",
+        "pages/dashboard/admin-overview",
+        "pages/dashboard/user-home",
+        "pages/detail/skill-article-detail",
+        "pages/form-flow/profile-edit",
+        "pages/form-flow/skill-publish-wizard",
         "pages/landing/skill-community-home",
         "pages/list-table/admin-console",
-        "styles/community-social/skillhub-soft-modernist"
+        "pages/detail/user-public-profile",
+        "pages/list-table/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/skillhub-teal-mist.md"
@@ -755,8 +1522,10 @@
       "uses": [],
       "preview": "/preview/tokens/shadow/ambient-float",
       "usedBy": [
+        "blocks/display/gradient-stat-card",
         "blocks/display/skill-card",
         "blocks/nav/glass-pill-navbar",
+        "components/indicators/pulse-dot",
         "styles/community-social/skillhub-soft-modernist"
       ],
       "hasPreviewFile": true,
@@ -818,10 +1587,16 @@
       "uses": [],
       "preview": "/preview/tokens/typography/pairs/inter-jetbrains-duo",
       "usedBy": [
+        "blocks/form/auth-split-form",
         "blocks/marketing/gradient-hero",
+        "styles/community-social/skillhub-soft-modernist",
+        "pages/auth/auth-split",
+        "pages/dashboard/admin-overview",
+        "pages/detail/practice-post-detail",
+        "pages/detail/skill-article-detail",
+        "pages/form-flow/practice-compose",
         "pages/landing/skill-community-home",
-        "pages/list-table/admin-console",
-        "styles/community-social/skillhub-soft-modernist"
+        "pages/list-table/admin-console"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/inter-jetbrains-duo.md"
