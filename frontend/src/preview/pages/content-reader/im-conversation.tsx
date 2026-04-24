@@ -1,5 +1,5 @@
 import { Send } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { PreviewFrame } from '../../_layout';
 
 const AVATAR = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD'];
@@ -49,13 +49,17 @@ export default function IMConversationPreview() {
   const [selected, setSelected] = useState<number>(1);
   const [draft, setDraft] = useState('');
   const [textareaFocus, setTextareaFocus] = useState(false);
-  const threadEndRef = useRef<HTMLDivElement>(null);
+  const threadBodyRef = useRef<HTMLDivElement>(null);
 
   const currentConv = CONVERSATIONS.find((c) => c.id === selected)!;
   const thread = THREADS[selected] || [];
 
-  useEffect(() => {
-    threadEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  // 切换会话时同步瞬移到底（paint 前完成 · 不走 smooth 动画）
+  // StyleCard 把本预览渲在卡片里时，smooth 动画会在卡上持续播放
+  // 反复抖动滚动条——这里改为瞬移避免
+  useLayoutEffect(() => {
+    const el = threadBodyRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
   }, [selected]);
 
   return (
@@ -153,7 +157,7 @@ export default function IMConversationPreview() {
           </div>
 
           {/* Thread body */}
-          <div style={{
+          <div ref={threadBodyRef} style={{
             flex: 1, overflowY: 'auto', padding: 16,
             background: 'linear-gradient(to bottom, #f8fafc, rgba(248,250,252,0.5))',
           }}>
@@ -202,7 +206,6 @@ export default function IMConversationPreview() {
                 </div>
               );
             })}
-            <div ref={threadEndRef} />
           </div>
 
           {/* Composer · 真实风格 */}
