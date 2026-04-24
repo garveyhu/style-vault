@@ -1,45 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Dropdown } from 'antd';
-import { SearchOutlined, CloseOutlined } from '@ant-design/icons';
+import { HeartOutlined } from '@ant-design/icons';
 import { LoginModal } from './LoginModal';
 import { useAuth } from '../auth/AuthContext';
 
-type TopBarProps = {
-  search?: string;
-  onSearchChange?: (v: string) => void;
-};
-
-export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
-  const [searchOpen, setSearchOpen] = useState(false);
+export function TopBar() {
   const [loginOpen, setLoginOpen] = useState(false);
-  const inputRef = useRef<HTMLInputElement | null>(null);
   const { user, logout, loading } = useAuth();
-
-  const searchable = typeof onSearchChange === 'function';
-
-  // 展开搜索时自动聚焦
-  useEffect(() => {
-    if (searchOpen) {
-      requestAnimationFrame(() => inputRef.current?.focus());
-    }
-  }, [searchOpen]);
-
-  // ESC 收起 / ⌘K 展开
-  useEffect(() => {
-    if (!searchable) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && searchOpen) {
-        setSearchOpen(false);
-      }
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setSearchOpen(true);
-      }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [searchable, searchOpen]);
+  const nav = useNavigate();
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95 backdrop-blur-xl">
@@ -56,62 +25,36 @@ export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-7 md:flex">
           <Link
             to="/browse"
             className="text-[13px] font-medium text-slate-600 transition hover:text-slate-900"
           >
-            Browse
+            浏览
           </Link>
           <Link
             to="/products"
             className="text-[13px] font-medium text-slate-600 transition hover:text-slate-900"
           >
-            Products
+            产品集
           </Link>
         </nav>
 
-        {/* 中间留白（editorial 感，保留未来横向 nav 位置） */}
+        {/* 中间留白 */}
         <div className="flex-1" />
 
-        {/* 右侧 action：搜索 + 登录 */}
+        {/* 右侧：收藏 + 登录 */}
         <div className="flex items-center gap-2">
-          {searchable && (
-            <div className="relative">
-              {searchOpen ? (
-                <div className="flex items-center gap-2 rounded-full border border-slate-200 bg-white pl-3 pr-1 shadow-sm transition">
-                  <SearchOutlined className="text-slate-400" />
-                  <input
-                    ref={inputRef}
-                    value={search ?? ''}
-                    onChange={(e) => onSearchChange?.(e.target.value)}
-                    placeholder="搜索风格"
-                    className="h-9 w-[260px] bg-transparent text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      onSearchChange?.('');
-                      setSearchOpen(false);
-                    }}
-                    className="flex h-7 w-7 items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
-                    aria-label="关闭搜索"
-                  >
-                    <CloseOutlined className="text-[12px]" />
-                  </button>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => setSearchOpen(true)}
-                  className="flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
-                  aria-label="搜索"
-                  title="搜索 (⌘K)"
-                >
-                  <SearchOutlined className="text-[16px]" />
-                </button>
-              )}
-            </div>
+          {user && (
+            <button
+              type="button"
+              onClick={() => nav('/favorites')}
+              className="flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
+              aria-label="我的收藏"
+              title="我的收藏"
+            >
+              <HeartOutlined className="text-[16px]" />
+            </button>
           )}
 
           {loading ? null : user ? (
@@ -126,6 +69,7 @@ export function TopBar({ search, onSearchChange }: TopBarProps = {}) {
                     disabled: true,
                   },
                   { type: 'divider' },
+                  { key: 'favorites', label: '我的收藏', onClick: () => nav('/favorites') },
                   { key: 'logout', label: '退出登录', onClick: () => logout() },
                 ],
               }}

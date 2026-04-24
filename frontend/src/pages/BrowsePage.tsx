@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
-import { HeartFilled, FilterOutlined } from "@ant-design/icons";
+import { FilterOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import { Popover } from "antd";
 import { useRegistry, isRegistryMissing } from "../data/useRegistry";
 import { typePlural } from "../utils/i18n";
@@ -14,268 +14,184 @@ import {
   emptyPlatformTheme,
   type PlatformThemeValue,
 } from "../components/PlatformThemeBar";
-import { getPreviewComponent } from "../preview/registry";
-import { useAuth } from "../auth/AuthContext";
-import { useFavorites } from "../auth/FavoritesContext";
 import type { Platform, RegistryItem } from "../../scripts/sync-from-skill/types";
 
-type NewEntryType = 'style' | 'page' | 'block' | 'component' | 'token';
-type ViewKey = NewEntryType | 'favorites';
+type BrowseType = "style" | "page" | "block" | "component" | "token";
 
-const ORDER: NewEntryType[] = [
-  'style',
-  'page',
-  'block',
-  'component',
-  'token',
-];
+const ORDER: BrowseType[] = ["style", "page", "block", "component", "token"];
+const PREVIEW_PER_SECTION = 3;
 const GROUP_KEYS = ["aesthetic", "mood", "stack"] as const;
-
-const PREVIEW_VIRTUAL_WIDTH = 1440;
-const PREVIEW_VIRTUAL_HEIGHT = 900;
 
 export default function BrowsePage() {
   const reg = useRegistry();
-  const { user } = useAuth();
-  const { set: favSet } = useFavorites();
-  const [view, setView] = useState<ViewKey>("block");
   const [filters, setFilters] = useState<FilterValue>(emptyFilterValue);
   const [ptf, setPtf] = useState<PlatformThemeValue>(emptyPlatformTheme);
-  const [search, setSearch] = useState("");
   const [glossaryOpen, setGlossaryOpen] = useState(false);
   const nav = useNavigate();
 
-  useEffect(() => {
-    if (!user && view === "favorites") setView("block");
-  }, [user, view]);
-
-  const counts = useMemo<Record<NewEntryType, number>>(() => {
-    const c: Record<NewEntryType, number> = {
-      style: 0,
-      page: 0,
-      block: 0,
-      component: 0,
-      token: 0,
-    };
-    if (reg?.items) {
-      for (const i of reg.items) {
-        if (i.type in c) c[i.type as NewEntryType]++;
-      }
-    }
-    return c;
-  }, [reg]);
-
-  const favCount = favSet.size;
   const activeFilterCount =
     GROUP_KEYS.reduce((acc, k) => acc + filters[k].length, 0) +
     (ptf.platform !== "all" ? 1 : 0) +
     (ptf.theme !== "any" ? 1 : 0);
 
-  const filtered = useMemo(() => {
-    if (!reg?.items) return [];
-    const q = search.trim().toLowerCase();
-    const base =
-      view === "favorites"
-        ? reg.items.filter((i) => favSet.has(i.id))
-        : reg.items.filter((i) => i.type === view);
-    return base
-      .filter((item) => {
-        if (!q) return true;
-        return (
-          item.name.toLowerCase().includes(q) ||
-          item.description.toLowerCase().includes(q) ||
-          item.id.toLowerCase().includes(q)
-        );
-      })
-      .filter((item) =>
-        GROUP_KEYS.every((k) => {
-          if (filters[k].length === 0) return true;
-          return item.tags[k].some((t) => filters[k].includes(t));
-        }),
-      )
-      .filter((item) => {
-        if (ptf.platform !== "all") {
-          // match if the item's platforms include the selected platform OR include 'any'
-          if (
-            !item.platforms.includes(ptf.platform as Platform) &&
-            !item.platforms.includes("any")
-          )
-            return false;
+  const sections = useMemo(() => {
+    if (!reg?.items) return [] as Array<{ type: BrowseType; items: RegistryItem[] }>;
+
+    const passesFilters = (item: RegistryItem): boolean => {
+      for (const k of GROUP_KEYS) {
+        if (filters[k].length === 0) continue;
+        if (!item.tags[k].some((t) => filters[k].includes(t))) return false;
+      }
+      if (ptf.platform !== "all") {
+        if (
+          !item.platforms.includes(ptf.platform as Platform) &&
+          !item.platforms.includes("any")
+        ) {
+          return false;
         }
-        if (ptf.theme !== "any") {
-          // match if item.theme equals selected, OR item.theme === 'both' (matches both)
-          if (item.theme !== ptf.theme && item.theme !== "both") return false;
-        }
-        return true;
-      });
-  }, [reg, view, filters, ptf, search, favSet]);
+      }
+      if (ptf.theme !== "any") {
+        if (item.theme !== ptf.theme && item.theme !== "both") return false;
+      }
+      return true;
+    };
+
+    return ORDER.map((type) => ({
+      type,
+      items: reg.items.filter((i) => i.type === type).filter(passesFilters),
+    }));
+  }, [reg, filters, ptf]);
 
   if (isRegistryMissing(reg)) return <Navigate to="/not-installed" replace />;
 
+  const hasAnyResults = sections.some((s) => s.items.length > 0);
+
   return (
     <div className="min-h-screen bg-[#fafafa]">
-      <TopBar search={search} onSearchChange={setSearch} />
+      <TopBar />
 
-      {/* ===================== Hero（占满首屏；内容集中上半区，底部自然过渡到 Nav） ===================== */}
-      <section className="relative flex min-h-[calc(100vh-72px)] flex-col overflow-hidden bg-white">
-        <div className="pointer-events-none absolute -left-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-gradient-to-br from-slate-100/60 via-emerald-100/40 to-transparent blur-3xl" />
-        <div className="pointer-events-none absolute -right-48 top-0 h-[36rem] w-[36rem] rounded-full bg-gradient-to-br from-emerald-100/50 via-emerald-50/30 to-transparent blur-3xl" />
-
-        <div className="relative mx-auto grid w-full max-w-[1600px] flex-1 grid-cols-1 items-center gap-14 px-8 py-16 lg:grid-cols-[1.1fr_1fr]">
-          {/* 左：标题 + 副 */}
-          <div>
-            <h1 className="sv-anim-fade-up sv-delay-0 font-display text-[64px] font-extrabold leading-[1.02] tracking-[-0.04em] text-slate-900 md:text-[80px] lg:text-[96px]">
-              浏览你的
-              <br />
-              <span className="bg-gradient-to-br from-cyan-700 via-slate-800 to-slate-900 bg-clip-text text-transparent">
-                风格库。
-              </span>
-            </h1>
-
-            <p className="sv-anim-fade-up sv-delay-150 mt-10 max-w-xl text-[17px] leading-[1.7] text-slate-600">
-              探索设计风格，实时预览，收藏分享。
-              <br />
-              想做同款页面？复制提示词，瞬间复刻！
-            </p>
+      {/* ============ 标题区 ============ */}
+      <section className="border-b border-slate-100 bg-white">
+        <div className="mx-auto max-w-[1600px] px-8 pb-6 pt-14">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <div className="text-[11px] font-medium uppercase tracking-[0.2em] text-slate-400">
+                Design Inspiration
+              </div>
+              <h1 className="mt-3 font-display text-[44px] font-semibold leading-[1.08] tracking-[-0.025em] text-slate-900 md:text-[56px]">
+                设计灵感
+              </h1>
+              <p className="mt-2 max-w-[640px] text-[14px] leading-relaxed text-slate-500">
+                从产品到原语，看看真实设计是怎么一层层落下来的。按平台、主题或风格筛，灵感秒找到。
+              </p>
+            </div>
           </div>
 
-          {/* 右：真实预览堆叠装饰 */}
-          <div className="relative hidden h-[480px] lg:block">
-            <HeroStackDecor items={reg.items} />
+          {/* ============ Filter 行：Platform + Theme + Filters popover ============ */}
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-5">
+            <PlatformThemeBar value={ptf} onChange={setPtf} />
+
+            <Popover
+              trigger="click"
+              placement="bottomRight"
+              arrow={false}
+              content={
+                <FiltersPanel
+                  dict={reg.tagDict}
+                  value={filters}
+                  onChange={setFilters}
+                />
+              }
+              overlayInnerStyle={{ padding: 0, borderRadius: 16 }}
+            >
+              <button
+                type="button"
+                className={`flex h-10 items-center gap-2 rounded-full border px-4 text-[13px] font-medium transition
+                  ${
+                    activeFilterCount > 0
+                      ? "border-slate-900 bg-slate-900 text-white"
+                      : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
+                  }`}
+              >
+                <FilterOutlined className="text-[14px]" />
+                <span>更多筛选</span>
+                {activeFilterCount > 0 && (
+                  <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-white/20 px-1 text-[11px] font-semibold tabular-nums text-white">
+                    {activeFilterCount}
+                  </span>
+                )}
+              </button>
+            </Popover>
           </div>
         </div>
       </section>
 
-      {/* ===================== Nav：分类 tabs + Filters 按钮 ===================== */}
-      <nav className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-[1600px] px-8">
-          <div className="flex items-center justify-between gap-6 pt-5">
-            {/* 左：分类 tabs（editorial 文字 + 下划线 indicator） */}
-            <div className="-mb-px flex min-w-0 items-center gap-7 overflow-x-auto pb-4">
-              {user && (
-                <TabButton
-                  active={view === "favorites"}
-                  onClick={() => setView("favorites")}
-                  label={
-                    <span className="flex items-center gap-1.5">
-                      <HeartFilled
-                        className={
-                          view === "favorites"
-                            ? "text-emerald-500"
-                            : "text-slate-300"
-                        }
-                      />
-                      我的收藏
-                    </span>
-                  }
-                  count={favCount}
-                />
-              )}
-              {ORDER.map((t) => (
-                <TabButton
-                  key={t}
-                  active={view === t}
-                  onClick={() => setView(t)}
-                  label={typePlural[t]}
-                  count={counts[t]}
-                />
-              ))}
-            </div>
-
-            {/* 右：Filters 按钮（Popover 打开筛选面板） */}
-            <div className="flex shrink-0 items-center gap-2 pb-4">
-              <Popover
-                trigger="click"
-                placement="bottomRight"
-                arrow={false}
-                content={
-                  <FiltersPanel
-                    dict={reg.tagDict}
-                    value={filters}
-                    onChange={setFilters}
-                  />
-                }
-                overlayInnerStyle={{ padding: 0, borderRadius: 16 }}
-              >
-                <button
-                  type="button"
-                  className={`flex h-10 items-center gap-2 rounded-full border px-4 text-[13px] font-medium transition
-                    ${
-                      activeFilterCount > 0
-                        ? "border-slate-900 bg-slate-900 text-white"
-                        : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
-                    }`}
-                >
-                  <FilterOutlined className="text-[14px]" />
-                  <span>筛选</span>
-                  {activeFilterCount > 0 && (
-                    <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-white/20 px-1 text-[11px] font-semibold tabular-nums text-white">
-                      {activeFilterCount}
-                    </span>
-                  )}
-                </button>
-              </Popover>
-            </div>
-          </div>
-
-          {/* 一级筛选：Platform / Theme */}
-          <div className="border-t border-slate-100 py-4">
-            <PlatformThemeBar value={ptf} onChange={setPtf} />
-          </div>
-        </div>
-      </nav>
-
-      {/* ===================== 卡片网格 ===================== */}
-      <main className="mx-auto max-w-[1600px] px-8 py-10">
-        <div className="mb-6 flex items-end justify-between">
-          <div className="text-[13px] text-slate-500">
-            {view === "favorites"
-              ? `共 ${favCount} 个收藏 · 当前显示 ${filtered.length}`
-              : `共 ${counts[view]} 个条目 · 当前显示 ${filtered.length}`}
-          </div>
-          {search && (
-            <button
-              type="button"
-              onClick={() => setSearch("")}
-              className="text-sm text-slate-500 hover:text-slate-900"
-            >
-              清除搜索「{search}」
-            </button>
-          )}
-        </div>
-
-        {filtered.length === 0 ? (
-          view === "favorites" && favCount === 0 ? (
-            <FavoritesEmpty onExplore={() => setView("block")} />
-          ) : (
-            <EmptyState
-              onReset={() => {
-                setFilters(emptyFilterValue);
-                setPtf(emptyPlatformTheme);
-                setSearch("");
-              }}
-            />
-          )
+      {/* ============ 分类 sections ============ */}
+      <main className="mx-auto max-w-[1600px] px-8 py-12">
+        {!hasAnyResults ? (
+          <EmptyState
+            onReset={() => {
+              setFilters(emptyFilterValue);
+              setPtf(emptyPlatformTheme);
+            }}
+          />
         ) : (
-          <div className="columns-1 gap-6 md:columns-2 lg:columns-3 xl:columns-4">
-            {filtered.map((item) => (
-              <StyleCard
-                key={item.id}
-                item={item}
-                onClick={() => nav(`/item/${item.id}`)}
-              />
-            ))}
+          <div className="space-y-20">
+            {sections.map(({ type, items }) => {
+              if (items.length === 0) return null;
+              const preview = items.slice(0, PREVIEW_PER_SECTION);
+              const hasMore = items.length > PREVIEW_PER_SECTION;
+              return (
+                <section key={type}>
+                  <header className="mb-6 flex items-baseline justify-between gap-4">
+                    <div className="flex items-baseline gap-3">
+                      <h2 className="font-display text-[28px] font-semibold tracking-[-0.015em] text-slate-900">
+                        {typePlural[type]}
+                      </h2>
+                      <span className="text-[13px] text-slate-400">
+                        · 共 {items.length} 个
+                      </span>
+                    </div>
+                    {hasMore && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const el = document.getElementById(`sec-${type}`);
+                          el?.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }}
+                        className="flex items-center gap-1 text-[13px] font-medium text-slate-500 transition hover:text-slate-900"
+                      >
+                        查看全部 <ArrowRightOutlined className="text-[11px]" />
+                      </button>
+                    )}
+                  </header>
+
+                  <div
+                    id={`sec-${type}`}
+                    className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+                  >
+                    {preview.map((item) => (
+                      <StyleCard
+                        key={item.id}
+                        item={item}
+                        onClick={() => nav(`/item/${item.id}`)}
+                      />
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
           </div>
         )}
       </main>
 
-      {/* ===================== Footer ===================== */}
+      {/* ============ Footer ============ */}
       <footer className="border-t border-slate-100 bg-white">
         <div className="mx-auto flex max-w-[1600px] flex-col items-start justify-between gap-4 px-8 py-10 md:flex-row md:items-center">
           <div className="flex items-center gap-3">
             <img src="/logo.svg" alt="" className="h-7 w-7" />
             <span className="text-[14px] font-semibold tracking-tight text-slate-900">
-              Style Vault
+              Style Vault · 风格库
             </span>
           </div>
 
@@ -293,10 +209,7 @@ export default function BrowsePage() {
           </div>
         </div>
 
-        <GlossaryDrawer
-          open={glossaryOpen}
-          onClose={() => setGlossaryOpen(false)}
-        />
+        <GlossaryDrawer open={glossaryOpen} onClose={() => setGlossaryOpen(false)} />
       </footer>
     </div>
   );
@@ -304,134 +217,10 @@ export default function BrowsePage() {
 
 /* -------------------- 子组件 -------------------- */
 
-function TabButton({
-  active,
-  onClick,
-  label,
-  count,
-}: {
-  active: boolean;
-  onClick: () => void;
-  label: React.ReactNode;
-  count: number;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`group relative shrink-0 pb-4 text-[14px] font-medium transition
-        ${active ? 'text-slate-900' : 'text-slate-500 hover:text-slate-900'}`}
-    >
-      <span className="flex items-center gap-2">
-        {label}
-        <span
-          className={`rounded-full px-1.5 text-[11px] font-semibold tabular-nums ${
-            active ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-500'
-          }`}
-        >
-          {count}
-        </span>
-      </span>
-      <span
-        className={`absolute -bottom-px left-0 right-0 h-0.5 rounded-full bg-slate-900 transition-transform ${
-          active ? 'scale-x-100' : 'scale-x-0'
-        }`}
-      />
-    </button>
-  );
-}
-
-
-/**
- * Hero 右侧：几张预览卡片向后堆叠的装饰，不可点。
- */
-function HeroStackDecor({ items }: { items: RegistryItem[] }) {
-  const picks = useMemo(() => {
-    const withPreview = items.filter((i) => i.hasPreviewFile && i.preview);
-    const style = withPreview.find((i) => i.type === "style");
-    const page = withPreview.find((i) => i.type === "page");
-    const block = withPreview.find((i) => i.type === "block");
-    return [style, page, block].filter(Boolean) as RegistryItem[];
-  }, [items]);
-
-  if (picks.length === 0) {
-    return (
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="h-64 w-64 rounded-full bg-gradient-to-br from-slate-300/40 to-emerald-300/40 blur-2xl" />
-      </div>
-    );
-  }
-
-  const positions = [
-    "left-0 top-6 rotate-[-6deg]",
-    "left-24 top-20 rotate-[3deg]",
-    "left-12 top-48 rotate-[-2deg]",
-  ];
-
-  return (
-    <div className="pointer-events-none absolute inset-0">
-      {picks.map((p, idx) => (
-        <div
-          key={p.id}
-          className={`sv-anim-fade-up absolute aspect-[16/10] w-[400px] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_24px_60px_-20px_rgba(15,23,42,0.3)] ${positions[idx]} sv-delay-${idx === 0 ? "300" : idx === 1 ? "500" : "600"}`}
-          style={{ zIndex: 10 - idx }}
-        >
-          <StaticPreviewFrame item={p} />
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function StaticPreviewFrame({ item }: { item: RegistryItem }) {
-  const PreviewComp = getPreviewComponent(item.preview);
-  const CARD_WIDTH = 400;
-  const scale = CARD_WIDTH / PREVIEW_VIRTUAL_WIDTH;
-  if (!PreviewComp) return null;
-  return (
-    <div
-      className="pointer-events-none origin-top-left"
-      style={{
-        width: `${PREVIEW_VIRTUAL_WIDTH}px`,
-        height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
-        transform: `scale(${scale})`,
-      }}
-    >
-      <PreviewComp />
-    </div>
-  );
-}
-
-function FavoritesEmpty({ onExplore }: { onExplore: () => void }) {
-  return (
-    <div className="relative flex flex-col items-center gap-5 py-28">
-      <div className="pointer-events-none absolute left-1/2 top-8 h-48 w-48 -translate-x-1/2 rounded-full bg-gradient-to-br from-emerald-200/60 to-pink-200/50 blur-3xl sv-anim-breathe" />
-      <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_-8px_rgba(16,185,129,0.2)]">
-        <HeartFilled className="text-[32px] text-emerald-400" />
-      </div>
-      <div className="relative text-center">
-        <div className="font-display text-[22px] font-semibold text-slate-900">
-          还没收藏任何风格
-        </div>
-        <div className="mt-1 text-[13px] text-slate-500">
-          浏览风格库时点卡片上的心形即可加入收藏
-        </div>
-      </div>
-      <button
-        type="button"
-        onClick={onExplore}
-        className="relative h-10 rounded-full bg-slate-900 px-5 text-[13px] font-medium text-white transition hover:bg-slate-700"
-      >
-        去探索
-      </button>
-    </div>
-  );
-}
-
 function EmptyState({ onReset }: { onReset: () => void }) {
   return (
     <div className="relative flex flex-col items-center gap-5 py-28">
-      <div className="pointer-events-none absolute left-1/2 top-8 h-48 w-48 -translate-x-1/2 rounded-full bg-gradient-to-br from-slate-200/60 to-emerald-200/50 blur-3xl sv-anim-breathe" />
+      <div className="pointer-events-none absolute left-1/2 top-8 h-48 w-48 -translate-x-1/2 rounded-full bg-gradient-to-br from-slate-200/60 to-cyan-200/50 blur-3xl sv-anim-breathe" />
       <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_-8px_rgba(15,23,42,0.15)]">
         <svg
           viewBox="0 0 24 24"
@@ -446,11 +235,9 @@ function EmptyState({ onReset }: { onReset: () => void }) {
       </div>
       <div className="relative text-center">
         <div className="font-display text-[22px] font-semibold text-slate-900">
-          没有匹配的风格
+          没有匹配的设计
         </div>
-        <div className="mt-1 text-[13px] text-slate-500">
-          换一组筛选条件，或清除搜索再看看
-        </div>
+        <div className="mt-1 text-[13px] text-slate-500">换一组筛选条件再试试</div>
       </div>
       <button
         type="button"
