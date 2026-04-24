@@ -1,14 +1,23 @@
 import { useSyncExternalStore } from 'react';
 import { PreviewFrame } from '../../_layout';
 
-/* ================== useCols hook 示意 ================== */
+/* ================== useCols hook 示意 ==================
+ * 严格要求：snapshot 必须返回原语或稳定引用，否则 useSyncExternalStore
+ * 会无限循环（React 用 Object.is 比较新旧快照，新对象每次都 !== 旧的
+ * → rerender → 再 call snapshot → 再得新对象，循环 "getSnapshot should
+ * be cached"）。所以 snapshot 返回 number，label 派生自 number 在外层。
+ */
 const BREAKPOINTS = [
-  { query: '(min-width: 1536px)', cols: 6, label: '2xl' },
-  { query: '(min-width: 1280px)', cols: 5, label: 'xl' },
-  { query: '(min-width: 1024px)', cols: 4, label: 'lg' },
-  { query: '(min-width: 768px)',  cols: 3, label: 'md' },
-  { query: '(min-width: 640px)',  cols: 2, label: 'sm' },
+  { query: '(min-width: 1536px)', cols: 6 },
+  { query: '(min-width: 1280px)', cols: 5 },
+  { query: '(min-width: 1024px)', cols: 4 },
+  { query: '(min-width: 768px)',  cols: 3 },
+  { query: '(min-width: 640px)',  cols: 2 },
 ] as const;
+
+const LABEL_MAP: Record<number, string> = {
+  1: 'base', 2: 'sm', 3: 'md', 4: 'lg', 5: 'xl', 6: '2xl',
+};
 
 function subscribe(cb: () => void): () => void {
   if (typeof window === 'undefined') return () => {};
@@ -17,18 +26,19 @@ function subscribe(cb: () => void): () => void {
   return () => mqls.forEach((m) => m.removeEventListener('change', cb));
 }
 
-function snapshot() {
-  if (typeof window === 'undefined') return { cols: 4, label: 'lg' };
+function getSnapshot(): number {
+  if (typeof window === 'undefined') return 4;
   for (const bp of BREAKPOINTS) {
-    if (window.matchMedia(bp.query).matches) return { cols: bp.cols, label: bp.label };
+    if (window.matchMedia(bp.query).matches) return bp.cols;
   }
-  return { cols: 1, label: 'base' };
+  return 1;
 }
 
-function serverSnapshot() { return { cols: 4, label: 'lg' }; }
+function getServerSnapshot(): number { return 4; }
 
-function useColsState() {
-  return useSyncExternalStore(subscribe, snapshot, serverSnapshot);
+function useColsState(): { cols: number; label: string } {
+  const cols = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  return { cols, label: LABEL_MAP[cols] ?? 'base' };
 }
 
 /* ================== 示例数据 ================== */
