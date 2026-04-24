@@ -6,7 +6,7 @@ import {
   HeartFilled,
 } from '@ant-design/icons';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
-import { typeLabel } from '../utils/i18n';
+import { typeLabel, platformLabel } from '../utils/i18n';
 import { zh } from '../utils/tagI18n';
 import { useFavorites } from '../auth/FavoritesContext';
 import { useAuth } from '../auth/AuthContext';
@@ -145,6 +145,20 @@ export function StyleCard({
             </div>
           </div>
         </div>
+
+        {/* 左上：平台徽标（常驻，[any] 隐藏） */}
+        {item.platforms.length > 0 && !item.platforms.includes('any') && (
+          <div className="pointer-events-none absolute left-3 top-3 z-10 flex items-center gap-1">
+            {item.platforms.map((p) => (
+              <span
+                key={p}
+                className="rounded-md bg-slate-900/85 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white shadow-sm backdrop-blur-sm"
+              >
+                {platformLabel[p] ?? p}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* 右上：收藏 + 全屏 */}
         <div className="pointer-events-none absolute right-3 top-3 z-10 flex items-center gap-1.5">
