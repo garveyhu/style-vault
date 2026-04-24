@@ -4,10 +4,18 @@ import { Avatar, Dropdown } from 'antd';
 import { HeartOutlined } from '@ant-design/icons';
 import { LoginModal } from './LoginModal';
 import { useAuth } from '../auth/AuthContext';
+import { usePlatform, type PlatformSel } from '../contexts/PlatformContext';
+
+const PLATFORM_LABEL: Record<PlatformSel, string> = {
+  web: 'Web',
+  ios: 'iOS',
+  android: 'Android',
+};
 
 export function TopBar() {
   const [loginOpen, setLoginOpen] = useState(false);
   const { user, logout, loading } = useAuth();
+  const { platform, setPlatform } = usePlatform();
   const nav = useNavigate();
 
   return (
@@ -42,6 +50,27 @@ export function TopBar() {
 
         {/* 中间留白 */}
         <div className="flex-1" />
+
+        {/* 设备端切换 —— 三选一，必选一个 */}
+        <div className="hidden items-center rounded-full border border-slate-200 bg-slate-50 p-0.5 md:flex">
+          {(['web', 'ios', 'android'] as const).map((p) => {
+            const on = platform === p;
+            return (
+              <button
+                key={p}
+                type="button"
+                onClick={() => setPlatform(p)}
+                className={`h-7 rounded-full px-3 text-[12px] font-medium transition ${
+                  on
+                    ? 'bg-white text-slate-900 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-800'
+                }`}
+              >
+                {PLATFORM_LABEL[p]}
+              </button>
+            );
+          })}
+        </div>
 
         {/* 右侧：收藏 + 登录 */}
         <div className="flex items-center gap-2">

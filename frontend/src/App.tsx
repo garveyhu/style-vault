@@ -3,6 +3,7 @@ import { ConfigProvider } from 'antd';
 import { Suspense, lazy } from 'react';
 import HomePage from './pages/HomePage';
 import BrowsePage from './pages/BrowsePage';
+import BrowseCategoryPage from './pages/BrowseCategoryPage';
 import DetailPage from './pages/DetailPage';
 import NotInstalledPage from './pages/NotInstalledPage';
 import ProductListPage from './pages/ProductListPage';
@@ -10,6 +11,7 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import FavoritesPage from './pages/FavoritesPage';
 import { AuthProvider } from './auth/AuthContext';
 import { FavoritesProvider } from './auth/FavoritesContext';
+import { PlatformProvider } from './contexts/PlatformContext';
 import { ScrollToTop } from './components/ScrollToTop';
 import { GlobalLoading } from './components/GlobalLoading';
 
@@ -29,25 +31,28 @@ export default function App() {
     <ConfigProvider>
       <AuthProvider>
         <FavoritesProvider>
-        <ScrollToTop />
-        <Suspense fallback={<GlobalLoading />}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/browse" element={<BrowsePage />} />
-            <Route path="/item/*" element={<DetailPage />} />
-            <Route path="/products" element={<ProductListPage />} />
-            <Route path="/products/:slug" element={<ProductDetailPage />} />
-            <Route path="/favorites" element={<FavoritesPage />} />
-            <Route path="/not-installed" element={<NotInstalledPage />} />
-            {previewRoutes.map(({ relId, Element }) => (
-              <Route
-                key={relId}
-                path={`/preview/${relId}`}
-                element={<Element />}
-              />
-            ))}
-          </Routes>
-        </Suspense>
+          <PlatformProvider>
+            <ScrollToTop />
+            <Suspense fallback={<GlobalLoading />}>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/browse" element={<BrowsePage />} />
+                <Route path="/browse/:type" element={<BrowseCategoryPage />} />
+                <Route path="/item/*" element={<DetailPage />} />
+                <Route path="/products" element={<ProductListPage />} />
+                <Route path="/products/:slug" element={<ProductDetailPage />} />
+                <Route path="/favorites" element={<FavoritesPage />} />
+                <Route path="/not-installed" element={<NotInstalledPage />} />
+                {previewRoutes.map(({ relId, Element }) => (
+                  <Route
+                    key={relId}
+                    path={`/preview/${relId}`}
+                    element={<Element />}
+                  />
+                ))}
+              </Routes>
+            </Suspense>
+          </PlatformProvider>
         </FavoritesProvider>
       </AuthProvider>
     </ConfigProvider>

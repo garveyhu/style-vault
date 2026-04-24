@@ -1,31 +1,39 @@
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useRegistry, isRegistryMissing } from '../data/useRegistry';
 import { TopBar } from '../components/TopBar';
+import { CategoryTabs } from '../components/CategoryTabs';
 import { platformLabel } from '../utils/i18n';
+import { usePlatform, matchesPlatform } from '../contexts/PlatformContext';
+
+const PLATFORM_TEXT = { web: 'Web', ios: 'iOS', android: 'Android' } as const;
 
 export default function ProductListPage() {
   const reg = useRegistry();
   const nav = useNavigate();
+  const { platform } = usePlatform();
   if (isRegistryMissing(reg)) return <Navigate to="/not-installed" replace />;
 
-  const products = reg.items.filter((i) => i.type === 'product');
+  const products = reg.items
+    .filter((i) => i.type === 'product')
+    .filter((i) => matchesPlatform(i.platforms, platform));
 
   return (
     <div className="min-h-screen bg-[#fafafa]">
       <TopBar />
-      <div className="mx-auto max-w-[1400px] px-8 py-12">
+      <CategoryTabs />
+      <div className="mx-auto max-w-[1600px] px-8 pb-20 pt-12">
         <div className="mb-10">
-          <h1 className="font-display text-[44px] font-semibold tracking-[-0.02em] text-slate-900">
-            产品集 <span className="text-slate-300">·</span> <span className="text-slate-500">Products</span>
+          <h1 className="font-display text-[40px] font-semibold tracking-[-0.02em] text-slate-900 md:text-[44px]">
+            {PLATFORM_TEXT[platform]} 产品集
           </h1>
-          <p className="mt-2 text-[15px] text-slate-500">
-            完整产品外壳的精选——每个产品都把一套风格、若干页面、模块、组件与原语捆绑成一个可复用的整体。
+          <p className="mt-2 max-w-[600px] text-[14px] leading-relaxed text-slate-500">
+            真实 {PLATFORM_TEXT[platform]} 产品的完整外壳——每一个都把风格、页面、模块、组件与原语捆绑在一起。
           </p>
         </div>
 
         {products.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-16 text-center text-slate-400">
-            暂无产品样本
+            当前「{PLATFORM_TEXT[platform]}」下暂无产品
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
