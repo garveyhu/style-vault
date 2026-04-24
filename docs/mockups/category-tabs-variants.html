@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>分类 Tabs · 六款方向对比</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        background: #fafafa;
+      }
+      .font-display { font-family: "Fraunces", serif; letter-spacing: -0.01em; }
+      .font-mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+
+      .stage {
+        position: relative;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 18px;
+        padding: 44px 36px 40px;
+      }
+      .stage-label {
+        position: absolute;
+        top: -12px;
+        left: 20px;
+        padding: 3px 12px;
+        background: #0f172a;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        border-radius: 999px;
+      }
+      .stage-caption {
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px dashed #e5e7eb;
+        font-size: 12px;
+        color: #64748b;
+        line-height: 1.6;
+      }
+
+      /* ========== V1 · Pill Group（filled 容器里的 pills） ========== */
+      .v1 {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px;
+        border-radius: 999px;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+      }
+      .v1 a {
+        position: relative;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #64748b;
+        border-radius: 999px;
+        transition: all 180ms ease;
+      }
+      .v1 a[data-on="true"] {
+        background: #0f172a;
+        color: #fff;
+      }
+      .v1 a:not([data-on="true"]):hover {
+        color: #0f172a;
+      }
+
+      /* ========== V2 · Numbered Serif（衬线 + 数字） ========== */
+      .v2 {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 36px;
+      }
+      .v2 a {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 10px;
+        transition: all 180ms ease;
+      }
+      .v2 a .num {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        color: #cbd5e1;
+        letter-spacing: 0.1em;
+      }
+      .v2 a .label {
+        font-family: "Fraunces", serif;
+        font-size: 22px;
+        font-weight: 500;
+        color: #94a3b8;
+        transition: color 220ms ease;
+      }
+      .v2 a[data-on="true"] .label {
+        color: #0f172a;
+        font-weight: 600;
+      }
+      .v2 a[data-on="true"] .num {
+        color: #0891b2;
+      }
+      .v2 a:not([data-on="true"]):hover .label {
+        color: #334155;
+      }
+
+      /* ========== V3 · Dark Segmented（pageflows 同款深色） ========== */
+      .v3 {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        padding: 4px;
+        border-radius: 999px;
+        background: #0f172a;
+      }
+      .v3 a {
+        padding: 8px 18px;
+        font-size: 13px;
+        font-weight: 500;
+        color: #94a3b8;
+        border-radius: 999px;
+        transition: all 180ms ease;
+      }
+      .v3 a[data-on="true"] {
+        background: #fff;
+        color: #0f172a;
+      }
+      .v3 a:not([data-on="true"]):hover {
+        color: #e2e8f0;
+      }
+
+      /* ========== V4 · Card Tabs（小卡片 + icon + 计数） ========== */
+      .v4 {
+        display: inline-flex;
+        align-items: stretch;
+        gap: 8px;
+      }
+      .v4 a {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        padding: 12px 16px 14px;
+        border: 1px solid #e2e8f0;
+        background: #fff;
+        border-radius: 12px;
+        min-width: 96px;
+        transition: all 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      .v4 a .icon {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        color: #94a3b8;
+        letter-spacing: 0.14em;
+      }
+      .v4 a .label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #64748b;
+      }
+      .v4 a .count {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        color: #cbd5e1;
+      }
+      .v4 a[data-on="true"] {
+        background: #0f172a;
+        border-color: #0f172a;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px -8px rgba(15, 23, 42, 0.35);
+      }
+      .v4 a[data-on="true"] .icon { color: #67e8f9; }
+      .v4 a[data-on="true"] .label { color: #fff; }
+      .v4 a[data-on="true"] .count { color: #64748b; }
+      .v4 a:not([data-on="true"]):hover { border-color: #94a3b8; }
+
+      /* ========== V5 · Left Accent Bar（左侧竖线 indicator） ========== */
+      .v5 {
+        display: inline-flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .v5 a {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding-left: 12px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #94a3b8;
+        transition: color 200ms ease;
+      }
+      .v5 a::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 4px;
+        bottom: 4px;
+        width: 2px;
+        background: linear-gradient(180deg, #0891b2, #0f172a);
+        border-radius: 2px;
+        transform: scaleY(0);
+        transform-origin: center;
+        transition: transform 280ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      .v5 a[data-on="true"] {
+        color: #0f172a;
+      }
+      .v5 a[data-on="true"]::before {
+        transform: scaleY(1);
+      }
+      .v5 a:not([data-on="true"]):hover {
+        color: #334155;
+      }
+
+      /* ========== V6 · Display Serif Display（大号衬线 + 编号） ========== */
+      .v6 {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 44px;
+      }
+      .v6 a {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 6px;
+      }
+      .v6 a .sup {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10px;
+        color: #cbd5e1;
+        letter-spacing: 0.06em;
+        transform: translateY(-4px);
+        display: inline-block;
+      }
+      .v6 a .label {
+        font-family: "Fraunces", serif;
+        font-size: 28px;
+        font-weight: 500;
+        color: #cbd5e1;
+        transition: color 240ms ease;
+      }
+      .v6 a[data-on="true"] .label {
+        color: #0f172a;
+        font-weight: 600;
+      }
+      .v6 a[data-on="true"] .sup {
+        color: #0891b2;
+      }
+      .v6 a:not([data-on="true"]):hover .label {
+        color: #94a3b8;
+      }
+
+      /* ========== V7 · Current (Editorial underline - 当前样式) ========== */
+      .v7 {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 32px;
+      }
+      .v7 a {
+        position: relative;
+        padding-bottom: 14px;
+        font-size: 16px;
+        font-weight: 500;
+        color: #94a3b8;
+        transition: color 200ms ease;
+      }
+      .v7 a[data-on="true"] {
+        color: #0f172a;
+      }
+      .v7 a::after {
+        content: "";
+        position: absolute;
+        left: 0; right: 0; bottom: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #0891b2, #0f172a);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      }
+      .v7 a[data-on="true"]::after {
+        transform: scaleX(1);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="mx-auto max-w-[1400px] px-8 pb-8 pt-20">
+      <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-slate-500">
+        <span class="h-1.5 w-1.5 rounded-full bg-cyan-500"></span>
+        Category Nav · 六款方向对比
+      </div>
+      <h1 class="mt-5 font-display text-[44px] font-semibold leading-[1.08] tracking-[-0.02em]">
+        给分类导航换一个更有质感的样式
+      </h1>
+      <p class="mt-3 max-w-[640px] text-[14px] leading-relaxed text-slate-500">
+        每款都把「模块」设为 active，hover 会有微动效。选出一款告诉我，比如 "V3"。
+      </p>
+    </header>
+
+    <!-- ========== V7 CURRENT (放第一位做对照) ========== -->
+    <section class="mx-auto max-w-[1400px] px-8 py-4">
+      <div class="stage">
+        <span class="stage-label">V0 · 当前</span>
+        <div class="flex h-[80px] items-center">
+          <div class="v7">
+            <a data-on="false">风格</a>
+            <a data-on="false">页面</a>
+            <a data-on="true">模块</a>
+            <a data-on="false">组件</a>
+            <a data-on="false">原语</a>
+          </div>
+        </div>
+        <div class="stage-caption">
+          当前样式——大字 + 渐变下划线。你觉得"太普通"，所以有了下面这六款。
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== V1 Pill Group ========== -->
+    <section class="mx-auto max-w-[1400px] px-8 py-4">
+      <div class="stage">
+        <span class="stage-label">V1 · Pill Group</span>
+        <div class="flex h-[80px] items-center">
+          <div class="v1">
+            <a data-on="false">风格</a>
+            <a data-on="false">页面</a>
+            <a data-on="true">模块</a>
+            <a data-on="false">组件</a>
+            <a data-on="false">原语</a>
+          </div>
+        </div>
+        <div class="stage-caption">
+          灰底容器 + 黑底 active pill，干净稳健。常见于 Linear / Arc 等新派 SaaS。整体紧凑、有边界，不漂浮。
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== V2 Numbered Serif ========== -->
+    <section class="mx-auto max-w-[1400px] px-8 py-4">
+      <div class="stage">
+        <span class="stage-label">V2 · 衬线 + 数字</span>
+        <div class="flex h-[90px] items-center">
+          <div class="v2">
+            <a data-on="false"><span class="num">01</span><span class="label">风格</span></a>
+            <a data-on="false"><span class="num">02</span><span class="label">页面</span></a>
+            <a data-on="true"><span class="num">03</span><span class="label">模块</span></a>
+            <a data-on="false"><span class="num">04</span><span class="label">组件</span></a>
+            <a data-on="false"><span class="num">05</span><span class="label">原语</span></a>
+          </div>
+        </div>
+        <div class="stage-caption">
+          Fraunces 衬线 22px + Plex Mono 小号编号，active 变深 + cyan 数字。最像"杂志目录"，编辑/文艺气质最强。
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== V3 Dark Segmented ========== -->
+    <section class="mx-auto max-w-[1400px] px-8 py-4">
+      <div class="stage">
+        <span class="stage-label">V3 · pageflows 同款深色</span>
+        <div class="flex h-[80px] items-center">
+          <div class="v3">
+            <a data-on="false">风格</a>
+            <a data-on="false">页面</a>
+            <a data-on="true">模块</a>
+            <a data-on="false">组件</a>
+            <a data-on="false">原语</a>
+          </div>
+        </div>
+        <div class="stage-caption">
+          深色 segmented + 白 active。浅色站上深色 pill = 视觉重量中心，权威感。
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== V4 Card Tabs ========== -->
+    <section class="mx-auto max-w-[1400px] px-8 py-4">
+      <div class="stage">
+        <span class="stage-label">V4 · 卡片 tabs（编号 + 计数）</span>
+        <div class="flex h-[120px] items-center">
+          <div class="v4">
+            <a data-on="false">
+              <span class="icon">01</span>
+              <span class="label">风格</span>
+              <span class="count">1</span>
+            </a>
+            <a data-on="false">
+              <span class="icon">02</span>
+              <span class="label">页面</span>
+              <span class="count">1</span>
+            </a>
+            <a data-on="true">
+              <span class="icon">03</span>
+              <span class="label">模块</span>
+              <span class="count">2</span>
+            </a>
+            <a data-on="false">
+              <span class="icon">04</span>
+              <span class="label">组件</span>
+              <span class="count">1</span>
+            </a>
+            <a data-on="false">
+              <span class="icon">05</span>
+              <span class="label">原语</span>
+              <span class="count">2</span>
+            </a>
+          </div>
+        </div>
+        <div class="stage-caption">
+          每个 tab 是一张有边框的小卡片，内嵌编号 + label + 计数。active 整卡黑色 + cyan 编号，上浮 1px 带阴影。信息量最大。
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== V5 Left Accent Bar ========== -->
+    <section class="mx-auto max-w-[1400px] px-8 py-4">
+      <div class="stage">
+        <span class="stage-label">V5 · 左侧竖线 accent</span>
+        <div class="flex h-[80px] items-center">
+          <div class="v5">
+            <a data-on="false">风格</a>
+            <a data-on="false">页面</a>
+            <a data-on="true">模块</a>
+            <a data-on="false">组件</a>
+            <a data-on="false">原语</a>
+          </div>
+        </div>
+        <div class="stage-caption">
+          active 的 tab 左侧长出一根 cyan→slate 渐变的小竖线。极简、气质安静，像文档侧边栏。
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== V6 Display Serif ========== -->
+    <section class="mx-auto max-w-[1400px] px-8 py-4">
+      <div class="stage">
+        <span class="stage-label">V6 · 超大衬线 + 上标数字</span>
+        <div class="flex h-[120px] items-center">
+          <div class="v6">
+            <a data-on="false"><span class="sup">01</span><span class="label">风格</span></a>
+            <a data-on="false"><span class="sup">02</span><span class="label">页面</span></a>
+            <a data-on="true"><span class="sup">03</span><span class="label">模块</span></a>
+            <a data-on="false"><span class="sup">04</span><span class="label">组件</span></a>
+            <a data-on="false"><span class="sup">05</span><span class="label">原语</span></a>
+          </div>
+        </div>
+        <div class="stage-caption">
+          Fraunces 28px + 上标数字。inactive 极淡 slate-300，active slate-900 + 加粗。像品牌主视觉，存在感最强。
+        </div>
+      </div>
+    </section>
+
+    <footer class="mx-auto max-w-[1400px] border-t border-slate-200 px-8 py-10 text-center">
+      <p class="text-[13px] text-slate-500">
+        告诉我比如 <span class="font-mono text-slate-800">V2</span> 或 <span class="font-mono text-slate-800">V5</span>，我就落地到代码里。
+      </p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>产品集筛选 · Round 2（基于 V2 衍生）</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-mono: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+      }
+      html, body { font-family: var(--font-sans); background: #fafafa; color: #0f172a; }
+      .font-mono { font-family: var(--font-mono); }
+
+      .variant-heading {
+        font-family: 'Georgia', serif; font-size: 24px; font-weight: 400;
+        letter-spacing: -0.02em; color: #0f172a;
+      }
+      .variant-badge {
+        font-family: var(--font-mono); font-size: 11px; color: #64748b; letter-spacing: 0.08em;
+      }
+      .variant-note {
+        font-size: 13px; color: #64748b; line-height: 1.6; max-width: 640px;
+      }
+      .variant-frame {
+        background: #fafafa; border: 1px solid #e5e5e5; border-radius: 16px; padding: 32px;
+        min-height: 540px;
+      }
+      .section-divider { border-top: 1px dashed #e2e8f0; margin: 48px 0; }
+
+      /* 共享：pill 基础 */
+      .pill {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 5px 11px; margin: 3px 3px 3px 0;
+        border-radius: 9999px;
+        font-size: 12px; color: #475569; cursor: pointer;
+        transition: all 0.2s; border: 1px solid transparent;
+      }
+      .group-title {
+        font-family: var(--font-mono); font-size: 10px; color: #64748b;
+        letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 10px;
+      }
+      .count { font-family: var(--font-mono); color: #94a3b8; font-size: 10px; }
+
+      /* ========== V2（保留基准）========== */
+      .v2-rail {
+        min-height: 480px;
+        background: linear-gradient(180deg, rgba(248, 250, 252, 0.6) 0%, rgba(241, 245, 249, 0.4) 100%);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        border-radius: 20px; padding: 24px 20px; position: relative; overflow: hidden;
+      }
+      .v2-rail::before {
+        content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(15, 23, 42, 0.2), transparent);
+      }
+      .v2-rail::after {
+        content: ''; position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+        width: 240px; height: 240px; border-radius: 9999px;
+        background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.15), transparent 60%);
+        pointer-events: none;
+      }
+      .v2-rail .group { margin-bottom: 22px; position: relative; }
+      .v2-rail .pill {
+        background: rgba(255, 255, 255, 0.7);
+        border-color: rgba(226, 232, 240, 0.8);
+      }
+      .v2-rail .pill:hover {
+        background: rgba(255, 255, 255, 0.95); color: #0f172a; border-color: rgba(15, 23, 42, 0.3);
+      }
+      .v2-rail .pill.on { background: #0f172a; color: #fff; border-color: #0f172a; }
+
+      /* ========== V5 · 分层玻璃岛 ==========
+         每组独立成一块浮岛，岛与岛之间留间隔，整体更有呼吸感。 */
+      .v5-rail { min-height: 480px; display: flex; flex-direction: column; gap: 10px; }
+      .v5-island {
+        background: rgba(255, 255, 255, 0.55);
+        backdrop-filter: blur(18px);
+        border: 1px solid rgba(226, 232, 240, 0.9);
+        border-radius: 16px;
+        padding: 16px 18px;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 20px -12px rgba(15, 23, 42, 0.08);
+        transition: all 0.25s;
+      }
+      .v5-island:hover {
+        background: rgba(255, 255, 255, 0.78);
+        box-shadow: 0 2px 4px rgba(15, 23, 42, 0.06), 0 12px 32px -14px rgba(15, 23, 42, 0.15);
+      }
+      .v5-island .pill {
+        background: rgba(241, 245, 249, 0.6);
+        border-color: rgba(226, 232, 240, 0.5);
+      }
+      .v5-island .pill:hover { background: #fff; border-color: rgba(15, 23, 42, 0.25); color: #0f172a; }
+      .v5-island .pill.on { background: #0f172a; color: #fff; border-color: #0f172a; }
+
+      /* ========== V6 · 色染玻璃（色区分组）==========
+         同一块玻璃面板，但每组背后有一团淡色光晕用于视觉分组。 */
+      .v6-rail {
+        min-height: 480px; padding: 24px 20px;
+        background: linear-gradient(180deg, rgba(248, 250, 252, 0.6) 0%, rgba(241, 245, 249, 0.4) 100%);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        border-radius: 20px; position: relative; overflow: hidden;
+      }
+      .v6-group {
+        position: relative; padding: 14px 16px; margin: -6px -12px 6px; border-radius: 14px;
+      }
+      .v6-group::before {
+        content: ''; position: absolute; inset: 0; border-radius: 14px;
+        opacity: 0.35; pointer-events: none;
+      }
+      .v6-group.g1::before { background: radial-gradient(ellipse at top left, rgba(168, 85, 247, 0.18), transparent 70%); }
+      .v6-group.g2::before { background: radial-gradient(ellipse at top right, rgba(34, 211, 238, 0.18), transparent 70%); }
+      .v6-group.g3::before { background: radial-gradient(ellipse at bottom left, rgba(245, 158, 11, 0.15), transparent 70%); }
+      .v6-group.g4::before { background: radial-gradient(ellipse at bottom right, rgba(100, 116, 139, 0.15), transparent 70%); }
+      .v6-group > * { position: relative; z-index: 1; }
+      .v6-group .pill {
+        background: rgba(255, 255, 255, 0.85);
+        border-color: rgba(226, 232, 240, 0.8);
+      }
+      .v6-group .pill:hover { background: #fff; border-color: rgba(15, 23, 42, 0.3); color: #0f172a; }
+      .v6-group .pill.on { background: #0f172a; color: #fff; border-color: #0f172a; }
+
+      /* ========== V7 · 极光呼吸 ==========
+         玻璃面板背后有一层缓慢移动的渐变极光 */
+      .v7-rail {
+        min-height: 480px; padding: 24px 20px;
+        background: rgba(255, 255, 255, 0.35);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        border-radius: 20px; position: relative; overflow: hidden;
+      }
+      .v7-rail::before {
+        content: ''; position: absolute; inset: -40%;
+        background: conic-gradient(
+          from 0deg at 50% 50%,
+          rgba(34, 211, 238, 0.22),
+          rgba(168, 85, 247, 0.18),
+          rgba(15, 23, 42, 0.1),
+          rgba(34, 211, 238, 0.22)
+        );
+        filter: blur(50px);
+        animation: v7-drift 24s linear infinite;
+        z-index: 0;
+      }
+      @keyframes v7-drift {
+        0% { transform: rotate(0deg) scale(1); }
+        50% { transform: rotate(180deg) scale(1.15); }
+        100% { transform: rotate(360deg) scale(1); }
+      }
+      .v7-rail > * { position: relative; z-index: 1; }
+      .v7-rail .group { margin-bottom: 20px; }
+      .v7-rail .pill {
+        background: rgba(255, 255, 255, 0.85);
+        border-color: rgba(226, 232, 240, 0.9);
+        backdrop-filter: blur(6px);
+      }
+      .v7-rail .pill:hover { background: #fff; color: #0f172a; border-color: rgba(15, 23, 42, 0.35); }
+      .v7-rail .pill.on {
+        background: #0f172a; color: #fff; border-color: #0f172a;
+        box-shadow: 0 0 18px rgba(34, 211, 238, 0.4);
+      }
+
+      /* ========== V8 · 已选凸显（top summary）==========
+         顶部一块"已选"区域，已选的筛选以大 pill 显示；下方未选项小一号、淡一点 */
+      .v8-rail {
+        min-height: 480px; padding: 0;
+        background: linear-gradient(180deg, rgba(248, 250, 252, 0.6) 0%, rgba(241, 245, 249, 0.4) 100%);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        border-radius: 20px; overflow: hidden; position: relative;
+      }
+      .v8-active {
+        padding: 18px 20px 16px;
+        background: rgba(15, 23, 42, 0.96);
+        color: #f1f5f9;
+      }
+      .v8-active-label {
+        font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.18em;
+        color: #94a3b8; text-transform: uppercase;
+      }
+      .v8-active-pills { margin-top: 10px; }
+      .v8-active .big-pill {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 7px 13px; margin: 3px 4px 3px 0;
+        background: rgba(255, 255, 255, 0.14);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 9999px;
+        font-size: 13px; color: #f8fafc; font-weight: 500;
+      }
+      .v8-active .big-pill .close {
+        font-family: var(--font-mono); color: #94a3b8; margin-left: 2px;
+      }
+      .v8-active .big-pill.empty { color: #94a3b8; font-weight: 400; border-style: dashed; }
+      .v8-body { padding: 20px 20px 22px; }
+      .v8-body .group { margin-bottom: 18px; }
+      .v8-body .pill {
+        background: rgba(255, 255, 255, 0.5);
+        border-color: rgba(226, 232, 240, 0.6);
+        color: #64748b;
+      }
+      .v8-body .pill:hover {
+        background: #fff; color: #0f172a; border-color: rgba(15, 23, 42, 0.3);
+      }
+      .v8-body .pill.on { display: none; /* 已选都挪到顶部了 */ }
+
+      /* ========== 产品卡模拟 ========== */
+      .sv-card {
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        background: #fff; border: 1px solid rgba(226, 232, 240, 0.8);
+        border-radius: 12px; overflow: hidden;
+      }
+      .sv-card:hover {
+        transform: translate3d(0, -4px, 0);
+        box-shadow: 0 2px 6px -1px rgba(15, 23, 42, 0.06), 0 14px 32px -10px rgba(15, 23, 42, 0.22);
+      }
+      .cover-saas { background: #0f172a; color: #e2e8f0; position: relative; overflow: hidden; }
+      .cover-saas::before {
+        content: ''; position: absolute; inset: 0;
+        background: radial-gradient(ellipse at top right, rgba(34, 211, 238, 0.12), transparent 55%);
+      }
+      .cover-saas-grid { position: relative; padding: 14px; font-family: var(--font-mono); font-size: 9px; line-height: 1.35; }
+      .cover-saas-row {
+        display: grid; grid-template-columns: 70px 1fr 60px 46px; gap: 8px;
+        padding: 3px 5px; border-bottom: 1px solid rgba(148, 163, 184, 0.12); color: #cbd5e1;
+      }
+      .cover-saas-row.head { color: #64748b; border-bottom-color: rgba(148, 163, 184, 0.25); }
+      .cover-saas-num { text-align: right; color: #22d3ee; }
+      .cover-saas-red { color: #f87171; }
+      .cover-saas-chip {
+        display: inline-flex; padding: 1px 5px;
+        border: 1px solid rgba(148, 163, 184, 0.3); border-radius: 3px;
+        color: #94a3b8; font-size: 8px;
+      }
+      .eyebrow {
+        font-size: 10px; font-weight: 500; letter-spacing: 0.12em;
+        text-transform: uppercase; color: #64748b;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <header class="mx-auto max-w-[1500px] px-10 pt-14 pb-6">
+      <div class="variant-badge">mockup · 筛选 round 2</div>
+      <h1 class="variant-heading mt-3" style="font-size: 28px">基于 V2 衍生的 4 个新方向</h1>
+      <p class="variant-note mt-3">
+        V2（毛玻璃帘）保留在最上方作对照，下方 4 种继承它的「frosted glass + pill」DNA 但各有重点：
+        <strong>V5</strong> 把一块面板拆成多个岛，<strong>V6</strong> 用色域分组，
+        <strong>V7</strong> 背后加缓慢极光动效，<strong>V8</strong> 已选项高亮并上移。
+      </p>
+    </header>
+
+    <!-- ========== V2（保留基准）========== -->
+    <section class="mx-auto max-w-[1500px] px-10">
+      <div class="mb-5">
+        <div class="variant-badge">V2 · 当前选中 · baseline</div>
+        <h2 class="variant-heading mt-2">V2 · 毛玻璃帘（保留对照）</h2>
+      </div>
+      <div class="variant-frame">
+        <div class="grid gap-6" style="grid-template-columns: 260px 1fr">
+          <aside class="v2-rail">
+            <div class="group">
+              <div class="group-title">category / 分类</div>
+              <span class="pill on"><span style="width:6px;height:6px;border-radius:9999px;background:#fff"></span>效率工具<span class="count" style="color:#cbd5e1">2</span></span>
+              <span class="pill">内容</span>
+              <span class="pill">生活</span>
+              <span class="pill">社交</span>
+            </div>
+            <div class="group">
+              <div class="group-title">aesthetic / 调性</div>
+              <span class="pill on">minimal</span>
+              <span class="pill">industrial</span>
+              <span class="pill">editorial</span>
+              <span class="pill">playful</span>
+              <span class="pill">bold</span>
+            </div>
+            <div class="group">
+              <div class="group-title">mood / 气质</div>
+              <span class="pill">calm</span>
+              <span class="pill on">cold</span>
+              <span class="pill">warm</span>
+              <span class="pill">serious</span>
+            </div>
+            <div class="group">
+              <div class="group-title">stack / 技术栈</div>
+              <span class="pill">react-antd-tw</span>
+              <span class="pill">html-tw</span>
+            </div>
+          </aside>
+          <div>
+            <article class="sv-card">
+              <div class="grid" style="grid-template-columns: 340px 1fr">
+                <div class="cover-saas" style="height: 180px">
+                  <div class="cover-saas-grid">
+                    <div class="cover-saas-row head"><span>Symbol</span><span>Pos</span><span class="cover-saas-num">PnL</span><span></span></div>
+                    <div class="cover-saas-row"><span>AAPL</span><span>1,240</span><span class="cover-saas-num">+2,840</span><span class="cover-saas-chip">LONG</span></div>
+                    <div class="cover-saas-row"><span>NVDA</span><span>320</span><span class="cover-saas-num">+8,120</span><span class="cover-saas-chip">LONG</span></div>
+                    <div class="cover-saas-row"><span>TSLA</span><span>580</span><span class="cover-saas-num cover-saas-red">−1,420</span><span class="cover-saas-chip">SHORT</span></div>
+                  </div>
+                </div>
+                <div class="flex flex-col justify-between p-5">
+                  <div>
+                    <div class="eyebrow flex items-center gap-1.5">
+                      <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>效率工具 · Web
+                    </div>
+                    <h3 class="mt-2 text-[18px] font-semibold tracking-tight">Acme · 冷感工业 SaaS</h3>
+                    <p class="mt-2 text-[12px] leading-relaxed text-slate-600">
+                      为量化团队打造的效率驾驶舱——密集表格、等宽数字、无暖色装饰。
+                    </p>
+                  </div>
+                  <div class="mt-3 flex items-center gap-5 text-[10px] text-slate-400">
+                    <span class="font-mono">PAGES <span class="text-slate-700">1</span></span>
+                    <span class="font-mono">BLOCKS <span class="text-slate-700">2</span></span>
+                    <span class="ml-auto text-[11px] text-slate-900">查看 →</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider mx-auto max-w-[1500px]"></div>
+
+    <!-- ========== V5 · 分层玻璃岛 ========== -->
+    <section class="mx-auto max-w-[1500px] px-10">
+      <div class="mb-5">
+        <div class="variant-badge">V5 · 分层玻璃岛 · floating islands</div>
+        <h2 class="variant-heading mt-2">V5 · 每组独立成一块浮岛</h2>
+        <p class="variant-note mt-2">
+          把 V2 的大玻璃面板拆成 4 块独立小玻璃岛，岛之间 10px 留白。
+          hover 某个岛时那块会变得更清晰（提高 opacity），其他岛保持半透明。
+          呼吸感比 V2 更松弛，像把毛玻璃切成了几块。
+        </p>
+      </div>
+      <div class="variant-frame">
+        <div class="grid gap-6" style="grid-template-columns: 260px 1fr">
+          <aside class="v5-rail">
+            <div class="v5-island">
+              <div class="group-title">分类</div>
+              <span class="pill on">效率工具<span class="count" style="color:#cbd5e1">2</span></span>
+              <span class="pill">内容</span>
+              <span class="pill">生活</span>
+              <span class="pill">社交</span>
+            </div>
+            <div class="v5-island">
+              <div class="group-title">调性</div>
+              <span class="pill on">minimal</span>
+              <span class="pill">industrial</span>
+              <span class="pill">editorial</span>
+              <span class="pill">playful</span>
+            </div>
+            <div class="v5-island">
+              <div class="group-title">气质</div>
+              <span class="pill">calm</span>
+              <span class="pill on">cold</span>
+              <span class="pill">warm</span>
+              <span class="pill">serious</span>
+            </div>
+            <div class="v5-island">
+              <div class="group-title">技术栈</div>
+              <span class="pill">react-antd-tw</span>
+              <span class="pill">html-tw</span>
+            </div>
+          </aside>
+          <div>
+            <article class="sv-card">
+              <div class="grid" style="grid-template-columns: 340px 1fr">
+                <div class="cover-saas" style="height: 180px">
+                  <div class="cover-saas-grid">
+                    <div class="cover-saas-row head"><span>Symbol</span><span>Pos</span><span class="cover-saas-num">PnL</span><span></span></div>
+                    <div class="cover-saas-row"><span>AAPL</span><span>1,240</span><span class="cover-saas-num">+2,840</span><span class="cover-saas-chip">LONG</span></div>
+                    <div class="cover-saas-row"><span>NVDA</span><span>320</span><span class="cover-saas-num">+8,120</span><span class="cover-saas-chip">LONG</span></div>
+                    <div class="cover-saas-row"><span>TSLA</span><span>580</span><span class="cover-saas-num cover-saas-red">−1,420</span><span class="cover-saas-chip">SHORT</span></div>
+                  </div>
+                </div>
+                <div class="flex flex-col justify-between p-5">
+                  <div>
+                    <div class="eyebrow flex items-center gap-1.5">
+                      <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>效率工具 · Web
+                    </div>
+                    <h3 class="mt-2 text-[18px] font-semibold tracking-tight">Acme · 冷感工业 SaaS</h3>
+                    <p class="mt-2 text-[12px] leading-relaxed text-slate-600">
+                      为量化团队打造的效率驾驶舱——密集表格、等宽数字、无暖色装饰。
+                    </p>
+                  </div>
+                  <div class="mt-3 flex items-center gap-5 text-[10px] text-slate-400">
+                    <span class="font-mono">PAGES <span class="text-slate-700">1</span></span>
+                    <span class="font-mono">BLOCKS <span class="text-slate-700">2</span></span>
+                    <span class="ml-auto text-[11px] text-slate-900">查看 →</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider mx-auto max-w-[1500px]"></div>
+
+    <!-- ========== V6 · 色染玻璃 ========== -->
+    <section class="mx-auto max-w-[1500px] px-10">
+      <div class="mb-5">
+        <div class="variant-badge">V6 · 色染玻璃 · tinted zones</div>
+        <h2 class="variant-heading mt-2">V6 · 色区分组 · 同一块玻璃里的四种光</h2>
+        <p class="variant-note mt-2">
+          还是 V2 的一整块面板，但每一组背后有一抹不同颜色的柔光：
+          分类是紫、调性是青、气质是琥珀、技术栈是石板灰。
+          颜色做"视觉地标"——扫一眼就知道自己在哪一组，不必靠标题读字。
+        </p>
+      </div>
+      <div class="variant-frame">
+        <div class="grid gap-6" style="grid-template-columns: 260px 1fr">
+          <aside class="v6-rail">
+            <div class="v6-group g1">
+              <div class="group-title">分类</div>
+              <span class="pill on">效率工具<span class="count" style="color:#cbd5e1">2</span></span>
+              <span class="pill">内容</span>
+              <span class="pill">生活</span>
+              <span class="pill">社交</span>
+            </div>
+            <div class="v6-group g2">
+              <div class="group-title">调性</div>
+              <span class="pill on">minimal</span>
+              <span class="pill">industrial</span>
+              <span class="pill">editorial</span>
+              <span class="pill">playful</span>
+            </div>
+            <div class="v6-group g3">
+              <div class="group-title">气质</div>
+              <span class="pill">calm</span>
+              <span class="pill on">cold</span>
+              <span class="pill">warm</span>
+              <span class="pill">serious</span>
+            </div>
+            <div class="v6-group g4">
+              <div class="group-title">技术栈</div>
+              <span class="pill">react-antd-tw</span>
+              <span class="pill">html-tw</span>
+            </div>
+          </aside>
+          <div>
+            <article class="sv-card">
+              <div class="grid" style="grid-template-columns: 340px 1fr">
+                <div class="cover-saas" style="height: 180px">
+                  <div class="cover-saas-grid">
+                    <div class="cover-saas-row head"><span>Symbol</span><span>Pos</span><span class="cover-saas-num">PnL</span><span></span></div>
+                    <div class="cover-saas-row"><span>AAPL</span><span>1,240</span><span class="cover-saas-num">+2,840</span><span class="cover-saas-chip">LONG</span></div>
+                    <div class="cover-saas-row"><span>NVDA</span><span>320</span><span class="cover-saas-num">+8,120</span><span class="cover-saas-chip">LONG</span></div>
+                    <div class="cover-saas-row"><span>TSLA</span><span>580</span><span class="cover-saas-num cover-saas-red">−1,420</span><span class="cover-saas-chip">SHORT</span></div>
+                  </div>
+                </div>
+                <div class="flex flex-col justify-between p-5">
+                  <div>
+                    <div class="eyebrow flex items-center gap-1.5">
+                      <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>效率工具 · Web
+                    </div>
+                    <h3 class="mt-2 text-[18px] font-semibold tracking-tight">Acme · 冷感工业 SaaS</h3>
+                    <p class="mt-2 text-[12px] leading-relaxed text-slate-600">
+                      为量化团队打造的效率驾驶舱——密集表格、等宽数字、无暖色装饰。
+                    </p>
+                  </div>
+                  <div class="mt-3 flex items-center gap-5 text-[10px] text-slate-400">
+                    <span class="font-mono">PAGES <span class="text-slate-700">1</span></span>
+                    <span class="font-mono">BLOCKS <span class="text-slate-700">2</span></span>
+                    <span class="ml-auto text-[11px] text-slate-900">查看 →</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider mx-auto max-w-[1500px]"></div>
+
+    <!-- ========== V7 · 极光呼吸 ========== -->
+    <section class="mx-auto max-w-[1500px] px-10">
+      <div class="mb-5">
+        <div class="variant-badge">V7 · 极光呼吸 · aurora</div>
+        <h2 class="variant-heading mt-2">V7 · 玻璃背后缓慢旋转的极光</h2>
+        <p class="variant-note mt-2">
+          在 V2 的基础上加一层背景极光——青、紫、石板三色的 conic-gradient
+          在玻璃后面 24 秒一圈缓慢旋转，被毛玻璃模糊后呈现柔和呼吸感。
+          选中 pill 带一点青光 glow。最"活"的方案，最有产品呼吸感。
+        </p>
+      </div>
+      <div class="variant-frame">
+        <div class="grid gap-6" style="grid-template-columns: 260px 1fr">
+          <aside class="v7-rail">
+            <div class="group">
+              <div class="group-title">分类</div>
+              <span class="pill on">效率工具<span class="count" style="color:#cbd5e1">2</span></span>
+              <span class="pill">内容</span>
+              <span class="pill">生活</span>
+              <span class="pill">社交</span>
+            </div>
+            <div class="group">
+              <div class="group-title">调性</div>
+              <span class="pill on">minimal</span>
+              <span class="pill">industrial</span>
+              <span class="pill">editorial</span>
+              <span class="pill">playful</span>
+            </div>
+            <div class="group">
+              <div class="group-title">气质</div>
+              <span class="pill">calm</span>
+              <span class="pill on">cold</span>
+              <span class="pill">warm</span>
+              <span class="pill">serious</span>
+            </div>
+            <div class="group">
+              <div class="group-title">技术栈</div>
+              <span class="pill">react-antd-tw</span>
+              <span class="pill">html-tw</span>
+            </div>
+          </aside>
+          <div>
+            <article class="sv-card">
+              <div class="grid" style="grid-template-columns: 340px 1fr">
+                <div class="cover-saas" style="height: 180px">
+                  <div class="cover-saas-grid">
+                    <div class="cover-saas-row head"><span>Symbol</span><span>Pos</span><span class="cover-saas-num">PnL</span><span></span></div>
+                    <div class="cover-saas-row"><span>AAPL</span><span>1,240</span><span class="cover-saas-num">+2,840</span><span class="cover-saas-chip">LONG</span></div>
+                    <div class="cover-saas-row"><span>NVDA</span><span>320</span><span class="cover-saas-num">+8,120</span><span class="cover-saas-chip">LONG</span></div>
+                    <div class="cover-saas-row"><span>TSLA</span><span>580</span><span class="cover-saas-num cover-saas-red">−1,420</span><span class="cover-saas-chip">SHORT</span></div>
+                  </div>
+                </div>
+                <div class="flex flex-col justify-between p-5">
+                  <div>
+                    <div class="eyebrow flex items-center gap-1.5">
+                      <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>效率工具 · Web
+                    </div>
+                    <h3 class="mt-2 text-[18px] font-semibold tracking-tight">Acme · 冷感工业 SaaS</h3>
+                    <p class="mt-2 text-[12px] leading-relaxed text-slate-600">
+                      为量化团队打造的效率驾驶舱——密集表格、等宽数字、无暖色装饰。
+                    </p>
+                  </div>
+                  <div class="mt-3 flex items-center gap-5 text-[10px] text-slate-400">
+                    <span class="font-mono">PAGES <span class="text-slate-700">1</span></span>
+                    <span class="font-mono">BLOCKS <span class="text-slate-700">2</span></span>
+                    <span class="ml-auto text-[11px] text-slate-900">查看 →</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider mx-auto max-w-[1500px]"></div>
+
+    <!-- ========== V8 · 已选凸显 ========== -->
+    <section class="mx-auto max-w-[1500px] px-10">
+      <div class="mb-5">
+        <div class="variant-badge">V8 · 已选凸显 · active prominent</div>
+        <h2 class="variant-heading mt-2">V8 · 已选筛选被独立放在顶端</h2>
+        <p class="variant-note mt-2">
+          面板顶部一条黑色"已选"区域，把选中的筛选全部放大放到这里，每个带 × 可单独移除。
+          下方 pill 区域只显示未选的备选，颜色变淡。整条侧栏同时告诉你
+          "你现在看的是什么（黑条里的）" 和 "你还可以加什么（灰色 pill）"。最 UX 友好的方案。
+        </p>
+      </div>
+      <div class="variant-frame">
+        <div class="grid gap-6" style="grid-template-columns: 260px 1fr">
+          <aside class="v8-rail">
+            <div class="v8-active">
+              <div class="v8-active-label">已选 · 3 项</div>
+              <div class="v8-active-pills">
+                <span class="big-pill">效率工具<span class="close">×</span></span>
+                <span class="big-pill">minimal<span class="close">×</span></span>
+                <span class="big-pill">cold<span class="close">×</span></span>
+              </div>
+            </div>
+            <div class="v8-body">
+              <div class="group">
+                <div class="group-title">分类</div>
+                <span class="pill">内容</span>
+                <span class="pill">生活</span>
+                <span class="pill">社交</span>
+              </div>
+              <div class="group">
+                <div class="group-title">调性</div>
+                <span class="pill">industrial</span>
+                <span class="pill">editorial</span>
+                <span class="pill">playful</span>
+                <span class="pill">bold</span>
+              </div>
+              <div class="group">
+                <div class="group-title">气质</div>
+                <span class="pill">calm</span>
+                <span class="pill">warm</span>
+                <span class="pill">serious</span>
+              </div>
+              <div class="group">
+                <div class="group-title">技术栈</div>
+                <span class="pill">react-antd-tw</span>
+                <span class="pill">html-tw</span>
+              </div>
+            </div>
+          </aside>
+          <div>
+            <article class="sv-card">
+              <div class="grid" style="grid-template-columns: 340px 1fr">
+                <div class="cover-saas" style="height: 180px">
+                  <div class="cover-saas-grid">
+                    <div class="cover-saas-row head"><span>Symbol</span><span>Pos</span><span class="cover-saas-num">PnL</span><span></span></div>
+                    <div class="cover-saas-row"><span>AAPL</span><span>1,240</span><span class="cover-saas-num">+2,840</span><span class="cover-saas-chip">LONG</span></div>
+                    <div class="cover-saas-row"><span>NVDA</span><span>320</span><span class="cover-saas-num">+8,120</span><span class="cover-saas-chip">LONG</span></div>
+                    <div class="cover-saas-row"><span>TSLA</span><span>580</span><span class="cover-saas-num cover-saas-red">−1,420</span><span class="cover-saas-chip">SHORT</span></div>
+                  </div>
+                </div>
+                <div class="flex flex-col justify-between p-5">
+                  <div>
+                    <div class="eyebrow flex items-center gap-1.5">
+                      <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>效率工具 · Web
+                    </div>
+                    <h3 class="mt-2 text-[18px] font-semibold tracking-tight">Acme · 冷感工业 SaaS</h3>
+                    <p class="mt-2 text-[12px] leading-relaxed text-slate-600">
+                      为量化团队打造的效率驾驶舱——密集表格、等宽数字、无暖色装饰。
+                    </p>
+                  </div>
+                  <div class="mt-3 flex items-center gap-5 text-[10px] text-slate-400">
+                    <span class="font-mono">PAGES <span class="text-slate-700">1</span></span>
+                    <span class="font-mono">BLOCKS <span class="text-slate-700">2</span></span>
+                    <span class="ml-auto text-[11px] text-slate-900">查看 →</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 总结 -->
+    <section class="mx-auto max-w-[1500px] px-10 py-14">
+      <div class="variant-badge">一句话对照</div>
+      <h2 class="variant-heading mt-2" style="font-size: 20px">V2 基准 + 4 个衍生</h2>
+      <div class="mt-5 grid gap-3 text-[13px] text-slate-600" style="grid-template-columns: repeat(5, 1fr)">
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <div class="font-mono text-[11px] text-slate-400">V2 基准</div>
+          <div class="mt-1.5 font-display text-[14px] font-semibold text-slate-900">毛玻璃帘</div>
+          <p class="mt-1 text-[11px]">一整块玻璃，基础方案</p>
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <div class="font-mono text-[11px] text-slate-400">V5</div>
+          <div class="mt-1.5 font-display text-[14px] font-semibold text-slate-900">分层玻璃岛</div>
+          <p class="mt-1 text-[11px]">拆成多块，更松弛呼吸</p>
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <div class="font-mono text-[11px] text-slate-400">V6</div>
+          <div class="mt-1.5 font-display text-[14px] font-semibold text-slate-900">色染玻璃</div>
+          <p class="mt-1 text-[11px]">色域分组，扫一眼定位</p>
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <div class="font-mono text-[11px] text-slate-400">V7</div>
+          <div class="mt-1.5 font-display text-[14px] font-semibold text-slate-900">极光呼吸</div>
+          <p class="mt-1 text-[11px]">背景缓慢旋转极光，最"活"</p>
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-white p-4">
+          <div class="font-mono text-[11px] text-slate-400">V8</div>
+          <div class="mt-1.5 font-display text-[14px] font-semibold text-slate-900">已选凸显</div>
+          <p class="mt-1 text-[11px]">顶部黑条显示已选，UX 最清晰</p>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

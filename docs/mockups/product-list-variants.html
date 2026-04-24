@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>产品集列表 · 布局方案</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --font-sans:
+          'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-mono: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+      }
+      html,
+      body {
+        font-family: var(--font-sans);
+        background: #fafafa;
+        color: #0f172a;
+      }
+      .font-mono {
+        font-family: var(--font-mono);
+      }
+      .font-display {
+        font-family: var(--font-sans);
+        letter-spacing: -0.01em;
+      }
+      .eyebrow {
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #64748b;
+      }
+      .sv-card {
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          border-color 0.25s ease;
+      }
+      .sv-card:hover {
+        transform: translate3d(0, -4px, 0);
+        border-color: rgba(15, 23, 42, 0.45);
+        box-shadow:
+          0 2px 6px -1px rgba(15, 23, 42, 0.08),
+          0 20px 48px -16px rgba(15, 23, 42, 0.3);
+      }
+
+      /* 封面样例：用冷感工业风的页面占位（贴近 Acme 冷感 SaaS） */
+      .cover-saas {
+        background:
+          linear-gradient(
+            180deg,
+            rgba(15, 23, 42, 0.02) 0%,
+            rgba(15, 23, 42, 0) 40%
+          ),
+          #0f172a;
+        color: #e2e8f0;
+        position: relative;
+        overflow: hidden;
+      }
+      .cover-saas::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at top right,
+            rgba(34, 211, 238, 0.12),
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse at bottom left,
+            rgba(59, 130, 246, 0.08),
+            transparent 50%
+          );
+      }
+      .cover-saas-grid {
+        position: relative;
+        padding: 16px;
+        font-family: var(--font-mono);
+        font-size: 9px;
+        line-height: 1.35;
+      }
+      .cover-saas-row {
+        display: grid;
+        grid-template-columns: 80px 1fr 60px 50px;
+        gap: 10px;
+        padding: 4px 6px;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        color: #cbd5e1;
+      }
+      .cover-saas-row.head {
+        color: #64748b;
+        border-bottom-color: rgba(148, 163, 184, 0.25);
+      }
+      .cover-saas-num {
+        text-align: right;
+        color: #22d3ee;
+      }
+      .cover-saas-red {
+        color: #f87171;
+      }
+      .cover-saas-chip {
+        display: inline-flex;
+        padding: 1px 6px;
+        border: 1px solid rgba(148, 163, 184, 0.3);
+        border-radius: 3px;
+        color: #94a3b8;
+        font-size: 8px;
+      }
+
+      /* 第二种封面：日式文艺 */
+      .cover-editorial {
+        background: #fdfcf9;
+        color: #1c1917;
+        padding: 24px;
+        font-family: 'Georgia', serif;
+        position: relative;
+      }
+      .cover-editorial .title {
+        font-size: 26px;
+        line-height: 1.1;
+        font-weight: 400;
+        letter-spacing: -0.01em;
+      }
+      .cover-editorial .divider {
+        width: 36px;
+        height: 1px;
+        background: #78716c;
+        margin: 14px 0 12px;
+      }
+      .cover-editorial .meta {
+        font-family: var(--font-mono);
+        font-size: 10px;
+        color: #78716c;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      /* 第三种封面：薄荷卡片 */
+      .cover-mint {
+        background: linear-gradient(140deg, #d1fae5 0%, #a7f3d0 60%, #6ee7b7 100%);
+        position: relative;
+        overflow: hidden;
+      }
+      .cover-mint::before {
+        content: '';
+        position: absolute;
+        right: -40px;
+        top: -40px;
+        width: 180px;
+        height: 180px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.35);
+        filter: blur(30px);
+      }
+      .cover-mint-inner {
+        position: relative;
+        padding: 20px;
+        font-family: var(--font-sans);
+        color: #065f46;
+      }
+
+      .variant-heading {
+        font-family: 'Georgia', serif;
+        font-size: 32px;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        color: #0f172a;
+      }
+      .variant-badge {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: #64748b;
+        letter-spacing: 0.08em;
+      }
+      .variant-note {
+        font-size: 13px;
+        color: #64748b;
+        line-height: 1.6;
+        max-width: 620px;
+      }
+      .variant-frame {
+        background: #fafafa;
+        border: 1px solid #e5e5e5;
+        border-radius: 16px;
+        padding: 32px;
+      }
+      .section-divider {
+        border-top: 1px dashed #e2e8f0;
+        margin: 64px 0;
+      }
+      .heart {
+        color: #cbd5e1;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <!-- 页头 -->
+    <header class="mx-auto max-w-[1400px] px-10 pt-14 pb-6">
+      <div class="variant-badge">mockup · 产品集列表布局方案</div>
+      <h1 class="variant-heading mt-3">产品集列表 · 6 种布局方案</h1>
+      <p class="variant-note mt-3">
+        当前是统一 300–400px 的自适应网格 —— 看久了确实有点"平"。下面给出 6 种差异化方案，
+        从 <strong>保守升级</strong>（Bento 混合尺寸）到 <strong>编辑风格</strong>（杂志版式 / 横向长卡）。
+        选号码即可，比如 "用 V3" 或 "V2 + V5 组合"。
+      </p>
+    </header>
+
+    <!-- ========== V1：当前（基准对照） ========== -->
+    <section class="mx-auto max-w-[1400px] px-10">
+      <div class="mb-5 flex items-end justify-between">
+        <div>
+          <div class="variant-badge">V1 · baseline</div>
+          <h2 class="variant-heading mt-2" style="font-size: 24px">当前：均匀网格</h2>
+          <p class="variant-note mt-2">
+            目前线上实现。均匀 300–400px，信息量均等。稳定但缺乏重心 —— 6+ 条时视觉会变成"一堵墙"。
+          </p>
+        </div>
+      </div>
+      <div class="variant-frame">
+        <div class="grid gap-4" style="grid-template-columns: repeat(3, 1fr)">
+          <!-- card 1 -->
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div class="cover-saas" style="height: 180px">
+              <div class="cover-saas-grid">
+                <div class="cover-saas-row head">
+                  <span>Symbol</span><span>Position</span><span class="cover-saas-num">PnL</span><span></span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>AAPL</span><span>1,240 sh</span><span class="cover-saas-num">+2,840</span><span class="cover-saas-chip">LONG</span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>NVDA</span><span>320 sh</span><span class="cover-saas-num">+8,120</span><span class="cover-saas-chip">LONG</span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>TSLA</span><span>580 sh</span><span class="cover-saas-num cover-saas-red">−1,420</span><span class="cover-saas-chip">SHORT</span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>META</span><span>410 sh</span><span class="cover-saas-num">+4,680</span><span class="cover-saas-chip">LONG</span>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-1.5 p-4">
+              <div class="flex items-center justify-between">
+                <div class="eyebrow flex items-center gap-1.5">
+                  <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
+                  效率工具 · Web
+                </div>
+                <span class="heart">♡</span>
+              </div>
+              <h3 class="font-display text-[15px] font-semibold">Acme · 冷感工业 SaaS</h3>
+              <p class="line-clamp-2 text-[12px] text-slate-500">
+                为量化团队打造的效率驾驶舱——密集表格、等宽数字、无暖色装饰。
+              </p>
+              <div class="flex gap-2 pt-1 text-[11px] text-slate-400">
+                <span>1 页面</span><span>·</span><span>2 模块</span><span>·</span><span>1 组件</span>
+              </div>
+            </div>
+          </article>
+          <!-- card 2 -->
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div class="cover-editorial" style="height: 180px">
+              <div class="title">笺 · 静</div>
+              <div class="divider"></div>
+              <div class="meta">JOURNAL · 日記 · 2026</div>
+            </div>
+            <div class="space-y-1.5 p-4">
+              <div class="flex items-center justify-between">
+                <div class="eyebrow flex items-center gap-1.5">
+                  <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
+                  内容 · Web
+                </div>
+                <span class="heart">♡</span>
+              </div>
+              <h3 class="font-display text-[15px] font-semibold">笺 · 静</h3>
+              <p class="line-clamp-2 text-[12px] text-slate-500">
+                日式留白的长文博客——衬线标题、极窄栏宽、只用黑白灰。
+              </p>
+              <div class="flex gap-2 pt-1 text-[11px] text-slate-400">
+                <span>2 页面</span><span>·</span><span>3 模块</span><span>·</span><span>4 组件</span>
+              </div>
+            </div>
+          </article>
+          <!-- card 3 -->
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div class="cover-mint" style="height: 180px">
+              <div class="cover-mint-inner">
+                <div class="text-xs font-medium tracking-wider uppercase opacity-70">habit tracker</div>
+                <div class="mt-2 text-2xl font-semibold">今日 · 7/9</div>
+                <div class="mt-3 grid grid-cols-7 gap-1">
+                  <span class="h-4 rounded bg-emerald-600/80"></span>
+                  <span class="h-4 rounded bg-emerald-600/80"></span>
+                  <span class="h-4 rounded bg-emerald-600/80"></span>
+                  <span class="h-4 rounded bg-emerald-600/80"></span>
+                  <span class="h-4 rounded bg-emerald-600/60"></span>
+                  <span class="h-4 rounded bg-emerald-600/30"></span>
+                  <span class="h-4 rounded bg-emerald-600/10"></span>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-1.5 p-4">
+              <div class="flex items-center justify-between">
+                <div class="eyebrow flex items-center gap-1.5">
+                  <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
+                  生活 · iOS
+                </div>
+                <span class="heart">♡</span>
+              </div>
+              <h3 class="font-display text-[15px] font-semibold">薄荷 · 习惯追踪</h3>
+              <p class="line-clamp-2 text-[12px] text-slate-500">
+                柔和的早晨感——薄荷绿主调、大号数字、没有负面反馈。
+              </p>
+              <div class="flex gap-2 pt-1 text-[11px] text-slate-400">
+                <span>3 页面</span><span>·</span><span>5 模块</span><span>·</span><span>6 组件</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider mx-auto max-w-[1400px]"></div>
+
+    <!-- ========== V2：Bento 混合尺寸 ========== -->
+    <section class="mx-auto max-w-[1400px] px-10">
+      <div class="mb-5">
+        <div class="variant-badge">V2 · bento</div>
+        <h2 class="variant-heading mt-2" style="font-size: 24px">Bento 混合尺寸</h2>
+        <p class="variant-note mt-2">
+          保持网格秩序，但第一张卡横跨 2 列（大封面），其余正常尺寸。
+          节奏被打破一次，整排立刻"有重心"。改动最小，收益明显。
+        </p>
+      </div>
+      <div class="variant-frame">
+        <div class="grid gap-4" style="grid-template-columns: repeat(3, 1fr)">
+          <!-- feature card: spans 2 columns -->
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white" style="grid-column: span 2">
+            <div class="cover-saas" style="height: 280px">
+              <div class="cover-saas-grid" style="padding: 24px; font-size: 11px">
+                <div class="cover-saas-row head">
+                  <span>Symbol</span><span>Position</span><span class="cover-saas-num">PnL</span><span></span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>AAPL</span><span>1,240 sh</span><span class="cover-saas-num">+2,840</span><span class="cover-saas-chip">LONG</span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>NVDA</span><span>320 sh</span><span class="cover-saas-num">+8,120</span><span class="cover-saas-chip">LONG</span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>TSLA</span><span>580 sh</span><span class="cover-saas-num cover-saas-red">−1,420</span><span class="cover-saas-chip">SHORT</span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>META</span><span>410 sh</span><span class="cover-saas-num">+4,680</span><span class="cover-saas-chip">LONG</span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>GOOG</span><span>180 sh</span><span class="cover-saas-num">+1,260</span><span class="cover-saas-chip">LONG</span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>AMZN</span><span>225 sh</span><span class="cover-saas-num cover-saas-red">−340</span><span class="cover-saas-chip">SHORT</span>
+                </div>
+              </div>
+            </div>
+            <div class="space-y-2 p-6">
+              <div class="flex items-center justify-between">
+                <div class="eyebrow flex items-center gap-1.5">
+                  <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
+                  效率工具 · Web · <span class="text-slate-400">FEATURED</span>
+                </div>
+                <span class="heart">♡</span>
+              </div>
+              <h3 class="font-display text-[19px] font-semibold">Acme · 冷感工业 SaaS</h3>
+              <p class="text-[13px] text-slate-500">
+                为量化团队打造的效率驾驶舱——密集表格、等宽数字、无暖色装饰。
+              </p>
+            </div>
+          </article>
+          <!-- small card -->
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div class="cover-editorial" style="height: 140px">
+              <div class="title" style="font-size: 20px">笺 · 静</div>
+              <div class="divider"></div>
+              <div class="meta" style="font-size: 9px">JOURNAL · 日記</div>
+            </div>
+            <div class="space-y-1.5 p-4">
+              <div class="eyebrow">内容 · Web</div>
+              <h3 class="font-display text-[14px] font-semibold">笺 · 静</h3>
+              <p class="line-clamp-2 text-[11px] text-slate-500">日式留白的长文博客——衬线标题、极窄栏宽。</p>
+            </div>
+          </article>
+          <!-- normal card -->
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div class="cover-mint" style="height: 180px">
+              <div class="cover-mint-inner">
+                <div class="text-xs font-medium tracking-wider uppercase opacity-70">habit tracker</div>
+                <div class="mt-2 text-2xl font-semibold">7/9</div>
+              </div>
+            </div>
+            <div class="space-y-1.5 p-4">
+              <div class="eyebrow">生活 · iOS</div>
+              <h3 class="font-display text-[15px] font-semibold">薄荷 · 习惯追踪</h3>
+              <p class="line-clamp-2 text-[12px] text-slate-500">柔和的早晨感——薄荷绿主调、大号数字。</p>
+            </div>
+          </article>
+          <!-- more normal cards -->
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div style="height: 180px; background: repeating-linear-gradient(135deg, #f8fafc, #f8fafc 10px, #f1f5f9 10px, #f1f5f9 20px)"></div>
+            <div class="space-y-1.5 p-4">
+              <div class="eyebrow">资讯 · Web</div>
+              <h3 class="font-display text-[15px] font-semibold">灯塔 · 播客周刊</h3>
+              <p class="line-clamp-2 text-[12px] text-slate-500">极简文字主导的内容站——几乎只有黑、灰、一点点黄。</p>
+            </div>
+          </article>
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div style="height: 180px; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)"></div>
+            <div class="space-y-1.5 p-4">
+              <div class="eyebrow">社交 · Android</div>
+              <h3 class="font-display text-[15px] font-semibold">橙汁 · 创作者社区</h3>
+              <p class="line-clamp-2 text-[12px] text-slate-500">高饱和黄橙，年轻创作者社区的早期能量感。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider mx-auto max-w-[1400px]"></div>
+
+    <!-- ========== V3：杂志 Hero + 均匀网格 ========== -->
+    <section class="mx-auto max-w-[1400px] px-10">
+      <div class="mb-5">
+        <div class="variant-badge">V3 · editorial hero</div>
+        <h2 class="variant-heading mt-2" style="font-size: 24px">杂志式 Hero + 网格</h2>
+        <p class="variant-note mt-2">
+          第一张产品做满宽 Hero（左图 60% + 右文 40%），下方均匀网格。
+          像 pageflows 首页或杂志封面，主次极清晰。适合你想"重点推荐某一个"的时候。
+        </p>
+      </div>
+      <div class="variant-frame">
+        <!-- Hero -->
+        <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+          <div class="grid" style="grid-template-columns: 3fr 2fr">
+            <div class="cover-saas" style="height: 340px">
+              <div class="cover-saas-grid" style="padding: 28px; font-size: 12px">
+                <div class="cover-saas-row head">
+                  <span>Symbol</span><span>Position</span><span class="cover-saas-num">PnL</span><span></span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>AAPL</span><span>1,240 sh</span><span class="cover-saas-num">+2,840</span><span class="cover-saas-chip">LONG</span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>NVDA</span><span>320 sh</span><span class="cover-saas-num">+8,120</span><span class="cover-saas-chip">LONG</span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>TSLA</span><span>580 sh</span><span class="cover-saas-num cover-saas-red">−1,420</span><span class="cover-saas-chip">SHORT</span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>META</span><span>410 sh</span><span class="cover-saas-num">+4,680</span><span class="cover-saas-chip">LONG</span>
+                </div>
+                <div class="cover-saas-row">
+                  <span>GOOG</span><span>180 sh</span><span class="cover-saas-num">+1,260</span><span class="cover-saas-chip">LONG</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col justify-between p-8">
+              <div>
+                <div class="eyebrow flex items-center gap-1.5">
+                  <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
+                  效率工具 · Web · <span class="text-slate-400">最新收录</span>
+                </div>
+                <h3 class="font-display mt-4 text-[26px] font-semibold leading-tight tracking-tight">
+                  Acme · 冷感工业 SaaS
+                </h3>
+                <p class="mt-3 text-[14px] leading-relaxed text-slate-600">
+                  为量化团队打造的效率驾驶舱——密集表格、等宽数字、无暖色装饰。
+                  所有视觉语言服从「可读密度」。
+                </p>
+              </div>
+              <div class="flex items-center justify-between pt-6 text-[12px] text-slate-400">
+                <span>1 页面 · 2 模块 · 1 组件</span>
+                <span class="text-slate-900">查看详情 →</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <!-- Grid below -->
+        <div class="mt-4 grid gap-4" style="grid-template-columns: repeat(3, 1fr)">
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div class="cover-editorial" style="height: 160px">
+              <div class="title" style="font-size: 22px">笺 · 静</div>
+              <div class="divider"></div>
+              <div class="meta">JOURNAL · 日記</div>
+            </div>
+            <div class="space-y-1.5 p-4">
+              <div class="eyebrow">内容 · Web</div>
+              <h3 class="font-display text-[15px] font-semibold">笺 · 静</h3>
+              <p class="line-clamp-2 text-[12px] text-slate-500">日式留白的长文博客。</p>
+            </div>
+          </article>
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div class="cover-mint" style="height: 160px">
+              <div class="cover-mint-inner">
+                <div class="text-xs font-medium tracking-wider uppercase opacity-70">habit</div>
+                <div class="mt-2 text-2xl font-semibold">7/9</div>
+              </div>
+            </div>
+            <div class="space-y-1.5 p-4">
+              <div class="eyebrow">生活 · iOS</div>
+              <h3 class="font-display text-[15px] font-semibold">薄荷 · 习惯追踪</h3>
+              <p class="line-clamp-2 text-[12px] text-slate-500">薄荷绿主调的柔和早晨感。</p>
+            </div>
+          </article>
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div style="height: 160px; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%)"></div>
+            <div class="space-y-1.5 p-4">
+              <div class="eyebrow">社交 · Android</div>
+              <h3 class="font-display text-[15px] font-semibold">橙汁 · 创作者社区</h3>
+              <p class="line-clamp-2 text-[12px] text-slate-500">年轻创作者社区的早期能量感。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider mx-auto max-w-[1400px]"></div>
+
+    <!-- ========== V4：横向长卡（Medium/Substack 风） ========== -->
+    <section class="mx-auto max-w-[1400px] px-10">
+      <div class="mb-5">
+        <div class="variant-badge">V4 · horizontal stack</div>
+        <h2 class="variant-heading mt-2" style="font-size: 24px">横向长卡 · 编辑风</h2>
+        <p class="variant-note mt-2">
+          每个产品一整行：左边封面 + 右边大幅文字描述 + 组成清单。
+          像 Medium 或 Substack 发现页，阅读感最强，适合产品数量 5–20 条的中等规模。
+        </p>
+      </div>
+      <div class="variant-frame">
+        <div class="space-y-4">
+          <!-- row 1 -->
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div class="grid" style="grid-template-columns: 380px 1fr">
+              <div class="cover-saas" style="height: 200px">
+                <div class="cover-saas-grid">
+                  <div class="cover-saas-row head">
+                    <span>Symbol</span><span>Pos</span><span class="cover-saas-num">PnL</span><span></span>
+                  </div>
+                  <div class="cover-saas-row"><span>AAPL</span><span>1,240</span><span class="cover-saas-num">+2,840</span><span class="cover-saas-chip">LONG</span></div>
+                  <div class="cover-saas-row"><span>NVDA</span><span>320</span><span class="cover-saas-num">+8,120</span><span class="cover-saas-chip">LONG</span></div>
+                  <div class="cover-saas-row"><span>TSLA</span><span>580</span><span class="cover-saas-num cover-saas-red">−1,420</span><span class="cover-saas-chip">SHORT</span></div>
+                  <div class="cover-saas-row"><span>META</span><span>410</span><span class="cover-saas-num">+4,680</span><span class="cover-saas-chip">LONG</span></div>
+                </div>
+              </div>
+              <div class="flex flex-col justify-between p-6">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <div class="eyebrow flex items-center gap-1.5">
+                      <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
+                      效率工具 · Web
+                    </div>
+                    <span class="heart">♡</span>
+                  </div>
+                  <h3 class="font-display mt-2 text-[20px] font-semibold tracking-tight">
+                    Acme · 冷感工业 SaaS
+                  </h3>
+                  <p class="mt-2 text-[13px] leading-relaxed text-slate-600">
+                    为量化团队打造的效率驾驶舱——密集表格、等宽数字、无暖色装饰。
+                    所有视觉语言服从「可读密度」。
+                  </p>
+                </div>
+                <div class="mt-4 flex items-center gap-6 text-[11px] text-slate-400">
+                  <span class="font-mono">PAGES <span class="text-slate-700">1</span></span>
+                  <span class="font-mono">BLOCKS <span class="text-slate-700">2</span></span>
+                  <span class="font-mono">COMPONENTS <span class="text-slate-700">1</span></span>
+                  <span class="ml-auto text-slate-900">查看 →</span>
+                </div>
+              </div>
+            </div>
+          </article>
+          <!-- row 2 -->
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div class="grid" style="grid-template-columns: 380px 1fr">
+              <div class="cover-editorial" style="height: 200px">
+                <div class="title">笺 · 静</div>
+                <div class="divider"></div>
+                <div class="meta">JOURNAL · 日記 · 2026</div>
+              </div>
+              <div class="flex flex-col justify-between p-6">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <div class="eyebrow flex items-center gap-1.5">
+                      <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
+                      内容 · Web
+                    </div>
+                    <span class="heart">♡</span>
+                  </div>
+                  <h3 class="font-display mt-2 text-[20px] font-semibold tracking-tight">笺 · 静</h3>
+                  <p class="mt-2 text-[13px] leading-relaxed text-slate-600">
+                    日式留白的长文博客——衬线标题、极窄栏宽、只用黑白灰。
+                    给作者一种「只剩下文字」的写作感。
+                  </p>
+                </div>
+                <div class="mt-4 flex items-center gap-6 text-[11px] text-slate-400">
+                  <span class="font-mono">PAGES <span class="text-slate-700">2</span></span>
+                  <span class="font-mono">BLOCKS <span class="text-slate-700">3</span></span>
+                  <span class="font-mono">COMPONENTS <span class="text-slate-700">4</span></span>
+                  <span class="ml-auto text-slate-900">查看 →</span>
+                </div>
+              </div>
+            </div>
+          </article>
+          <!-- row 3 -->
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div class="grid" style="grid-template-columns: 380px 1fr">
+              <div class="cover-mint" style="height: 200px">
+                <div class="cover-mint-inner">
+                  <div class="text-xs font-medium tracking-wider uppercase opacity-70">habit tracker</div>
+                  <div class="mt-2 text-3xl font-semibold">今日 · 7/9</div>
+                  <div class="mt-3 grid grid-cols-7 gap-1">
+                    <span class="h-5 rounded bg-emerald-600/80"></span>
+                    <span class="h-5 rounded bg-emerald-600/80"></span>
+                    <span class="h-5 rounded bg-emerald-600/80"></span>
+                    <span class="h-5 rounded bg-emerald-600/80"></span>
+                    <span class="h-5 rounded bg-emerald-600/60"></span>
+                    <span class="h-5 rounded bg-emerald-600/30"></span>
+                    <span class="h-5 rounded bg-emerald-600/10"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col justify-between p-6">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <div class="eyebrow flex items-center gap-1.5">
+                      <span class="h-1.5 w-1.5 rounded-full bg-purple-500"></span>
+                      生活 · iOS
+                    </div>
+                    <span class="heart">♡</span>
+                  </div>
+                  <h3 class="font-display mt-2 text-[20px] font-semibold tracking-tight">薄荷 · 习惯追踪</h3>
+                  <p class="mt-2 text-[13px] leading-relaxed text-slate-600">
+                    柔和的早晨感——薄荷绿主调、大号数字、没有负面反馈。
+                    不会让没完成的人有心理负担。
+                  </p>
+                </div>
+                <div class="mt-4 flex items-center gap-6 text-[11px] text-slate-400">
+                  <span class="font-mono">PAGES <span class="text-slate-700">3</span></span>
+                  <span class="font-mono">BLOCKS <span class="text-slate-700">5</span></span>
+                  <span class="font-mono">COMPONENTS <span class="text-slate-700">6</span></span>
+                  <span class="ml-auto text-slate-900">查看 →</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider mx-auto max-w-[1400px]"></div>
+
+    <!-- ========== V5：按分类分组 ========== -->
+    <section class="mx-auto max-w-[1400px] px-10">
+      <div class="mb-5">
+        <div class="variant-badge">V5 · grouped by category</div>
+        <h2 class="variant-heading mt-2" style="font-size: 24px">按分类分组 · 目录感</h2>
+        <p class="variant-note mt-2">
+          按 category 分组（效率工具 / 内容 / 生活…）做章节分段。
+          每个分组标题是大号衬线，卡片是标准尺寸。像书的目录，
+          适合产品数量多（20+）、需要"扫一眼看得到某类有没有"的场景。
+        </p>
+      </div>
+      <div class="variant-frame">
+        <!-- 分组 1 -->
+        <div class="mb-10">
+          <div class="mb-4 flex items-baseline justify-between border-b border-slate-200 pb-3">
+            <h3 class="font-display text-[22px] font-semibold tracking-tight text-slate-900">
+              效率工具
+              <span class="ml-2 font-mono text-[12px] font-normal text-slate-400">02</span>
+            </h3>
+            <span class="font-mono text-[11px] text-slate-400 tracking-wider uppercase">productivity</span>
+          </div>
+          <div class="grid gap-4" style="grid-template-columns: repeat(3, 1fr)">
+            <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+              <div class="cover-saas" style="height: 160px">
+                <div class="cover-saas-grid" style="padding: 12px; font-size: 8px">
+                  <div class="cover-saas-row head"><span>Symbol</span><span>Pos</span><span class="cover-saas-num">PnL</span><span></span></div>
+                  <div class="cover-saas-row"><span>AAPL</span><span>1240</span><span class="cover-saas-num">+2840</span><span class="cover-saas-chip">LONG</span></div>
+                  <div class="cover-saas-row"><span>NVDA</span><span>320</span><span class="cover-saas-num">+8120</span><span class="cover-saas-chip">LONG</span></div>
+                </div>
+              </div>
+              <div class="space-y-1.5 p-4">
+                <div class="eyebrow">Web</div>
+                <h4 class="font-display text-[15px] font-semibold">Acme · 冷感工业 SaaS</h4>
+                <p class="line-clamp-2 text-[12px] text-slate-500">密集表格、等宽数字、无暖色装饰。</p>
+              </div>
+            </article>
+            <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+              <div style="height: 160px; background: #1e293b; position: relative">
+                <div style="position: absolute; inset: 16px; font-family: var(--font-mono); font-size: 9px; color: #94a3b8">
+                  <div style="color: #22d3ee">$ ./sync —dry-run</div>
+                  <div style="margin-top: 6px">→ 读取 config.yaml</div>
+                  <div>→ 解析 12 个目标</div>
+                  <div style="color: #4ade80">✓ 3 新增</div>
+                  <div style="color: #fbbf24">⚠ 1 冲突</div>
+                </div>
+              </div>
+              <div class="space-y-1.5 p-4">
+                <div class="eyebrow">Web</div>
+                <h4 class="font-display text-[15px] font-semibold">Terminal · 运维驾驶舱</h4>
+                <p class="line-clamp-2 text-[12px] text-slate-500">深色 + 等宽字体，模拟终端体验。</p>
+              </div>
+            </article>
+          </div>
+        </div>
+        <!-- 分组 2 -->
+        <div class="mb-10">
+          <div class="mb-4 flex items-baseline justify-between border-b border-slate-200 pb-3">
+            <h3 class="font-display text-[22px] font-semibold tracking-tight text-slate-900">
+              内容
+              <span class="ml-2 font-mono text-[12px] font-normal text-slate-400">01</span>
+            </h3>
+            <span class="font-mono text-[11px] text-slate-400 tracking-wider uppercase">content</span>
+          </div>
+          <div class="grid gap-4" style="grid-template-columns: repeat(3, 1fr)">
+            <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+              <div class="cover-editorial" style="height: 160px; padding: 20px">
+                <div class="title" style="font-size: 22px">笺 · 静</div>
+                <div class="divider"></div>
+                <div class="meta">JOURNAL · 日記</div>
+              </div>
+              <div class="space-y-1.5 p-4">
+                <div class="eyebrow">Web</div>
+                <h4 class="font-display text-[15px] font-semibold">笺 · 静</h4>
+                <p class="line-clamp-2 text-[12px] text-slate-500">日式留白的长文博客。</p>
+              </div>
+            </article>
+          </div>
+        </div>
+        <!-- 分组 3 -->
+        <div>
+          <div class="mb-4 flex items-baseline justify-between border-b border-slate-200 pb-3">
+            <h3 class="font-display text-[22px] font-semibold tracking-tight text-slate-900">
+              生活
+              <span class="ml-2 font-mono text-[12px] font-normal text-slate-400">01</span>
+            </h3>
+            <span class="font-mono text-[11px] text-slate-400 tracking-wider uppercase">lifestyle</span>
+          </div>
+          <div class="grid gap-4" style="grid-template-columns: repeat(3, 1fr)">
+            <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+              <div class="cover-mint" style="height: 160px">
+                <div class="cover-mint-inner">
+                  <div class="text-xs font-medium tracking-wider uppercase opacity-70">habit</div>
+                  <div class="mt-2 text-2xl font-semibold">7/9</div>
+                </div>
+              </div>
+              <div class="space-y-1.5 p-4">
+                <div class="eyebrow">iOS</div>
+                <h4 class="font-display text-[15px] font-semibold">薄荷 · 习惯追踪</h4>
+                <p class="line-clamp-2 text-[12px] text-slate-500">薄荷绿主调的柔和早晨感。</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider mx-auto max-w-[1400px]"></div>
+
+    <!-- ========== V6：封面优先 Poster Wall ========== -->
+    <section class="mx-auto max-w-[1400px] px-10">
+      <div class="mb-5">
+        <div class="variant-badge">V6 · poster wall</div>
+        <h2 class="variant-heading mt-2" style="font-size: 24px">封面墙 · 只看设计</h2>
+        <p class="variant-note mt-2">
+          封面占卡片 85%，文字压到最小（标题 + 一行 eyebrow）。
+          像 Behance / Dribbble 的封面墙，最视觉化。适合产品视觉差异大、
+          用户第一需求是"看截图找灵感"的场景。描述文字在 hover 时浮现。
+        </p>
+      </div>
+      <div class="variant-frame">
+        <div class="grid gap-5" style="grid-template-columns: repeat(3, 1fr)">
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div class="cover-saas" style="height: 340px">
+              <div class="cover-saas-grid" style="padding: 24px; font-size: 11px">
+                <div class="cover-saas-row head"><span>Symbol</span><span>Pos</span><span class="cover-saas-num">PnL</span><span></span></div>
+                <div class="cover-saas-row"><span>AAPL</span><span>1,240</span><span class="cover-saas-num">+2,840</span><span class="cover-saas-chip">LONG</span></div>
+                <div class="cover-saas-row"><span>NVDA</span><span>320</span><span class="cover-saas-num">+8,120</span><span class="cover-saas-chip">LONG</span></div>
+                <div class="cover-saas-row"><span>TSLA</span><span>580</span><span class="cover-saas-num cover-saas-red">−1,420</span><span class="cover-saas-chip">SHORT</span></div>
+                <div class="cover-saas-row"><span>META</span><span>410</span><span class="cover-saas-num">+4,680</span><span class="cover-saas-chip">LONG</span></div>
+                <div class="cover-saas-row"><span>GOOG</span><span>180</span><span class="cover-saas-num">+1,260</span><span class="cover-saas-chip">LONG</span></div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between px-4 py-3">
+              <div>
+                <div class="eyebrow" style="font-size: 9px">效率工具 · Web</div>
+                <h4 class="font-display text-[14px] font-semibold mt-0.5">Acme · 冷感工业 SaaS</h4>
+              </div>
+              <span class="heart">♡</span>
+            </div>
+          </article>
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div class="cover-editorial" style="height: 340px; padding: 32px">
+              <div class="title" style="font-size: 32px">笺 · 静</div>
+              <div class="divider" style="margin: 18px 0 14px"></div>
+              <div class="meta" style="font-size: 11px">JOURNAL · 日記 · 2026</div>
+              <div style="font-family: 'Georgia', serif; font-size: 14px; color: #44403c; margin-top: 28px; line-height: 1.7">
+                春天的雨落在屋檐上，<br>
+                没有声音，也没有颜色。<br>
+                只有时间缓慢地流着。
+              </div>
+            </div>
+            <div class="flex items-center justify-between px-4 py-3">
+              <div>
+                <div class="eyebrow" style="font-size: 9px">内容 · Web</div>
+                <h4 class="font-display text-[14px] font-semibold mt-0.5">笺 · 静</h4>
+              </div>
+              <span class="heart">♡</span>
+            </div>
+          </article>
+          <article class="sv-card overflow-hidden rounded-xl border border-slate-200/80 bg-white">
+            <div class="cover-mint" style="height: 340px">
+              <div class="cover-mint-inner" style="padding: 28px">
+                <div class="text-xs font-medium tracking-wider uppercase opacity-70">habit tracker</div>
+                <div class="mt-3 text-4xl font-semibold">今日 · 7/9</div>
+                <div class="mt-5 grid grid-cols-7 gap-1.5">
+                  <span class="h-6 rounded bg-emerald-600/80"></span>
+                  <span class="h-6 rounded bg-emerald-600/80"></span>
+                  <span class="h-6 rounded bg-emerald-600/80"></span>
+                  <span class="h-6 rounded bg-emerald-600/80"></span>
+                  <span class="h-6 rounded bg-emerald-600/60"></span>
+                  <span class="h-6 rounded bg-emerald-600/30"></span>
+                  <span class="h-6 rounded bg-emerald-600/10"></span>
+                </div>
+                <div class="mt-6 text-[11px] font-medium uppercase tracking-wider opacity-80">
+                  连续 24 天 ·  坚持
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between px-4 py-3">
+              <div>
+                <div class="eyebrow" style="font-size: 9px">生活 · iOS</div>
+                <h4 class="font-display text-[14px] font-semibold mt-0.5">薄荷 · 习惯追踪</h4>
+              </div>
+              <span class="heart">♡</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 总结 -->
+    <section class="mx-auto max-w-[1400px] px-10 py-16">
+      <div class="variant-badge">选择提示</div>
+      <h2 class="variant-heading mt-2" style="font-size: 22px">哪个适合你？</h2>
+      <div class="mt-5 grid gap-4 text-[13px] text-slate-600" style="grid-template-columns: repeat(3, 1fr)">
+        <div class="rounded-xl border border-slate-200 bg-white p-5">
+          <div class="font-mono text-[11px] text-slate-400">IF 产品 &lt; 6 条</div>
+          <div class="mt-2 font-display text-[15px] font-semibold text-slate-900">V3 / V4</div>
+          <p class="mt-2">产品数不多，要做出"有分量"的感觉。V3 用 Hero 突出主推；V4 全部横向长卡，阅读感强。</p>
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-white p-5">
+          <div class="font-mono text-[11px] text-slate-400">IF 产品 6–20 条</div>
+          <div class="mt-2 font-display text-[15px] font-semibold text-slate-900">V2 / V6</div>
+          <p class="mt-2">中等规模最适合 Bento（V2）打破节奏，或封面墙（V6）让设计本身说话。</p>
+        </div>
+        <div class="rounded-xl border border-slate-200 bg-white p-5">
+          <div class="font-mono text-[11px] text-slate-400">IF 产品 &gt; 20 条</div>
+          <div class="mt-2 font-display text-[15px] font-semibold text-slate-900">V5</div>
+          <p class="mt-2">数量上来之后必须按 category 分组，用户才扫得动。V5 天然有"目录感"。</p>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
