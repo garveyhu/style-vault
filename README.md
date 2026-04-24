@@ -24,11 +24,11 @@ graph TB
     C ==>|yarn sync：镜像 taxonomy + 扫描 references| A
 ```
 
-| 项目 | 位置 | 作用 |
+| 项目 | 类型 | 作用 |
 |---|---|---|
-| **style-vault skill** | `~/.agents/skills/style-vault/` | AI 消费风格 + 查询分类字典 |
-| **style-vault-sediment skill** | `~/.agents/skills/style-vault-sediment/` | AI 沉淀 / 修改 / 删除风格 |
-| **style-vault web**（本仓） | `~/Coding/Archer/style-vault/` | 浏览网站 + prompt 卡片分发 |
+| **style-vault skill** | Claude Code skill | AI 消费风格 + 查询分类字典 |
+| **style-vault-sediment skill** | Claude Code skill | AI 沉淀 / 修改 / 删除风格 |
+| **style-vault web**（本仓） | React + FastAPI 仓库 | 浏览网站 + prompt 卡片分发 |
 
 ---
 
@@ -74,7 +74,7 @@ AI 装了 style-vault skill，读 MD + 合并 tokens → 产出代码
 
 本网站和 [`style-vault` skill](https://github.com/garveyhu/awesome-skills/tree/main/style-vault) **是绑定的**——单装其中一个不 work。两步：
 
-1. **装 `style-vault` skill** 到 `~/.agents/skills/style-vault/`（从 [awesome-skills](https://github.com/garveyhu/awesome-skills) 克隆或下载）
+1. **装 `style-vault` skill** 到你 Claude Code 的 skills 目录（从 [awesome-skills](https://github.com/garveyhu/awesome-skills) 克隆或下载 `style-vault/` 子目录）
 2. **clone 本网站仓**跑本地 `yarn dev`，或者用托管好的版本
 
 用法：浏览网站 → 复制 prompt 卡片 → 粘到本地 Claude Code（装了 skill 的）→ AI 复刻风格。
@@ -83,7 +83,7 @@ AI 装了 style-vault skill，读 MD + 合并 tokens → 产出代码
 
 除了上面两步，再装第三件：
 
-3. **装 `style-vault-sediment` skill** 到 `~/.agents/skills/style-vault-sediment/`（同样从 awesome-skills）
+3. **装 `style-vault-sediment` skill** 到同一个 skills 目录下（作为 `style-vault/` 的兄弟目录，从 awesome-skills 取 `style-vault-sediment/` 子目录）
 
 然后在 Claude Code 里说"沉淀 xxx"就能写入。
 
@@ -154,11 +154,13 @@ style-vault/
 `yarn sync` 把 skill 仓当成**内容源头**，把本仓当成**渲染层**：
 
 ```
-~/.agents/skills/style-vault/
+style-vault skill/
   ├── assets/taxonomy.json           ──复制──→  frontend/src/data/taxonomy.json
   ├── references/**/*.md             ──扫描──→  frontend/src/data/registry.json
   └── （不做其它写入）
 ```
+
+skill 的具体路径由你 Claude Code 的配置决定，sync 脚本读约定的 `path.json` 定位。
 
 每条 MD 的 frontmatter + 正文被解析成 JSON，前端直接 import 消费。**手改 `registry.json` / `taxonomy.json` 会在下次 sync 被覆盖**——要改数据请改 skill 仓或用 `style-vault-sediment` skill。
 
@@ -180,14 +182,14 @@ style-vault/
 - 触发 `yarn sync` 验证
 - 写入网站仓一个 commit（`feat(preview): add ...`）
 
-`VAULT_OK` 的判定：`~/.agents/path.json` 里有 `"style-vault"` 字段指向本仓，且 `frontend/package.json` 有 `"style-vault-site": true` marker。
+`VAULT_OK` 的判定：约定位置的 `path.json` 里有 `"style-vault"` 字段指向本仓，且 `frontend/package.json` 有 `"style-vault-site": true` marker。具体 path.json 位置见 sediment skill 的 `references/shared-workflow.md`。
 
 ---
 
 ## 相关链接
 
-- `~/.agents/skills/style-vault/` · 读 skill
-- `~/.agents/skills/style-vault-sediment/` · 写 skill
+- 读 skill · [style-vault](https://github.com/garveyhu/awesome-skills/tree/main/style-vault)（消费者必装）
+- 写 skill · [style-vault-sediment](https://github.com/garveyhu/awesome-skills/tree/main/style-vault-sediment)（仅创作者）
 - [docs/plans/](docs/plans/) · 历次设计稿 + 实施计划
 - [docs/mockups/](docs/mockups/) · UI 方案对比稿归档
 
@@ -202,7 +204,7 @@ A: 它们是 build 产物，唯一真相是 skill 仓的 MD 文件 + `assets/tax
 A: **不要**直接在这里改。去触发 `style-vault-sediment` skill：新对话里说"沉淀 xxx"，它会指引你完成双仓改动 + 合规校验。
 
 **Q: 分类标签怎么加新值？**
-A: 编辑 `~/.agents/skills/style-vault/assets/taxonomy.json`（skill 仓），跑 `yarn sync`。前端会自动识别新值。
+A: 编辑 **style-vault skill 仓** 里的 `assets/taxonomy.json`，跑 `yarn sync`。前端会自动识别新值。
 
 **Q: 为什么有 `data/registry.json` 又有 `data/taxonomy.json`？**
 A: 两个职责：`taxonomy.json` 是**字典**（类型 / 分类 / tag / platform / theme 的枚举 + 中文 label），`registry.json` 是**数据**（所有资产条目的 frontmatter + 正文）。
