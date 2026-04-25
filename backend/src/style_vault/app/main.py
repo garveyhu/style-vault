@@ -146,7 +146,7 @@ def main() -> None:
     uvicorn.run(
         "style_vault.app.main:app",
         host="0.0.0.0",
-        port=8000,
+        port=7001,
         reload=True,
     )
 

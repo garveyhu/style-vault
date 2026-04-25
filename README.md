@@ -71,7 +71,7 @@ graph TB
 cd frontend
 yarn install
 yarn sync      # 从 skill 仓同步 taxonomy + 所有资产条目（必须 style-vault skill 已装）
-yarn dev       # http://localhost:5173
+yarn dev       # http://localhost:6001
 
 # 后端（可选：要用登录/收藏才跑）
 cd ../backend

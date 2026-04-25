@@ -25,8 +25,8 @@ class AppSettings:
 
     # CORS
     CORS_ORIGINS = app_settings.get("CORS_ORIGINS") or [
-        "http://localhost:5173",
-        "http://localhost:5174",
+        "http://localhost:6001",
+        "http://localhost:6002",
     ]
 
 
