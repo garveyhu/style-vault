@@ -15,8 +15,11 @@ export interface ProductRefs {
     palette?: string;
     typography?: string;
     motion?: string;
+    gradient?: string;
     border?: string;
     iconography?: string;
+    /** 任意条数的布局 token（断点列数 / 弹性自适应栅格 等），与单值槽位并列 */
+    layout?: string[];
   };
 }
 

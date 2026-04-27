@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-27T05:41:57.319Z",
+  "version": "2026-04-27T05:45:55.959Z",
   "items": [
     {
       "id": "blocks/display/acme/saas-data-table",
@@ -659,14 +659,14 @@
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/dashboard/skillhub/user-home",
-        "pages/dashboard/skillhub/admin-overview",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/practice-compose",
-        "pages/form-flow/skillhub/profile-edit",
-        "pages/landing/skillhub/skill-community-home",
         "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/form-flow/skillhub/profile-edit",
+        "pages/dashboard/skillhub/admin-overview",
+        "pages/dashboard/skillhub/user-home",
+        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console",
         "pages/list-table/skillhub/practice-plaza"
       ],
@@ -740,10 +740,10 @@
         "blocks/form/skillhub/profile-edit-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/dashboard/skillhub/user-home",
-        "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/skill-article-detail",
+        "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
+        "pages/dashboard/skillhub/user-home",
         "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza"
       ],
@@ -888,12 +888,12 @@
         "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/practice-compose",
-        "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/form-flow/skillhub/profile-edit",
+        "pages/dashboard/skillhub/user-home",
         "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
@@ -928,8 +928,8 @@
       ],
       "preview": "/preview/components/buttons/style-vault/dark-pill-cta",
       "usedBy": [
-        "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/nav/style-vault/sticky-platform-topbar",
+        "blocks/marketing/style-vault/cool-blob-hero",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
@@ -2209,7 +2209,13 @@
         ],
         "tokens": {
           "palette": "tokens/palettes/style-vault/slate-cyan-cool",
-          "typography": "tokens/typography/pairs/style-vault/inter-editorial-display"
+          "typography": "tokens/typography/pairs/style-vault/inter-editorial-display",
+          "motion": "tokens/motion/style-vault/editorial-flow",
+          "gradient": "tokens/gradient/style-vault/cool-blob-decor",
+          "layout": [
+            "tokens/layout/_shared/fixed-cols-row",
+            "tokens/layout/_shared/responsive-grid"
+          ]
         }
       },
       "tags": {
@@ -2549,8 +2555,8 @@
         "blocks/marketing/skillhub/gradient-hero",
         "components/buttons/skillhub/border-trace-cta",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/landing/skillhub/skill-community-home",
-        "pages/form-flow/skillhub/skill-publish-wizard"
+        "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/skillhub/gentle-flow.md"
@@ -2661,10 +2667,10 @@
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
-        "blocks/feedback/skillhub/empty-state",
-        "blocks/feedback/skillhub/skeleton-card",
         "blocks/form/skillhub/auth-split-form",
         "blocks/form/skillhub/profile-edit-form",
+        "blocks/feedback/skillhub/empty-state",
+        "blocks/feedback/skillhub/skeleton-card",
         "blocks/marketing/skillhub/gradient-hero",
         "blocks/nav/skillhub/glass-pill-navbar",
         "components/avatars-icons/skillhub/letter-avatar",
@@ -2676,13 +2682,13 @@
         "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/dashboard/skillhub/user-home",
-        "pages/dashboard/skillhub/admin-overview",
         "pages/detail/skillhub/skill-article-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/form-flow/skillhub/profile-edit",
-        "pages/landing/skillhub/skill-community-home",
         "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/form-flow/skillhub/profile-edit",
+        "pages/dashboard/skillhub/admin-overview",
+        "pages/dashboard/skillhub/user-home",
+        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console",
         "pages/list-table/skillhub/practice-plaza"
       ],
@@ -2719,8 +2725,8 @@
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
         "blocks/layout/style-vault/browser-chrome-frame",
-        "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/nav/style-vault/sticky-platform-topbar",
+        "blocks/marketing/style-vault/cool-blob-hero",
         "components/buttons/style-vault/dark-pill-cta",
         "components/buttons/style-vault/ghost-bordered-cta",
         "components/overlays/style-vault/spring-toast",
@@ -2832,10 +2838,10 @@
         "blocks/marketing/skillhub/gradient-hero",
         "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
-        "pages/dashboard/skillhub/admin-overview",
-        "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/skill-article-detail",
+        "pages/detail/skillhub/practice-post-detail",
         "pages/form-flow/skillhub/practice-compose",
+        "pages/dashboard/skillhub/admin-overview",
         "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console"
       ],
@@ -2871,8 +2877,8 @@
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
         "blocks/layout/style-vault/browser-chrome-frame",
-        "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/nav/style-vault/sticky-platform-topbar",
+        "blocks/marketing/style-vault/cool-blob-hero",
         "components/overlays/style-vault/spring-toast",
         "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "styles/portfolio-studio/style-vault-cool-editorial"
