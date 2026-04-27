@@ -249,15 +249,15 @@ function SnowmanInButton({ themeColor }: { themeColor: string }) {
           <span style={{ position: 'absolute', top: 16, left: '50%', transform: 'translateX(-50%)', width: 3, height: 3, background: '#1e293b', borderRadius: '50%' }} />
         </div>
       </div>
-      {/* SnowPile · 底部白色椭圆雪堆 */}
+      {/* SnowPile · 底部白色椭圆雪堆 · 仅做"地平线"暗示，不漫白光 */}
       <div style={{
-        position: 'absolute', bottom: -5,
-        left: '-10%', width: '120%', height: 20,
+        position: 'absolute', bottom: -8,
+        left: '-10%', width: '120%', height: 12,
         background: '#fff',
         borderRadius: '50% 50% 0 0',
-        filter: 'blur(1px)',
+        filter: 'blur(0.5px)',
         zIndex: 1,
-        boxShadow: '0 -2px 10px rgba(255,255,255,0.80)',
+        pointerEvents: 'none',
       }} />
     </div>
   );
