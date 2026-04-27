@@ -4,16 +4,135 @@ import { PreviewFrame } from '../../../_layout';
 const SANS =
   "'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif";
 
-const VIEWPORTS: { value: number | 'full'; label: string; desc: string }[] = [
-  { value: 375, label: '手机', desc: '375 px' },
-  { value: 768, label: '平板', desc: '768 px' },
-  { value: 1024, label: '桌面', desc: '1024 px' },
-  { value: 1440, label: '大屏', desc: '1440 px' },
-  { value: 'full', label: '全宽', desc: '响应式' },
+type ViewportKey = number | 'full';
+
+const VIEWPORTS: { value: ViewportKey; label: string; desc: string; icon: string }[] = [
+  { value: 375, label: '手机', desc: '375 px', icon: '▯' },
+  { value: 768, label: '平板', desc: '768 px', icon: '▭' },
+  { value: 1024, label: '桌面', desc: '1024 px', icon: '▢' },
+  { value: 1440, label: '大屏', desc: '1440 px', icon: '◻' },
+  { value: 'full', label: '全宽', desc: '响应式', icon: '⛶' },
 ];
 
+function ViewportSelect({
+  value,
+  onChange,
+}: {
+  value: ViewportKey;
+  onChange: (v: ViewportKey) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const cur = VIEWPORTS.find((v) => v.value === value)!;
+  return (
+    <div style={{ position: 'relative', width: 200 }}>
+      <button
+        onClick={() => setOpen((o) => !o)}
+        onBlur={() => setTimeout(() => setOpen(false), 120)}
+        style={{
+          width: '100%',
+          height: 40,
+          padding: '0 12px',
+          background: '#fff',
+          border: '1px solid #d9d9d9',
+          borderRadius: 8,
+          fontFamily: SANS,
+          fontSize: 13,
+          textAlign: 'left',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
+          color: '#0f172a',
+        }}
+      >
+        <span
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 24,
+            height: 24,
+            background: '#f1f5f9',
+            borderRadius: 6,
+            color: '#64748b',
+            fontSize: 14,
+          }}
+        >
+          {cur.icon}
+        </span>
+        <span style={{ flex: 1, fontSize: 13, fontWeight: 500 }}>
+          {cur.label}
+        </span>
+        <span style={{ fontSize: 11, color: '#94a3b8' }}>{cur.desc}</span>
+      </button>
+      {open && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 'calc(100% + 4px)',
+            left: 0,
+            width: 200,
+            background: '#fff',
+            border: '1px solid #e2e8f0',
+            borderRadius: 8,
+            boxShadow: '0 12px 32px -10px rgba(15,23,42,0.18)',
+            zIndex: 10,
+            padding: 4,
+          }}
+        >
+          {VIEWPORTS.map((v) => (
+            <div
+              key={String(v.value)}
+              onMouseDown={() => {
+                onChange(v.value);
+                setOpen(false);
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '8px 10px',
+                borderRadius: 6,
+                cursor: 'pointer',
+                background: v.value === value ? '#f1f5f9' : 'transparent',
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.background = '#f8fafc')
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.background =
+                  v.value === value ? '#f1f5f9' : 'transparent')
+              }
+            >
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 24,
+                  height: 24,
+                  background: '#f1f5f9',
+                  borderRadius: 6,
+                  color: '#64748b',
+                  fontSize: 14,
+                }}
+              >
+                {v.icon}
+              </span>
+              <span style={{ flex: 1, fontSize: 13, fontWeight: 500 }}>
+                {v.label}
+              </span>
+              <span style={{ fontSize: 11, color: '#94a3b8' }}>{v.desc}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function BrowserChromeFramePreview() {
-  const [viewport, setViewport] = useState<number | 'full'>(1024);
+  const [viewport, setViewport] = useState<ViewportKey>(1024);
   const cur = VIEWPORTS.find((v) => v.value === viewport)!;
   const maxWidth = viewport === 'full' ? '100%' : `${viewport}px`;
 
@@ -48,7 +167,7 @@ export default function BrowserChromeFramePreview() {
           Browser Chrome Frame
         </div>
 
-        {/* toolbar */}
+        {/* toolbar · Select dropdown 形态 */}
         <div
           style={{
             display: 'flex',
@@ -57,47 +176,7 @@ export default function BrowserChromeFramePreview() {
             marginBottom: 16,
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '6px 8px',
-              border: '1px solid #e2e8f0',
-              borderRadius: 8,
-              background: '#fff',
-            }}
-          >
-            {VIEWPORTS.map((v) => (
-              <button
-                key={String(v.value)}
-                onClick={() => setViewport(v.value)}
-                style={{
-                  padding: '6px 12px',
-                  border: 'none',
-                  borderRadius: 6,
-                  fontSize: 12,
-                  fontWeight: 500,
-                  background: viewport === v.value ? '#0f172a' : 'transparent',
-                  color: viewport === v.value ? '#fff' : '#64748b',
-                  cursor: 'pointer',
-                  fontFamily: SANS,
-                  transition:
-                    'background 200ms cubic-bezier(0.2, 0.7, 0.2, 1)',
-                }}
-              >
-                {v.label}{' '}
-                <span
-                  style={{
-                    fontSize: 10,
-                    color: viewport === v.value ? '#cbd5e1' : '#cbd5e1',
-                  }}
-                >
-                  {v.desc}
-                </span>
-              </button>
-            ))}
-          </div>
+          <ViewportSelect value={viewport} onChange={setViewport} />
           <button
             style={{
               height: 40,
@@ -110,6 +189,9 @@ export default function BrowserChromeFramePreview() {
               color: '#334155',
               cursor: 'pointer',
               fontFamily: SANS,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
             }}
           >
             ⛶ 全屏预览
@@ -215,7 +297,6 @@ export default function BrowserChromeFramePreview() {
                 transition: 'max-width 240ms ease',
               }}
             >
-              {/* fake content */}
               <div
                 style={{
                   position: 'relative',

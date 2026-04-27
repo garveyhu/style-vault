@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-27T04:13:31.638Z",
+  "version": "2026-04-27T04:55:29.688Z",
   "items": [
     {
       "id": "blocks/display/acme/saas-data-table",
@@ -137,8 +137,8 @@
       "preview": "/preview/blocks/display/skillhub/leaderboard-row",
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
-        "pages/list-table/skillhub/practice-plaza",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/landing/skillhub/skill-community-home",
+        "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/skillhub/leaderboard-row.md"
@@ -657,17 +657,17 @@
       "preview": "/preview/blocks/nav/skillhub/glass-pill-navbar",
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
+        "pages/dashboard/skillhub/user-home",
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/admin-overview",
-        "pages/dashboard/skillhub/user-home",
-        "pages/detail/skillhub/practice-post-detail",
-        "pages/list-table/skillhub/admin-console",
         "pages/detail/skillhub/user-public-profile",
-        "pages/list-table/skillhub/practice-plaza",
+        "pages/detail/skillhub/practice-post-detail",
         "pages/landing/skillhub/skill-community-home",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/profile-edit",
-        "pages/form-flow/skillhub/skill-publish-wizard"
+        "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/list-table/skillhub/admin-console",
+        "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/nav/skillhub/glass-pill-navbar.md"
@@ -738,13 +738,13 @@
         "blocks/display/skillhub/skill-card",
         "blocks/form/skillhub/profile-edit-form",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
-        "pages/detail/skillhub/skill-article-detail",
-        "pages/detail/skillhub/practice-post-detail",
+        "pages/content-reader/skillhub/im-conversation",
         "pages/detail/skillhub/user-public-profile",
-        "pages/list-table/skillhub/practice-plaza",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/detail/skillhub/practice-post-detail",
+        "pages/landing/skillhub/skill-community-home",
+        "pages/detail/skillhub/skill-article-detail",
+        "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/avatars-icons/skillhub/letter-avatar.md"
@@ -817,8 +817,8 @@
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/dashboard/acme/saas-monitor-overview",
-        "pages/list-table/acme/saas-incident-list",
-        "pages/pricing/acme/saas-cold-pricing"
+        "pages/pricing/acme/saas-cold-pricing",
+        "pages/list-table/acme/saas-incident-list"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/buttons/acme/ghost-button.md"
@@ -886,14 +886,14 @@
       "usedBy": [
         "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
-        "pages/detail/skillhub/practice-post-detail",
+        "pages/content-reader/skillhub/im-conversation",
         "pages/detail/skillhub/user-public-profile",
-        "pages/list-table/skillhub/practice-plaza",
+        "pages/detail/skillhub/practice-post-detail",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/profile-edit",
-        "pages/form-flow/skillhub/skill-publish-wizard"
+        "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/buttons/skillhub/dark-primary-cta.md"
@@ -997,9 +997,9 @@
       ],
       "preview": "/preview/components/indicators/acme/status-pulse",
       "usedBy": [
-        "blocks/display/acme/saas-data-table",
         "blocks/feedback/acme/saas-status-banner",
         "blocks/nav/acme/saas-cold-topbar",
+        "blocks/display/acme/saas-data-table",
         "styles/saas-tool/cold-industrial-saas"
       ],
       "hasPreviewFile": true,
@@ -1110,6 +1110,40 @@
       "skillPath": "components/inputs/skillhub/soft-form-input.md"
     },
     {
+      "id": "components/overlays/style-vault/spring-toast",
+      "type": "component",
+      "name": "Spring Toast 操作反馈胶囊",
+      "description": "顶部居中胶囊式操作反馈，spring overshoot 入场（cubic-bezier(0.34, 1.56, 0.64, 1)），三态圆点 + 文本，2s 自动消失",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/style-vault/slate-cyan-cool",
+        "tokens/typography/pairs/style-vault/inter-editorial-display"
+      ],
+      "preview": "/preview/components/overlays/style-vault/spring-toast",
+      "usedBy": [
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/overlays/style-vault/spring-toast.md"
+    },
+    {
       "id": "components/tags-badges/skillhub/teal-pill",
       "type": "component",
       "name": "Teal 胶囊标签",
@@ -1138,11 +1172,11 @@
       "usedBy": [
         "blocks/display/skillhub/leaderboard-row",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/list-table/skillhub/practice-plaza",
+        "pages/detail/skillhub/practice-post-detail",
         "pages/landing/skillhub/skill-community-home",
-        "pages/form-flow/skillhub/practice-compose"
+        "pages/form-flow/skillhub/practice-compose",
+        "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/tags-badges/skillhub/teal-pill.md"
@@ -1433,6 +1467,36 @@
       "skillPath": "pages/dashboard/skillhub/user-home/README.md"
     },
     {
+      "id": "pages/dashboard/style-vault/profile-collections",
+      "type": "page",
+      "name": "个人中心收藏页",
+      "description": "大头像 hero（96px Avatar + 名字 + 邮箱 + 编辑按钮）+ sticky 类型 tab + ResponsiveGrid 卡片网格 + 编辑资料 modal + 空态浮起图标",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/pages/dashboard/style-vault/profile-collections",
+      "uses": [],
+      "usedBy": [
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/dashboard/style-vault/profile-collections/README.md"
+    },
+    {
       "id": "pages/detail/skillhub/practice-post-detail",
       "type": "page",
       "name": "实践帖详情页",
@@ -1537,6 +1601,36 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/detail/skillhub/user-public-profile/README.md"
+    },
+    {
+      "id": "pages/detail/style-vault/sidebar-preview-detail",
+      "type": "page",
+      "name": "侧栏 + 预览 详情页",
+      "description": "面包屑 → 340px 左侧栏（meta 标题 + 复制 Prompt + 平台/主题 chip + tags + 关联组分组折叠）+ 右列 browser-chrome 预览框",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/pages/detail/style-vault/sidebar-preview-detail",
+      "uses": [],
+      "usedBy": [
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/detail/style-vault/sidebar-preview-detail/README.md"
     },
     {
       "id": "pages/detail/style-vault/sticky-toc-product",
@@ -2090,7 +2184,9 @@
         "pages": [
           "pages/landing/style-vault/editorial-cool-landing",
           "pages/detail/style-vault/sticky-toc-product",
-          "pages/list-table/style-vault/category-row-browse"
+          "pages/detail/style-vault/sidebar-preview-detail",
+          "pages/list-table/style-vault/category-row-browse",
+          "pages/dashboard/style-vault/profile-collections"
         ],
         "blocks": [
           "blocks/marketing/style-vault/cool-blob-hero",
@@ -2103,7 +2199,8 @@
           "components/buttons/style-vault/dark-pill-cta",
           "components/buttons/style-vault/ghost-bordered-cta",
           "components/tags-badges/style-vault/cyan-dot-meta-pill",
-          "components/toggles/style-vault/editorial-underline-tab"
+          "components/toggles/style-vault/editorial-underline-tab",
+          "components/overlays/style-vault/spring-toast"
         ],
         "tokens": {
           "palette": "tokens/palettes/style-vault/slate-cyan-cool",
@@ -2224,6 +2321,7 @@
         "components/buttons/style-vault/ghost-bordered-cta",
         "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "components/toggles/style-vault/editorial-underline-tab",
+        "components/overlays/style-vault/spring-toast",
         "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/display/style-vault/preview-thumb-card",
         "blocks/display/style-vault/floating-cover-row",
@@ -2231,7 +2329,9 @@
         "blocks/nav/style-vault/sticky-platform-topbar",
         "pages/landing/style-vault/editorial-cool-landing",
         "pages/detail/style-vault/sticky-toc-product",
-        "pages/list-table/style-vault/category-row-browse"
+        "pages/detail/style-vault/sidebar-preview-detail",
+        "pages/list-table/style-vault/category-row-browse",
+        "pages/dashboard/style-vault/profile-collections"
       ],
       "preview": "/preview/styles/portfolio-studio/style-vault-cool-editorial",
       "usedBy": [],
@@ -2429,10 +2529,10 @@
       "uses": [],
       "preview": "/preview/tokens/motion/skillhub/gentle-flow",
       "usedBy": [
-        "blocks/display/skillhub/leaderboard-row",
-        "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/skeleton-card",
         "blocks/marketing/skillhub/gradient-hero",
+        "blocks/display/skillhub/leaderboard-row",
+        "blocks/display/skillhub/skill-card",
         "components/buttons/skillhub/border-trace-cta",
         "styles/community-social/skillhub-soft-modernist",
         "pages/landing/skillhub/skill-community-home",
@@ -2504,10 +2604,10 @@
       "preview": "/preview/tokens/palettes/acme/slate-cyan-ice",
       "uses": [],
       "usedBy": [
-        "blocks/display/acme/saas-data-table",
-        "blocks/display/acme/saas-metric-grid",
         "blocks/feedback/acme/saas-status-banner",
         "blocks/nav/acme/saas-cold-topbar",
+        "blocks/display/acme/saas-data-table",
+        "blocks/display/acme/saas-metric-grid",
         "components/buttons/acme/cyan-cta",
         "components/buttons/acme/ghost-button",
         "components/indicators/acme/status-pulse",
@@ -2544,33 +2644,33 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/skillhub/skillhub-teal-mist",
       "usedBy": [
+        "blocks/feedback/skillhub/empty-state",
+        "blocks/feedback/skillhub/skeleton-card",
+        "blocks/marketing/skillhub/gradient-hero",
+        "blocks/nav/skillhub/glass-pill-navbar",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
-        "blocks/feedback/skillhub/empty-state",
-        "blocks/feedback/skillhub/skeleton-card",
         "blocks/form/skillhub/auth-split-form",
         "blocks/form/skillhub/profile-edit-form",
-        "blocks/marketing/skillhub/gradient-hero",
-        "components/avatars-icons/skillhub/letter-avatar",
-        "blocks/nav/skillhub/glass-pill-navbar",
         "components/buttons/skillhub/border-trace-cta",
         "components/buttons/skillhub/dark-primary-cta",
+        "components/avatars-icons/skillhub/letter-avatar",
         "components/indicators/skillhub/pulse-dot",
         "components/inputs/skillhub/soft-form-input",
         "components/tags-badges/skillhub/teal-pill",
         "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
+        "pages/dashboard/skillhub/user-home",
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/admin-overview",
-        "pages/dashboard/skillhub/user-home",
-        "pages/detail/skillhub/skill-article-detail",
-        "pages/list-table/skillhub/admin-console",
         "pages/detail/skillhub/user-public-profile",
-        "pages/list-table/skillhub/practice-plaza",
         "pages/landing/skillhub/skill-community-home",
         "pages/form-flow/skillhub/profile-edit",
-        "pages/form-flow/skillhub/skill-publish-wizard"
+        "pages/detail/skillhub/skill-article-detail",
+        "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/list-table/skillhub/admin-console",
+        "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/skillhub/skillhub-teal-mist.md"
@@ -2609,8 +2709,9 @@
         "blocks/nav/style-vault/sticky-platform-topbar",
         "components/buttons/style-vault/dark-pill-cta",
         "components/buttons/style-vault/ghost-bordered-cta",
-        "components/toggles/style-vault/editorial-underline-tab",
+        "components/overlays/style-vault/spring-toast",
         "components/tags-badges/style-vault/cyan-dot-meta-pill",
+        "components/toggles/style-vault/editorial-underline-tab",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
@@ -2641,9 +2742,9 @@
       "uses": [],
       "preview": "/preview/tokens/shadow/skillhub/ambient-float",
       "usedBy": [
+        "blocks/nav/skillhub/glass-pill-navbar",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/skill-card",
-        "blocks/nav/skillhub/glass-pill-navbar",
         "components/indicators/skillhub/pulse-dot",
         "styles/community-social/skillhub-soft-modernist"
       ],
@@ -2676,10 +2777,10 @@
       "preview": "/preview/tokens/typography/pairs/acme/ibm-plex-duo",
       "uses": [],
       "usedBy": [
-        "blocks/display/acme/saas-data-table",
-        "blocks/display/acme/saas-metric-grid",
         "blocks/feedback/acme/saas-status-banner",
         "blocks/nav/acme/saas-cold-topbar",
+        "blocks/display/acme/saas-data-table",
+        "blocks/display/acme/saas-metric-grid",
         "components/inputs/acme/mono-input",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
@@ -2713,16 +2814,16 @@
       "uses": [],
       "preview": "/preview/tokens/typography/pairs/skillhub/inter-jetbrains-duo",
       "usedBy": [
-        "blocks/form/skillhub/auth-split-form",
         "blocks/marketing/skillhub/gradient-hero",
+        "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
         "pages/dashboard/skillhub/admin-overview",
-        "pages/detail/skillhub/skill-article-detail",
         "pages/detail/skillhub/practice-post-detail",
-        "pages/list-table/skillhub/admin-console",
         "pages/landing/skillhub/skill-community-home",
-        "pages/form-flow/skillhub/practice-compose"
+        "pages/form-flow/skillhub/practice-compose",
+        "pages/detail/skillhub/skill-article-detail",
+        "pages/list-table/skillhub/admin-console"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/skillhub/inter-jetbrains-duo.md"
@@ -2758,6 +2859,7 @@
         "blocks/layout/style-vault/browser-chrome-frame",
         "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/nav/style-vault/sticky-platform-topbar",
+        "components/overlays/style-vault/spring-toast",
         "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
