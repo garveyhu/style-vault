@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ChevronLeft, ChevronRight, Edit2, MoreHorizontal, MoreVertical, PanelLeftOpen, Search, X } from 'lucide-react';
 import { PreviewFrame } from '../../../_layout';
 
 export default function IconCircleGhostPreview() {
@@ -12,37 +13,28 @@ export default function IconCircleGhostPreview() {
           Icon Circle Ghost
         </h1>
         <p style={{ color: '#64748b', fontSize: 14, marginBottom: 24 }}>
-          透明底圆形按钮 — sage header / 会话操作 / 折叠按钮的标配
+          透明底圆形按钮 · slate hover · sage header / 会话操作 / 折叠按钮的标配
         </p>
 
-        <Section title="默认 · slate hover">
-          <Ghost icon="⋮" />
-          <Ghost icon="✎" />
-          <Ghost icon="↗" />
-          <Ghost icon="◀" />
-          <Ghost icon="▶" />
+        <Section title="默认 · p-2 rounded-full hover:bg-slate-100">
+          <Ghost icon={<MoreVertical size={20} />} />
+          <Ghost icon={<Edit2 size={20} />} />
+          <Ghost icon={<Search size={20} />} />
+          <Ghost icon={<ChevronLeft size={20} />} />
+          <Ghost icon={<ChevronRight size={20} />} />
         </Section>
 
-        <Section title="主交互区 · rgb(242,242,242) hover">
-          <Ghost icon="⋮" hoverBg="rgb(242,242,242)" />
-          <Ghost icon="✎" hoverBg="rgb(242,242,242)" />
-          <Ghost icon="✖" hoverBg="rgb(242,242,242)" />
+        <Section title="主交互区 · hover:bg-[rgb(242,242,242)]">
+          <Ghost icon={<MoreVertical size={20} />} hoverBg="rgb(242,242,242)" />
+          <Ghost icon={<MoreHorizontal size={16} />} hoverBg="rgb(242,242,242)" />
+          <Ghost icon={<Edit2 size={20} />} hoverBg="rgb(242,242,242)" />
         </Section>
 
-        <Section title="危险态 · close admin overlay">
-          <button style={{
-            padding: 8, borderRadius: '50%',
-            background: '#f1f5f9', color: '#64748b',
-            border: 'none', cursor: 'pointer',
-            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-            width: 32, height: 32,
-            boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-          }}>
-            ✖
-          </button>
+        <Section title="危险态 · close admin overlay · bg-slate-100 hover:bg-red-100 hover:text-red-600 shadow-sm">
+          <CloseBtn />
         </Section>
 
-        <Section title="双图标切换 · logo 切换 PanelLeftOpen (group hover)">
+        <Section title="双图标切换 · group hover · 折叠侧栏时 logo 变 PanelLeftOpen">
           <DualIcon />
         </Section>
 
@@ -54,23 +46,43 @@ export default function IconCircleGhostPreview() {
   );
 }
 
-function Ghost({ icon, hoverBg = '#f1f5f9' }: { icon: string; hoverBg?: string }) {
+function Ghost({ icon, hoverBg = '#f1f5f9' }: { icon: React.ReactNode; hoverBg?: string }) {
   const [h, setH] = useState(false);
   return (
     <button
       onMouseEnter={() => setH(true)}
       onMouseLeave={() => setH(false)}
       style={{
-        width: 32, height: 32, padding: 0,
+        width: 32, height: 32,
         background: h ? hoverBg : 'transparent',
         color: h ? '#475569' : '#94a3b8',
         border: 'none', cursor: 'pointer', borderRadius: '50%',
         display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
         transition: 'all 200ms',
-        fontSize: 14,
       }}
     >
       {icon}
+    </button>
+  );
+}
+
+function CloseBtn() {
+  const [h, setH] = useState(false);
+  return (
+    <button
+      onMouseEnter={() => setH(true)}
+      onMouseLeave={() => setH(false)}
+      style={{
+        width: 36, height: 36,
+        background: h ? '#fee2e2' : '#f1f5f9',
+        color: h ? '#dc2626' : '#64748b',
+        border: 'none', cursor: 'pointer', borderRadius: '50%',
+        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+        boxShadow: '0 1px 2px 0 rgba(0,0,0,0.05)',
+        transition: 'all 200ms',
+      }}
+    >
+      <X size={20} />
     </button>
   );
 }
@@ -82,7 +94,7 @@ function DualIcon() {
       onMouseEnter={() => setH(true)}
       onMouseLeave={() => setH(false)}
       style={{
-        position: 'relative', width: 36, height: 36, borderRadius: '50%',
+        position: 'relative', width: 32, height: 32, borderRadius: '50%',
         background: h ? '#f1f5f9' : 'transparent',
         border: 'none', cursor: 'pointer', transition: 'all 200ms',
       }}
@@ -90,13 +102,15 @@ function DualIcon() {
       <div style={{
         position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
         opacity: h ? 0 : 1, transition: 'opacity 200ms',
-        fontSize: 16,
-      }}>🌿</div>
+      }}>
+        <div style={{ width: 24, height: 24, background: '#10b981', borderRadius: 5, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 12, fontWeight: 700 }}>S</div>
+      </div>
       <div style={{
         position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
-        opacity: h ? 1 : 0, transition: 'opacity 200ms',
-        color: '#475569', fontSize: 14,
-      }}>◀</div>
+        opacity: h ? 1 : 0, transition: 'opacity 200ms', color: '#475569',
+      }}>
+        <PanelLeftOpen size={20} />
+      </div>
     </button>
   );
 }
@@ -115,16 +129,15 @@ function SessionRow() {
         cursor: 'pointer',
       }}
     >
-      <span style={{ fontSize: 13, color: '#475569', fontWeight: 500 }}>会话标题示例</span>
+      <span style={{ fontSize: 14, color: '#475569', fontWeight: 500 }}>会话标题示例</span>
       <button
         style={{
-          width: 24, height: 24, padding: 0,
-          opacity: h ? 1 : 0, transition: 'opacity 150ms',
+          padding: 4, opacity: h ? 1 : 0, transition: 'opacity 150ms',
           background: 'transparent', color: '#94a3b8',
-          border: 'none', cursor: 'pointer', borderRadius: 4,
-          fontSize: 13,
+          border: 'none', cursor: 'pointer', borderRadius: 6,
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
         }}
-      >⋯</button>
+      ><MoreHorizontal size={16} /></button>
     </div>
   );
 }

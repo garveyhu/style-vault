@@ -1,15 +1,16 @@
 import { useState } from 'react';
+import { Mic, Send, Sparkles } from 'lucide-react';
 import { PreviewFrame } from '../../../_layout';
 
 const THEMES = [
-  { name: 'cyan', hex: '#22d3ee' },
-  { name: 'green', hex: '#10b981' },
-  { name: 'rose', hex: '#fb7185' },
+  { name: 'cyan',   hex: '#22d3ee' },
+  { name: 'green',  hex: '#10b981' },
+  { name: 'rose',   hex: '#fb7185' },
   { name: 'violet', hex: '#a78bfa' },
 ];
 
 export default function GlowBorderTextareaPreview() {
-  const [themeIdx, setThemeIdx] = useState(0);
+  const [themeIdx, setThemeIdx] = useState(1);
   const [focused, setFocused] = useState(false);
   const [value, setValue] = useState('');
   const t = THEMES[themeIdx];
@@ -24,7 +25,7 @@ export default function GlowBorderTextareaPreview() {
           Glow Border Textarea
         </h1>
         <p style={{ color: '#64748b', fontSize: 14, marginBottom: 16 }}>
-          rounded-[24px] + 双层 box-shadow 主题色霓虹光晕——focus 时观察
+          rounded-[24px] + 双层 box-shadow 主题色霓虹光晕 — 点 textarea 进入 focus
         </p>
 
         <div style={{ display: 'flex', gap: 8, marginBottom: 24 }}>
@@ -33,29 +34,30 @@ export default function GlowBorderTextareaPreview() {
               key={th.name}
               onClick={() => setThemeIdx(i)}
               style={{
-                width: 28, height: 28, borderRadius: '50%',
+                width: 24, height: 24, borderRadius: '50%',
                 background: th.hex,
-                border: themeIdx === i ? '2px solid #0f172a' : '2px solid transparent',
+                border: themeIdx === i ? '2px solid #475569' : '2px solid transparent',
                 cursor: 'pointer', transition: 'all 200ms',
                 transform: themeIdx === i ? 'scale(1.1)' : 'scale(1)',
               }}
+              title={th.name}
             />
           ))}
         </div>
 
-        <div style={{ background: 'rgb(249,249,249)', padding: 40, borderRadius: 16 }}>
+        <div style={{ background: 'rgb(249,249,249)', padding: 40, borderRadius: 12 }}>
           <form
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             style={{
               position: 'relative',
-              display: 'flex', flexDirection: 'column', gap: 0,
+              display: 'flex', flexDirection: 'column',
               background: '#fff',
               border: '1px solid',
-              borderColor: focused ? `${t.hex}50` : '#e2e8f0',
+              borderColor: focused ? `${t.hex}80` : '#e2e8f0',
               borderRadius: 24,
               boxShadow: focused
-                ? `0 0 4px ${t.hex}40, 0 0 15px ${t.hex}30`
+                ? `0 0 4px ${t.hex}66, 0 0 15px ${t.hex}4D`
                 : '0 0 4px rgba(148, 163, 184, 0.15), 0 0 15px rgba(148, 163, 184, 0.08)',
               padding: 10,
               transition: 'all 250ms',
@@ -77,18 +79,34 @@ export default function GlowBorderTextareaPreview() {
             />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 4 }}>
               <div style={{ display: 'flex', gap: 6 }}>
-                <Pill label="📊 数据查询" color={t.hex} />
+                <span style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 4,
+                  padding: '4px 10px', borderRadius: 16,
+                  background: `${t.hex}1A`, color: t.hex,
+                  fontSize: 12, fontWeight: 500,
+                  border: `1px solid ${t.hex}4D`,
+                }}>
+                  <Sparkles size={12} /> 数据查询
+                </span>
               </div>
               <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                <button style={{ width: 32, height: 32, borderRadius: '50%', background: 'transparent', border: 'none', color: '#64748b', cursor: 'pointer', fontSize: 14 }}>🎙</button>
-                <span style={{ width: 1, height: 18, background: '#e2e8f0' }} />
+                <button style={{
+                  width: 32, height: 32, borderRadius: '50%',
+                  background: 'transparent', border: 'none',
+                  color: '#64748b', cursor: 'pointer',
+                  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  <Mic size={16} />
+                </button>
+                <span style={{ width: 1, height: 20, background: '#e2e8f0' }} />
                 <button style={{
                   width: 32, height: 32, borderRadius: '50%',
                   background: t.hex, color: '#fff',
                   border: 'none', cursor: 'pointer',
                   display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 14,
-                }}>➤</button>
+                }}>
+                  <Send size={16} style={{ marginLeft: -2, marginTop: 2 }} />
+                </button>
               </div>
             </div>
           </form>
@@ -98,17 +116,5 @@ export default function GlowBorderTextareaPreview() {
         </div>
       </div>
     </PreviewFrame>
-  );
-}
-
-function Pill({ label, color }: { label: string; color: string }) {
-  return (
-    <span style={{
-      display: 'inline-flex', alignItems: 'center', gap: 4,
-      padding: '4px 10px', borderRadius: 16,
-      background: `${color}10`, color,
-      fontSize: 12, fontWeight: 500,
-      border: `1px solid ${color}30`,
-    }}>{label}</span>
   );
 }

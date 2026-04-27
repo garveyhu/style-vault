@@ -1,3 +1,4 @@
+import { Globe } from 'lucide-react';
 import { PreviewFrame } from '../../../_layout';
 
 const KEYFRAMES_CSS = `
@@ -11,13 +12,13 @@ const KEYFRAMES_CSS = `
 `;
 
 const KEYFRAMES = [
-  { name: 'bling', dur: '1s', use: 'RevolverMenu hover 缩放呼吸' },
-  { name: 'earthSpin', dur: '8s linear', use: 'RevolverMenu 地球图标自转' },
-  { name: 'snowFall', dur: '4-12s linear', use: 'pinned 时雪花飘落' },
-  { name: 'wobble', dur: '0.6s ease-in-out', use: '雪人左右摇摆' },
-  { name: 'shimmer', dur: '1.5s', use: 'CrystalProgress 玻璃流光' },
-  { name: 'pulse', dur: '2s ease-in-out', use: '呼吸阴影' },
-  { name: 'stripes', dur: '1s linear', use: '进度条对角条纹平移' },
+  { name: 'bling',     dur: '1s',                      use: 'RevolverMenu hover 缩放呼吸' },
+  { name: 'earthSpin', dur: '8s linear',               use: 'RevolverMenu 地球图标自转' },
+  { name: 'snowFall',  dur: '4-12s linear',            use: 'pinned 时雪花飘落' },
+  { name: 'wobble',    dur: '0.6s ease-in-out',        use: '雪人左右摇摆' },
+  { name: 'shimmer',   dur: '1.5s',                    use: 'CrystalProgress 玻璃流光' },
+  { name: 'pulse',     dur: '2s ease-in-out',          use: '呼吸阴影' },
+  { name: 'stripes',   dur: '1s linear',               use: '进度条对角条纹平移' },
 ];
 
 export default function StyledKeyframes() {
@@ -32,27 +33,27 @@ export default function StyledKeyframes() {
           7 段专属 keyframes
         </h1>
         <p style={{ color: '#64748b', fontSize: 14, marginBottom: 24 }}>
-          RevolverMenu 雪人飘雪 + CrystalProgress 流光条纹 ——sage 装饰性动画的全部
+          RevolverMenu 雪人飘雪 + CrystalProgress 流光条纹 — sage 装饰性动画的全部
         </p>
 
-        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 16, padding: 24 }}>
+        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 24 }}>
           <table style={{ width: '100%', fontSize: 13, borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid #e2e8f0', color: '#64748b', textAlign: 'left' }}>
-                <th style={{ padding: '8px 4px', fontWeight: 600, fontSize: 11, textTransform: 'uppercase', letterSpacing: 1 }}>name</th>
-                <th style={{ padding: '8px 4px', fontWeight: 600, fontSize: 11, textTransform: 'uppercase', letterSpacing: 1 }}>duration</th>
-                <th style={{ padding: '8px 4px', fontWeight: 600, fontSize: 11, textTransform: 'uppercase', letterSpacing: 1 }}>use</th>
-                <th style={{ padding: '8px 4px', fontWeight: 600, fontSize: 11, textTransform: 'uppercase', letterSpacing: 1 }}>preview</th>
+                <th style={th}>name</th>
+                <th style={th}>duration</th>
+                <th style={th}>use</th>
+                <th style={{ ...th, textAlign: 'right' }}>preview</th>
               </tr>
             </thead>
             <tbody>
               {KEYFRAMES.map(k => (
                 <tr key={k.name} style={{ borderBottom: '1px dashed #f1f5f9' }}>
-                  <td style={{ padding: '10px 4px', fontFamily: 'ui-monospace, monospace', fontSize: 12 }}>{k.name}</td>
-                  <td style={{ padding: '10px 4px', color: '#64748b', fontFamily: 'ui-monospace, monospace', fontSize: 11 }}>{k.dur}</td>
-                  <td style={{ padding: '10px 4px', color: '#475569' }}>{k.use}</td>
-                  <td style={{ padding: '10px 4px', width: 60 }}>
-                    <Preview kf={k.name} />
+                  <td style={{ padding: '12px 4px', fontFamily: 'ui-monospace, SFMono-Regular, monospace', fontSize: 12, color: '#0f172a' }}>{k.name}</td>
+                  <td style={{ padding: '12px 4px', color: '#64748b', fontFamily: 'ui-monospace, SFMono-Regular, monospace', fontSize: 11 }}>{k.dur}</td>
+                  <td style={{ padding: '12px 4px', color: '#475569' }}>{k.use}</td>
+                  <td style={{ padding: '12px 4px', width: 60, textAlign: 'right' }}>
+                    <KFPreview kf={k.name} />
                   </td>
                 </tr>
               ))}
@@ -60,9 +61,21 @@ export default function StyledKeyframes() {
           </table>
         </div>
 
-        <div style={{ marginTop: 24, height: 240, background: '#0ea5e9', borderRadius: 16, position: 'relative', overflow: 'hidden' }}>
+        <div style={{ marginTop: 24, height: 240, background: 'linear-gradient(180deg, #0ea5e9 0%, #0284c7 100%)', borderRadius: 12, position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: 12, left: 16, fontSize: 11, color: '#fff', opacity: 0.7, textTransform: 'uppercase', letterSpacing: 1.5 }}>
             snowFall · 完整场景
+          </div>
+          <div style={{
+            position: 'absolute', left: '50%', top: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 56, height: 56, borderRadius: '50%',
+            background: '#0ea5e9',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: '#fff',
+            boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+            animation: 'sv-spin 8s linear infinite',
+          }}>
+            <Globe size={28} />
           </div>
           {Array.from({ length: 24 }).map((_, i) => (
             <span
@@ -88,11 +101,12 @@ export default function StyledKeyframes() {
   );
 }
 
-function Preview({ kf }: { kf: string }) {
+function KFPreview({ kf }: { kf: string }) {
   if (kf === 'bling' || kf === 'wobble' || kf === 'earthSpin' || kf === 'pulse') {
     return (
       <div
         style={{
+          display: 'inline-block',
           width: 24,
           height: 24,
           background: '#0ea5e9',
@@ -108,16 +122,16 @@ function Preview({ kf }: { kf: string }) {
   }
   if (kf === 'snowFall') {
     return (
-      <div style={{ width: 30, height: 36, position: 'relative', background: '#0ea5e9', borderRadius: 6, overflow: 'hidden' }}>
+      <div style={{ display: 'inline-block', width: 30, height: 36, position: 'relative', background: '#0ea5e9', borderRadius: 6, overflow: 'hidden' }}>
         {[0, 0.5, 1, 1.5].map(d => (
-          <span key={d} style={{ position: 'absolute', top: -8, left: `${20 + d * 15}%`, width: 4, height: 4, background: '#fff', borderRadius: '50%', animation: `sv-snow 2s linear infinite`, animationDelay: `-${d}s` }} />
+          <span key={d} style={{ position: 'absolute', top: -8, left: `${20 + d * 15}%`, width: 4, height: 4, background: '#fff', borderRadius: '50%', animation: 'sv-snow 2s linear infinite', animationDelay: `-${d}s` }} />
         ))}
       </div>
     );
   }
   if (kf === 'shimmer') {
     return (
-      <div style={{ width: 50, height: 12, background: '#cbd5e1', borderRadius: 6, position: 'relative', overflow: 'hidden' }}>
+      <div style={{ display: 'inline-block', width: 50, height: 12, background: '#cbd5e1', borderRadius: 6, position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)', animation: 'sv-shimmer 1.5s infinite' }} />
       </div>
     );
@@ -125,9 +139,10 @@ function Preview({ kf }: { kf: string }) {
   if (kf === 'stripes') {
     return (
       <div style={{
+        display: 'inline-block',
         width: 50, height: 12,
-        background: 'linear-gradient(45deg, rgba(0,0,0,0.15) 25%, transparent 25%, transparent 50%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.15) 75%, transparent 75%, transparent), #0ea5e9',
-        backgroundSize: '30px 30px',
+        background: 'linear-gradient(45deg, rgba(255,255,255,0.3) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.3) 75%, transparent 75%, transparent), #0ea5e9',
+        backgroundSize: '12px 12px',
         borderRadius: 6,
         animation: 'sv-stripes 1s linear infinite',
       }} />
@@ -135,3 +150,5 @@ function Preview({ kf }: { kf: string }) {
   }
   return null;
 }
+
+const th = { padding: '8px 4px', fontWeight: 600 as const, fontSize: 11, textTransform: 'uppercase' as const, letterSpacing: 1 };

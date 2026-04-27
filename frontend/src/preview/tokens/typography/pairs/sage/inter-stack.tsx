@@ -24,14 +24,25 @@ export default function InterStack() {
           单字体策略 · Inter 本地化 · CJK 由系统 fallback 接管
         </p>
 
-        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 16, padding: 24, marginBottom: 16 }}>
-          {SCALE.map(s => (
-            <div key={s.name} style={{ display: 'flex', alignItems: 'baseline', gap: 16, padding: '10px 0', borderBottom: '1px dashed #f1f5f9' }}>
-              <div style={{ width: 140, fontSize: 11, color: '#94a3b8', fontFamily: 'ui-monospace, monospace' }}>{s.name}</div>
+        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 24, marginBottom: 16 }}>
+          {SCALE.map((s, i) => (
+            <div
+              key={s.name}
+              style={{
+                display: 'flex',
+                alignItems: 'baseline',
+                gap: 16,
+                padding: '10px 0',
+                borderBottom: i === SCALE.length - 1 ? 'none' : '1px dashed #f1f5f9',
+              }}
+            >
+              <div style={{ width: 140, fontSize: 11, color: '#94a3b8', fontFamily: 'ui-monospace, SFMono-Regular, monospace', flexShrink: 0 }}>
+                {s.name}
+              </div>
               <div
                 style={{
                   fontSize: s.size,
-                  fontWeight: s.weight as any,
+                  fontWeight: s.weight as 400 | 500 | 600 | 700,
                   letterSpacing: s.tracking,
                   textTransform: s.upper ? 'uppercase' : 'none',
                   color: s.color,
@@ -44,20 +55,20 @@ export default function InterStack() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20 }}>
+          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
             <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: 1.5, color: '#94a3b8', marginBottom: 8 }}>
               import (本地化)
             </div>
-            <pre style={{ margin: 0, fontSize: 12, fontFamily: 'ui-monospace, monospace', color: '#475569' }}>
+            <pre style={{ margin: 0, fontSize: 12, fontFamily: 'ui-monospace, SFMono-Regular, monospace', color: '#475569', lineHeight: 1.7 }}>
 {`@import url('../fonts/inter.css');
 body { font-family: Inter, sans-serif; }`}
             </pre>
           </div>
-          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 16, padding: 20 }}>
+          <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 20 }}>
             <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: 1.5, color: '#94a3b8', marginBottom: 8 }}>
               fallback chain
             </div>
-            <pre style={{ margin: 0, fontSize: 12, fontFamily: 'ui-monospace, monospace', color: '#475569' }}>
+            <pre style={{ margin: 0, fontSize: 12, fontFamily: 'ui-monospace, SFMono-Regular, monospace', color: '#475569', lineHeight: 1.7 }}>
 {`Inter, -apple-system,
 BlinkMacSystemFont,
 'Segoe UI', 'PingFang SC',

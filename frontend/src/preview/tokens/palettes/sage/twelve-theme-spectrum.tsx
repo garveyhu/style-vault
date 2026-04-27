@@ -26,7 +26,11 @@ export default function TwelveThemeSpectrum() {
           Sage Twelve-Theme Spectrum
         </h1>
         <p style={{ color: '#64748b', fontSize: 14, marginBottom: 32 }}>
-          12 个用户可切换主题色 × 3 档明度——驱动整站 119 处 <code>${'{themeClasses.bg}'}</code> 动态着色
+          12 个用户可切换主题色 × 3 档明度 — 驱动整站 119 处{' '}
+          <code style={{ background: '#f1f5f9', padding: '2px 6px', borderRadius: 4, fontSize: 12 }}>
+            ${'{themeClasses.bg}'}
+          </code>{' '}
+          动态着色
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
@@ -36,17 +40,17 @@ export default function TwelveThemeSpectrum() {
               style={{
                 background: '#fff',
                 border: '1px solid #e2e8f0',
-                borderRadius: 16,
+                borderRadius: 12,
                 padding: 16,
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
                 <div style={{ width: 24, height: 24, borderRadius: '50%', background: t.hex }} />
                 <span style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>{t.name}</span>
-                <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 'auto' }}>tw: {t.tw}</span>
+                <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 'auto', fontFamily: 'ui-monospace, SFMono-Regular, monospace' }}>tw: {t.tw}</span>
               </div>
               <div style={{ display: 'flex', gap: 4 }}>
-                <Swatch label="hex" value={t.hex} dark />
+                <Swatch label="hex" value={t.hex} />
                 <Swatch label="light" value={t.light} />
                 <Swatch label="selection" value={t.selection} />
               </div>
@@ -54,7 +58,7 @@ export default function TwelveThemeSpectrum() {
           ))}
         </div>
 
-        <div style={{ marginTop: 32, padding: 20, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 16 }}>
+        <div style={{ marginTop: 32, padding: 20, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12 }}>
           <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: 1.5, color: '#64748b', marginBottom: 12 }}>
             usage axes (THEME_CLASSES[color])
           </div>
@@ -74,14 +78,14 @@ shadow        → shadow-{tw}-100`}
   );
 }
 
-function Swatch({ label, value, dark }: { label: string; value: string; dark?: boolean }) {
+function Swatch({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ flex: 1 }}>
       <div style={{ height: 36, borderRadius: 6, background: value, border: '1px solid #e2e8f0' }} />
-      <div style={{ fontSize: 9, color: '#94a3b8', marginTop: 4, fontFamily: 'ui-monospace, monospace' }}>
-        {dark && '★ '}{label}
+      <div style={{ fontSize: 9, color: '#94a3b8', marginTop: 4, fontFamily: 'ui-monospace, SFMono-Regular, monospace' }}>
+        {label}
       </div>
-      <div style={{ fontSize: 9, color: '#64748b', fontFamily: 'ui-monospace, monospace' }}>{value}</div>
+      <div style={{ fontSize: 9, color: '#64748b', fontFamily: 'ui-monospace, SFMono-Regular, monospace' }}>{value}</div>
     </div>
   );
 }

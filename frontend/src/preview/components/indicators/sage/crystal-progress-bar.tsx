@@ -8,9 +8,9 @@ const KFCSS = `
 `;
 
 const THEMES = [
-  { name: 'cyan', hex: '#22d3ee', rgb: '34, 211, 238' },
+  { name: 'cyan',  hex: '#22d3ee', rgb: '34, 211, 238' },
   { name: 'green', hex: '#10b981', rgb: '16, 185, 129' },
-  { name: 'rose', hex: '#fb7185', rgb: '251, 113, 133' },
+  { name: 'rose',  hex: '#fb7185', rgb: '251, 113, 133' },
   { name: 'amber', hex: '#fbbf24', rgb: '251, 191, 36' },
 ];
 
@@ -35,26 +35,22 @@ export default function CrystalProgressBarPreview() {
           Crystal Progress Bar
         </h1>
         <p style={{ color: '#64748b', fontSize: 14, marginBottom: 24 }}>
-          玻璃质感 + 对角条纹 + 倾斜流光 + 阴影呼吸——4 层视觉叠加
+          玻璃质感 + 对角条纹 + 倾斜流光 + 阴影呼吸 — 4 层视觉叠加
         </p>
 
         <div style={{ display: 'flex', gap: 8, marginBottom: 24 }}>
           {THEMES.map((th, i) => (
-            <button
-              key={th.name}
-              onClick={() => setThemeIdx(i)}
-              style={{
-                width: 28, height: 28, borderRadius: '50%',
-                background: th.hex,
-                border: themeIdx === i ? '2px solid #0f172a' : '2px solid transparent',
-                cursor: 'pointer', transition: 'all 200ms',
-                transform: themeIdx === i ? 'scale(1.1)' : 'scale(1)',
-              }}
-            />
+            <button key={th.name} onClick={() => setThemeIdx(i)} style={{
+              width: 24, height: 24, borderRadius: '50%',
+              background: th.hex,
+              border: themeIdx === i ? '2px solid #475569' : '2px solid transparent',
+              cursor: 'pointer', transition: 'all 200ms',
+              transform: themeIdx === i ? 'scale(1.1)' : 'scale(1)',
+            }} />
           ))}
         </div>
 
-        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 16, padding: 32 }}>
+        <div style={{ background: '#fff', border: '1px solid #e2e8f0', borderRadius: 12, padding: 32 }}>
           <div style={{ fontSize: 12, color: '#64748b', marginBottom: 8 }}>知识库导入进度 · {percent}%</div>
           <Bar percent={percent} color={t.hex} rgb={t.rgb} />
 
@@ -66,11 +62,11 @@ export default function CrystalProgressBarPreview() {
         </div>
 
         <ol style={{ marginTop: 18, fontSize: 12, color: '#64748b', lineHeight: 1.8, paddingLeft: 18 }}>
-          <li>容器：${'${color}10'} 底色 + 上半 white/20 反光 + inset shadow</li>
-          <li>填充：${'${color}'} 主体 + 45° 30×30 白条纹（stripes 平移）</li>
+          <li>容器：{'${color}10'} 底色 + 上半 white/20 反光 + inset shadow</li>
+          <li>填充：{'${color}'} 主体 + 45° 30×30 白条纹（stripes 平移）</li>
           <li>填充上方：水平 white/60 倾斜光带（shimmer 1.5s）</li>
           <li>填充尾端：6px 白光点 + 10px white shadow</li>
-          <li>整条阴影：rgba(c,0.3 → 0.5) pulse 2s</li>
+          <li>整条阴影：rgba(c, 0.3 → 0.5) pulse 2s</li>
         </ol>
       </div>
     </PreviewFrame>
@@ -99,7 +95,7 @@ function Bar({ percent, color, rgb }: { percent: number; color: string; rgb: str
       }} />
       <div
         style={{
-          ['--c' as any]: rgb,
+          ['--c' as 'opacity']: rgb,
           height: '100%', width: `${percent}%`,
           background: color,
           backgroundImage: 'linear-gradient(45deg, rgba(255,255,255,0.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.15) 75%, transparent 75%, transparent)',
@@ -108,16 +104,14 @@ function Bar({ percent, color, rgb }: { percent: number; color: string; rgb: str
           transition: 'width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
           position: 'relative',
           animation: 'sv-cry-stripes 1s linear infinite, sv-cry-pulse 2s infinite ease-in-out',
-        }}
+        } as React.CSSProperties}
       >
-        {/* shimmer */}
         <div style={{
           position: 'absolute', inset: 0,
           background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%)',
           transform: 'translateX(-150%) skewX(-15deg)',
           animation: 'sv-cry-shimmer 1.5s infinite',
         }} />
-        {/* 尾光 */}
         <div style={{
           position: 'absolute', top: 0, bottom: 0, right: 0,
           width: 6,

@@ -5,7 +5,7 @@ const RGB_LADDER = [
   { name: 'session-active',    hex: 'rgb(239,239,239)', use: '选中会话项底色' },
   { name: 'session-hover',     hex: 'rgb(237,237,237)', use: '侧栏按钮 hover' },
   { name: 'session-deephover', hex: 'rgb(231,231,231)', use: '选中会话项再 hover' },
-  { name: 'icon-btn-hover',    hex: 'rgb(242,242,242)', use: '圆形图标按钮 hover / 思考过程头部' },
+  { name: 'icon-btn-hover',    hex: 'rgb(242,242,242)', use: '圆形图标按钮 hover' },
   { name: 'neutral-244',       hex: 'rgb(244,244,244)', use: '过渡阶' },
   { name: 'neutral-246',       hex: 'rgb(246,246,246)', use: '过渡阶' },
   { name: 'neutral-251',       hex: 'rgb(251,251,251)', use: '近白衬底' },
@@ -35,7 +35,7 @@ export default function NeutralRgbLadder() {
           Sage Neutral RGB Ladder
         </h1>
         <p style={{ color: '#64748b', fontSize: 14, marginBottom: 28 }}>
-          手调 9 阶 RGB 灰阶 + slate 系——侧栏 idle / hover / selected 微差全靠这套
+          手调 9 阶 RGB 灰阶 + slate 系 — 侧栏 idle / hover / selected 微差全靠这套
         </p>
 
         <Section title="9-step rgb ladder · 用于侧栏 / hover / selected">
@@ -44,7 +44,7 @@ export default function NeutralRgbLadder() {
               <div key={s.name} style={{ width: 200, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 10, padding: 8 }}>
                 <div style={{ height: 60, background: s.hex, borderRadius: 6, border: '1px solid #f1f5f9' }} />
                 <div style={{ fontSize: 12, fontWeight: 600, marginTop: 6 }}>{s.name}</div>
-                <div style={{ fontSize: 10, color: '#64748b', fontFamily: 'ui-monospace, monospace' }}>{s.hex}</div>
+                <div style={{ fontSize: 10, color: '#64748b', fontFamily: 'ui-monospace, SFMono-Regular, monospace' }}>{s.hex}</div>
                 <div style={{ fontSize: 10, color: '#94a3b8', marginTop: 2 }}>{s.use}</div>
               </div>
             ))}
@@ -57,7 +57,7 @@ export default function NeutralRgbLadder() {
               <div key={s.name} style={{ width: 130, background: '#fff', border: '1px solid #e2e8f0', borderRadius: 8, padding: 6 }}>
                 <div style={{ height: 32, background: s.hex, borderRadius: 4 }} />
                 <div style={{ fontSize: 11, fontWeight: 600, marginTop: 4 }}>{s.name}</div>
-                <div style={{ fontSize: 9, color: '#64748b', fontFamily: 'ui-monospace, monospace' }}>{s.hex} · {s.tw}</div>
+                <div style={{ fontSize: 9, color: '#64748b', fontFamily: 'ui-monospace, SFMono-Regular, monospace' }}>{s.hex} · {s.tw}</div>
               </div>
             ))}
           </div>
