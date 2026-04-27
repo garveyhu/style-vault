@@ -156,7 +156,7 @@ export default function CoolBlobHeroPreview() {
           >
             六个层级，六道清晰边界。
             <br />
-            让 AI 写出的代码，不再有千篇一律的"AI 味"。
+            复刻一种成熟的视觉风格，只需把一段 Prompt 贴给 AI。
           </p>
 
           {/* CTA */}

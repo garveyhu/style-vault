@@ -42,7 +42,7 @@ export default function HomePage() {
 
           <p className="sv-anim-fade-up sv-delay-300 mx-auto mt-8 max-w-[560px] text-[17px] leading-[1.8] text-slate-500">
             六个层级，六道清晰边界。
-            <br />让 AI 写出的代码，不再有千篇一律的"AI 味"。
+            <br />复刻一种成熟的视觉风格，只需把一段 Prompt 贴给 AI。
           </p>
 
           <div className="sv-anim-fade-up sv-delay-500 mt-12">
@@ -93,7 +93,7 @@ export default function HomePage() {
           <ValueBlock
             n="02"
             title="为 AI 编码而生。"
-            body="每条资产都附带一份精心调好的 Prompt 模板。粘进你的 AI Copilot，产出的代码自带风格，不再有那种一眼就能认出的「AI slop」审美。"
+            body="每条资产都附带一份精心调好的 Prompt 模板。粘进你的 AI Copilot，几秒就能在编码现场还原一整套完整的视觉语言。"
             illust={<PromptPayload />}
             flip
           />
