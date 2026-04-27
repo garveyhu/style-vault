@@ -110,7 +110,7 @@ export default function HomePage() {
           Manifesto
          ============================================================ */}
       <section className="border-y border-slate-100 bg-slate-900 text-white">
-        <div className="relative mx-auto max-w-[1000px] px-8 py-32 text-center">
+        <div className="relative mx-auto max-w-[1000px] px-8 py-20 text-center">
           <div className="pointer-events-none absolute -left-24 top-10 h-[260px] w-[260px] rounded-full bg-cyan-500/10 blur-3xl" />
           <div className="pointer-events-none absolute -right-24 bottom-10 h-[200px] w-[200px] rounded-full bg-slate-500/15 blur-3xl" />
 
@@ -129,22 +129,25 @@ export default function HomePage() {
           Footer
          ============================================================ */}
       <footer className="bg-white">
-        <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-4 px-8 py-10 text-[12px] text-slate-400">
+        <div className="flex flex-wrap items-center justify-between gap-4 px-12 py-5 text-[12px] text-slate-400">
           <span className="flex items-center gap-2">
             <img src="/logo.svg" alt="" className="h-5 w-5 opacity-80" />
             <span className="font-display text-[14px] font-medium text-slate-500">
               Style Vault · 风格库
             </span>
           </span>
-          <span>© 2026 Style Vault</span>
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noreferrer"
-            className="transition hover:text-slate-700"
-          >
-            GitHub
-          </a>
+          <div className="flex items-center gap-6">
+            <span>© 2026 Style Vault</span>
+            <span className="h-3 w-px bg-slate-200" />
+            <a
+              href="https://github.com/garveyhu/style-vault"
+              target="_blank"
+              rel="noreferrer"
+              className="transition hover:text-slate-700"
+            >
+              GitHub
+            </a>
+          </div>
         </div>
       </footer>
     </div>
@@ -190,93 +193,266 @@ function ValueBlock({
 
 /* ---------- 小插图（纯 SVG/CSS，保持品牌调性） ---------- */
 
+/**
+ * 01 · 六层结构 · isometric 立体盒透视
+ * PRODUCT 顶部最宽（cyan 渐变高亮，"聚合"语义）→ TOKEN 底部最窄（"原子"语义）。
+ * 6 个菱形面顶尾相接、按宽度递减整齐叠下。
+ */
 function LayerStack() {
-  const layers = [
-    { label: "PRODUCTS", shade: "bg-slate-900 text-white" },
-    { label: "STYLES", shade: "bg-slate-800 text-white" },
-    { label: "PAGES", shade: "bg-slate-700 text-white" },
-    { label: "BLOCKS", shade: "bg-slate-500 text-white" },
-    { label: "COMPONENTS", shade: "bg-slate-300 text-slate-900" },
-    { label: "TOKENS", shade: "bg-slate-100 text-slate-700" },
-  ];
   return (
-    <div className="flex flex-col gap-1.5">
-      {layers.map((l, i) => (
-        <div
-          key={l.label}
-          className={`${l.shade} rounded-md px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.2em]`}
-          style={{
-            marginLeft: `${i * 8}px`,
-            marginRight: `${(layers.length - 1 - i) * 8}px`,
-          }}
+    <svg
+      viewBox="0 0 360 250"
+      className="h-auto w-full max-w-[440px]"
+      aria-label="六层结构 · 从 Token 到 Product"
+    >
+      <defs>
+        <linearGradient id="sv-product-face" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#67e8f9" />
+          <stop offset="100%" stopColor="#0891b2" />
+        </linearGradient>
+      </defs>
+
+      {/* PRODUCT · 顶部最宽 · cyan 渐变高亮 */}
+      <g>
+        <path
+          d="M40 40 L180 65 L320 40 L180 15 Z"
+          fill="url(#sv-product-face)"
+          stroke="#0891b2"
+        />
+        <text
+          x="180"
+          y="44"
+          textAnchor="middle"
+          fontSize="10"
+          fontWeight="700"
+          letterSpacing="2"
+          fill="#fff"
         >
-          {l.label}
-        </div>
-      ))}
-    </div>
+          PRODUCT
+        </text>
+      </g>
+
+      {/* STYLES */}
+      <g>
+        <path
+          d="M62 85 L180 107 L298 85 L180 63 Z"
+          fill="#1e293b"
+          stroke="#0f172a"
+        />
+        <text
+          x="180"
+          y="89"
+          textAnchor="middle"
+          fontSize="10"
+          fontWeight="700"
+          letterSpacing="2"
+          fill="#fff"
+        >
+          STYLES
+        </text>
+      </g>
+
+      {/* PAGES */}
+      <g>
+        <path
+          d="M84 125 L180 143 L276 125 L180 107 Z"
+          fill="#475569"
+          stroke="#334155"
+        />
+        <text
+          x="180"
+          y="129"
+          textAnchor="middle"
+          fontSize="10"
+          fontWeight="700"
+          letterSpacing="2"
+          fill="#fff"
+        >
+          PAGES
+        </text>
+      </g>
+
+      {/* BLOCKS */}
+      <g>
+        <path
+          d="M106 158 L180 173 L254 158 L180 143 Z"
+          fill="#94a3b8"
+          stroke="#64748b"
+        />
+        <text
+          x="180"
+          y="162"
+          textAnchor="middle"
+          fontSize="10"
+          fontWeight="700"
+          letterSpacing="2"
+          fill="#fff"
+        >
+          BLOCKS
+        </text>
+      </g>
+
+      {/* COMPONENTS */}
+      <g>
+        <path
+          d="M126 187 L180 199 L234 187 L180 175 Z"
+          fill="#cbd5e1"
+          stroke="#94a3b8"
+        />
+        <text
+          x="180"
+          y="191"
+          textAnchor="middle"
+          fontSize="9"
+          fontWeight="700"
+          letterSpacing="2"
+          fill="#0f172a"
+        >
+          COMPONENTS
+        </text>
+      </g>
+
+      {/* TOKENS · 底部最窄 */}
+      <g>
+        <path
+          d="M146 210 L180 220 L214 210 L180 200 Z"
+          fill="#f1f5f9"
+          stroke="#cbd5e1"
+        />
+        <text
+          x="180"
+          y="213"
+          textAnchor="middle"
+          fontSize="8"
+          fontWeight="700"
+          letterSpacing="1.5"
+          fill="#475569"
+        >
+          TOKENS
+        </text>
+      </g>
+
+      {/* 注释 · 顶部贴近 PRODUCT、底部贴近 TOKEN */}
+      <text x="36" y="11" fontSize="11" fill="#64748b" fontStyle="italic">
+        越上越聚合、越具象
+      </text>
+      <text x="36" y="240" fontSize="11" fill="#64748b" fontStyle="italic">
+        越下越原子、越基础
+      </text>
+    </svg>
   );
 }
 
+/**
+ * 02 · 为 AI 编码而生
+ * Prompt 卡 → 真实 Pricing 渲染（双联）
+ */
 function PromptPayload() {
   return (
-    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-900 font-mono text-[12px] leading-relaxed text-slate-300 shadow-[0_30px_60px_-24px_rgba(15,23,42,0.3)]">
-      <div className="flex items-center gap-2 border-b border-slate-800 bg-slate-950 px-4 py-2.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-rose-400/80" />
-        <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
-        <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
-        <span className="ml-2 text-[11px] text-slate-500">prompt.md</span>
+    <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
+      {/* Prompt 卡 */}
+      <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-[0_18px_40px_-20px_rgba(15,23,42,0.18)]">
+        <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
+          Prompt
+        </div>
+        <div className="mt-3 space-y-1.5 font-mono text-[11px]">
+          <div className="text-slate-500">use:</div>
+          <div className="rounded bg-slate-50 px-2 py-1 text-slate-800">
+            styles/cold-saas
+          </div>
+          <div className="mt-2 text-slate-500">with:</div>
+          <div className="rounded bg-slate-50 px-2 py-1 text-slate-800">
+            tokens/slate-cyan-ice
+          </div>
+          <div className="mt-2 text-slate-500">build:</div>
+          <div className="rounded bg-cyan-50 px-2 py-1 text-cyan-800">
+            pricing-table
+          </div>
+        </div>
       </div>
-      <div className="px-5 py-5">
-        <div className="text-slate-500">## Style Vault prompt</div>
-        <div className="mt-2">
-          <span className="text-cyan-300">use</span> styles/saas-tool/
-          <span className="text-emerald-300">cold-industrial-saas</span>
+
+      {/* 中间箭头 */}
+      <div className="flex flex-col items-center">
+        <div className="h-px w-10 bg-slate-300" />
+        <div className="-mt-1.5 text-[18px] text-slate-400">▸</div>
+        <div className="mt-1 text-[9px] uppercase tracking-[0.22em] text-slate-400">
+          AI
         </div>
-        <div className="mt-1">
-          <span className="text-cyan-300">with</span> tokens/palettes/
-          <span className="text-emerald-300">slate-cyan-ice</span>
+      </div>
+
+      {/* 真实渲染输出 */}
+      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white p-4 shadow-[0_18px_40px_-20px_rgba(15,23,42,0.18)]">
+        <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
+          Pricing
         </div>
-        <div className="mt-3 text-slate-500">→ build a pricing page</div>
-        <div className="mt-2 text-slate-500">→ match block/pricing-table</div>
-        <div className="mt-5 text-slate-500"># AI copilot writes …</div>
-        <div className="mt-1">
-          <span className="text-slate-400">export default</span>{" "}
-          <span className="text-cyan-300">function</span>{" "}
-          <span className="text-emerald-300">Pricing</span>() {`{`}
+        <div className="mt-3 space-y-2">
+          <div className="flex items-center justify-between rounded-md bg-slate-50 px-3 py-1.5">
+            <span className="text-[12px] font-semibold text-slate-900">
+              Free
+            </span>
+            <span className="font-mono text-[11px] text-slate-400">$0</span>
+          </div>
+          <div className="flex items-center justify-between rounded-md border border-cyan-300 bg-cyan-50 px-3 py-1.5">
+            <span className="text-[12px] font-semibold text-slate-900">
+              Pro
+            </span>
+            <span className="font-mono text-[11px] font-semibold text-cyan-700">
+              $24
+            </span>
+          </div>
+          <div className="flex items-center justify-between rounded-md bg-slate-50 px-3 py-1.5">
+            <span className="text-[12px] font-semibold text-slate-900">
+              Team
+            </span>
+            <span className="font-mono text-[11px] text-slate-400">$99</span>
+          </div>
         </div>
-        <div className="pl-4 text-slate-500">// style-faithful code</div>
-        <div>{`}`}</div>
       </div>
     </div>
   );
 }
 
+/**
+ * 03 · 天生跨端，调性如一
+ * 三屏交叠 · 渐变层叠（前 iPhone · 中 Browser · 后 Android）
+ */
 function PlatformTrio() {
-  const frames = [
-    { label: "WEB", w: "w-[240px]", h: "h-[160px]" },
-    { label: "IOS", w: "w-[100px]", h: "h-[180px]" },
-    { label: "ANDROID", w: "w-[100px]", h: "h-[180px]" },
-  ];
   return (
-    <div className="flex items-end gap-4">
-      {frames.map((f) => (
-        <div
-          key={f.label}
-          className={`${f.w} ${f.h} relative rounded-xl border border-slate-200 bg-slate-50`}
-        >
-          <div className="absolute inset-0 rounded-xl border border-white" />
-          <div
-            className="absolute inset-0 rounded-xl"
-            style={{
-              background:
-                "repeating-linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.9) 10px, transparent 10px, transparent 20px)",
-            }}
-          />
-          <div className="absolute bottom-3 left-3 text-[9px] font-semibold uppercase tracking-[0.2em] text-slate-500">
-            {f.label}
+    <div className="relative h-[280px] w-full">
+      {/* 后 · Android */}
+      <div className="absolute left-[6%] top-[18%] h-[180px] w-[110px] overflow-hidden rounded-[14px] border-2 border-slate-700 bg-white opacity-70 shadow-md">
+        <div className="mx-auto mt-2 h-1 w-1 rounded-full bg-slate-700" />
+        <div className="mt-3 flex flex-col items-center px-2">
+          <div className="text-[9px] font-bold text-slate-900">Style</div>
+          <div className="text-[9px] font-bold text-cyan-600">Vault</div>
+        </div>
+      </div>
+
+      {/* 中 · Browser */}
+      <div className="absolute left-[24%] top-[24%] flex h-[170px] w-[260px] flex-col rounded-xl border border-slate-200 bg-white shadow-[0_18px_40px_-12px_rgba(15,23,42,0.3)]">
+        <div className="flex items-center gap-1.5 border-b border-slate-100 px-3 py-2">
+          <span className="h-2 w-2 rounded-full bg-rose-300" />
+          <span className="h-2 w-2 rounded-full bg-amber-300" />
+          <span className="h-2 w-2 rounded-full bg-emerald-300" />
+        </div>
+        <div className="flex flex-1 items-center justify-center">
+          <div className="text-[15px] font-bold text-slate-900">
+            Style <span className="text-cyan-600">Vault</span>
           </div>
         </div>
-      ))}
+      </div>
+
+      {/* 前 · iPhone */}
+      <div className="absolute right-[8%] top-[10%] flex h-[210px] w-[120px] flex-col overflow-hidden rounded-[22px] border-[3px] border-slate-900 bg-white shadow-[0_24px_48px_-12px_rgba(15,23,42,0.4)]">
+        <div className="mx-auto mt-1.5 h-2.5 w-14 rounded-b-xl bg-slate-900" />
+        <div className="flex flex-1 flex-col items-center justify-center gap-1.5 px-3">
+          <div className="text-[11px] font-bold text-slate-900">Style</div>
+          <div className="text-[11px] font-bold text-cyan-600">Vault</div>
+          <div className="mt-2 rounded-full bg-cyan-500 px-3 py-1 text-[9px] font-bold text-white">
+            Open
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
