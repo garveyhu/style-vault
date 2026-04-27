@@ -149,33 +149,38 @@ function ProductCard({
         className="grid"
         style={{ gridTemplateColumns: `${COVER_WIDTH}px 1fr` }}
       >
-        {/* 封面 */}
+        {/* 封面：浮起作品照（C 方案） */}
         <div
-          ref={previewRef}
-          className="relative overflow-hidden bg-slate-50"
+          className="relative flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100/60"
           style={{ height: COVER_HEIGHT }}
         >
-          {CoverComp ? (
-            <div
-              className="pointer-events-none absolute left-0 top-0 origin-top-left"
-              style={{
-                width: `${PREVIEW_VIRTUAL_WIDTH}px`,
-                height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
-                transform: `scale(${scale})`,
-              }}
-              aria-hidden
-            >
-              <CoverComp />
-            </div>
-          ) : (
-            <div
-              className="h-full w-full"
-              style={{
-                background:
-                  'repeating-linear-gradient(135deg, #f8fafc, #f8fafc 10px, #f1f5f9 10px, #f1f5f9 20px)',
-              }}
-            />
-          )}
+          <div
+            ref={previewRef}
+            className="relative overflow-hidden rounded-lg border border-slate-200 bg-white shadow-[0_8px_24px_-10px_rgba(15,23,42,0.22)]"
+            style={{ width: '92%', height: '86%' }}
+          >
+            {CoverComp ? (
+              <div
+                className="pointer-events-none absolute left-0 top-0 origin-top-left"
+                style={{
+                  width: `${PREVIEW_VIRTUAL_WIDTH}px`,
+                  height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
+                  transform: `scale(${scale})`,
+                }}
+                aria-hidden
+              >
+                <CoverComp />
+              </div>
+            ) : (
+              <div
+                className="h-full w-full"
+                style={{
+                  background:
+                    'repeating-linear-gradient(135deg, #f8fafc, #f8fafc 10px, #f1f5f9 10px, #f1f5f9 20px)',
+                }}
+              />
+            )}
+          </div>
         </div>
 
         {/* 右侧信息区 */}
