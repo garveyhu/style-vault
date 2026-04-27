@@ -125,6 +125,41 @@ export default function StickyPlatformTopbarPreview() {
               >
                 产品集
               </a>
+              {/* 搜索胶囊触发器 · 唤起 cmd-k-search-panel */}
+              <button
+                type="button"
+                aria-label="搜索"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  height: 36,
+                  padding: '0 14px',
+                  borderRadius: 9999,
+                  border: '1px solid #e2e8f0',
+                  background: 'rgba(255,255,255,0.6)',
+                  fontFamily: SANS,
+                  fontSize: 13,
+                  fontWeight: 500,
+                  color: '#64748b',
+                  cursor: 'pointer',
+                  transition:
+                    'border-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1), background-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1), color 200ms cubic-bezier(0.2, 0.7, 0.2, 1)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = '#cbd5e1';
+                  e.currentTarget.style.background = '#fff';
+                  e.currentTarget.style.color = '#0f172a';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = '#e2e8f0';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.6)';
+                  e.currentTarget.style.color = '#64748b';
+                }}
+              >
+                <span style={{ fontSize: 14 }}>🔍</span>
+                搜索风格
+              </button>
             </nav>
 
             <div style={{ flex: 1 }} />
