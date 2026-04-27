@@ -12,6 +12,7 @@ from style_vault.models.user import User
 from style_vault.modules.auth.schemas.auth_dto import (
     GoogleLoginDTO,
     LoginResultVO,
+    UpdateMeDTO,
     UserVO,
 )
 from style_vault.modules.auth.service.google_auth_service import GoogleAuthService
@@ -34,6 +35,29 @@ def google_login(
 def get_me(current_user: Annotated[User, Depends(get_current_user)]):
     """获取当前登录用户信息。无效/缺失 token 返回 401。"""
     return Result.ok({"user": UserVO.model_validate(current_user).model_dump()})
+
+
+@router.post("/me")
+def update_me(
+    dto: UpdateMeDTO,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[Session, Depends(get_db)],
+):
+    """更新当前用户的资料（目前仅支持改 name）。
+
+    注意：`get_current_user` 内部用独立 SessionLocal 查询并关闭，
+    返回的 User 是 detached 实例，必须 merge 进当前请求 session
+    才能 commit，否则报 InvalidRequestError: not persistent。
+    """
+    name = dto.name.strip()
+    if not name:
+        return Result.fail("name 不能为空")
+    user = db.merge(current_user)
+    user.name = name
+    user.name_customized = True
+    db.commit()
+    db.refresh(user)
+    return Result.ok({"user": UserVO.model_validate(user).model_dump()})
 
 
 @router.post("/logout")

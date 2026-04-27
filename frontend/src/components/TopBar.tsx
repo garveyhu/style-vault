@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Avatar, Dropdown } from 'antd';
-import { HeartOutlined } from '@ant-design/icons';
 import { LoginModal } from './LoginModal';
 import { useAuth } from '../auth/AuthContext';
 import { usePlatform, type PlatformSel } from '../contexts/PlatformContext';
@@ -30,16 +29,13 @@ export function TopBar() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95 backdrop-blur-xl">
       <div className="relative flex h-[72px] items-center gap-8 px-10">
-        {/* Logo + 简洁中文站名 */}
-        <Link to="/" className="group flex shrink-0 items-center gap-2.5">
+        {/* Logo */}
+        <Link to="/" className="group flex shrink-0 items-center" aria-label="Style Vault">
           <img
             src="/logo.svg"
             alt="Style Vault"
             className="h-9 w-9 transition-transform duration-300 group-hover:scale-105"
           />
-          <span className="font-display text-[22px] font-semibold tracking-tight text-slate-900">
-            Style Vault
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
@@ -80,20 +76,8 @@ export function TopBar() {
           </div>
         )}
 
-        {/* 右侧：收藏 + 登录 */}
+        {/* 右侧：登录 / 头像 */}
         <div className="flex items-center gap-2">
-          {user && (
-            <button
-              type="button"
-              onClick={() => nav('/profile')}
-              className="flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
-              aria-label="我的收藏"
-              title="我的收藏"
-            >
-              <HeartOutlined className="text-[16px]" />
-            </button>
-          )}
-
           {loading ? null : user ? (
             <Dropdown
               trigger={['click']}
@@ -126,15 +110,6 @@ export function TopBar() {
                         className="w-full rounded-lg px-5 py-2.5 text-left text-[14px] font-medium text-slate-800 transition hover:bg-slate-50"
                       >
                         我的主页
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        type="button"
-                        onClick={() => nav('/profile?tab=about')}
-                        className="w-full rounded-lg px-5 py-2.5 text-left text-[14px] font-medium text-slate-800 transition hover:bg-slate-50"
-                      >
-                        设置
                       </button>
                     </li>
                   </ul>

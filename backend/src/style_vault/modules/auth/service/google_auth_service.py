@@ -59,9 +59,9 @@ class GoogleAuthService:
         # 先按 google_id 查找（已绑定的用户）
         user = db.query(User).filter(User.google_id == google_id).first()
         if user:
-            # 顺带刷新名字和头像，让登录即同步
+            # 仅在用户未自定义 name 时跟 Google 同步；自定义后保留用户编辑值。
             changed = False
-            if name and user.name != name:
+            if name and not user.name_customized and user.name != name:
                 user.name = name
                 changed = True
             if picture and user.avatar_url != picture:

@@ -17,6 +17,7 @@ type AuthState = {
   loggingIn: boolean;
   login: () => Promise<void>;
   logout: () => Promise<void>;
+  updateProfile: (name: string) => Promise<User>;
 };
 
 const Ctx = createContext<AuthState | null>(null);
@@ -66,8 +67,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   }, []);
 
+  const updateProfile = useCallback(async (name: string) => {
+    const r = await authApi.updateMe(name);
+    setUser(r.user);
+    return r.user;
+  }, []);
+
   return (
-    <Ctx.Provider value={{ user, loading, loggingIn, login, logout }}>
+    <Ctx.Provider
+      value={{ user, loading, loggingIn, login, logout, updateProfile }}
+    >
       {children}
     </Ctx.Provider>
   );

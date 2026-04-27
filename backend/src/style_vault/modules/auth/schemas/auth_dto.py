@@ -12,6 +12,12 @@ class GoogleLoginDTO(BaseModel):
     access_token: str = Field(min_length=1, description="Google OAuth access token")
 
 
+class UpdateMeDTO(BaseModel):
+    """更新当前用户的资料（目前仅支持改 name）"""
+
+    name: str = Field(min_length=1, max_length=64, description="昵称")
+
+
 class UserVO(BaseModel):
     """用户视图对象（响应）"""
 

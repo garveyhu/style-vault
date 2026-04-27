@@ -47,6 +47,16 @@ export const authApi = {
     invalidateCache('/api/auth/me');
   },
 
+  async updateMe(name: string): Promise<{ user: User }> {
+    const r = await apiFetch<{ user: User }>('/api/auth/me', {
+      method: 'POST',
+      body: JSON.stringify({ name }),
+    });
+    G.__sv_mePromise = Promise.resolve(r);
+    invalidateCache('/api/auth/me');
+    return r;
+  },
+
   invalidateMe() {
     G.__sv_mePromise = null;
   },
