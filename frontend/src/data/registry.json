@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-27T02:21:37.653Z",
+  "version": "2026-04-27T04:13:31.638Z",
   "items": [
     {
       "id": "blocks/display/acme/saas-data-table",
@@ -137,8 +137,8 @@
       "preview": "/preview/blocks/display/skillhub/leaderboard-row",
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
-        "pages/landing/skillhub/skill-community-home",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/skillhub/leaderboard-row.md"
@@ -210,6 +210,74 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/skillhub/table.md"
+    },
+    {
+      "id": "blocks/display/style-vault/floating-cover-row",
+      "type": "block",
+      "name": "浮起作品照行卡",
+      "description": "宽行卡片 · 左侧渐变底盒里浮起白卡作品照 · 右侧元信息 + 三段 mono 数字徽标",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/style-vault/slate-cyan-cool",
+        "tokens/typography/pairs/style-vault/inter-editorial-display",
+        "tokens/motion/style-vault/editorial-flow"
+      ],
+      "preview": "/preview/blocks/display/style-vault/floating-cover-row",
+      "usedBy": [
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/style-vault/floating-cover-row.md"
+    },
+    {
+      "id": "blocks/display/style-vault/preview-thumb-card",
+      "type": "block",
+      "name": "虚拟视口预览缩略卡",
+      "description": "1440×900 虚拟视口缩放成卡片缩略 + 悬停内容缩放 + type 圆点元信息 + 收藏按钮",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/style-vault/slate-cyan-cool",
+        "tokens/typography/pairs/style-vault/inter-editorial-display",
+        "tokens/motion/style-vault/editorial-flow"
+      ],
+      "preview": "/preview/blocks/display/style-vault/preview-thumb-card",
+      "usedBy": [
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/style-vault/preview-thumb-card.md"
     },
     {
       "id": "blocks/feedback/acme/saas-status-banner",
@@ -416,6 +484,40 @@
       "skillPath": "blocks/layout/skillhub/toolbar-bar.md"
     },
     {
+      "id": "blocks/layout/style-vault/browser-chrome-frame",
+      "type": "block",
+      "name": "浏览器 Chrome 预览框",
+      "description": "mac 红黄绿 dot + slate-50 chrome bar + 居中标题 · 内嵌响应式视口预览",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial",
+          "skeuomorph"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/style-vault/slate-cyan-cool",
+        "tokens/typography/pairs/style-vault/inter-editorial-display"
+      ],
+      "preview": "/preview/blocks/layout/style-vault/browser-chrome-frame",
+      "usedBy": [
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/layout/style-vault/browser-chrome-frame.md"
+    },
+    {
       "id": "blocks/marketing/skillhub/gradient-hero",
       "type": "block",
       "name": "流光渐变 Hero",
@@ -450,6 +552,45 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/marketing/skillhub/gradient-hero.md"
+    },
+    {
+      "id": "blocks/marketing/style-vault/cool-blob-hero",
+      "type": "block",
+      "name": "冷感漂浮 Hero",
+      "description": "全屏 hero · 双 blob 漂浮 + 三段 fade-up cascade + 渐变 bg-clip 标题 + dark pill CTA",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "cold",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/style-vault/slate-cyan-cool",
+        "tokens/typography/pairs/style-vault/inter-editorial-display",
+        "tokens/gradient/style-vault/cool-blob-decor",
+        "tokens/motion/style-vault/editorial-flow",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
+        "components/buttons/style-vault/dark-pill-cta"
+      ],
+      "preview": "/preview/blocks/marketing/style-vault/cool-blob-hero",
+      "usedBy": [
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/marketing/style-vault/cool-blob-hero.md"
     },
     {
       "id": "blocks/nav/acme/saas-cold-topbar",
@@ -520,16 +661,51 @@
         "pages/dashboard/skillhub/admin-overview",
         "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
+        "pages/list-table/skillhub/admin-console",
         "pages/detail/skillhub/user-public-profile",
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/landing/skillhub/skill-community-home",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/profile-edit",
-        "pages/landing/skillhub/skill-community-home",
-        "pages/list-table/skillhub/practice-plaza",
-        "pages/list-table/skillhub/admin-console",
         "pages/form-flow/skillhub/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/nav/skillhub/glass-pill-navbar.md"
+    },
+    {
+      "id": "blocks/nav/style-vault/sticky-platform-topbar",
+      "type": "block",
+      "name": "Sticky 平台切换顶栏",
+      "description": "sticky bg-white/95 backdrop-blur 顶栏 + 视口绝对居中的 platform underline tab + 右侧登录 / 头像",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/style-vault/slate-cyan-cool",
+        "tokens/typography/pairs/style-vault/inter-editorial-display",
+        "components/buttons/style-vault/dark-pill-cta",
+        "components/toggles/style-vault/editorial-underline-tab"
+      ],
+      "preview": "/preview/blocks/nav/style-vault/sticky-platform-topbar",
+      "usedBy": [
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/style-vault/sticky-platform-topbar.md"
     },
     {
       "id": "components/avatars-icons/skillhub/letter-avatar",
@@ -558,17 +734,17 @@
       ],
       "preview": "/preview/components/avatars-icons/skillhub/letter-avatar",
       "usedBy": [
-        "blocks/form/skillhub/profile-edit-form",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
+        "blocks/form/skillhub/profile-edit-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
+        "pages/detail/skillhub/skill-article-detail",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza",
-        "pages/detail/skillhub/skill-article-detail"
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/avatars-icons/skillhub/letter-avatar.md"
@@ -714,13 +890,83 @@
         "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
+        "pages/list-table/skillhub/practice-plaza",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/profile-edit",
-        "pages/list-table/skillhub/practice-plaza",
         "pages/form-flow/skillhub/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/buttons/skillhub/dark-primary-cta.md"
+    },
+    {
+      "id": "components/buttons/style-vault/dark-pill-cta",
+      "type": "component",
+      "name": "深色胶囊主 CTA",
+      "description": "rounded-full bg-slate-900 + 深柔投影 + ArrowRight 位移的主操作按钮",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/style-vault/slate-cyan-cool",
+        "tokens/motion/style-vault/editorial-flow"
+      ],
+      "preview": "/preview/components/buttons/style-vault/dark-pill-cta",
+      "usedBy": [
+        "blocks/marketing/style-vault/cool-blob-hero",
+        "blocks/nav/style-vault/sticky-platform-topbar",
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/buttons/style-vault/dark-pill-cta.md"
+    },
+    {
+      "id": "components/buttons/style-vault/ghost-bordered-cta",
+      "type": "component",
+      "name": "描边幽灵 CTA",
+      "description": "border-[1.5px] border-slate-300 + rounded-lg + hover 收紧到 slate-900 的次操作按钮",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/style-vault/slate-cyan-cool",
+        "tokens/motion/style-vault/editorial-flow"
+      ],
+      "preview": "/preview/components/buttons/style-vault/ghost-bordered-cta",
+      "usedBy": [
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/buttons/style-vault/ghost-bordered-cta.md"
     },
     {
       "id": "components/indicators/acme/status-pulse",
@@ -894,12 +1140,82 @@
         "styles/community-social/skillhub-soft-modernist",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/form-flow/skillhub/practice-compose",
+        "pages/list-table/skillhub/practice-plaza",
         "pages/landing/skillhub/skill-community-home",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/form-flow/skillhub/practice-compose"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/tags-badges/skillhub/teal-pill.md"
+    },
+    {
+      "id": "components/tags-badges/style-vault/cyan-dot-meta-pill",
+      "type": "component",
+      "name": "Cyan Dot Meta Pill",
+      "description": "圆角胶囊 + cyan 小圆点 + uppercase tracking caption 的元信息标签",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/style-vault/slate-cyan-cool",
+        "tokens/typography/pairs/style-vault/inter-editorial-display"
+      ],
+      "preview": "/preview/components/tags-badges/style-vault/cyan-dot-meta-pill",
+      "usedBy": [
+        "blocks/marketing/style-vault/cool-blob-hero",
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/tags-badges/style-vault/cyan-dot-meta-pill.md"
+    },
+    {
+      "id": "components/toggles/style-vault/editorial-underline-tab",
+      "type": "component",
+      "name": "编辑式 Tab 下划线",
+      "description": "2px scaleX 渐变下划线（cyan→slate-900）的 editorial 风 tab，配色文转黑表达 active",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/style-vault/slate-cyan-cool",
+        "tokens/motion/style-vault/editorial-flow"
+      ],
+      "preview": "/preview/components/toggles/style-vault/editorial-underline-tab",
+      "usedBy": [
+        "blocks/nav/style-vault/sticky-platform-topbar",
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/toggles/style-vault/editorial-underline-tab.md"
     },
     {
       "id": "pages/auth/acme/auth-cold-split",
@@ -1223,6 +1539,36 @@
       "skillPath": "pages/detail/skillhub/user-public-profile/README.md"
     },
     {
+      "id": "pages/detail/style-vault/sticky-toc-product",
+      "type": "page",
+      "name": "Sticky TOC 产品详情页",
+      "description": "Cover Hero（双 blob + 主 CTA）+ 88px 窄 sticky 数字 TOC + masonry 分段（pages / blocks / components / tokens）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/pages/detail/style-vault/sticky-toc-product",
+      "uses": [],
+      "usedBy": [
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/detail/style-vault/sticky-toc-product/README.md"
+    },
+    {
       "id": "pages/form-flow/skillhub/practice-compose",
       "type": "page",
       "name": "实践帖发布编辑器",
@@ -1399,6 +1745,37 @@
       "skillPath": "pages/landing/skillhub/skill-community-home/README.md"
     },
     {
+      "id": "pages/landing/style-vault/editorial-cool-landing",
+      "type": "page",
+      "name": "编辑感冷调落地页",
+      "description": "Hero（双 blob）→ Logo 墙 → 3 段 01/02/03 大字叙事 → Manifesto 暗底 → Footer",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "cold",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/pages/landing/style-vault/editorial-cool-landing",
+      "uses": [],
+      "usedBy": [
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/landing/style-vault/editorial-cool-landing/README.md"
+    },
+    {
       "id": "pages/list-table/acme/saas-incident-list",
       "type": "page",
       "name": "SaaS 事件列表",
@@ -1505,6 +1882,36 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/list-table/skillhub/practice-plaza/README.md"
+    },
+    {
+      "id": "pages/list-table/style-vault/category-row-browse",
+      "type": "page",
+      "name": "类目行浏览页",
+      "description": "TopBar + Sticky CategoryTabs + 每类一行的卡片浏览页（按断点 useCols 列数 + slice 只展一行）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/pages/list-table/style-vault/category-row-browse",
+      "uses": [],
+      "usedBy": [
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/list-table/style-vault/category-row-browse/README.md"
     },
     {
       "id": "pages/pricing/acme/saas-cold-pricing",
@@ -1669,6 +2076,60 @@
       "skillPath": "products/skillhub/README.md"
     },
     {
+      "id": "products/style-vault",
+      "type": "product",
+      "name": "Style Vault · 风格库",
+      "description": "为 AI 编码而造的设计风格库——六个层级（token / component / block / page / style / product），AI 复用每条资产时自带风格不出 AI 味",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "category": "design",
+      "refs": {
+        "style": "styles/portfolio-studio/style-vault-cool-editorial",
+        "pages": [
+          "pages/landing/style-vault/editorial-cool-landing",
+          "pages/detail/style-vault/sticky-toc-product",
+          "pages/list-table/style-vault/category-row-browse"
+        ],
+        "blocks": [
+          "blocks/marketing/style-vault/cool-blob-hero",
+          "blocks/display/style-vault/preview-thumb-card",
+          "blocks/display/style-vault/floating-cover-row",
+          "blocks/layout/style-vault/browser-chrome-frame",
+          "blocks/nav/style-vault/sticky-platform-topbar"
+        ],
+        "components": [
+          "components/buttons/style-vault/dark-pill-cta",
+          "components/buttons/style-vault/ghost-bordered-cta",
+          "components/tags-badges/style-vault/cyan-dot-meta-pill",
+          "components/toggles/style-vault/editorial-underline-tab"
+        ],
+        "tokens": {
+          "palette": "tokens/palettes/style-vault/slate-cyan-cool",
+          "typography": "tokens/typography/pairs/style-vault/inter-editorial-display"
+        }
+      },
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "cold",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": false,
+      "skillPath": "products/style-vault/README.md"
+    },
+    {
       "id": "styles/community-social/skillhub-soft-modernist",
       "type": "style",
       "name": "SkillHub 柔雾现代风",
@@ -1732,6 +2193,52 @@
       "skillPath": "styles/community-social/skillhub-soft-modernist/README.md"
     },
     {
+      "id": "styles/portfolio-studio/style-vault-cool-editorial",
+      "type": "style",
+      "name": "冷感 Editorial 设计目录站",
+      "description": "浅底 #fafafa + slate-cyan 冷感 + Inter 单字族 editorial 节奏 + 漂浮 blob 装饰 + 浮起卡片 — 设计目录 / portfolio 网站的整站调性",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "cold",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/style-vault/slate-cyan-cool",
+        "tokens/typography/pairs/style-vault/inter-editorial-display",
+        "tokens/gradient/style-vault/cool-blob-decor",
+        "tokens/motion/style-vault/editorial-flow",
+        "components/buttons/style-vault/dark-pill-cta",
+        "components/buttons/style-vault/ghost-bordered-cta",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
+        "components/toggles/style-vault/editorial-underline-tab",
+        "blocks/marketing/style-vault/cool-blob-hero",
+        "blocks/display/style-vault/preview-thumb-card",
+        "blocks/display/style-vault/floating-cover-row",
+        "blocks/layout/style-vault/browser-chrome-frame",
+        "blocks/nav/style-vault/sticky-platform-topbar",
+        "pages/landing/style-vault/editorial-cool-landing",
+        "pages/detail/style-vault/sticky-toc-product",
+        "pages/list-table/style-vault/category-row-browse"
+      ],
+      "preview": "/preview/styles/portfolio-studio/style-vault-cool-editorial",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "styles/portfolio-studio/style-vault-cool-editorial/README.md"
+    },
+    {
       "id": "styles/saas-tool/cold-industrial-saas",
       "type": "style",
       "name": "冷感工业 SaaS",
@@ -1775,6 +2282,38 @@
       "usedBy": [],
       "hasPreviewFile": true,
       "skillPath": "styles/saas-tool/cold-industrial-saas/README.md"
+    },
+    {
+      "id": "tokens/gradient/style-vault/cool-blob-decor",
+      "type": "token",
+      "name": "冷感漂浮气泡装饰",
+      "description": "双 blob 漂浮装饰 —— cyan-100 + slate-200，blur-3xl 模糊 + 长周期 keyframes 漂移",
+      "platforms": [
+        "any"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "organic"
+        ],
+        "mood": [
+          "calm",
+          "dreamy"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "preview": "/preview/tokens/gradient/style-vault/cool-blob-decor",
+      "uses": [],
+      "usedBy": [
+        "blocks/marketing/style-vault/cool-blob-hero",
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/gradient/style-vault/cool-blob-decor.md"
     },
     {
       "id": "tokens/layout/_shared/fixed-cols-row",
@@ -1890,17 +2429,54 @@
       "uses": [],
       "preview": "/preview/tokens/motion/skillhub/gentle-flow",
       "usedBy": [
+        "blocks/display/skillhub/leaderboard-row",
+        "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/skeleton-card",
         "blocks/marketing/skillhub/gradient-hero",
         "components/buttons/skillhub/border-trace-cta",
-        "blocks/display/skillhub/leaderboard-row",
-        "blocks/display/skillhub/skill-card",
         "styles/community-social/skillhub-soft-modernist",
         "pages/landing/skillhub/skill-community-home",
         "pages/form-flow/skillhub/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/skillhub/gentle-flow.md"
+    },
+    {
+      "id": "tokens/motion/style-vault/editorial-flow",
+      "type": "token",
+      "name": "Editorial Flow Motion",
+      "description": "cubic-bezier(0.2, 0.7, 0.2, 1) + 阶梯 fade-up + 卡片浮起 + 长周期 blob drift + 入场延迟序列",
+      "platforms": [
+        "any"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "preview": "/preview/tokens/motion/style-vault/editorial-flow",
+      "uses": [],
+      "usedBy": [
+        "blocks/display/style-vault/floating-cover-row",
+        "blocks/display/style-vault/preview-thumb-card",
+        "blocks/marketing/style-vault/cool-blob-hero",
+        "components/buttons/style-vault/dark-pill-cta",
+        "components/buttons/style-vault/ghost-bordered-cta",
+        "components/toggles/style-vault/editorial-underline-tab",
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/motion/style-vault/editorial-flow.md"
     },
     {
       "id": "tokens/palettes/acme/slate-cyan-ice",
@@ -1968,19 +2544,19 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/skillhub/skillhub-teal-mist",
       "usedBy": [
-        "blocks/feedback/skillhub/empty-state",
-        "blocks/feedback/skillhub/skeleton-card",
-        "blocks/marketing/skillhub/gradient-hero",
-        "blocks/nav/skillhub/glass-pill-navbar",
-        "blocks/form/skillhub/auth-split-form",
-        "blocks/form/skillhub/profile-edit-form",
-        "components/buttons/skillhub/border-trace-cta",
-        "components/buttons/skillhub/dark-primary-cta",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
-        "components/indicators/skillhub/pulse-dot",
+        "blocks/feedback/skillhub/empty-state",
+        "blocks/feedback/skillhub/skeleton-card",
+        "blocks/form/skillhub/auth-split-form",
+        "blocks/form/skillhub/profile-edit-form",
+        "blocks/marketing/skillhub/gradient-hero",
         "components/avatars-icons/skillhub/letter-avatar",
+        "blocks/nav/skillhub/glass-pill-navbar",
+        "components/buttons/skillhub/border-trace-cta",
+        "components/buttons/skillhub/dark-primary-cta",
+        "components/indicators/skillhub/pulse-dot",
         "components/inputs/skillhub/soft-form-input",
         "components/tags-badges/skillhub/teal-pill",
         "styles/community-social/skillhub-soft-modernist",
@@ -1988,16 +2564,57 @@
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/admin-overview",
         "pages/dashboard/skillhub/user-home",
-        "pages/detail/skillhub/user-public-profile",
-        "pages/form-flow/skillhub/profile-edit",
-        "pages/landing/skillhub/skill-community-home",
-        "pages/list-table/skillhub/practice-plaza",
-        "pages/list-table/skillhub/admin-console",
         "pages/detail/skillhub/skill-article-detail",
+        "pages/list-table/skillhub/admin-console",
+        "pages/detail/skillhub/user-public-profile",
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/landing/skillhub/skill-community-home",
+        "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/skillhub/skillhub-teal-mist.md"
+    },
+    {
+      "id": "tokens/palettes/style-vault/slate-cyan-cool",
+      "type": "token",
+      "name": "Slate × Cyan Cool",
+      "description": "浅底冷感设计目录站配色 —— slate 全阶 + cyan 单点 accent +",
+      "platforms": [
+        "any"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "cold",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "preview": "/preview/tokens/palettes/style-vault/slate-cyan-cool",
+      "uses": [],
+      "usedBy": [
+        "blocks/display/style-vault/floating-cover-row",
+        "blocks/display/style-vault/preview-thumb-card",
+        "blocks/layout/style-vault/browser-chrome-frame",
+        "blocks/marketing/style-vault/cool-blob-hero",
+        "blocks/nav/style-vault/sticky-platform-topbar",
+        "components/buttons/style-vault/dark-pill-cta",
+        "components/buttons/style-vault/ghost-bordered-cta",
+        "components/toggles/style-vault/editorial-underline-tab",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/palettes/style-vault/slate-cyan-cool.md"
     },
     {
       "id": "tokens/shadow/skillhub/ambient-float",
@@ -2024,9 +2641,9 @@
       "uses": [],
       "preview": "/preview/tokens/shadow/skillhub/ambient-float",
       "usedBy": [
-        "blocks/nav/skillhub/glass-pill-navbar",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/skill-card",
+        "blocks/nav/skillhub/glass-pill-navbar",
         "components/indicators/skillhub/pulse-dot",
         "styles/community-social/skillhub-soft-modernist"
       ],
@@ -2096,19 +2713,56 @@
       "uses": [],
       "preview": "/preview/tokens/typography/pairs/skillhub/inter-jetbrains-duo",
       "usedBy": [
-        "blocks/marketing/skillhub/gradient-hero",
         "blocks/form/skillhub/auth-split-form",
+        "blocks/marketing/skillhub/gradient-hero",
         "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
         "pages/dashboard/skillhub/admin-overview",
+        "pages/detail/skillhub/skill-article-detail",
         "pages/detail/skillhub/practice-post-detail",
-        "pages/form-flow/skillhub/practice-compose",
-        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console",
-        "pages/detail/skillhub/skill-article-detail"
+        "pages/landing/skillhub/skill-community-home",
+        "pages/form-flow/skillhub/practice-compose"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/skillhub/inter-jetbrains-duo.md"
+    },
+    {
+      "id": "tokens/typography/pairs/style-vault/inter-editorial-display",
+      "type": "token",
+      "name": "Inter Editorial Display",
+      "description": "单字族 Inter，靠字距 + ss01/cv 数字 features + uppercase tracking caption + mono 索引数字拉出编辑感层级",
+      "platforms": [
+        "any"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "preview": "/preview/tokens/typography/pairs/style-vault/inter-editorial-display",
+      "uses": [],
+      "usedBy": [
+        "blocks/display/style-vault/floating-cover-row",
+        "blocks/display/style-vault/preview-thumb-card",
+        "blocks/layout/style-vault/browser-chrome-frame",
+        "blocks/marketing/style-vault/cool-blob-hero",
+        "blocks/nav/style-vault/sticky-platform-topbar",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/typography/pairs/style-vault/inter-editorial-display.md"
     }
   ]
 }
