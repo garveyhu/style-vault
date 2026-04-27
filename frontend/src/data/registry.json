@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-27T06:05:20.611Z",
+  "version": "2026-04-27T07:30:15.042Z",
   "items": [
     {
       "id": "blocks/display/acme/saas-data-table",
@@ -71,6 +71,37 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/acme/saas-metric-grid.md"
+    },
+    {
+      "id": "blocks/display/sage/datasource-card",
+      "type": "block",
+      "name": "数据源卡片",
+      "description": "数据库 logo + 名称 + 默认 tag + hover 操作 + 表数信息，sage 数据源 list 唯一卡片形态",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum"
+      ],
+      "preview": "/preview/blocks/display/sage/datasource-card",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "pages/list-table/sage/datasource-grid"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/sage/datasource-card.md"
     },
     {
       "id": "blocks/display/skillhub/gradient-stat-card",
@@ -317,6 +348,99 @@
       "skillPath": "blocks/feedback/acme/saas-status-banner.md"
     },
     {
+      "id": "blocks/feedback/sage/admin-overlay-modal",
+      "type": "block",
+      "name": "Admin 全屏 Overlay",
+      "description": "bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl 全屏管理面板 + 右上角关闭，sage 所有 admin 模块的统一外壳",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "glass"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/blocks/feedback/sage/admin-overlay-modal",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/feedback/sage/admin-overlay-modal.md"
+    },
+    {
+      "id": "blocks/feedback/sage/delete-confirm-modal",
+      "type": "block",
+      "name": "删除确认弹窗",
+      "description": "rounded-3xl + AlertTriangle 红圆 icon + slate 暗背 + 双按钮（取消/删除）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/blocks/feedback/sage/delete-confirm-modal",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "pages/dashboard/sage/agent-chat-stream",
+        "pages/list-table/sage/admin-table-management"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/feedback/sage/delete-confirm-modal.md"
+    },
+    {
+      "id": "blocks/feedback/sage/spin-fullscreen-loader",
+      "type": "block",
+      "name": "全屏 Spin 加载",
+      "description": "AntD Spin + 主题色注入 + slate-50 背景 + 可选 fullScreen 占据 100vh",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum"
+      ],
+      "preview": "/preview/blocks/feedback/sage/spin-fullscreen-loader",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "pages/dashboard/sage/agent-chat-stream",
+        "pages/list-table/sage/datasource-grid"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/feedback/sage/spin-fullscreen-loader.md"
+    },
+    {
       "id": "blocks/feedback/skillhub/empty-state",
       "type": "block",
       "name": "空态",
@@ -419,6 +543,42 @@
       "skillPath": "blocks/filters/style-vault/sticky-chip-filter-panel.md"
     },
     {
+      "id": "blocks/form/sage/chat-composer",
+      "type": "block",
+      "name": "Chat 消息输入器",
+      "description": "整体 ChatInput 模块——glow border textarea + skill bar + voice + send/stop，sage 主聊天页输入腰带",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident",
+          "dreamy"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum",
+        "components/inputs/sage/glow-border-textarea",
+        "components/buttons/sage/theme-bg-cta",
+        "components/buttons/sage/stop-pulse-button"
+      ],
+      "preview": "/preview/blocks/form/sage/chat-composer",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "pages/dashboard/sage/agent-chat-stream"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/form/sage/chat-composer.md"
+    },
+    {
       "id": "blocks/form/skillhub/auth-split-form",
       "type": "block",
       "name": "分屏登录注册表单",
@@ -489,6 +649,73 @@
       "skillPath": "blocks/form/skillhub/profile-edit-form.md"
     },
     {
+      "id": "blocks/layout/sage/management-layout-header",
+      "type": "block",
+      "name": "管理页头",
+      "description": "title + 搜索 + filter slot + rightActions 的通用管理后台 header，注入 ConfigProvider 主题色",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum"
+      ],
+      "preview": "/preview/blocks/layout/sage/management-layout-header",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "pages/dashboard/sage/analytics-feedback",
+        "pages/dashboard/sage/analytics-usage",
+        "pages/form-flow/sage/rule-set-stepper-modal",
+        "pages/list-table/sage/admin-table-management"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/layout/sage/management-layout-header.md"
+    },
+    {
+      "id": "blocks/layout/sage/sidebar-detail-split",
+      "type": "block",
+      "name": "侧栏 + 主区分屏布局",
+      "description": "280px Sidebar + 主区 styled-components 布局骨架，SpaceManagement / AgentStorePage 等管理页通用",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum"
+      ],
+      "preview": "/preview/blocks/layout/sage/sidebar-detail-split",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "pages/list-table/sage/agent-store-split-tabs",
+        "pages/list-table/sage/space-management-split"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/layout/sage/sidebar-detail-split.md"
+    },
+    {
       "id": "blocks/layout/skillhub/toolbar-bar",
       "type": "block",
       "name": "管理后台工具栏",
@@ -553,6 +780,38 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/layout/style-vault/browser-chrome-frame.md"
+    },
+    {
+      "id": "blocks/marketing/sage/auth-emerald-card",
+      "type": "block",
+      "name": "Emerald 登录卡片",
+      "description": "max-w-md 居中卡片 + emerald CTA + 图标前缀输入 + 注册码切换，sage 登录页核心模块",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "components/inputs/sage/icon-prefix-input"
+      ],
+      "preview": "/preview/blocks/marketing/sage/auth-emerald-card",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "pages/auth/sage/login-emerald-card"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/marketing/sage/auth-emerald-card.md"
     },
     {
       "id": "blocks/marketing/skillhub/gradient-hero",
@@ -666,6 +925,168 @@
       "skillPath": "blocks/nav/acme/saas-cold-topbar.md"
     },
     {
+      "id": "blocks/nav/sage/command-palette",
+      "type": "block",
+      "name": "Cmd+P 命令面板",
+      "description": "Linear / Raycast 风全局命令面板，分组列表 + 键盘导航 + 状态栏，admin 专属",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum",
+        "tokens/motion/sage/animate-in-suite"
+      ],
+      "preview": "/preview/blocks/nav/sage/command-palette",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/sage/command-palette.md"
+    },
+    {
+      "id": "blocks/nav/sage/revolver-menu-fab",
+      "type": "block",
+      "name": "雪人飘雪左轮菜单",
+      "description": "圆形浮动菜单（内环 4 + 外环最多 12）+ 雪人化身 + 飘雪 + 旋转地球，sage 最独特的\"彩蛋型\"全局导航",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "skeuomorph",
+          "retro"
+        ],
+        "mood": [
+          "playful",
+          "dreamy"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum",
+        "tokens/motion/sage/styled-keyframes"
+      ],
+      "preview": "/preview/blocks/nav/sage/revolver-menu-fab",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/sage/revolver-menu-fab.md"
+    },
+    {
+      "id": "blocks/nav/sage/sidebar-session-row",
+      "type": "block",
+      "name": "侧栏会话行",
+      "description": "单条会话项 + 选中态 + group hover MoreHorizontal 按钮 + 三气泡操作菜单",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum",
+        "tokens/palettes/sage/neutral-rgb-ladder",
+        "components/buttons/sage/icon-circle-ghost"
+      ],
+      "preview": "/preview/blocks/nav/sage/sidebar-session-row",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/sage/sidebar-session-row.md"
+    },
+    {
+      "id": "blocks/nav/sage/space-switcher-dropdown",
+      "type": "block",
+      "name": "空间切换 Dropdown",
+      "description": "LayoutGrid icon + Antd Dropdown + 当前空间高亮（注入 selectionColor 背景 + Check 图标）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum"
+      ],
+      "preview": "/preview/blocks/nav/sage/space-switcher-dropdown",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/sage/space-switcher-dropdown.md"
+    },
+    {
+      "id": "blocks/nav/sage/themed-sidebar-shell",
+      "type": "block",
+      "name": "主题色侧栏壳体",
+      "description": "sage 整站主侧栏整体——logo + space switcher + 入口按钮 + 会话列表 + 用户菜单",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum",
+        "tokens/palettes/sage/neutral-rgb-ladder",
+        "components/buttons/sage/icon-circle-ghost",
+        "components/avatars-icons/sage/themed-circle-avatar"
+      ],
+      "preview": "/preview/blocks/nav/sage/themed-sidebar-shell",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "pages/dashboard/sage/agent-chat-stream"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/sage/themed-sidebar-shell.md"
+    },
+    {
       "id": "blocks/nav/skillhub/glass-pill-navbar",
       "type": "block",
       "name": "玻璃 Pill 导航栏",
@@ -698,10 +1119,10 @@
         "pages/dashboard/skillhub/admin-overview",
         "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
-        "pages/form-flow/skillhub/practice-compose",
         "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/form-flow/skillhub/practice-compose",
         "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console",
         "pages/list-table/skillhub/practice-plaza"
@@ -744,6 +1165,38 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/nav/style-vault/sticky-platform-topbar.md"
+    },
+    {
+      "id": "components/avatars-icons/sage/themed-circle-avatar",
+      "type": "component",
+      "name": "主题色头像",
+      "description": "圆形白底 + slate-200 描边 + 主题色 lucide 图标 + group-hover 旋转 12°",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "playful"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum"
+      ],
+      "preview": "/preview/components/avatars-icons/sage/themed-circle-avatar",
+      "usedBy": [
+        "blocks/nav/sage/themed-sidebar-shell",
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "pages/dashboard/sage/agent-chat-stream"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/avatars-icons/sage/themed-circle-avatar.md"
     },
     {
       "id": "components/avatars-icons/skillhub/letter-avatar",
@@ -853,13 +1306,111 @@
       "usedBy": [
         "blocks/display/acme/saas-data-table",
         "styles/saas-tool/cold-industrial-saas",
-        "pages/auth/acme/auth-cold-split",
         "pages/dashboard/acme/saas-monitor-overview",
+        "pages/auth/acme/auth-cold-split",
         "pages/list-table/acme/saas-incident-list",
         "pages/pricing/acme/saas-cold-pricing"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/buttons/acme/ghost-button.md"
+    },
+    {
+      "id": "components/buttons/sage/icon-circle-ghost",
+      "type": "component",
+      "name": "圆形透明图标按钮",
+      "description": "透明底圆形按钮，hover 时显灰底，sage 整站工具栏 / header / 会话项右侧操作的标配",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/neutral-rgb-ladder"
+      ],
+      "preview": "/preview/components/buttons/sage/icon-circle-ghost",
+      "usedBy": [
+        "blocks/nav/sage/sidebar-session-row",
+        "blocks/nav/sage/themed-sidebar-shell",
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/buttons/sage/icon-circle-ghost.md"
+    },
+    {
+      "id": "components/buttons/sage/stop-pulse-button",
+      "type": "component",
+      "name": "停止生成 · 脉冲按钮",
+      "description": "三层 ping/pulse + 渐变 sheen + 白色内嵌方块，告诉用户\"AI 正在跑，按这里中止\"",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum",
+        "tokens/motion/sage/animate-in-suite"
+      ],
+      "preview": "/preview/components/buttons/sage/stop-pulse-button",
+      "usedBy": [
+        "blocks/form/sage/chat-composer",
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/buttons/sage/stop-pulse-button.md"
+    },
+    {
+      "id": "components/buttons/sage/theme-bg-cta",
+      "type": "component",
+      "name": "主题色 CTA",
+      "description": "用 ${themeClasses.bg} ${themeClasses.bgHover} 动态着色的圆/方角主按钮，整站发送 / 提交 / 主操作",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum"
+      ],
+      "preview": "/preview/components/buttons/sage/theme-bg-cta",
+      "usedBy": [
+        "blocks/form/sage/chat-composer",
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "pages/list-table/sage/agent-store-split-tabs"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/buttons/sage/theme-bg-cta.md"
     },
     {
       "id": "components/buttons/skillhub/border-trace-cta",
@@ -927,10 +1478,10 @@
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
-        "pages/form-flow/skillhub/practice-compose",
         "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/form-flow/skillhub/practice-compose",
         "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
@@ -1044,6 +1595,69 @@
       "skillPath": "components/indicators/acme/status-pulse.md"
     },
     {
+      "id": "components/indicators/sage/crystal-progress-bar",
+      "type": "component",
+      "name": "Crystal 玻璃进度条",
+      "description": "10px 圆角条 + 玻璃反光 + 对角条纹 + shimmer 流光 + pulse 阴影呼吸的复合进度组件",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "skeuomorph"
+        ],
+        "mood": [
+          "calm",
+          "dreamy"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum",
+        "tokens/motion/sage/styled-keyframes"
+      ],
+      "preview": "/preview/components/indicators/sage/crystal-progress-bar",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/indicators/sage/crystal-progress-bar.md"
+    },
+    {
+      "id": "components/indicators/sage/hairline-scrollbar",
+      "type": "component",
+      "name": "极细滚动条体系",
+      "description": "7px 全局 / 3px 下拉 / 4px 侧栏 / 0px 隐藏 四档自定义 webkit-scrollbar，sage 不留滚动条视觉债的关键",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/neutral-rgb-ladder"
+      ],
+      "preview": "/preview/components/indicators/sage/hairline-scrollbar",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/indicators/sage/hairline-scrollbar.md"
+    },
+    {
       "id": "components/indicators/skillhub/pulse-dot",
       "type": "component",
       "name": "脉冲状态点",
@@ -1112,6 +1726,68 @@
       "skillPath": "components/inputs/acme/mono-input.md"
     },
     {
+      "id": "components/inputs/sage/glow-border-textarea",
+      "type": "component",
+      "name": "霓虹光晕 textarea",
+      "description": "rounded-[24px] textarea + 双层 box-shadow 主题色 focus 光晕，sage Chat 主输入框的灵魂",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "dreamy"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum"
+      ],
+      "preview": "/preview/components/inputs/sage/glow-border-textarea",
+      "usedBy": [
+        "blocks/form/sage/chat-composer",
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/inputs/sage/glow-border-textarea.md"
+    },
+    {
+      "id": "components/inputs/sage/icon-prefix-input",
+      "type": "component",
+      "name": "前缀图标 Input",
+      "description": "pl-10 + 绝对定位 lucide 图标的表单输入，sage 登录页 / 注册码 / 部分 admin 表单的标准款",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/components/inputs/sage/icon-prefix-input",
+      "usedBy": [
+        "blocks/marketing/sage/auth-emerald-card",
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "pages/auth/sage/login-emerald-card"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/inputs/sage/icon-prefix-input.md"
+    },
+    {
       "id": "components/inputs/skillhub/soft-form-input",
       "type": "component",
       "name": "柔边表单输入",
@@ -1141,8 +1817,8 @@
         "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/form-flow/skillhub/practice-compose",
-        "pages/form-flow/skillhub/skill-publish-wizard"
+        "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/form-flow/skillhub/practice-compose"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/inputs/skillhub/soft-form-input.md"
@@ -1211,8 +1887,8 @@
         "blocks/display/skillhub/leaderboard-row",
         "styles/community-social/skillhub-soft-modernist",
         "pages/detail/skillhub/practice-post-detail",
-        "pages/form-flow/skillhub/practice-compose",
         "pages/detail/skillhub/user-public-profile",
+        "pages/form-flow/skillhub/practice-compose",
         "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza"
       ],
@@ -1326,6 +2002,38 @@
       "skillPath": "pages/auth/acme/auth-cold-split/README.md"
     },
     {
+      "id": "pages/auth/sage/login-emerald-card",
+      "type": "page",
+      "name": "Sage 登录页",
+      "description": "slate-50 全屏背景 + 居中卡片 + emerald CTA + 注册码可选 + 右上语言切换",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/marketing/sage/auth-emerald-card",
+        "components/inputs/sage/icon-prefix-input"
+      ],
+      "preview": "/preview/pages/auth/sage/login-emerald-card",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/auth/sage/login-emerald-card/README.md"
+    },
+    {
       "id": "pages/auth/skillhub/auth-split",
       "type": "page",
       "name": "登录注册分屏",
@@ -1431,6 +2139,105 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/dashboard/acme/saas-monitor-overview/README.md"
+    },
+    {
+      "id": "pages/dashboard/sage/agent-chat-stream",
+      "type": "page",
+      "name": "Agent Chat Stream",
+      "description": "ChatPage 主舞台——header (model select + title + more) + 消息流 + ChatInput + QuestionNavSidebar",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/sage/themed-sidebar-shell",
+        "blocks/form/sage/chat-composer",
+        "blocks/feedback/sage/delete-confirm-modal",
+        "blocks/feedback/sage/spin-fullscreen-loader",
+        "components/avatars-icons/sage/themed-circle-avatar"
+      ],
+      "preview": "/preview/pages/dashboard/sage/agent-chat-stream",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/dashboard/sage/agent-chat-stream/README.md"
+    },
+    {
+      "id": "pages/dashboard/sage/analytics-feedback",
+      "type": "page",
+      "name": "用户反馈分析",
+      "description": "反馈占比饼图 + 时间趋势 + 反馈列表（带详情）三段式仪表盘",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/layout/sage/management-layout-header"
+      ],
+      "preview": "/preview/pages/dashboard/sage/analytics-feedback",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/dashboard/sage/analytics-feedback/README.md"
+    },
+    {
+      "id": "pages/dashboard/sage/analytics-usage",
+      "type": "page",
+      "name": "模型用量分析",
+      "description": "模型 token / 请求次数 / 成本聚合仪表盘 + 模型对比 + 用户 Top10",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/layout/sage/management-layout-header"
+      ],
+      "preview": "/preview/pages/dashboard/sage/analytics-usage",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/dashboard/sage/analytics-usage/README.md"
     },
     {
       "id": "pages/dashboard/skillhub/admin-overview",
@@ -1703,6 +2510,68 @@
       "skillPath": "pages/detail/style-vault/sticky-toc-product/README.md"
     },
     {
+      "id": "pages/empty-error/sage/crt-tv-404",
+      "type": "page",
+      "name": "CRT 电视机 404",
+      "description": "复古橘色 CRT 电视机 + 天线 + 旋钮 + 喇叭 + 彩条信号干扰屏 + 4 0 4 大字阴影",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "skeuomorph",
+          "retro"
+        ],
+        "mood": [
+          "playful",
+          "nostalgic",
+          "dreamy"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/pages/empty-error/sage/crt-tv-404",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/empty-error/sage/crt-tv-404/README.md"
+    },
+    {
+      "id": "pages/form-flow/sage/rule-set-stepper-modal",
+      "type": "page",
+      "name": "规则集 Stepper Modal",
+      "description": "1200px 大弹窗 + Steps + 双段（规则配置 / 用户分配）+ 嵌套 Card + Transfer 用户穿梭框",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/layout/sage/management-layout-header"
+      ],
+      "preview": "/preview/pages/form-flow/sage/rule-set-stepper-modal",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/form-flow/sage/rule-set-stepper-modal/README.md"
+    },
+    {
       "id": "pages/form-flow/skillhub/practice-compose",
       "type": "page",
       "name": "实践帖发布编辑器",
@@ -1944,6 +2813,131 @@
       "skillPath": "pages/list-table/acme/saas-incident-list/README.md"
     },
     {
+      "id": "pages/list-table/sage/admin-table-management",
+      "type": "page",
+      "name": "Admin Table Management",
+      "description": "ManagementLayout + Antd Table + 操作列 通用模板，UserManagement / RoleManagement / Collections 共用",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/layout/sage/management-layout-header",
+        "blocks/feedback/sage/delete-confirm-modal"
+      ],
+      "preview": "/preview/pages/list-table/sage/admin-table-management",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/list-table/sage/admin-table-management/README.md"
+    },
+    {
+      "id": "pages/list-table/sage/agent-store-split-tabs",
+      "type": "page",
+      "name": "Agent Store Split Tabs",
+      "description": "280px sidebar agent list + 主区 ContentHeader + Tabs (config / run) + AgentConfigModal",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/layout/sage/sidebar-detail-split",
+        "components/buttons/sage/theme-bg-cta"
+      ],
+      "preview": "/preview/pages/list-table/sage/agent-store-split-tabs",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/list-table/sage/agent-store-split-tabs/README.md"
+    },
+    {
+      "id": "pages/list-table/sage/datasource-grid",
+      "type": "page",
+      "name": "数据源 Grid（含 New / Detail）",
+      "description": "4 列 datasource card 网格 + filter + add，合并 list / new / detail 三路由的统一外壳",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/display/sage/datasource-card",
+        "blocks/feedback/sage/spin-fullscreen-loader"
+      ],
+      "preview": "/preview/pages/list-table/sage/datasource-grid",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/list-table/sage/datasource-grid/README.md"
+    },
+    {
+      "id": "pages/list-table/sage/space-management-split",
+      "type": "page",
+      "name": "Space Management Split",
+      "description": "280 sidebar (空间列表) + 主区 (空间详情 + 成员表 + 角色 + Tab)，AgentStorePage 同款骨架",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/layout/sage/sidebar-detail-split"
+      ],
+      "preview": "/preview/pages/list-table/sage/space-management-split",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/list-table/sage/space-management-split/README.md"
+    },
+    {
       "id": "pages/list-table/skillhub/admin-console",
       "type": "page",
       "name": "多域管理后台",
@@ -2171,6 +3165,80 @@
       "usedBy": [],
       "hasPreviewFile": false,
       "skillPath": "products/acme-cold-saas/README.md"
+    },
+    {
+      "id": "products/sage",
+      "type": "product",
+      "name": "Sage · AI 数据分析平台",
+      "description": "多智能体 NL→SQL 数据问答 / 多空间多用户 / 12 主题色个性化 / 雪人 FAB 彩蛋",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "category": "ai",
+      "refs": {
+        "style": "styles/saas-tool/sage-multitheme-data-platform",
+        "pages": [
+          "pages/auth/sage/login-emerald-card",
+          "pages/dashboard/sage/agent-chat-stream",
+          "pages/list-table/sage/datasource-grid",
+          "pages/form-flow/sage/rule-set-stepper-modal",
+          "pages/list-table/sage/agent-store-split-tabs",
+          "pages/list-table/sage/space-management-split",
+          "pages/list-table/sage/admin-table-management",
+          "pages/dashboard/sage/analytics-feedback",
+          "pages/dashboard/sage/analytics-usage",
+          "pages/empty-error/sage/crt-tv-404"
+        ],
+        "blocks": [
+          "blocks/nav/sage/themed-sidebar-shell",
+          "blocks/nav/sage/sidebar-session-row",
+          "blocks/nav/sage/space-switcher-dropdown",
+          "blocks/nav/sage/revolver-menu-fab",
+          "blocks/nav/sage/command-palette",
+          "blocks/layout/sage/management-layout-header",
+          "blocks/layout/sage/sidebar-detail-split",
+          "blocks/feedback/sage/spin-fullscreen-loader",
+          "blocks/feedback/sage/delete-confirm-modal",
+          "blocks/feedback/sage/admin-overlay-modal",
+          "blocks/marketing/sage/auth-emerald-card",
+          "blocks/form/sage/chat-composer",
+          "blocks/display/sage/datasource-card"
+        ],
+        "components": [
+          "components/buttons/sage/theme-bg-cta",
+          "components/buttons/sage/icon-circle-ghost",
+          "components/buttons/sage/stop-pulse-button",
+          "components/inputs/sage/glow-border-textarea",
+          "components/inputs/sage/icon-prefix-input",
+          "components/avatars-icons/sage/themed-circle-avatar",
+          "components/indicators/sage/crystal-progress-bar",
+          "components/indicators/sage/hairline-scrollbar"
+        ],
+        "tokens": {
+          "palette": "tokens/palettes/sage/twelve-theme-spectrum",
+          "typography": "tokens/typography/pairs/sage/inter-stack",
+          "motion": "tokens/motion/sage/animate-in-suite"
+        }
+      },
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident",
+          "dreamy"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/products/sage",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "products/sage/README.md"
     },
     {
       "id": "products/skillhub",
@@ -2472,6 +3540,71 @@
       "skillPath": "styles/saas-tool/cold-industrial-saas/README.md"
     },
     {
+      "id": "styles/saas-tool/sage-multitheme-data-platform",
+      "type": "style",
+      "name": "Sage 多主题色数据平台",
+      "description": "12 主题色用户切换 + 9 阶手调灰阶 + Inter + 雪人 FAB 彩蛋的 AI 数据分析整套设计语言",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident",
+          "dreamy"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/sage/twelve-theme-spectrum",
+        "tokens/palettes/sage/neutral-rgb-ladder",
+        "tokens/typography/pairs/sage/inter-stack",
+        "tokens/motion/sage/animate-in-suite",
+        "tokens/motion/sage/styled-keyframes",
+        "components/buttons/sage/theme-bg-cta",
+        "components/buttons/sage/icon-circle-ghost",
+        "components/buttons/sage/stop-pulse-button",
+        "components/inputs/sage/glow-border-textarea",
+        "components/inputs/sage/icon-prefix-input",
+        "components/avatars-icons/sage/themed-circle-avatar",
+        "components/indicators/sage/crystal-progress-bar",
+        "components/indicators/sage/hairline-scrollbar",
+        "blocks/nav/sage/themed-sidebar-shell",
+        "blocks/nav/sage/sidebar-session-row",
+        "blocks/nav/sage/space-switcher-dropdown",
+        "blocks/nav/sage/revolver-menu-fab",
+        "blocks/nav/sage/command-palette",
+        "blocks/layout/sage/management-layout-header",
+        "blocks/layout/sage/sidebar-detail-split",
+        "blocks/feedback/sage/spin-fullscreen-loader",
+        "blocks/feedback/sage/delete-confirm-modal",
+        "blocks/feedback/sage/admin-overlay-modal",
+        "blocks/marketing/sage/auth-emerald-card",
+        "blocks/form/sage/chat-composer",
+        "blocks/display/sage/datasource-card",
+        "pages/auth/sage/login-emerald-card",
+        "pages/dashboard/sage/agent-chat-stream",
+        "pages/list-table/sage/datasource-grid",
+        "pages/form-flow/sage/rule-set-stepper-modal",
+        "pages/list-table/sage/agent-store-split-tabs",
+        "pages/list-table/sage/space-management-split",
+        "pages/list-table/sage/admin-table-management",
+        "pages/dashboard/sage/analytics-feedback",
+        "pages/dashboard/sage/analytics-usage",
+        "pages/empty-error/sage/crt-tv-404"
+      ],
+      "preview": "/preview/styles/saas-tool/sage-multitheme-data-platform",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "styles/saas-tool/sage-multitheme-data-platform/README.md"
+    },
+    {
       "id": "tokens/gradient/style-vault/cool-blob-decor",
       "type": "token",
       "name": "冷感漂浮气泡装饰",
@@ -2592,12 +3725,74 @@
       "preview": "/preview/tokens/motion/acme/instant-snap",
       "uses": [],
       "usedBy": [
-        "components/indicators/acme/status-pulse",
         "components/buttons/acme/cyan-cta",
+        "components/indicators/acme/status-pulse",
         "styles/saas-tool/cold-industrial-saas"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/acme/instant-snap.md"
+    },
+    {
+      "id": "tokens/motion/sage/animate-in-suite",
+      "type": "token",
+      "name": "Sage Tailwind animate-in 套件",
+      "description": "tailwindcss-animate 提供的 fade-in / zoom-in / slide-in 标准过渡集合，sage 整站弹层入场基线",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/motion/sage/animate-in-suite",
+      "usedBy": [
+        "blocks/nav/sage/command-palette",
+        "components/buttons/sage/stop-pulse-button",
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/motion/sage/animate-in-suite.md"
+    },
+    {
+      "id": "tokens/motion/sage/styled-keyframes",
+      "type": "token",
+      "name": "Sage 7 段 styled-components keyframes",
+      "description": "bling/earthSpin/snowFall/wobble/shimmer/pulse/stripes 七段专属 keyframes，承载 RevolverMenu 飘雪与 CrystalProgress 流光",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "retro"
+        ],
+        "mood": [
+          "playful",
+          "dreamy"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/motion/sage/styled-keyframes",
+      "usedBy": [
+        "blocks/nav/sage/revolver-menu-fab",
+        "components/indicators/sage/crystal-progress-bar",
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/motion/sage/styled-keyframes.md"
     },
     {
       "id": "tokens/motion/skillhub/gentle-flow",
@@ -2624,11 +3819,11 @@
       "uses": [],
       "preview": "/preview/tokens/motion/skillhub/gentle-flow",
       "usedBy": [
+        "blocks/marketing/skillhub/gradient-hero",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
-        "blocks/feedback/skillhub/skeleton-card",
-        "blocks/marketing/skillhub/gradient-hero",
         "components/buttons/skillhub/border-trace-cta",
+        "blocks/feedback/skillhub/skeleton-card",
         "styles/community-social/skillhub-soft-modernist",
         "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/landing/skillhub/skill-community-home"
@@ -2704,9 +3899,9 @@
         "blocks/display/acme/saas-metric-grid",
         "blocks/feedback/acme/saas-status-banner",
         "blocks/nav/acme/saas-cold-topbar",
-        "components/indicators/acme/status-pulse",
         "components/buttons/acme/cyan-cta",
         "components/buttons/acme/ghost-button",
+        "components/indicators/acme/status-pulse",
         "components/inputs/acme/mono-input",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
@@ -2714,6 +3909,82 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/acme/slate-cyan-ice.md"
+    },
+    {
+      "id": "tokens/palettes/sage/neutral-rgb-ladder",
+      "type": "token",
+      "name": "Sage 9 阶 RGB 灰阶",
+      "description": "bg-[rgb(231..252)] 9 个手调灰阶 + slate 体系，承载 sage 整站背景与 hover/selected 微差",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/palettes/sage/neutral-rgb-ladder",
+      "usedBy": [
+        "blocks/nav/sage/sidebar-session-row",
+        "blocks/nav/sage/themed-sidebar-shell",
+        "components/indicators/sage/hairline-scrollbar",
+        "components/buttons/sage/icon-circle-ghost",
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/palettes/sage/neutral-rgb-ladder.md"
+    },
+    {
+      "id": "tokens/palettes/sage/twelve-theme-spectrum",
+      "type": "token",
+      "name": "Sage 十二主题色谱",
+      "description": "12 个用户可切换主题色 × 3 档明度（hex / light / selection），驱动整站 119 处动态着色",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/palettes/sage/twelve-theme-spectrum",
+      "usedBy": [
+        "blocks/display/sage/datasource-card",
+        "blocks/layout/sage/management-layout-header",
+        "blocks/layout/sage/sidebar-detail-split",
+        "blocks/feedback/sage/spin-fullscreen-loader",
+        "blocks/nav/sage/command-palette",
+        "blocks/nav/sage/revolver-menu-fab",
+        "blocks/nav/sage/sidebar-session-row",
+        "blocks/nav/sage/space-switcher-dropdown",
+        "blocks/nav/sage/themed-sidebar-shell",
+        "blocks/form/sage/chat-composer",
+        "components/avatars-icons/sage/themed-circle-avatar",
+        "components/indicators/sage/crystal-progress-bar",
+        "components/buttons/sage/stop-pulse-button",
+        "components/buttons/sage/theme-bg-cta",
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "components/inputs/sage/glow-border-textarea"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/palettes/sage/twelve-theme-spectrum.md"
     },
     {
       "id": "tokens/palettes/skillhub/skillhub-teal-mist",
@@ -2740,24 +4011,24 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/skillhub/skillhub-teal-mist",
       "usedBy": [
+        "blocks/marketing/skillhub/gradient-hero",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
+        "blocks/nav/skillhub/glass-pill-navbar",
+        "components/buttons/skillhub/border-trace-cta",
+        "components/buttons/skillhub/dark-primary-cta",
         "blocks/feedback/skillhub/empty-state",
         "blocks/feedback/skillhub/skeleton-card",
         "blocks/form/skillhub/auth-split-form",
         "blocks/form/skillhub/profile-edit-form",
-        "blocks/marketing/skillhub/gradient-hero",
-        "blocks/nav/skillhub/glass-pill-navbar",
-        "components/avatars-icons/skillhub/letter-avatar",
-        "components/buttons/skillhub/border-trace-cta",
-        "components/buttons/skillhub/dark-primary-cta",
         "components/indicators/skillhub/pulse-dot",
         "components/inputs/skillhub/soft-form-input",
-        "components/tags-badges/skillhub/teal-pill",
+        "components/avatars-icons/skillhub/letter-avatar",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/content-reader/skillhub/im-conversation",
+        "components/tags-badges/skillhub/teal-pill",
         "pages/auth/skillhub/auth-split",
+        "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/admin-overview",
         "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/skill-article-detail",
@@ -2801,8 +4072,8 @@
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
         "blocks/filters/style-vault/sticky-chip-filter-panel",
-        "blocks/layout/style-vault/browser-chrome-frame",
         "blocks/marketing/style-vault/cool-blob-hero",
+        "blocks/layout/style-vault/browser-chrome-frame",
         "blocks/nav/style-vault/sticky-platform-topbar",
         "components/buttons/style-vault/dark-pill-cta",
         "components/buttons/style-vault/ghost-bordered-cta",
@@ -2887,6 +4158,34 @@
       "skillPath": "tokens/typography/pairs/acme/ibm-plex-duo.md"
     },
     {
+      "id": "tokens/typography/pairs/sage/inter-stack",
+      "type": "token",
+      "name": "Sage Inter 单字体栈",
+      "description": "Inter 本地字体替代 Google Fonts + sans 单字体策略，让中文 fallback 接管 CJK 字",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/typography/pairs/sage/inter-stack",
+      "usedBy": [
+        "styles/saas-tool/sage-multitheme-data-platform"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/typography/pairs/sage/inter-stack.md"
+    },
+    {
       "id": "tokens/typography/pairs/skillhub/inter-jetbrains-duo",
       "type": "token",
       "name": "Inter × JetBrains Mono 字体对",
@@ -2911,8 +4210,8 @@
       "uses": [],
       "preview": "/preview/tokens/typography/pairs/skillhub/inter-jetbrains-duo",
       "usedBy": [
-        "blocks/form/skillhub/auth-split-form",
         "blocks/marketing/skillhub/gradient-hero",
+        "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
         "pages/dashboard/skillhub/admin-overview",
@@ -2954,8 +4253,8 @@
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
         "blocks/filters/style-vault/sticky-chip-filter-panel",
-        "blocks/layout/style-vault/browser-chrome-frame",
         "blocks/marketing/style-vault/cool-blob-hero",
+        "blocks/layout/style-vault/browser-chrome-frame",
         "blocks/nav/style-vault/sticky-platform-topbar",
         "components/overlays/style-vault/spring-toast",
         "components/tags-badges/style-vault/cyan-dot-meta-pill",
