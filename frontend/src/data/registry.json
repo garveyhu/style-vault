@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-27T11:37:29.839Z",
+  "version": "2026-04-27T13:47:00.296Z",
   "items": [
     {
       "id": "blocks/display/acme/saas-data-table",
@@ -506,6 +506,40 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/feedback/skillhub/skeleton-card.md"
+    },
+    {
+      "id": "blocks/feedback/style-vault/full-screen-loader",
+      "type": "block",
+      "name": "全屏柔光加载页",
+      "description": "居中 logo 脉动 + emerald→slate 渐变旋转弧 + 柔光呼吸晕 + uppercase 弹跳点文案 · 双模式（fullscreen 接管视口 / inline 60vh 嵌段）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/style-vault/slate-cyan-cool",
+        "tokens/typography/pairs/style-vault/inter-editorial-display",
+        "tokens/motion/style-vault/editorial-flow"
+      ],
+      "preview": "/preview/blocks/feedback/style-vault/full-screen-loader",
+      "usedBy": [
+        "styles/portfolio-studio/style-vault-cool-editorial"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/feedback/style-vault/full-screen-loader.md"
     },
     {
       "id": "blocks/filters/style-vault/sticky-chip-filter-panel",
@@ -1116,10 +1150,10 @@
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/dashboard/skillhub/admin-overview",
-        "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
+        "pages/dashboard/skillhub/admin-overview",
+        "pages/dashboard/skillhub/user-home",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
@@ -1264,13 +1298,13 @@
       "usedBy": [
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
-        "blocks/form/skillhub/profile-edit-form",
         "styles/community-social/skillhub-soft-modernist",
+        "blocks/form/skillhub/profile-edit-form",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/skill-article-detail",
         "pages/detail/skillhub/user-public-profile",
+        "pages/dashboard/skillhub/user-home",
         "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza"
       ],
@@ -1410,8 +1444,8 @@
       ],
       "preview": "/preview/components/buttons/sage/stop-pulse-button",
       "usedBy": [
-        "blocks/form/sage/chat-composer",
-        "styles/saas-tool/sage-multitheme-data-platform"
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "blocks/form/sage/chat-composer"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/buttons/sage/stop-pulse-button.md"
@@ -1442,8 +1476,8 @@
       ],
       "preview": "/preview/components/buttons/sage/theme-bg-cta",
       "usedBy": [
-        "blocks/form/sage/chat-composer",
         "styles/saas-tool/sage-multitheme-data-platform",
+        "blocks/form/sage/chat-composer",
         "pages/list-table/sage/agent-store-split-tabs"
       ],
       "hasPreviewFile": true,
@@ -1510,12 +1544,12 @@
       ],
       "preview": "/preview/components/buttons/skillhub/dark-primary-cta",
       "usedBy": [
-        "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
+        "blocks/form/skillhub/auth-split-form",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
+        "pages/dashboard/skillhub/user-home",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
@@ -1788,8 +1822,8 @@
       ],
       "preview": "/preview/components/inputs/sage/glow-border-textarea",
       "usedBy": [
-        "blocks/form/sage/chat-composer",
-        "styles/saas-tool/sage-multitheme-data-platform"
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "blocks/form/sage/chat-composer"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/inputs/sage/glow-border-textarea.md"
@@ -1851,8 +1885,8 @@
       ],
       "preview": "/preview/components/inputs/skillhub/soft-form-input",
       "usedBy": [
-        "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
+        "blocks/form/skillhub/auth-split-form",
         "pages/content-reader/skillhub/im-conversation",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/skill-publish-wizard"
@@ -1962,8 +1996,8 @@
       "preview": "/preview/components/tags-badges/style-vault/cyan-dot-meta-pill",
       "usedBy": [
         "blocks/marketing/style-vault/cool-blob-hero",
-        "blocks/search/style-vault/cmd-k-search-panel",
-        "styles/portfolio-studio/style-vault-cool-editorial"
+        "styles/portfolio-studio/style-vault-cool-editorial",
+        "blocks/search/style-vault/cmd-k-search-panel"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/tags-badges/style-vault/cyan-dot-meta-pill.md"
@@ -3378,7 +3412,8 @@
           "blocks/layout/style-vault/browser-chrome-frame",
           "blocks/nav/style-vault/sticky-platform-topbar",
           "blocks/filters/style-vault/sticky-chip-filter-panel",
-          "blocks/search/style-vault/cmd-k-search-panel"
+          "blocks/search/style-vault/cmd-k-search-panel",
+          "blocks/feedback/style-vault/full-screen-loader"
         ],
         "components": [
           "components/buttons/style-vault/dark-pill-cta",
@@ -3522,6 +3557,7 @@
         "blocks/nav/style-vault/sticky-platform-topbar",
         "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/search/style-vault/cmd-k-search-panel",
+        "blocks/feedback/style-vault/full-screen-loader",
         "pages/landing/style-vault/editorial-cool-landing",
         "pages/detail/style-vault/sticky-toc-product",
         "pages/detail/style-vault/sidebar-preview-detail",
@@ -3795,8 +3831,8 @@
       "uses": [],
       "preview": "/preview/tokens/motion/sage/animate-in-suite",
       "usedBy": [
-        "blocks/nav/sage/command-palette",
         "components/buttons/sage/stop-pulse-button",
+        "blocks/nav/sage/command-palette",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -3827,8 +3863,8 @@
       "uses": [],
       "preview": "/preview/tokens/motion/sage/styled-keyframes",
       "usedBy": [
-        "blocks/nav/sage/revolver-menu-fab",
         "components/indicators/sage/crystal-progress-bar",
+        "blocks/nav/sage/revolver-menu-fab",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -3859,11 +3895,11 @@
       "uses": [],
       "preview": "/preview/tokens/motion/skillhub/gentle-flow",
       "usedBy": [
+        "components/buttons/skillhub/border-trace-cta",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/skeleton-card",
         "blocks/marketing/skillhub/gradient-hero",
-        "components/buttons/skillhub/border-trace-cta",
         "styles/community-social/skillhub-soft-modernist",
         "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/landing/skillhub/skill-community-home"
@@ -3897,15 +3933,16 @@
       "preview": "/preview/tokens/motion/style-vault/editorial-flow",
       "uses": [],
       "usedBy": [
-        "blocks/display/style-vault/floating-cover-row",
-        "blocks/display/style-vault/preview-thumb-card",
-        "blocks/filters/style-vault/sticky-chip-filter-panel",
-        "blocks/marketing/style-vault/cool-blob-hero",
-        "blocks/search/style-vault/cmd-k-search-panel",
         "components/buttons/style-vault/dark-pill-cta",
         "components/buttons/style-vault/ghost-bordered-cta",
         "components/toggles/style-vault/editorial-underline-tab",
-        "styles/portfolio-studio/style-vault-cool-editorial"
+        "blocks/display/style-vault/floating-cover-row",
+        "blocks/display/style-vault/preview-thumb-card",
+        "blocks/feedback/style-vault/full-screen-loader",
+        "blocks/filters/style-vault/sticky-chip-filter-panel",
+        "blocks/marketing/style-vault/cool-blob-hero",
+        "styles/portfolio-studio/style-vault-cool-editorial",
+        "blocks/search/style-vault/cmd-k-search-panel"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/style-vault/editorial-flow.md"
@@ -3936,14 +3973,14 @@
       "preview": "/preview/tokens/palettes/acme/slate-cyan-ice",
       "uses": [],
       "usedBy": [
+        "components/buttons/acme/cyan-cta",
+        "components/buttons/acme/ghost-button",
+        "components/inputs/acme/mono-input",
+        "components/indicators/acme/status-pulse",
         "blocks/display/acme/saas-data-table",
         "blocks/display/acme/saas-metric-grid",
         "blocks/feedback/acme/saas-status-banner",
         "blocks/nav/acme/saas-cold-topbar",
-        "components/buttons/acme/cyan-cta",
-        "components/buttons/acme/ghost-button",
-        "components/indicators/acme/status-pulse",
-        "components/inputs/acme/mono-input",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
@@ -3974,10 +4011,10 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/sage/neutral-rgb-ladder",
       "usedBy": [
-        "blocks/nav/sage/sidebar-session-row",
-        "blocks/nav/sage/themed-sidebar-shell",
         "components/buttons/sage/icon-circle-ghost",
         "components/indicators/sage/hairline-scrollbar",
+        "blocks/nav/sage/sidebar-session-row",
+        "blocks/nav/sage/themed-sidebar-shell",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -4007,22 +4044,22 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/sage/twelve-theme-spectrum",
       "usedBy": [
+        "components/buttons/sage/stop-pulse-button",
+        "components/buttons/sage/theme-bg-cta",
+        "components/indicators/sage/crystal-progress-bar",
+        "components/avatars-icons/sage/themed-circle-avatar",
+        "components/inputs/sage/glow-border-textarea",
         "blocks/display/sage/datasource-card",
-        "blocks/feedback/sage/spin-fullscreen-loader",
-        "blocks/form/sage/chat-composer",
         "blocks/layout/sage/management-layout-header",
         "blocks/layout/sage/sidebar-detail-split",
+        "blocks/feedback/sage/spin-fullscreen-loader",
         "blocks/nav/sage/command-palette",
         "blocks/nav/sage/revolver-menu-fab",
         "blocks/nav/sage/sidebar-session-row",
         "blocks/nav/sage/space-switcher-dropdown",
         "blocks/nav/sage/themed-sidebar-shell",
-        "components/avatars-icons/sage/themed-circle-avatar",
-        "components/buttons/sage/stop-pulse-button",
-        "components/buttons/sage/theme-bg-cta",
-        "components/indicators/sage/crystal-progress-bar",
-        "components/inputs/sage/glow-border-textarea",
-        "styles/saas-tool/sage-multitheme-data-platform"
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "blocks/form/sage/chat-composer"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/sage/twelve-theme-spectrum.md"
@@ -4052,28 +4089,28 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/skillhub/skillhub-teal-mist",
       "usedBy": [
+        "components/buttons/skillhub/border-trace-cta",
+        "components/buttons/skillhub/dark-primary-cta",
+        "components/inputs/skillhub/soft-form-input",
+        "components/indicators/skillhub/pulse-dot",
+        "components/tags-badges/skillhub/teal-pill",
+        "components/avatars-icons/skillhub/letter-avatar",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/empty-state",
         "blocks/feedback/skillhub/skeleton-card",
-        "blocks/form/skillhub/auth-split-form",
-        "blocks/form/skillhub/profile-edit-form",
         "blocks/marketing/skillhub/gradient-hero",
         "blocks/nav/skillhub/glass-pill-navbar",
-        "components/avatars-icons/skillhub/letter-avatar",
-        "components/buttons/skillhub/border-trace-cta",
-        "components/buttons/skillhub/dark-primary-cta",
-        "components/indicators/skillhub/pulse-dot",
-        "components/inputs/skillhub/soft-form-input",
-        "components/tags-badges/skillhub/teal-pill",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/auth/skillhub/auth-split",
+        "blocks/form/skillhub/auth-split-form",
+        "blocks/form/skillhub/profile-edit-form",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/dashboard/skillhub/admin-overview",
-        "pages/dashboard/skillhub/user-home",
+        "pages/auth/skillhub/auth-split",
         "pages/detail/skillhub/skill-article-detail",
         "pages/detail/skillhub/user-public-profile",
+        "pages/dashboard/skillhub/admin-overview",
+        "pages/dashboard/skillhub/user-home",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/landing/skillhub/skill-community-home",
@@ -4110,19 +4147,20 @@
       "preview": "/preview/tokens/palettes/style-vault/slate-cyan-cool",
       "uses": [],
       "usedBy": [
-        "blocks/display/style-vault/floating-cover-row",
-        "blocks/display/style-vault/preview-thumb-card",
-        "blocks/filters/style-vault/sticky-chip-filter-panel",
-        "blocks/layout/style-vault/browser-chrome-frame",
-        "blocks/marketing/style-vault/cool-blob-hero",
-        "blocks/nav/style-vault/sticky-platform-topbar",
-        "blocks/search/style-vault/cmd-k-search-panel",
         "components/buttons/style-vault/dark-pill-cta",
         "components/buttons/style-vault/ghost-bordered-cta",
         "components/overlays/style-vault/spring-toast",
         "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "components/toggles/style-vault/editorial-underline-tab",
-        "styles/portfolio-studio/style-vault-cool-editorial"
+        "blocks/display/style-vault/floating-cover-row",
+        "blocks/display/style-vault/preview-thumb-card",
+        "blocks/feedback/style-vault/full-screen-loader",
+        "blocks/filters/style-vault/sticky-chip-filter-panel",
+        "blocks/layout/style-vault/browser-chrome-frame",
+        "blocks/marketing/style-vault/cool-blob-hero",
+        "blocks/nav/style-vault/sticky-platform-topbar",
+        "styles/portfolio-studio/style-vault-cool-editorial",
+        "blocks/search/style-vault/cmd-k-search-panel"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/style-vault/slate-cyan-cool.md"
@@ -4152,10 +4190,10 @@
       "uses": [],
       "preview": "/preview/tokens/shadow/skillhub/ambient-float",
       "usedBy": [
+        "components/indicators/skillhub/pulse-dot",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/skill-card",
         "blocks/nav/skillhub/glass-pill-navbar",
-        "components/indicators/skillhub/pulse-dot",
         "styles/community-social/skillhub-soft-modernist"
       ],
       "hasPreviewFile": true,
@@ -4187,11 +4225,11 @@
       "preview": "/preview/tokens/typography/pairs/acme/ibm-plex-duo",
       "uses": [],
       "usedBy": [
+        "components/inputs/acme/mono-input",
         "blocks/display/acme/saas-data-table",
         "blocks/display/acme/saas-metric-grid",
         "blocks/feedback/acme/saas-status-banner",
         "blocks/nav/acme/saas-cold-topbar",
-        "components/inputs/acme/mono-input",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
@@ -4252,13 +4290,13 @@
       "uses": [],
       "preview": "/preview/tokens/typography/pairs/skillhub/inter-jetbrains-duo",
       "usedBy": [
-        "blocks/form/skillhub/auth-split-form",
         "blocks/marketing/skillhub/gradient-hero",
         "styles/community-social/skillhub-soft-modernist",
+        "blocks/form/skillhub/auth-split-form",
         "pages/auth/skillhub/auth-split",
-        "pages/dashboard/skillhub/admin-overview",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/skill-article-detail",
+        "pages/dashboard/skillhub/admin-overview",
         "pages/form-flow/skillhub/practice-compose",
         "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console"
@@ -4292,16 +4330,17 @@
       "preview": "/preview/tokens/typography/pairs/style-vault/inter-editorial-display",
       "uses": [],
       "usedBy": [
+        "components/overlays/style-vault/spring-toast",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
+        "blocks/feedback/style-vault/full-screen-loader",
         "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/layout/style-vault/browser-chrome-frame",
         "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/nav/style-vault/sticky-platform-topbar",
-        "blocks/search/style-vault/cmd-k-search-panel",
-        "components/overlays/style-vault/spring-toast",
-        "components/tags-badges/style-vault/cyan-dot-meta-pill",
-        "styles/portfolio-studio/style-vault-cool-editorial"
+        "styles/portfolio-studio/style-vault-cool-editorial",
+        "blocks/search/style-vault/cmd-k-search-panel"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/style-vault/inter-editorial-display.md"
