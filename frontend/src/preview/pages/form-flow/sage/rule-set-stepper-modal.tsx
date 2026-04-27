@@ -9,7 +9,7 @@ const RULES = [
 
 export default function RuleSetStepperModalPage() {
   return (
-    <PreviewFrame bg="rgba(15,23,42,0.20)" padded={false}>
+    <PreviewFrame bg="rgb(248,250,252)" padded={false}>
       <div style={{
         minHeight: 720, position: 'relative',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
