@@ -1,11 +1,14 @@
 import { useState } from 'react';
+import { Button, Card, ConfigProvider, Dropdown, type MenuProps } from 'antd';
 import {
   BarChart3, Book, BookOpen, Bot, Check, CheckCircle, ChevronDown, ChevronRight,
-  Crown, Database, Download, Feather, LayoutGrid, Mic, MoreHorizontal, MoreVertical,
-  Package, PanelLeftClose, Plus, RotateCw, Send, Shield, ShieldCheck, Sparkles,
-  Star, Terminal, ThumbsDown, ThumbsUp, Zap,
+  Crown, Database, Download, Feather, LayoutGrid, LineChart, Maximize, Mic,
+  MoreHorizontal, MoreVertical, Package, PanelLeftClose, PieChart, Plus, RotateCw,
+  Send, Shield, ShieldCheck, Sparkles, Star, Terminal, ThumbsDown, ThumbsUp, Zap,
 } from 'lucide-react';
 import { PreviewFrame } from '../../../_layout';
+
+const SAGE_FONT = "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif";
 
 // products/sage 与 styles/saas-tool/sage-multitheme-data-platform 复用作封面
 export function AgentChatStreamScene({
@@ -18,9 +21,10 @@ export function AgentChatStreamScene({
   themeSelection?: string;
 }) {
   return (
+    <ConfigProvider theme={{ token: { fontFamily: SAGE_FONT, colorPrimary: themeHex, borderRadius: 8 } }}>
     <div style={{
       display: 'flex', height: '100%', minHeight: '100%',
-      fontFamily: 'Inter, sans-serif',
+      fontFamily: SAGE_FONT,
       background: 'rgb(249,249,249)',
       position: 'relative',
     }}>
@@ -45,6 +49,7 @@ export function AgentChatStreamScene({
       {/* 右下角雪人 FAB · 闭合态 */}
       <SnowmanFab themeHex={themeHex} />
     </div>
+    </ConfigProvider>
   );
 }
 
@@ -162,7 +167,7 @@ function SidebarBtn({ Icon, label }: { Icon: React.ComponentType<{ size?: number
         background: h ? 'rgb(237,237,237)' : 'transparent',
         color: '#64748b', border: 'none', cursor: 'pointer',
         fontSize: 14, fontWeight: 500, textAlign: 'left',
-        fontFamily: 'Inter, sans-serif', transition: 'all 200ms',
+        fontFamily: SAGE_FONT, transition: 'all 200ms',
       }}
     >
       <Icon size={20} /><span>{label}</span>
@@ -239,7 +244,7 @@ function ChatMessages({ themeHex }: { themeHex: string }) {
               fontSize: 14, fontWeight: 500,
               color: '#64748b', background: 'transparent',
               border: 'none', cursor: 'pointer', borderRadius: 6,
-              fontFamily: 'Inter, sans-serif',
+              fontFamily: SAGE_FONT,
               marginBottom: 8,
             }}>
               <ChevronDown size={16} />
@@ -296,48 +301,17 @@ function ChatMessages({ themeHex }: { themeHex: string }) {
                 padding: 0, height: 22,
                 background: 'transparent', border: 'none',
                 color: '#64748b', fontSize: 13, cursor: 'pointer',
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: SAGE_FONT,
               }}>
                 <ChevronDown size={14} /> 查看使用的规则和备注
               </button>
             </div>
 
-            {/* 数据表格 */}
-            <div style={{
-              marginTop: 14, background: '#fff',
-              border: '1px solid #e2e8f0', borderRadius: 8,
-              overflow: 'hidden',
-            }}>
-              <table style={{ width: '100%', fontSize: 13, borderCollapse: 'collapse' }}>
-                <thead>
-                  <tr style={{ background: '#f8fafc', textAlign: 'left' }}>
-                    {TABLE_COLS.map((col, i) => (
-                      <th key={col} style={{ ...th, position: 'relative' }}>
-                        {col}
-                        {i === 3 && (
-                          <button style={{
-                            position: 'absolute', right: 4, top: '50%', transform: 'translateY(-50%)',
-                            background: 'transparent', border: 'none', color: '#64748b',
-                            cursor: 'pointer', display: 'inline-flex',
-                          }}><Download size={12} /></button>
-                        )}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {TABLE_ROWS.map(row => (
-                    <tr key={row[0]} style={{ borderTop: '1px solid #f1f5f9' }}>
-                      {row.map((v, i) => (
-                        <td key={i} style={{ ...td, fontFamily: i === 0 || i === 2 || i === 3 ? 'ui-monospace, SFMono-Regular, monospace' : 'Inter, sans-serif', textAlign: i === 0 ? 'center' : 'left', color: i === 4 ? themeHex : '#334155' }}>
-                          {v}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            {/* 数据表格 · 还原源码 QueryResult.tsx · 浮层 actions hover 显 */}
+            <SageTable hex={themeHex} />
+
+            {/* 图表分析 · 还原源码 ChartContainer.tsx · antd Card 风格 + extra actions */}
+            <SageChartCard hex={themeHex} />
 
             {/* TrustBadge · 主题色 10% bg + inset shadow 边 + ShieldCheck + unicode 5 star */}
             <div style={{
@@ -368,6 +342,348 @@ function ChatMessages({ themeHex }: { themeHex: string }) {
         </div>
       </div>
     </div>
+  );
+}
+
+/* ============== SageTable · 还原 QueryResult.tsx 408-489 表格 ============== */
+function SageTable({ hex }: { hex: string }) {
+  const [hover, setHover] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        position: 'relative', marginTop: 14,
+        borderRadius: 8,
+        border: `1px solid ${hover ? '#d1d5db' : '#e5e7eb'}`,
+        background: '#fff',
+        boxShadow: hover ? '0 1px 2px 0 rgba(0,0,0,0.05)' : 'none',
+        overflow: 'hidden',
+        transition: 'all 300ms',
+      }}
+    >
+      {/* Actions 浮层 · absolute top-1.5 right-2 hover-only */}
+      <div style={{
+        position: 'absolute', top: 6, right: 8, zIndex: 20,
+        display: 'inline-flex', alignItems: 'center', gap: 4,
+        opacity: hover ? 1 : 0,
+        transition: 'opacity 200ms',
+      }}>
+        <button style={tableActionBtn}><Download size={16} /></button>
+        <button style={tableActionBtn}><Terminal size={16} /></button>
+        <button style={tableActionBtn}><Maximize size={16} /></button>
+      </div>
+
+      <div style={{ borderRadius: 8, overflow: 'hidden', boxShadow: '0 0 0 1px rgba(0,0,0,0.05)' }}>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', textAlign: 'left', fontSize: 13, borderCollapse: 'collapse' }}>
+            <thead style={{ background: 'rgba(248,250,252,0.75)', borderBottom: '1px solid #e5e7eb' }}>
+              <tr>
+                {TABLE_COLS.map(col => (
+                  <th key={col} style={tableTh}>{col}</th>
+                ))}
+                <th style={{ width: '100%' }} />
+              </tr>
+            </thead>
+            <tbody>
+              {TABLE_ROWS.map((row, idx) => (
+                <tr
+                  key={row[0]}
+                  style={{
+                    background: idx % 2 === 0 ? '#fff' : 'rgba(248,250,252,0.30)',
+                    transition: 'background 150ms',
+                    borderTop: '1px solid #f3f4f6',
+                  }}
+                >
+                  {row.map((v, i) => (
+                    <td key={i} style={{
+                      ...tableTd,
+                      fontFamily: i === 0 || i === 2 || i === 3 ? 'ui-monospace, SFMono-Regular, monospace' : SAGE_FONT,
+                      color: i === 4 ? hex : '#4b5563',
+                    }}>
+                      {v}
+                    </td>
+                  ))}
+                  <td />
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const tableActionBtn: React.CSSProperties = {
+  padding: 6, borderRadius: 6,
+  background: 'transparent', border: 'none',
+  color: '#9ca3af', cursor: 'pointer',
+  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+  transition: 'color 200ms',
+};
+const tableTh: React.CSSProperties = {
+  padding: '14px 24px', fontWeight: 600,
+  color: '#4b5563', fontSize: 12,
+  textTransform: 'uppercase', letterSpacing: '0.05em',
+  whiteSpace: 'nowrap', textAlign: 'center', userSelect: 'none',
+};
+const tableTd: React.CSSProperties = {
+  padding: '14px 24px',
+  whiteSpace: 'nowrap', textAlign: 'center',
+  fontVariantNumeric: 'tabular-nums',
+};
+
+/* ============== SageChartCard · 还原 ChartContainer.tsx · antd Card ============== */
+function SageChartCard({ hex }: { hex: string }) {
+  const [type, setType] = useState<'column' | 'line' | 'pie'>('column');
+
+  const typeMenu: MenuProps['items'] = [
+    { key: 'column', label: '柱状图', icon: <BarChart3 size={14} /> },
+    { key: 'line',   label: '折线图', icon: <LineChart size={14} /> },
+    { key: 'pie',    label: '饼图',   icon: <PieChart size={14} /> },
+  ];
+
+  const TypeIcon = type === 'column' ? BarChart3 : type === 'line' ? LineChart : PieChart;
+
+  return (
+    <ConfigProvider theme={{ token: { colorPrimary: hex, borderRadius: 8 } }}>
+      <Card
+        size="small"
+        style={{ marginTop: 16, borderRadius: 8 }}
+        styles={{ body: { padding: '16px' } }}
+        title={
+          <span style={{ fontSize: 14, fontWeight: 500, color: '#0f172a' }}>查询结果</span>
+        }
+        extra={
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 4, height: 28, overflow: 'hidden' }}>
+            <Dropdown menu={{ items: typeMenu, onClick: ({ key }) => setType(key as 'column' | 'line' | 'pie') }} trigger={['click']}>
+              <Button
+                type="text" size="small"
+                icon={<TypeIcon size={14} />}
+                style={iconButton}
+              />
+            </Dropdown>
+            <Button type="text" size="small" icon={<Maximize size={14} />} style={iconButton} />
+            <Button type="text" size="small" icon={<Download size={14} />} style={iconButton} />
+          </div>
+        }
+      >
+        {/* chart-analysis · 渐变 + 左 3px 主题色边 */}
+        <div style={{
+          padding: '12px 16px',
+          marginBottom: 12,
+          background: `linear-gradient(135deg, ${hex}0D 0%, ${hex}05 100%)`,
+          borderRadius: 8,
+          borderLeft: `3px solid ${hex}`,
+          fontSize: 13, lineHeight: 1.6, color: '#333',
+        }}>
+          销售额前 4 名差距明显，<strong>Aeron 椅</strong>独占近一半（¥187 万），其它三款合计约 ¥121 万。建议关注头部产品库存，避免断货。
+        </div>
+
+        {/* chart-body · 350px */}
+        <div style={{ height: 350, overflow: 'hidden' }}>
+          {type === 'column' && <G2BarChart hex={hex} />}
+          {type === 'line' && <G2LineChart hex={hex} />}
+          {type === 'pie' && <G2PieChart hex={hex} />}
+        </div>
+      </Card>
+    </ConfigProvider>
+  );
+}
+
+const iconButton: React.CSSProperties = {
+  width: 28, height: 28,
+  display: 'flex', alignItems: 'center', justifyContent: 'center',
+};
+
+/* ============== G2 风格图表（SVG 模拟 ============== */
+
+const CHART_DATA = [
+  { label: 'Aeron 椅',   value: 1872000 },
+  { label: 'Kindle',     value: 588000  },
+  { label: '小米空气',   value: 412000  },
+  { label: 'AeroPress',  value: 218400  },
+];
+
+function G2BarChart({ hex }: { hex: string }) {
+  const data = CHART_DATA;
+  const max = Math.max(...data.map(d => d.value));
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map(t => t * max);
+
+  const W = 700;
+  const H = 200;
+  const padL = 56;
+  const padR = 16;
+  const padT = 8;
+  const padB = 28;
+  const innerW = W - padL - padR;
+  const innerH = H - padT - padB;
+  const barWidth = innerW / data.length * 0.55;
+  const gap = innerW / data.length;
+
+  const fmt = (v: number) => v >= 10000 ? `${(v / 10000).toFixed(0)}万` : `${(v / 1000).toFixed(0)}k`;
+
+  return (
+    <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{ display: 'block' }}>
+      {/* 网格线 + Y 轴刻度 */}
+      {ticks.map(tk => {
+        const y = padT + innerH - (tk / max) * innerH;
+        return (
+          <g key={tk}>
+            <line x1={padL} y1={y} x2={W - padR} y2={y} stroke="#f1f5f9" strokeWidth={1} />
+            <text x={padL - 8} y={y + 4} fill="#94a3b8" fontSize={11} textAnchor="end" fontFamily="ui-monospace, SFMono-Regular, monospace">
+              {fmt(tk)}
+            </text>
+          </g>
+        );
+      })}
+      {/* X 轴 */}
+      <line x1={padL} y1={padT + innerH} x2={W - padR} y2={padT + innerH} stroke="#cbd5e1" strokeWidth={1} />
+
+      {/* 柱条 */}
+      {data.map((d, i) => {
+        const x = padL + i * gap + (gap - barWidth) / 2;
+        const h = (d.value / max) * innerH;
+        const y = padT + innerH - h;
+        return (
+          <g key={d.label}>
+            <rect x={x} y={y} width={barWidth} height={h} fill={hex} rx={4} ry={4} />
+            <text x={x + barWidth / 2} y={y - 6} fill="#0f172a" fontSize={11} fontWeight={600} textAnchor="middle" fontFamily="ui-monospace, SFMono-Regular, monospace">
+              {fmt(d.value)}
+            </text>
+            <text x={x + barWidth / 2} y={padT + innerH + 18} fill="#64748b" fontSize={11} textAnchor="middle">
+              {d.label}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+function G2LineChart({ hex }: { hex: string }) {
+  const data = CHART_DATA;
+  const max = Math.max(...data.map(d => d.value));
+  const ticks = [0, 0.25, 0.5, 0.75, 1].map(t => t * max);
+  const W = 700, H = 340, padL = 64, padR = 24, padT = 16, padB = 36;
+  const innerW = W - padL - padR;
+  const innerH = H - padT - padB;
+  const fmt = (v: number) => v >= 10000 ? `${(v / 10000).toFixed(0)}万` : `${(v / 1000).toFixed(0)}k`;
+
+  const points = data.map((d, i) => {
+    const x = padL + (i / (data.length - 1)) * innerW;
+    const y = padT + innerH - (d.value / max) * innerH;
+    return { x, y, d };
+  });
+
+  const linePath = points.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x},${p.y}`).join(' ');
+  const areaPath = `${linePath} L${points[points.length - 1].x},${padT + innerH} L${points[0].x},${padT + innerH} Z`;
+
+  return (
+    <svg width="100%" height="100%" viewBox={`0 0 ${W} ${H}`} style={{ display: 'block' }}>
+      {ticks.map(tk => {
+        const y = padT + innerH - (tk / max) * innerH;
+        return (
+          <g key={tk}>
+            <line x1={padL} y1={y} x2={W - padR} y2={y} stroke="#f1f5f9" strokeWidth={1} />
+            <text x={padL - 8} y={y + 4} fill="#94a3b8" fontSize={11} textAnchor="end" fontFamily="ui-monospace, SFMono-Regular, monospace">
+              {fmt(tk)}
+            </text>
+          </g>
+        );
+      })}
+      <line x1={padL} y1={padT + innerH} x2={W - padR} y2={padT + innerH} stroke="#cbd5e1" strokeWidth={1} />
+
+      {/* 区域填充 */}
+      <path d={areaPath} fill={hex} fillOpacity={0.12} />
+      {/* 折线 */}
+      <path d={linePath} fill="none" stroke={hex} strokeWidth={2.5} strokeLinejoin="round" />
+      {/* 点 + label */}
+      {points.map((p, i) => (
+        <g key={i}>
+          <circle cx={p.x} cy={p.y} r={5} fill="#fff" stroke={hex} strokeWidth={2.5} />
+          <text x={p.x} y={p.y - 12} fill="#0f172a" fontSize={11} fontWeight={600} textAnchor="middle" fontFamily="ui-monospace, SFMono-Regular, monospace">
+            {fmt(p.d.value)}
+          </text>
+          <text x={p.x} y={padT + innerH + 22} fill="#64748b" fontSize={11} textAnchor="middle">
+            {p.d.label}
+          </text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function G2PieChart({ hex }: { hex: string }) {
+  const data = CHART_DATA;
+  const total = data.reduce((s, d) => s + d.value, 0);
+  // 主题色 + 4 阶递减
+  const colors = [hex, `${hex}CC`, `${hex}99`, `${hex}66`];
+  const cx = 180, cy = 160, r = 120, ir = r * 0.3;
+
+  let acc = 0;
+  const slices = data.map((d, i) => {
+    const start = (acc / total) * Math.PI * 2 - Math.PI / 2;
+    acc += d.value;
+    const end = (acc / total) * Math.PI * 2 - Math.PI / 2;
+    const large = end - start > Math.PI ? 1 : 0;
+
+    const x1 = cx + r * Math.cos(start);
+    const y1 = cy + r * Math.sin(start);
+    const x2 = cx + r * Math.cos(end);
+    const y2 = cy + r * Math.sin(end);
+    const ix1 = cx + ir * Math.cos(start);
+    const iy1 = cy + ir * Math.sin(start);
+    const ix2 = cx + ir * Math.cos(end);
+    const iy2 = cy + ir * Math.sin(end);
+
+    const path = [
+      `M${x1},${y1}`,
+      `A${r},${r} 0 ${large} 1 ${x2},${y2}`,
+      `L${ix2},${iy2}`,
+      `A${ir},${ir} 0 ${large} 0 ${ix1},${iy1}`,
+      'Z',
+    ].join(' ');
+
+    // label 位置
+    const mid = (start + end) / 2;
+    const lx = cx + (r + 24) * Math.cos(mid);
+    const ly = cy + (r + 24) * Math.sin(mid);
+
+    return { path, color: colors[i], pct: (d.value / total) * 100, label: d.label, lx, ly };
+  });
+
+  return (
+    <svg width="100%" height="100%" viewBox="0 0 700 340" style={{ display: 'block' }}>
+      {slices.map((s, i) => (
+        <g key={i}>
+          <path d={s.path} fill={s.color} stroke="#fff" strokeWidth={2} />
+          <text
+            x={s.lx} y={s.ly}
+            fill="#475569" fontSize={11}
+            textAnchor={s.lx > cx ? 'start' : 'end'}
+            fontFamily="Inter, sans-serif"
+          >
+            {s.label} {s.pct.toFixed(0)}%
+          </text>
+        </g>
+      ))}
+      {/* 图例 · 右侧（源码 legend position right）*/}
+      <g transform="translate(440, 100)">
+        {slices.map((s, i) => (
+          <g key={i} transform={`translate(0, ${i * 28})`}>
+            <rect x={0} y={0} width={14} height={14} fill={s.color} rx={2} />
+            <text x={22} y={11} fill="#475569" fontSize={12} fontFamily="Inter, sans-serif">
+              {s.label}
+            </text>
+            <text x={180} y={11} fill="#94a3b8" fontSize={12} fontFamily="ui-monospace, SFMono-Regular, monospace" textAnchor="end">
+              {s.pct.toFixed(1)}%
+            </text>
+          </g>
+        ))}
+      </g>
+    </svg>
   );
 }
 
