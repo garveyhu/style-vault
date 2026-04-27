@@ -18,6 +18,22 @@ import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 
 const PLATFORM_TEXT = { web: 'Web', ios: 'iOS', android: 'Android' } as const;
 
+/** 显式优先级——新作排前面，未列出的排末尾保持 registry 顺序 */
+const PRODUCT_PRIORITY = [
+  'products/style-vault',
+  'products/skillhub',
+  'products/acme-cold-saas',
+] as const;
+
+function compareProductPriority(a: RegistryItem, b: RegistryItem): number {
+  const ai = PRODUCT_PRIORITY.indexOf(a.id as (typeof PRODUCT_PRIORITY)[number]);
+  const bi = PRODUCT_PRIORITY.indexOf(b.id as (typeof PRODUCT_PRIORITY)[number]);
+  if (ai === -1 && bi === -1) return 0;
+  if (ai === -1) return 1;
+  if (bi === -1) return -1;
+  return ai - bi;
+}
+
 const PREVIEW_VIRTUAL_WIDTH = 1440;
 const PREVIEW_VIRTUAL_HEIGHT = 900;
 const COVER_WIDTH = 380;
@@ -34,7 +50,8 @@ export default function ProductListPage() {
 
   const platformMatched = reg.items
     .filter((i) => i.type === 'product')
-    .filter((i) => matchesPlatform(i.platforms, platform));
+    .filter((i) => matchesPlatform(i.platforms, platform))
+    .sort(compareProductPriority);
   const visible = platformMatched.filter((p) => matchProductFilters(p, filters));
 
   return (

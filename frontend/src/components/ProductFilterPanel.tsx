@@ -44,9 +44,9 @@ export function ProductFilterPanel({
   const active = hasActiveFilters(value);
 
   return (
-    <aside className="sticky top-[96px] self-start">
+    <aside className="sticky top-[88px] self-start">
       <div className="relative overflow-hidden rounded-[20px] border border-slate-200/80 bg-white/60 p-5 backdrop-blur-xl">
-        <div className="max-h-[calc(100vh-140px)] overflow-y-auto pr-1">
+        <div className="max-h-[calc(100vh-132px)] overflow-y-auto pr-1">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-[11px] font-medium uppercase tracking-[0.18em] text-slate-500">
               筛选
