@@ -15,6 +15,7 @@ import { PlatformProvider } from './contexts/PlatformContext';
 import { ScrollToTop } from './components/ScrollToTop';
 import { GlobalLoading } from './components/GlobalLoading';
 import { ToastViewport } from './components/Toast';
+import { SearchPanel } from './components/SearchPanel';
 
 // 动态收集 preview 页（排除 _layout / _templates）
 const previewModules = import.meta.glob('./preview/**/*.tsx');
@@ -35,6 +36,7 @@ export default function App() {
           <PlatformProvider>
             <ScrollToTop />
             <ToastViewport />
+            <SearchPanel />
             <Suspense fallback={<GlobalLoading />}>
               <Routes>
                 <Route path="/" element={<HomePage />} />

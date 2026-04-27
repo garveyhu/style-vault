@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Avatar, Dropdown } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import { LoginModal } from './LoginModal';
+import { searchPanel } from './SearchPanel';
 import { useAuth } from '../auth/AuthContext';
 import { usePlatform, type PlatformSel } from '../contexts/PlatformContext';
 
@@ -51,6 +53,15 @@ export function TopBar() {
           >
             产品集
           </Link>
+          <button
+            type="button"
+            onClick={() => searchPanel.open()}
+            aria-label="搜索"
+            className="inline-flex h-9 items-center gap-2 rounded-full border border-slate-200 bg-white/60 px-4 text-[13px] font-medium text-slate-500 transition hover:border-slate-300 hover:bg-white hover:text-slate-900"
+          >
+            <SearchOutlined className="text-[14px]" />
+            搜索风格
+          </button>
         </nav>
 
         {/* 占位撑开左右 cluster；平台切换用 absolute 真正视口居中 */}
