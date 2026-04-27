@@ -190,22 +190,21 @@ function SnowmanHat({ themeColor }: { themeColor: string }) {
   );
 }
 
-/** 雪人 · 头 + 身 + scarf + 黑眼 + 橙鼻 + 黑扣 + 底部雪堆。源码 SnowmanIcon 36×43 */
+/** 雪人 · 头 + 身 + scarf + 黑眼 + 橙鼻 + 黑扣 + 底部雪堆。源码 SnowmanIcon 36×43 · align-items: center */
 function SnowmanInButton({ themeColor }: { themeColor: string }) {
   return (
     <div style={{
       position: 'absolute', inset: 0,
       borderRadius: '50%', overflow: 'hidden',
-      display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
       pointerEvents: 'none',
     }}>
-      {/* 雪人主体 · 整体上移让头部露出帽檐下 */}
+      {/* 雪人主体 · 垂直居中（源码 SnowmanContainer 用 align-items: center） */}
       <div style={{
         position: 'relative',
         width: 36, height: 43,
         display: 'flex', flexDirection: 'column',
         alignItems: 'center', justifyContent: 'flex-end',
-        marginBottom: 8,
         filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.20))',
         zIndex: 2,
       }}>
