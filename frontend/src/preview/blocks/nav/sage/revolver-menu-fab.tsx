@@ -244,9 +244,32 @@ function SnowmanInButton({ themeColor }: { themeColor: string }) {
             background: themeColor,
             borderRadius: 4,
           }} />
-          {/* 2 黑色扣子 */}
-          <span style={{ position: 'absolute', top: 9, left: '50%', transform: 'translateX(-50%)', width: 3, height: 3, background: '#1e293b', borderRadius: '50%' }} />
-          <span style={{ position: 'absolute', top: 16, left: '50%', transform: 'translateX(-50%)', width: 3, height: 3, background: '#1e293b', borderRadius: '50%' }} />
+          {/* 3 黑色扣子（源码 RevolverMenu.tsx 638-652） */}
+          <div style={{
+            position: 'absolute', top: 9, left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex', flexDirection: 'column', gap: 4,
+          }}>
+            <span style={{ width: 3, height: 3, background: '#1e293b', borderRadius: '50%' }} />
+            <span style={{ width: 3, height: 3, background: '#1e293b', borderRadius: '50%' }} />
+            <span style={{ width: 3, height: 3, background: '#1e293b', borderRadius: '50%' }} />
+          </div>
+          {/* 左手 · 棕色细枝（源码 RevolverMenu.tsx 654-665） */}
+          <span style={{
+            position: 'absolute', top: 9, left: -10,
+            width: 11, height: 2,
+            background: '#78350f',
+            transform: 'rotate(-20deg)',
+            borderRadius: 2,
+          }} />
+          {/* 右手 · 棕色细枝（源码 RevolverMenu.tsx 666-677） */}
+          <span style={{
+            position: 'absolute', top: 9, right: -10,
+            width: 11, height: 2,
+            background: '#78350f',
+            transform: 'rotate(20deg)',
+            borderRadius: 2,
+          }} />
         </div>
       </div>
       {/* SnowPile · 底部白色椭圆雪堆 · 仅做"地平线"暗示，不漫白光 */}

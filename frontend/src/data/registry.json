@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-27T13:47:00.296Z",
+  "version": "2026-04-27T14:39:24.131Z",
   "items": [
     {
       "id": "blocks/display/acme/saas-data-table",
@@ -71,6 +71,34 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/acme/saas-metric-grid.md"
+    },
+    {
+      "id": "blocks/display/sage/chart-card-tabs",
+      "type": "block",
+      "name": "图表分析卡（多 Tab）",
+      "description": "顶部多 Tab 标题切换 + 右上 dropdown 类型切换 + Download + Fullscreen，body 区 G2 渲染（柱/折线/饼/条），350px 固定高",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "swiss"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/blocks/display/sage/chart-card-tabs",
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/sage/chart-card-tabs/README.md"
     },
     {
       "id": "blocks/display/sage/datasource-card",
@@ -441,6 +469,36 @@
       "skillPath": "blocks/feedback/sage/spin-fullscreen-loader.md"
     },
     {
+      "id": "blocks/feedback/sage/vector-test-modal",
+      "type": "block",
+      "name": "向量测试检索弹窗",
+      "description": "1000px Modal · 用户问题灰盒 + 5 列 stat card 切 tab + 不同 tab 的表格（表/规则/预制 SQL/用户 SQL/低质 SQL）+ 距离 Tag 4 色阶",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/blocks/feedback/sage/vector-test-modal",
+      "uses": [
+        "components/inputs/sage/sql-editor-monaco"
+      ],
+      "usedBy": [
+        "pages/detail/sage/datasource-detail-tabs"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/feedback/sage/vector-test-modal/README.md"
+    },
+    {
       "id": "blocks/feedback/skillhub/empty-state",
       "type": "block",
       "name": "空态",
@@ -613,6 +671,61 @@
       "skillPath": "blocks/form/sage/chat-composer.md"
     },
     {
+      "id": "blocks/form/sage/row-column-rule-builder",
+      "type": "block",
+      "name": "行/列规则可视化构造器",
+      "description": "ruleType=row 走嵌套条件树（VisualRuleTree），ruleType=column 走字段卡网格（每卡含启用开关 + 脱敏策略 Select），双形态在同一组件内 if-else",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/blocks/form/sage/row-column-rule-builder",
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/form/sage/row-column-rule-builder/README.md"
+    },
+    {
+      "id": "blocks/form/sage/user-assignment-transfer",
+      "type": "block",
+      "name": "用户分配穿梭框",
+      "description": "700px Modal · 角色 Radio + 角色筛选 Select + 居中 Transfer 穿梭框（300×350，头像 + 名）+ 自定义全选 label 显示已分配数",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/blocks/form/sage/user-assignment-transfer",
+      "uses": [],
+      "usedBy": [
+        "pages/settings/sage/ai-model-config"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/form/sage/user-assignment-transfer/README.md"
+    },
+    {
       "id": "blocks/form/skillhub/auth-split-form",
       "type": "block",
       "name": "分屏登录注册表单",
@@ -708,8 +821,8 @@
       "preview": "/preview/blocks/layout/sage/management-layout-header",
       "usedBy": [
         "styles/saas-tool/sage-multitheme-data-platform",
-        "pages/dashboard/sage/analytics-feedback",
         "pages/dashboard/sage/analytics-usage",
+        "pages/dashboard/sage/analytics-feedback",
         "pages/form-flow/sage/rule-set-stepper-modal",
         "pages/list-table/sage/admin-table-management"
       ],
@@ -992,6 +1105,32 @@
       "skillPath": "blocks/nav/sage/command-palette.md"
     },
     {
+      "id": "blocks/nav/sage/conversation-history-modal",
+      "type": "block",
+      "name": "历史对话弹窗",
+      "description": "680px 居中 Modal · h-[70vh] 浅 mask + backdrop blur · 时间分组（今天/昨天/近 7 天/近 30 天/去年/更早）+ 批量管理 + inline 重命名 + 滚动加载",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/blocks/nav/sage/conversation-history-modal",
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/sage/conversation-history-modal/README.md"
+    },
+    {
       "id": "blocks/nav/sage/revolver-menu-fab",
       "type": "block",
       "name": "雪人飘雪左轮菜单",
@@ -1121,6 +1260,32 @@
       "skillPath": "blocks/nav/sage/themed-sidebar-shell.md"
     },
     {
+      "id": "blocks/nav/sage/user-menu-popout",
+      "type": "block",
+      "name": "用户菜单浮层",
+      "description": "左下角用户头像点击展开 · 头像选择 5 列网格 + 主题色横向 chip 滑条 + 语言切换 + 登出 · 浮层 fixed bottom-full + zoom-in-95 动效",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/blocks/nav/sage/user-menu-popout",
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/sage/user-menu-popout/README.md"
+    },
+    {
       "id": "blocks/nav/skillhub/glass-pill-navbar",
       "type": "block",
       "name": "玻璃 Pill 导航栏",
@@ -1150,14 +1315,14 @@
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/detail/skillhub/practice-post-detail",
-        "pages/detail/skillhub/user-public-profile",
         "pages/dashboard/skillhub/admin-overview",
         "pages/dashboard/skillhub/user-home",
+        "pages/detail/skillhub/practice-post-detail",
+        "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/practice-compose",
+        "pages/landing/skillhub/skill-community-home",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
-        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza",
         "pages/list-table/skillhub/admin-console"
       ],
@@ -1298,13 +1463,13 @@
       "usedBy": [
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
-        "styles/community-social/skillhub-soft-modernist",
         "blocks/form/skillhub/profile-edit-form",
+        "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
+        "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/skill-article-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/dashboard/skillhub/user-home",
         "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza"
       ],
@@ -1444,8 +1609,8 @@
       ],
       "preview": "/preview/components/buttons/sage/stop-pulse-button",
       "usedBy": [
-        "styles/saas-tool/sage-multitheme-data-platform",
-        "blocks/form/sage/chat-composer"
+        "blocks/form/sage/chat-composer",
+        "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/buttons/sage/stop-pulse-button.md"
@@ -1476,8 +1641,8 @@
       ],
       "preview": "/preview/components/buttons/sage/theme-bg-cta",
       "usedBy": [
-        "styles/saas-tool/sage-multitheme-data-platform",
         "blocks/form/sage/chat-composer",
+        "styles/saas-tool/sage-multitheme-data-platform",
         "pages/list-table/sage/agent-store-split-tabs"
       ],
       "hasPreviewFile": true,
@@ -1544,12 +1709,12 @@
       ],
       "preview": "/preview/components/buttons/skillhub/dark-primary-cta",
       "usedBy": [
-        "styles/community-social/skillhub-soft-modernist",
         "blocks/form/skillhub/auth-split-form",
+        "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
+        "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/dashboard/skillhub/user-home",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
@@ -1822,8 +1987,8 @@
       ],
       "preview": "/preview/components/inputs/sage/glow-border-textarea",
       "usedBy": [
-        "styles/saas-tool/sage-multitheme-data-platform",
-        "blocks/form/sage/chat-composer"
+        "blocks/form/sage/chat-composer",
+        "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/inputs/sage/glow-border-textarea.md"
@@ -1859,6 +2024,36 @@
       "skillPath": "components/inputs/sage/icon-prefix-input.md"
     },
     {
+      "id": "components/inputs/sage/sql-editor-monaco",
+      "type": "component",
+      "name": "SQL 编辑器",
+      "description": "CodeMirror SQL 编辑器 + 主题色 active line / cursor / selection + Maximize2 全屏 Drawer 双视图（pagination ↔ list 可拉伸）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/components/inputs/sage/sql-editor-monaco",
+      "uses": [],
+      "usedBy": [
+        "blocks/feedback/sage/vector-test-modal",
+        "pages/detail/sage/datasource-detail-tabs"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/inputs/sage/sql-editor-monaco/README.md"
+    },
+    {
       "id": "components/inputs/skillhub/soft-form-input",
       "type": "component",
       "name": "柔边表单输入",
@@ -1885,8 +2080,8 @@
       ],
       "preview": "/preview/components/inputs/skillhub/soft-form-input",
       "usedBy": [
-        "styles/community-social/skillhub-soft-modernist",
         "blocks/form/skillhub/auth-split-form",
+        "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/skill-publish-wizard"
@@ -1996,8 +2191,8 @@
       "preview": "/preview/components/tags-badges/style-vault/cyan-dot-meta-pill",
       "usedBy": [
         "blocks/marketing/style-vault/cool-blob-hero",
-        "styles/portfolio-studio/style-vault-cool-editorial",
-        "blocks/search/style-vault/cmd-k-search-panel"
+        "blocks/search/style-vault/cmd-k-search-panel",
+        "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/tags-badges/style-vault/cyan-dot-meta-pill.md"
@@ -2242,7 +2437,8 @@
       ],
       "preview": "/preview/pages/dashboard/sage/agent-chat-stream",
       "usedBy": [
-        "styles/saas-tool/sage-multitheme-data-platform"
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "pages/detail/sage/collection-detail"
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/dashboard/sage/agent-chat-stream/README.md"
@@ -2414,6 +2610,64 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/dashboard/style-vault/profile-collections/README.md"
+    },
+    {
+      "id": "pages/detail/sage/collection-detail",
+      "type": "page",
+      "name": "收藏夹详情（问答重放）",
+      "description": "顶部头 + 取消收藏 / 重新执行 · 中间用 ChatMessage 复用展示原问答（用户/AI 双气泡 + 表 + 图）· 底部 antd Table 展示历次执行日志（status / duration / preview / download）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/pages/detail/sage/collection-detail",
+      "uses": [
+        "pages/dashboard/sage/agent-chat-stream"
+      ],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/detail/sage/collection-detail/README.md"
+    },
+    {
+      "id": "pages/detail/sage/datasource-detail-tabs",
+      "type": "page",
+      "name": "数据源详情三 tab",
+      "description": "顶部 ManagementLayout 头 + Card 内 Steps（连接信息 / 元数据 / 向量训练）3 步切换 · 异步任务（同步 / 训练）轮询 + 进度条",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/pages/detail/sage/datasource-detail-tabs",
+      "uses": [
+        "blocks/feedback/sage/vector-test-modal",
+        "components/inputs/sage/sql-editor-monaco"
+      ],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/detail/sage/datasource-detail-tabs/README.md"
     },
     {
       "id": "pages/detail/skillhub/practice-post-detail",
@@ -2611,6 +2865,32 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/empty-error/sage/crt-tv-404/README.md"
+    },
+    {
+      "id": "pages/form-flow/sage/datasource-new-form",
+      "type": "page",
+      "name": "新建数据源（4 步表单）",
+      "description": "4-step Wizard · ① 类型选择（Radio.Button 网格 + developing 灰态）② 连接（host/port/proxy 条件分支）③ 表选择（Transfer + 通配符 *? 批量）④ 确认。Form 始终 mounted（display:none 切换），保留输入",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/pages/form-flow/sage/datasource-new-form",
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/form-flow/sage/datasource-new-form/README.md"
     },
     {
       "id": "pages/form-flow/sage/rule-set-stepper-modal",
@@ -2948,6 +3228,32 @@
       "skillPath": "pages/list-table/sage/agent-store-split-tabs/README.md"
     },
     {
+      "id": "pages/list-table/sage/collection-list",
+      "type": "page",
+      "name": "收藏夹列表",
+      "description": "4 列卡片网格 · 每张含会话徽章 + 主问题 truncate + 时间 + 字段预览（bg-slate-50 grid-cols-2/3）+ inline 编辑备注 Modal · 顶部\"批量管理\"切多选删",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/pages/list-table/sage/collection-list",
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/list-table/sage/collection-list/README.md"
+    },
+    {
       "id": "pages/list-table/sage/datasource-grid",
       "type": "page",
       "name": "数据源网格页",
@@ -3185,6 +3491,61 @@
       "skillPath": "pages/pricing/acme/saas-cold-pricing/README.md"
     },
     {
+      "id": "pages/settings/sage/ai-model-config",
+      "type": "page",
+      "name": "AI 模型配置",
+      "description": "4-view 状态机 · list（卡片网格）/ supplier-select（4×5 logo 网格）/ config-form（双列 Form）/ edit · view 间用 Steps 进度指示，Form 不 unmount 保留状态",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/pages/settings/sage/ai-model-config",
+      "uses": [
+        "blocks/form/sage/user-assignment-transfer"
+      ],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/settings/sage/ai-model-config/README.md"
+    },
+    {
+      "id": "pages/settings/sage/space-core-config",
+      "type": "page",
+      "name": "空间核心配置",
+      "description": "双列 Form 网格 · 左 7 卡 / 右 4 卡 · Banner Switch + InputNumber + Slider 4 marks · 顶部 Reload + Save loading 操作行",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "preview": "/preview/pages/settings/sage/space-core-config",
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/settings/sage/space-core-config/README.md"
+    },
+    {
       "id": "products/acme-cold-saas",
       "type": "product",
       "name": "Acme · 冷感工业 SaaS",
@@ -3253,7 +3614,13 @@
         "pages": [
           "pages/dashboard/sage/agent-chat-stream",
           "pages/list-table/sage/datasource-grid",
+          "pages/list-table/sage/collection-list",
+          "pages/detail/sage/collection-detail",
+          "pages/detail/sage/datasource-detail-tabs",
           "pages/form-flow/sage/rule-set-stepper-modal",
+          "pages/form-flow/sage/datasource-new-form",
+          "pages/settings/sage/ai-model-config",
+          "pages/settings/sage/space-core-config",
           "pages/list-table/sage/agent-store-split-tabs",
           "pages/list-table/sage/space-management-split",
           "pages/list-table/sage/admin-table-management",
@@ -3268,14 +3635,20 @@
           "blocks/nav/sage/space-switcher-dropdown",
           "blocks/nav/sage/revolver-menu-fab",
           "blocks/nav/sage/command-palette",
+          "blocks/nav/sage/conversation-history-modal",
+          "blocks/nav/sage/user-menu-popout",
           "blocks/layout/sage/management-layout-header",
           "blocks/layout/sage/sidebar-detail-split",
           "blocks/feedback/sage/spin-fullscreen-loader",
           "blocks/feedback/sage/delete-confirm-modal",
           "blocks/feedback/sage/admin-overlay-modal",
+          "blocks/feedback/sage/vector-test-modal",
           "blocks/marketing/sage/auth-emerald-card",
           "blocks/form/sage/chat-composer",
-          "blocks/display/sage/datasource-card"
+          "blocks/form/sage/user-assignment-transfer",
+          "blocks/form/sage/row-column-rule-builder",
+          "blocks/display/sage/datasource-card",
+          "blocks/display/sage/chart-card-tabs"
         ],
         "components": [
           "components/buttons/sage/theme-bg-cta",
@@ -3283,6 +3656,7 @@
           "components/buttons/sage/stop-pulse-button",
           "components/inputs/sage/glow-border-textarea",
           "components/inputs/sage/icon-prefix-input",
+          "components/inputs/sage/sql-editor-monaco",
           "components/avatars-icons/sage/themed-circle-avatar",
           "components/indicators/sage/crystal-progress-bar",
           "components/indicators/sage/hairline-scrollbar"
@@ -3831,8 +4205,8 @@
       "uses": [],
       "preview": "/preview/tokens/motion/sage/animate-in-suite",
       "usedBy": [
-        "components/buttons/sage/stop-pulse-button",
         "blocks/nav/sage/command-palette",
+        "components/buttons/sage/stop-pulse-button",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -3863,8 +4237,8 @@
       "uses": [],
       "preview": "/preview/tokens/motion/sage/styled-keyframes",
       "usedBy": [
-        "components/indicators/sage/crystal-progress-bar",
         "blocks/nav/sage/revolver-menu-fab",
+        "components/indicators/sage/crystal-progress-bar",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -3895,14 +4269,14 @@
       "uses": [],
       "preview": "/preview/tokens/motion/skillhub/gentle-flow",
       "usedBy": [
-        "components/buttons/skillhub/border-trace-cta",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/skeleton-card",
         "blocks/marketing/skillhub/gradient-hero",
+        "components/buttons/skillhub/border-trace-cta",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/form-flow/skillhub/skill-publish-wizard",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/landing/skillhub/skill-community-home",
+        "pages/form-flow/skillhub/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/skillhub/gentle-flow.md"
@@ -3933,16 +4307,16 @@
       "preview": "/preview/tokens/motion/style-vault/editorial-flow",
       "uses": [],
       "usedBy": [
+        "blocks/display/style-vault/floating-cover-row",
+        "blocks/display/style-vault/preview-thumb-card",
+        "blocks/filters/style-vault/sticky-chip-filter-panel",
+        "blocks/feedback/style-vault/full-screen-loader",
+        "blocks/marketing/style-vault/cool-blob-hero",
+        "blocks/search/style-vault/cmd-k-search-panel",
         "components/buttons/style-vault/dark-pill-cta",
         "components/buttons/style-vault/ghost-bordered-cta",
         "components/toggles/style-vault/editorial-underline-tab",
-        "blocks/display/style-vault/floating-cover-row",
-        "blocks/display/style-vault/preview-thumb-card",
-        "blocks/feedback/style-vault/full-screen-loader",
-        "blocks/filters/style-vault/sticky-chip-filter-panel",
-        "blocks/marketing/style-vault/cool-blob-hero",
-        "styles/portfolio-studio/style-vault-cool-editorial",
-        "blocks/search/style-vault/cmd-k-search-panel"
+        "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/style-vault/editorial-flow.md"
@@ -3973,14 +4347,14 @@
       "preview": "/preview/tokens/palettes/acme/slate-cyan-ice",
       "uses": [],
       "usedBy": [
-        "components/buttons/acme/cyan-cta",
-        "components/buttons/acme/ghost-button",
-        "components/inputs/acme/mono-input",
-        "components/indicators/acme/status-pulse",
         "blocks/display/acme/saas-data-table",
         "blocks/display/acme/saas-metric-grid",
         "blocks/feedback/acme/saas-status-banner",
         "blocks/nav/acme/saas-cold-topbar",
+        "components/buttons/acme/cyan-cta",
+        "components/buttons/acme/ghost-button",
+        "components/indicators/acme/status-pulse",
+        "components/inputs/acme/mono-input",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
@@ -4011,10 +4385,10 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/sage/neutral-rgb-ladder",
       "usedBy": [
-        "components/buttons/sage/icon-circle-ghost",
-        "components/indicators/sage/hairline-scrollbar",
         "blocks/nav/sage/sidebar-session-row",
         "blocks/nav/sage/themed-sidebar-shell",
+        "components/buttons/sage/icon-circle-ghost",
+        "components/indicators/sage/hairline-scrollbar",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -4044,22 +4418,22 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/sage/twelve-theme-spectrum",
       "usedBy": [
-        "components/buttons/sage/stop-pulse-button",
-        "components/buttons/sage/theme-bg-cta",
-        "components/indicators/sage/crystal-progress-bar",
-        "components/avatars-icons/sage/themed-circle-avatar",
-        "components/inputs/sage/glow-border-textarea",
         "blocks/display/sage/datasource-card",
+        "blocks/feedback/sage/spin-fullscreen-loader",
         "blocks/layout/sage/management-layout-header",
         "blocks/layout/sage/sidebar-detail-split",
-        "blocks/feedback/sage/spin-fullscreen-loader",
+        "blocks/form/sage/chat-composer",
         "blocks/nav/sage/command-palette",
         "blocks/nav/sage/revolver-menu-fab",
         "blocks/nav/sage/sidebar-session-row",
         "blocks/nav/sage/space-switcher-dropdown",
         "blocks/nav/sage/themed-sidebar-shell",
-        "styles/saas-tool/sage-multitheme-data-platform",
-        "blocks/form/sage/chat-composer"
+        "components/avatars-icons/sage/themed-circle-avatar",
+        "components/buttons/sage/stop-pulse-button",
+        "components/buttons/sage/theme-bg-cta",
+        "components/indicators/sage/crystal-progress-bar",
+        "components/inputs/sage/glow-border-textarea",
+        "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/sage/twelve-theme-spectrum.md"
@@ -4089,31 +4463,31 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/skillhub/skillhub-teal-mist",
       "usedBy": [
-        "components/buttons/skillhub/border-trace-cta",
-        "components/buttons/skillhub/dark-primary-cta",
-        "components/inputs/skillhub/soft-form-input",
-        "components/indicators/skillhub/pulse-dot",
-        "components/tags-badges/skillhub/teal-pill",
-        "components/avatars-icons/skillhub/letter-avatar",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/empty-state",
         "blocks/feedback/skillhub/skeleton-card",
-        "blocks/marketing/skillhub/gradient-hero",
-        "blocks/nav/skillhub/glass-pill-navbar",
-        "styles/community-social/skillhub-soft-modernist",
         "blocks/form/skillhub/auth-split-form",
         "blocks/form/skillhub/profile-edit-form",
-        "pages/content-reader/skillhub/im-conversation",
+        "blocks/marketing/skillhub/gradient-hero",
+        "blocks/nav/skillhub/glass-pill-navbar",
+        "components/avatars-icons/skillhub/letter-avatar",
+        "components/buttons/skillhub/border-trace-cta",
+        "components/buttons/skillhub/dark-primary-cta",
+        "components/indicators/skillhub/pulse-dot",
+        "components/inputs/skillhub/soft-form-input",
+        "components/tags-badges/skillhub/teal-pill",
+        "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
-        "pages/detail/skillhub/skill-article-detail",
-        "pages/detail/skillhub/user-public-profile",
+        "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/admin-overview",
         "pages/dashboard/skillhub/user-home",
+        "pages/detail/skillhub/skill-article-detail",
+        "pages/detail/skillhub/user-public-profile",
+        "pages/landing/skillhub/skill-community-home",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
-        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza",
         "pages/list-table/skillhub/admin-console"
       ],
@@ -4147,20 +4521,20 @@
       "preview": "/preview/tokens/palettes/style-vault/slate-cyan-cool",
       "uses": [],
       "usedBy": [
+        "blocks/display/style-vault/floating-cover-row",
+        "blocks/display/style-vault/preview-thumb-card",
+        "blocks/filters/style-vault/sticky-chip-filter-panel",
+        "blocks/feedback/style-vault/full-screen-loader",
+        "blocks/layout/style-vault/browser-chrome-frame",
+        "blocks/marketing/style-vault/cool-blob-hero",
+        "blocks/nav/style-vault/sticky-platform-topbar",
+        "blocks/search/style-vault/cmd-k-search-panel",
         "components/buttons/style-vault/dark-pill-cta",
         "components/buttons/style-vault/ghost-bordered-cta",
         "components/overlays/style-vault/spring-toast",
         "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "components/toggles/style-vault/editorial-underline-tab",
-        "blocks/display/style-vault/floating-cover-row",
-        "blocks/display/style-vault/preview-thumb-card",
-        "blocks/feedback/style-vault/full-screen-loader",
-        "blocks/filters/style-vault/sticky-chip-filter-panel",
-        "blocks/layout/style-vault/browser-chrome-frame",
-        "blocks/marketing/style-vault/cool-blob-hero",
-        "blocks/nav/style-vault/sticky-platform-topbar",
-        "styles/portfolio-studio/style-vault-cool-editorial",
-        "blocks/search/style-vault/cmd-k-search-panel"
+        "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/style-vault/slate-cyan-cool.md"
@@ -4190,10 +4564,10 @@
       "uses": [],
       "preview": "/preview/tokens/shadow/skillhub/ambient-float",
       "usedBy": [
-        "components/indicators/skillhub/pulse-dot",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/skill-card",
         "blocks/nav/skillhub/glass-pill-navbar",
+        "components/indicators/skillhub/pulse-dot",
         "styles/community-social/skillhub-soft-modernist"
       ],
       "hasPreviewFile": true,
@@ -4225,11 +4599,11 @@
       "preview": "/preview/tokens/typography/pairs/acme/ibm-plex-duo",
       "uses": [],
       "usedBy": [
-        "components/inputs/acme/mono-input",
         "blocks/display/acme/saas-data-table",
         "blocks/display/acme/saas-metric-grid",
         "blocks/feedback/acme/saas-status-banner",
         "blocks/nav/acme/saas-cold-topbar",
+        "components/inputs/acme/mono-input",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
@@ -4290,13 +4664,13 @@
       "uses": [],
       "preview": "/preview/tokens/typography/pairs/skillhub/inter-jetbrains-duo",
       "usedBy": [
+        "blocks/form/skillhub/auth-split-form",
         "blocks/marketing/skillhub/gradient-hero",
         "styles/community-social/skillhub-soft-modernist",
-        "blocks/form/skillhub/auth-split-form",
         "pages/auth/skillhub/auth-split",
+        "pages/dashboard/skillhub/admin-overview",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/skill-article-detail",
-        "pages/dashboard/skillhub/admin-overview",
         "pages/form-flow/skillhub/practice-compose",
         "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console"
@@ -4330,17 +4704,17 @@
       "preview": "/preview/tokens/typography/pairs/style-vault/inter-editorial-display",
       "uses": [],
       "usedBy": [
-        "components/overlays/style-vault/spring-toast",
-        "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
-        "blocks/feedback/style-vault/full-screen-loader",
         "blocks/filters/style-vault/sticky-chip-filter-panel",
+        "blocks/feedback/style-vault/full-screen-loader",
         "blocks/layout/style-vault/browser-chrome-frame",
         "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/nav/style-vault/sticky-platform-topbar",
-        "styles/portfolio-studio/style-vault-cool-editorial",
-        "blocks/search/style-vault/cmd-k-search-panel"
+        "blocks/search/style-vault/cmd-k-search-panel",
+        "components/overlays/style-vault/spring-toast",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
+        "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/style-vault/inter-editorial-display.md"
