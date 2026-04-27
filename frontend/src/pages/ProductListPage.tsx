@@ -41,7 +41,7 @@ export default function ProductListPage() {
     <div className="min-h-screen bg-[#fafafa]">
       <TopBar />
 
-      <main className="px-10 pb-20 pt-10">
+      <main className="px-10 pb-20 pt-4">
         <div
           className="grid items-start gap-8"
           style={{ gridTemplateColumns: '260px 1fr' }}

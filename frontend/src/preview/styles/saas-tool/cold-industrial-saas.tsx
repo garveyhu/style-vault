@@ -28,9 +28,19 @@ const ROWS: Row[] = [
 
 function StatusDot({ s }: { s: string }) {
   const color = s === 'healthy' ? '#10b981' : s === 'degraded' ? '#f59e0b' : SUBTLE;
+  const isHealthy = s === 'healthy';
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: MONO, fontSize: 12 }}>
-      <span style={{ width: 6, height: 6, borderRadius: '50%', background: color, display: 'inline-block' }} />
+      <span
+        style={{
+          width: 6,
+          height: 6,
+          borderRadius: '50%',
+          background: color,
+          display: 'inline-block',
+          animation: isHealthy ? 'sv-cis-pulse 2s ease-out infinite' : undefined,
+        }}
+      />
       {s}
     </span>
   );
@@ -50,7 +60,40 @@ export default function ColdIndustrialSaasPreview() {
 
   return (
     <PreviewFrame bg={BG} padded={false}>
+      <style>
+        {`@keyframes sv-cis-pulse { 0%{box-shadow:0 0 0 0 rgba(16,185,129,.55);} 70%{box-shadow:0 0 0 5px rgba(16,185,129,0);} 100%{box-shadow:0 0 0 0 rgba(16,185,129,0);} }`}
+      </style>
       <div style={{ background: BG, color: FG, fontFamily: SANS, minHeight: '100vh' }}>
+        {/* status banner · neutral */}
+        <div
+          style={{
+            height: 32,
+            padding: '0 32px',
+            background: BG,
+            borderBottom: `1px solid ${BORDER}`,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            color: '#cbd5e1',
+            fontSize: 12,
+          }}
+        >
+          <span
+            style={{
+              fontFamily: MONO,
+              fontSize: 11,
+              letterSpacing: '0.08em',
+              opacity: 0.7,
+            }}
+          >
+            01:48:22 UTC
+          </span>
+          <span style={{ flex: 1 }}>
+            Scheduled maintenance window starts in 12 minutes · eu-west-1
+          </span>
+          <span style={{ opacity: 0.6, cursor: 'pointer' }}>×</span>
+        </div>
+
         {/* 顶栏 */}
         <header
           style={{

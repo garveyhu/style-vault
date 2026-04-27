@@ -1,6 +1,77 @@
 {
-  "version": "2026-04-27T02:02:47.137Z",
+  "version": "2026-04-27T02:21:37.653Z",
   "items": [
+    {
+      "id": "blocks/display/acme/saas-data-table",
+      "type": "block",
+      "name": "SaaS 数据表格",
+      "description": "行高 40px 紧凑表格 · status pulse 左 · 等宽数字右对齐 · hover 显 ghost icon-button",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/acme/slate-cyan-ice",
+        "tokens/typography/pairs/acme/ibm-plex-duo",
+        "components/indicators/acme/status-pulse",
+        "components/buttons/acme/ghost-button"
+      ],
+      "preview": "/preview/blocks/display/acme/saas-data-table",
+      "usedBy": [
+        "styles/saas-tool/cold-industrial-saas",
+        "pages/dashboard/acme/saas-monitor-overview",
+        "pages/list-table/acme/saas-incident-list"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/acme/saas-data-table.md"
+    },
+    {
+      "id": "blocks/display/acme/saas-metric-grid",
+      "type": "block",
+      "name": "SaaS 指标网格",
+      "description": "4 列 KPI 卡 · uppercase caption + Plex Mono 大数字 + delta arrow + sparkline",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/acme/slate-cyan-ice",
+        "tokens/typography/pairs/acme/ibm-plex-duo"
+      ],
+      "preview": "/preview/blocks/display/acme/saas-metric-grid",
+      "usedBy": [
+        "styles/saas-tool/cold-industrial-saas",
+        "pages/dashboard/acme/saas-monitor-overview"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/acme/saas-metric-grid.md"
+    },
     {
       "id": "blocks/display/skillhub/gradient-stat-card",
       "type": "block",
@@ -66,8 +137,8 @@
       "preview": "/preview/blocks/display/skillhub/leaderboard-row",
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
-        "pages/list-table/skillhub/practice-plaza",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/landing/skillhub/skill-community-home",
+        "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/skillhub/leaderboard-row.md"
@@ -139,6 +210,41 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/skillhub/table.md"
+    },
+    {
+      "id": "blocks/feedback/acme/saas-status-banner",
+      "type": "block",
+      "name": "SaaS 状态告警条",
+      "description": "32px 全宽顶部告警条 · 三态（neutral/warning/critical）· critical 才出 pulse",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/acme/slate-cyan-ice",
+        "tokens/typography/pairs/acme/ibm-plex-duo",
+        "components/indicators/acme/status-pulse"
+      ],
+      "preview": "/preview/blocks/feedback/acme/saas-status-banner",
+      "usedBy": [
+        "styles/saas-tool/cold-industrial-saas",
+        "pages/dashboard/acme/saas-monitor-overview"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/feedback/acme/saas-status-banner.md"
     },
     {
       "id": "blocks/feedback/skillhub/empty-state",
@@ -346,6 +452,42 @@
       "skillPath": "blocks/marketing/skillhub/gradient-hero.md"
     },
     {
+      "id": "blocks/nav/acme/saas-cold-topbar",
+      "type": "block",
+      "name": "冷感 SaaS 顶栏",
+      "description": "56px 暗色顶栏 · 左 logo+breadcrumb · 中 ⌘K 命令面板入口 · 右 status pill+avatar",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/acme/slate-cyan-ice",
+        "tokens/typography/pairs/acme/ibm-plex-duo",
+        "components/indicators/acme/status-pulse"
+      ],
+      "preview": "/preview/blocks/nav/acme/saas-cold-topbar",
+      "usedBy": [
+        "styles/saas-tool/cold-industrial-saas",
+        "pages/dashboard/acme/saas-monitor-overview",
+        "pages/list-table/acme/saas-incident-list"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/acme/saas-cold-topbar.md"
+    },
+    {
       "id": "blocks/nav/skillhub/glass-pill-navbar",
       "type": "block",
       "name": "玻璃 Pill 导航栏",
@@ -374,17 +516,17 @@
       "preview": "/preview/blocks/nav/skillhub/glass-pill-navbar",
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
+        "pages/content-reader/skillhub/im-conversation",
+        "pages/dashboard/skillhub/admin-overview",
+        "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/dashboard/skillhub/admin-overview",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/profile-edit",
-        "pages/dashboard/skillhub/user-home",
-        "pages/content-reader/skillhub/im-conversation",
-        "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza",
         "pages/list-table/skillhub/admin-console",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/form-flow/skillhub/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/nav/skillhub/glass-pill-navbar.md"
@@ -416,20 +558,56 @@
       ],
       "preview": "/preview/components/avatars-icons/skillhub/letter-avatar",
       "usedBy": [
+        "blocks/form/skillhub/profile-edit-form",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
-        "blocks/form/skillhub/profile-edit-form",
         "styles/community-social/skillhub-soft-modernist",
+        "pages/content-reader/skillhub/im-conversation",
+        "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/dashboard/skillhub/user-home",
-        "pages/detail/skillhub/skill-article-detail",
-        "pages/content-reader/skillhub/im-conversation",
+        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/detail/skillhub/skill-article-detail"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/avatars-icons/skillhub/letter-avatar.md"
+    },
+    {
+      "id": "components/buttons/acme/cyan-cta",
+      "type": "component",
+      "name": "青蓝主 CTA",
+      "description": "cyan-400 实色填充 + 黑字的主操作按钮，与 acme/ghost-button 配对成 primary/secondary",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/acme/slate-cyan-ice",
+        "tokens/motion/acme/instant-snap"
+      ],
+      "preview": "/preview/components/buttons/acme/cyan-cta",
+      "usedBy": [
+        "styles/saas-tool/cold-industrial-saas",
+        "pages/auth/acme/auth-cold-split",
+        "pages/pricing/acme/saas-cold-pricing"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/buttons/acme/cyan-cta.md"
     },
     {
       "id": "components/buttons/acme/ghost-button",
@@ -459,7 +637,12 @@
       ],
       "preview": "/preview/components/buttons/acme/ghost-button",
       "usedBy": [
-        "styles/saas-tool/cold-industrial-saas"
+        "blocks/display/acme/saas-data-table",
+        "styles/saas-tool/cold-industrial-saas",
+        "pages/auth/acme/auth-cold-split",
+        "pages/dashboard/acme/saas-monitor-overview",
+        "pages/list-table/acme/saas-incident-list",
+        "pages/pricing/acme/saas-cold-pricing"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/buttons/acme/ghost-button.md"
@@ -527,17 +710,54 @@
       "usedBy": [
         "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
+        "pages/content-reader/skillhub/im-conversation",
+        "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/profile-edit",
-        "pages/dashboard/skillhub/user-home",
-        "pages/content-reader/skillhub/im-conversation",
-        "pages/form-flow/skillhub/skill-publish-wizard",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/form-flow/skillhub/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/buttons/skillhub/dark-primary-cta.md"
+    },
+    {
+      "id": "components/indicators/acme/status-pulse",
+      "type": "component",
+      "name": "状态脉冲指示",
+      "description": "8px 状态点四态（healthy 带 pulse 光晕 / degraded / critical / idle）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/acme/slate-cyan-ice",
+        "tokens/motion/acme/instant-snap"
+      ],
+      "preview": "/preview/components/indicators/acme/status-pulse",
+      "usedBy": [
+        "blocks/display/acme/saas-data-table",
+        "blocks/feedback/acme/saas-status-banner",
+        "blocks/nav/acme/saas-cold-topbar",
+        "styles/saas-tool/cold-industrial-saas"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/indicators/acme/status-pulse.md"
     },
     {
       "id": "components/indicators/skillhub/pulse-dot",
@@ -574,6 +794,40 @@
       "skillPath": "components/indicators/skillhub/pulse-dot.md"
     },
     {
+      "id": "components/inputs/acme/mono-input",
+      "type": "component",
+      "name": "等宽数字输入框",
+      "description": "Plex Mono 字体、右对齐、cyan focus ring 的数字输入控件，用于金额 / 阈值 / 端口号",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/acme/slate-cyan-ice",
+        "tokens/typography/pairs/acme/ibm-plex-duo"
+      ],
+      "preview": "/preview/components/inputs/acme/mono-input",
+      "usedBy": [
+        "styles/saas-tool/cold-industrial-saas",
+        "pages/auth/acme/auth-cold-split"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/inputs/acme/mono-input.md"
+    },
+    {
       "id": "components/inputs/skillhub/soft-form-input",
       "type": "component",
       "name": "柔边表单输入",
@@ -602,8 +856,8 @@
       "usedBy": [
         "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/form-flow/skillhub/practice-compose",
         "pages/content-reader/skillhub/im-conversation",
+        "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
@@ -641,11 +895,47 @@
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/practice-compose",
-        "pages/list-table/skillhub/practice-plaza",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/landing/skillhub/skill-community-home",
+        "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/tags-badges/skillhub/teal-pill.md"
+    },
+    {
+      "id": "pages/auth/acme/auth-cold-split",
+      "type": "page",
+      "name": "冷感 Auth Split",
+      "description": "60/40 双栏登录 · 左暗色 brand panel · 右白色 form 仅 email+password+SSO",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/acme/slate-cyan-ice",
+        "tokens/typography/pairs/acme/ibm-plex-duo",
+        "components/buttons/acme/cyan-cta",
+        "components/buttons/acme/ghost-button",
+        "components/inputs/acme/mono-input"
+      ],
+      "preview": "/preview/pages/auth/acme/auth-cold-split",
+      "usedBy": [
+        "styles/saas-tool/cold-industrial-saas"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/auth/acme/auth-cold-split/README.md"
     },
     {
       "id": "pages/auth/skillhub/auth-split",
@@ -717,6 +1007,42 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/content-reader/skillhub/im-conversation/README.md"
+    },
+    {
+      "id": "pages/dashboard/acme/saas-monitor-overview",
+      "type": "page",
+      "name": "SaaS 监控总览",
+      "description": "ICEOPS 主页 · topbar + status banner + KPI grid + latency 图 + 服务表格",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/acme/saas-cold-topbar",
+        "blocks/feedback/acme/saas-status-banner",
+        "blocks/display/acme/saas-metric-grid",
+        "blocks/display/acme/saas-data-table",
+        "components/buttons/acme/ghost-button"
+      ],
+      "preview": "/preview/pages/dashboard/acme/saas-monitor-overview",
+      "usedBy": [
+        "styles/saas-tool/cold-industrial-saas"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/dashboard/acme/saas-monitor-overview/README.md"
     },
     {
       "id": "pages/dashboard/skillhub/admin-overview",
@@ -1073,6 +1399,40 @@
       "skillPath": "pages/landing/skillhub/skill-community-home/README.md"
     },
     {
+      "id": "pages/list-table/acme/saas-incident-list",
+      "type": "page",
+      "name": "SaaS 事件列表",
+      "description": "高密度事件表格 · 顶栏 + filter chip 行 + 时间戳 + 严重度 tag + 状态 pulse",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/nav/acme/saas-cold-topbar",
+        "blocks/display/acme/saas-data-table",
+        "components/buttons/acme/ghost-button"
+      ],
+      "preview": "/preview/pages/list-table/acme/saas-incident-list",
+      "usedBy": [
+        "styles/saas-tool/cold-industrial-saas"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/list-table/acme/saas-incident-list/README.md"
+    },
+    {
       "id": "pages/list-table/skillhub/admin-console",
       "type": "page",
       "name": "多域管理后台",
@@ -1147,10 +1507,45 @@
       "skillPath": "pages/list-table/skillhub/practice-plaza/README.md"
     },
     {
+      "id": "pages/pricing/acme/saas-cold-pricing",
+      "type": "page",
+      "name": "冷感 SaaS 定价页",
+      "description": "工具型 SaaS 定价对比 · 3 档方案 + feature matrix + FAQ",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/acme/slate-cyan-ice",
+        "tokens/typography/pairs/acme/ibm-plex-duo",
+        "components/buttons/acme/cyan-cta",
+        "components/buttons/acme/ghost-button"
+      ],
+      "preview": "/preview/pages/pricing/acme/saas-cold-pricing",
+      "usedBy": [
+        "styles/saas-tool/cold-industrial-saas"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/pricing/acme/saas-cold-pricing/README.md"
+    },
+    {
       "id": "products/acme-cold-saas",
       "type": "product",
       "name": "Acme · 冷感工业 SaaS",
-      "description": "为量化团队打造的效率驾驶舱——密集表格、等宽数字、无暖色装饰。",
+      "description": "冷感工业型监控 SaaS——把注意力留给数据本身，等宽数字 / 状态脉冲 / 零装饰。",
       "platforms": [
         "web"
       ],
@@ -1159,14 +1554,23 @@
       "refs": {
         "style": "styles/saas-tool/cold-industrial-saas",
         "pages": [
-          "pages/landing/acme/saas-landing"
+          "pages/landing/acme/saas-landing",
+          "pages/auth/acme/auth-cold-split",
+          "pages/dashboard/acme/saas-monitor-overview",
+          "pages/list-table/acme/saas-incident-list",
+          "pages/pricing/acme/saas-cold-pricing"
         ],
         "blocks": [
-          "blocks/layout/skillhub/toolbar-bar",
-          "blocks/display/skillhub/table"
+          "blocks/nav/acme/saas-cold-topbar",
+          "blocks/display/acme/saas-metric-grid",
+          "blocks/display/acme/saas-data-table",
+          "blocks/feedback/acme/saas-status-banner"
         ],
         "components": [
-          "components/buttons/acme/ghost-button"
+          "components/buttons/acme/ghost-button",
+          "components/buttons/acme/cyan-cta",
+          "components/inputs/acme/mono-input",
+          "components/indicators/acme/status-pulse"
         ],
         "tokens": {
           "palette": "tokens/palettes/acme/slate-cyan-ice",
@@ -1352,8 +1756,20 @@
       "uses": [
         "tokens/palettes/acme/slate-cyan-ice",
         "tokens/typography/pairs/acme/ibm-plex-duo",
+        "tokens/motion/acme/instant-snap",
         "components/buttons/acme/ghost-button",
-        "pages/landing/acme/saas-landing"
+        "components/buttons/acme/cyan-cta",
+        "components/inputs/acme/mono-input",
+        "components/indicators/acme/status-pulse",
+        "blocks/nav/acme/saas-cold-topbar",
+        "blocks/display/acme/saas-metric-grid",
+        "blocks/display/acme/saas-data-table",
+        "blocks/feedback/acme/saas-status-banner",
+        "pages/landing/acme/saas-landing",
+        "pages/auth/acme/auth-cold-split",
+        "pages/dashboard/acme/saas-monitor-overview",
+        "pages/list-table/acme/saas-incident-list",
+        "pages/pricing/acme/saas-cold-pricing"
       ],
       "preview": "/preview/styles/saas-tool/cold-industrial-saas",
       "usedBy": [],
@@ -1417,6 +1833,39 @@
       "skillPath": "tokens/layout/_shared/responsive-grid.md"
     },
     {
+      "id": "tokens/motion/acme/instant-snap",
+      "type": "token",
+      "name": "即时切动效",
+      "description": "工业冷感的零浪漫动效——100/150/200ms ease-out，无 bounce、无回弹、无 scale",
+      "platforms": [
+        "any"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "react-antd-tailwind",
+          "html-tailwind"
+        ]
+      },
+      "preview": "/preview/tokens/motion/acme/instant-snap",
+      "uses": [],
+      "usedBy": [
+        "components/buttons/acme/cyan-cta",
+        "components/indicators/acme/status-pulse",
+        "styles/saas-tool/cold-industrial-saas"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/motion/acme/instant-snap.md"
+    },
+    {
       "id": "tokens/motion/skillhub/gentle-flow",
       "type": "token",
       "name": "温和流动动效系统",
@@ -1441,14 +1890,14 @@
       "uses": [],
       "preview": "/preview/tokens/motion/skillhub/gentle-flow",
       "usedBy": [
-        "blocks/display/skillhub/leaderboard-row",
-        "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/skeleton-card",
         "blocks/marketing/skillhub/gradient-hero",
         "components/buttons/skillhub/border-trace-cta",
+        "blocks/display/skillhub/leaderboard-row",
+        "blocks/display/skillhub/skill-card",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/form-flow/skillhub/skill-publish-wizard",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/landing/skillhub/skill-community-home",
+        "pages/form-flow/skillhub/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/skillhub/gentle-flow.md"
@@ -1479,8 +1928,17 @@
       "preview": "/preview/tokens/palettes/acme/slate-cyan-ice",
       "uses": [],
       "usedBy": [
+        "blocks/display/acme/saas-data-table",
+        "blocks/display/acme/saas-metric-grid",
+        "blocks/feedback/acme/saas-status-banner",
+        "blocks/nav/acme/saas-cold-topbar",
+        "components/buttons/acme/cyan-cta",
         "components/buttons/acme/ghost-button",
-        "styles/saas-tool/cold-industrial-saas"
+        "components/indicators/acme/status-pulse",
+        "components/inputs/acme/mono-input",
+        "styles/saas-tool/cold-industrial-saas",
+        "pages/auth/acme/auth-cold-split",
+        "pages/pricing/acme/saas-cold-pricing"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/acme/slate-cyan-ice.md"
@@ -1510,33 +1968,33 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/skillhub/skillhub-teal-mist",
       "usedBy": [
+        "blocks/feedback/skillhub/empty-state",
+        "blocks/feedback/skillhub/skeleton-card",
+        "blocks/marketing/skillhub/gradient-hero",
+        "blocks/nav/skillhub/glass-pill-navbar",
+        "blocks/form/skillhub/auth-split-form",
+        "blocks/form/skillhub/profile-edit-form",
+        "components/buttons/skillhub/border-trace-cta",
+        "components/buttons/skillhub/dark-primary-cta",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
-        "blocks/feedback/skillhub/empty-state",
-        "blocks/feedback/skillhub/skeleton-card",
-        "blocks/form/skillhub/auth-split-form",
-        "blocks/form/skillhub/profile-edit-form",
-        "blocks/nav/skillhub/glass-pill-navbar",
-        "components/avatars-icons/skillhub/letter-avatar",
-        "blocks/marketing/skillhub/gradient-hero",
-        "components/buttons/skillhub/border-trace-cta",
-        "components/buttons/skillhub/dark-primary-cta",
         "components/indicators/skillhub/pulse-dot",
+        "components/avatars-icons/skillhub/letter-avatar",
         "components/inputs/skillhub/soft-form-input",
         "components/tags-badges/skillhub/teal-pill",
         "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
-        "pages/detail/skillhub/user-public-profile",
-        "pages/dashboard/skillhub/admin-overview",
-        "pages/form-flow/skillhub/profile-edit",
-        "pages/dashboard/skillhub/user-home",
-        "pages/detail/skillhub/skill-article-detail",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/dashboard/skillhub/admin-overview",
+        "pages/dashboard/skillhub/user-home",
+        "pages/detail/skillhub/user-public-profile",
+        "pages/form-flow/skillhub/profile-edit",
+        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza",
         "pages/list-table/skillhub/admin-console",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/detail/skillhub/skill-article-detail",
+        "pages/form-flow/skillhub/skill-publish-wizard"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/skillhub/skillhub-teal-mist.md"
@@ -1566,9 +2024,9 @@
       "uses": [],
       "preview": "/preview/tokens/shadow/skillhub/ambient-float",
       "usedBy": [
+        "blocks/nav/skillhub/glass-pill-navbar",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/skill-card",
-        "blocks/nav/skillhub/glass-pill-navbar",
         "components/indicators/skillhub/pulse-dot",
         "styles/community-social/skillhub-soft-modernist"
       ],
@@ -1601,7 +2059,14 @@
       "preview": "/preview/tokens/typography/pairs/acme/ibm-plex-duo",
       "uses": [],
       "usedBy": [
-        "styles/saas-tool/cold-industrial-saas"
+        "blocks/display/acme/saas-data-table",
+        "blocks/display/acme/saas-metric-grid",
+        "blocks/feedback/acme/saas-status-banner",
+        "blocks/nav/acme/saas-cold-topbar",
+        "components/inputs/acme/mono-input",
+        "styles/saas-tool/cold-industrial-saas",
+        "pages/auth/acme/auth-cold-split",
+        "pages/pricing/acme/saas-cold-pricing"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/acme/ibm-plex-duo.md"
@@ -1631,16 +2096,16 @@
       "uses": [],
       "preview": "/preview/tokens/typography/pairs/skillhub/inter-jetbrains-duo",
       "usedBy": [
-        "blocks/form/skillhub/auth-split-form",
         "blocks/marketing/skillhub/gradient-hero",
+        "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
-        "pages/detail/skillhub/practice-post-detail",
         "pages/dashboard/skillhub/admin-overview",
+        "pages/detail/skillhub/practice-post-detail",
         "pages/form-flow/skillhub/practice-compose",
-        "pages/detail/skillhub/skill-article-detail",
+        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/detail/skillhub/skill-article-detail"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/skillhub/inter-jetbrains-duo.md"
