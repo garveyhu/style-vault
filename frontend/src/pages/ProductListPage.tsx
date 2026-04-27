@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { useRegistry, isRegistryMissing } from '../data/useRegistry';
@@ -125,7 +125,8 @@ function ProductCard({
   onClick: () => void;
 }) {
   const previewRef = useRef<HTMLDivElement | null>(null);
-  const [scale, setScale] = useState(COVER_WIDTH / PREVIEW_VIRTUAL_WIDTH);
+  // 用 null 初始 → 测量前 scale(0) opacity=0 占位，避免错 scale 渲染再 jump 修正
+  const [scale, setScale] = useState<number | null>(null);
   const CoverComp = coverItem ? getPreviewComponent(coverItem.preview) : null;
   const { user } = useAuth();
   const { isFavorited, toggleFavorite } = useFavorites();
@@ -144,9 +145,12 @@ function ProductCard({
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = previewRef.current;
     if (!el) return;
+    // 立即同步测一次 → 避免 effect 异步 fire 期间已用错 scale 画了一帧再修正
+    const w0 = el.clientWidth;
+    if (w0 > 0) setScale(w0 / PREVIEW_VIRTUAL_WIDTH);
     const ro = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const w = entry.contentRect.width;
@@ -182,7 +186,9 @@ function ProductCard({
                 style={{
                   width: `${PREVIEW_VIRTUAL_WIDTH}px`,
                   height: `${PREVIEW_VIRTUAL_HEIGHT}px`,
-                  transform: `scale(${scale})`,
+                  transform: scale ? `scale(${scale})` : 'scale(0)',
+                  opacity: scale ? 1 : 0,
+                  transition: 'opacity 200ms',
                 }}
                 aria-hidden
               >

@@ -8,6 +8,7 @@ import { toast } from '../components/Toast';
 import { platformLabel, themeLabel, categoryLabel, categoryDot } from '../utils/taxonomy';
 import { buildPrompt } from '../utils/prompt';
 import { getPreviewComponent } from '../preview/registry';
+import { GlobalLoading } from '../components/GlobalLoading';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 
 /**
@@ -60,10 +61,23 @@ function PreviewOnlyCard({
       setScaledHeight(naturalH * s);
     };
 
+    // 首次同步测一次（layoutEffect 内 setState 在 paint 前生效，不会闪）
     compute();
-    const ro = new ResizeObserver(compute);
+
+    // 只监听 frame 宽度变化（容器宽变了才需要重算 scale）。
+    // 不监听 preview 内容高度变化 —— sage 预览组件内部有 timer / 动画 / 异步 mount，
+    // 一观察就触发 setScaledHeight 让卡片在懒加载新批次时疯狂跳动。
+    let lastW = frame.clientWidth;
+    const ro = new ResizeObserver(entries => {
+      for (const e of entries) {
+        const newW = e.contentRect.width;
+        if (Math.abs(newW - lastW) > 0.5) {
+          lastW = newW;
+          compute();
+        }
+      }
+    });
     ro.observe(frame);
-    ro.observe(preview);
     return () => ro.disconnect();
   }, [PreviewComp, virtualWidth]);
 
@@ -276,6 +290,21 @@ export default function ProductDetailPage() {
   const product = useItem(id);
   const [activeSection, setActiveSection] = useState<SectionId>('style');
   const [peekItem, setPeekItem] = useState<RegistryItem | null>(null);
+  // 双 rAF 让浏览器先 paint，再渲染重内容（132 个 preview 同步挂载会卡 ~1s）
+  // loading 立即显（比白屏好），content 准备好就立刻替换。
+  // 滚动位置由全局 ScrollToTop 接管（PUSH 钉顶 / POP 还原），这里不主动改 scrollY。
+  const [contentReady, setContentReady] = useState(false);
+  useEffect(() => {
+    setContentReady(false);
+    let r2 = 0;
+    const r1 = requestAnimationFrame(() => {
+      r2 = requestAnimationFrame(() => setContentReady(true));
+    });
+    return () => {
+      cancelAnimationFrame(r1);
+      cancelAnimationFrame(r2);
+    };
+  }, [slug]);
 
   useEffect(() => {
     const sections = SECTION_IDS
@@ -310,6 +339,9 @@ export default function ProductDetailPage() {
       </div>
     );
   }
+
+  // 立即显 loading，content 准备好就替换 —— 比白屏好
+  if (!contentReady) return <GlobalLoading fullscreen />;
 
   const resolve = (rid: string) => reg.items.find((i) => i.id === rid);
   const style = product.refs?.style ? resolve(product.refs.style) : null;

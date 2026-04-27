@@ -37,13 +37,16 @@ export function GlobalLoading({ fullscreen = true }: { fullscreen?: boolean }) {
             />
           </svg>
 
-          {/* 旋转 accent 弧 */}
+          {/* 旋转 accent 弧 · DIV 包 SVG（SVG 自身 transform-origin 在某些环境失效，DIV 转更稳） */}
+          <div
+            className="absolute inset-0"
+            style={{ animation: 'sv-spin 1.1s linear infinite' }}
+            aria-hidden
+          >
           <svg
-            className="absolute inset-0 animate-spin"
-            style={{ animationDuration: '1.1s' }}
+            className="w-full h-full"
             viewBox="0 0 80 80"
             fill="none"
-            aria-hidden
           >
             <defs>
               <linearGradient
@@ -68,6 +71,7 @@ export function GlobalLoading({ fullscreen = true }: { fullscreen?: boolean }) {
               strokeDasharray="60 180"
             />
           </svg>
+          </div>
 
           {/* 中心 logo */}
           <img

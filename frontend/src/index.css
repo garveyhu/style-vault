@@ -252,6 +252,11 @@ iframe {
   50% { opacity: 1; transform: scale(1.04); }
 }
 
+/* GlobalLoading / InlineLoading: 旋转环 — 自定义不依赖 tailwind animate-spin（有时未被 emit） */
+@keyframes sv-spin {
+  to { transform: rotate(360deg); }
+}
+
 /* PreviewFrame：独立 /preview/* 路由下撑满视口；嵌入 DetailPage 预览框时按内容高度 */
 .sv-preview-frame {
   min-height: 100vh;
