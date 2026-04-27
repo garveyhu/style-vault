@@ -21,6 +21,8 @@ const POOL = [
   { id: 16, name: 'webapp-testing', tag: '测试' },
 ];
 
+type Mode = 'fill' | 'fixed';
+
 function Card({ item }: { item: typeof POOL[number] }) {
   return (
     <div style={{
@@ -41,8 +43,9 @@ function Card({ item }: { item: typeof POOL[number] }) {
   );
 }
 
-export default function AutoFitFluidPreview() {
-  const [count, setCount] = useState(8);
+export default function ResponsiveGridPreview() {
+  const [mode, setMode] = useState<Mode>('fixed');
+  const [count, setCount] = useState(3);
   const gridRef = useRef<HTMLDivElement>(null);
   const [measured, setMeasured] = useState<{ cols: number; cardW: number }>({ cols: 0, cardW: 0 });
 
@@ -61,9 +64,10 @@ export default function AutoFitFluidPreview() {
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [count]);
+  }, [count, mode]);
 
   const items = POOL.slice(0, count);
+  const tracks = mode === 'fill' ? 'auto-fit' : 'auto-fill';
 
   return (
     <PreviewFrame bg="#f5f7fa">
@@ -72,10 +76,11 @@ export default function AutoFitFluidPreview() {
           TOKEN · LAYOUT
         </div>
         <h1 style={{ fontSize: 32, fontWeight: 800, letterSpacing: '-0.01em', margin: '8px 0 8px' }}>
-          Auto-Fit Fluid
+          Responsive Grid
         </h1>
         <p style={{ color: '#64748b', fontSize: 14, margin: '0 0 24px', lineHeight: 1.7, maxWidth: 720 }}>
-          auto-fit + minmax(280px, 1fr) · 永远填行 · 切换下方数据量看<b>卡宽如何浮动</b>（少量数据时卡变宽）；拖窗口看列数如何分级变化。
+          双模式响应式栅格 · 切换 <b>fill / fixed</b> 看少量数据时的差异：
+          fill 把空列折叠让卡片<b>拉伸填行</b>，fixed 保留空列让卡片<b>保持自然列宽</b>。
         </p>
 
         {/* Live 状态条 */}
@@ -85,14 +90,39 @@ export default function AutoFitFluidPreview() {
           padding: '10px 16px', borderRadius: 10, marginBottom: 16,
           fontFamily: 'JetBrains Mono, monospace', fontSize: 13,
         }}>
+          <span>模式：<b style={{ color: '#67e8f9' }}>{mode}</b></span>
+          <span>tracks：<b style={{ color: '#67e8f9' }}>{tracks}</b></span>
           <span>实测列数：<b style={{ color: '#67e8f9' }}>{measured.cols}</b></span>
           <span>实测卡宽：<b style={{ color: '#67e8f9' }}>{measured.cardW}</b> px</span>
           <span>数据量：<b style={{ color: '#67e8f9' }}>{items.length}</b> / {POOL.length}</span>
         </div>
 
+        {/* Mode 切换 */}
+        <div style={{ display: 'flex', gap: 8, marginBottom: 12, alignItems: 'center' }}>
+          <span style={{ fontSize: 12, color: '#64748b', marginRight: 4 }}>模式：</span>
+          {(['fixed', 'fill'] as const).map((m) => (
+            <button
+              key={m}
+              onClick={() => setMode(m)}
+              style={{
+                padding: '6px 14px', fontSize: 12, fontWeight: 600,
+                borderRadius: 999, cursor: 'pointer',
+                background: mode === m ? '#0f172a' : '#fff',
+                color: mode === m ? '#fff' : '#475569',
+                border: '1px solid #e2e8f0', fontFamily: 'inherit',
+              }}
+            >
+              {m}
+              <span style={{ opacity: 0.6, marginLeft: 6, fontFamily: 'JetBrains Mono, monospace', fontSize: 10 }}>
+                {m === 'fill' ? 'auto-fit' : 'auto-fill'}
+              </span>
+            </button>
+          ))}
+        </div>
+
         {/* 数据量切换 */}
-        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
-          <span style={{ fontSize: 12, color: '#64748b', alignSelf: 'center', marginRight: 4 }}>切数据量：</span>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16, alignItems: 'center' }}>
+          <span style={{ fontSize: 12, color: '#64748b', marginRight: 4 }}>数据量：</span>
           {[1, 2, 3, 4, 8, 16].map((n) => (
             <button
               key={n}
@@ -110,28 +140,41 @@ export default function AutoFitFluidPreview() {
           ))}
         </div>
 
-        {/* 栅格 · auto-fit */}
+        {/* 栅格 · 双模式 */}
         <div
           ref={gridRef}
           style={{
             display: 'grid', gap: 16,
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gridTemplateColumns: `repeat(${tracks}, minmax(280px, 1fr))`,
           }}
         >
           {items.map((item) => (<Card key={item.id} item={item} />))}
         </div>
 
-        {/* 提示 */}
+        {/* 提示 · 跟随 mode 改变文案 */}
         <div style={{
           marginTop: 24, padding: 16, borderRadius: 10,
           background: '#fff', border: '1px solid #e2e8f0',
           fontSize: 12, color: '#64748b', lineHeight: 1.7,
         }}>
-          <div style={{ fontWeight: 700, color: '#0f172a', marginBottom: 6, fontSize: 13 }}>关键特性</div>
-          <div>· 永远填满容器宽度，无右侧留白</div>
-          <div>· 数据少时卡片<b> 被拉宽</b>（auto-fit 把空列折叠为 0）</div>
-          <div>· 数据 ≥ 容器能容纳的列数时换行</div>
-          <div>· 切 "1 条" 看最极端的"单卡吃满容器宽"现象</div>
+          <div style={{ fontWeight: 700, color: '#0f172a', marginBottom: 6, fontSize: 13 }}>
+            {mode === 'fill' ? 'fill · auto-fit + 1fr' : 'fixed · auto-fill + 1fr'}
+          </div>
+          {mode === 'fill' ? (
+            <>
+              <div>· 永远填满容器宽度，<b>无右侧留白</b></div>
+              <div>· 数据少时空 track 折叠为 0，已有卡片<b>拉伸瓜分整行</b></div>
+              <div>· 切「1 条」看最极端的"单卡吃满容器宽"</div>
+              <div>· 适合搜索结果、全量列表等"必须填满"的场景</div>
+            </>
+          ) : (
+            <>
+              <div>· 卡片宽度 = 容器满列时的列宽，<b>不受数据量影响</b></div>
+              <div>· 数据少时空 track 保留，每个 track 都按 1fr 等分容器宽</div>
+              <div>· 切「1 条」看卡片<b>保持原宽度</b>、右侧自然留白</div>
+              <div>· 适合个人主页收藏、作品集等"卡宽优先于填满"的场景</div>
+            </>
+          )}
         </div>
       </div>
     </PreviewFrame>
