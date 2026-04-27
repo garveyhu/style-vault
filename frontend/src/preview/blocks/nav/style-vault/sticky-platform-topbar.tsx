@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { SearchOutlined } from '@ant-design/icons';
 import { PreviewFrame } from '../../../_layout';
 
 const SANS =
@@ -157,7 +158,7 @@ export default function StickyPlatformTopbarPreview() {
                   e.currentTarget.style.color = '#64748b';
                 }}
               >
-                <span style={{ fontSize: 14 }}>🔍</span>
+                <SearchOutlined style={{ fontSize: 14 }} />
                 搜索风格
               </button>
             </nav>

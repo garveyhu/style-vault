@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { SearchOutlined, CloseOutlined } from '@ant-design/icons';
 import { PreviewFrame } from '../../../_layout';
 
 const SANS =
@@ -137,7 +138,8 @@ export default function CmdKSearchPanelPreview() {
           <span style={{ fontSize: 13, fontWeight: 500, color: '#475569' }}>浏览</span>
           <span style={{ fontSize: 13, fontWeight: 500, color: '#475569' }}>产品集</span>
           <button style={{ height: 36, padding: '0 14px', borderRadius: 9999, border: '1px solid #e2e8f0', background: 'rgba(255,255,255,0.6)', display: 'inline-flex', alignItems: 'center', gap: 8, color: '#64748b', fontSize: 13, fontFamily: SANS, fontWeight: 500 }}>
-            🔍 搜索风格
+            <SearchOutlined style={{ fontSize: 14 }} />
+            搜索风格
           </button>
           <div style={{ flex: 1 }} />
         </header>
@@ -194,7 +196,7 @@ export default function CmdKSearchPanelPreview() {
         >
           {/* toolbar */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '18px 22px', borderBottom: '1px solid #f1f5f9' }}>
-            <span style={{ flexShrink: 0, color: '#94a3b8', fontSize: 18 }}>🔍</span>
+            <SearchOutlined style={{ flexShrink: 0, color: '#94a3b8', fontSize: 20 }} />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
@@ -204,7 +206,13 @@ export default function CmdKSearchPanelPreview() {
               style={{ flex: 1, border: 'none', outline: 'none', background: 'none', fontFamily: SANS, fontSize: 17, color: '#0f172a', letterSpacing: '-0.01em' }}
             />
             {q && (
-              <button onClick={() => setQ('')} style={{ background: 'none', border: 'none', color: '#cbd5e1', cursor: 'pointer', fontSize: 16, width: 24, height: 24, borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>×</button>
+              <button
+                onClick={() => setQ('')}
+                aria-label="清空"
+                style={{ background: 'none', border: 'none', color: '#cbd5e1', cursor: 'pointer', width: 24, height: 24, borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              >
+                <CloseOutlined style={{ fontSize: 14 }} />
+              </button>
             )}
             <div style={{ display: 'inline-flex', gap: 4, padding: 3, borderRadius: 9999, border: '1px solid #e2e8f0', background: '#f8fafc' }}>
               {(['all', 'web', 'ios', 'android'] as const).map((p) => (
