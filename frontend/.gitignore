@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# 临时 mock html（设计方案对比页等，不进仓）
+public/*.html
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
