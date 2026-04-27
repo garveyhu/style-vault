@@ -548,7 +548,8 @@ function PanelInner({ onClose }: { onClose: () => void }) {
       } else if (e.key === 'Enter') {
         e.preventDefault();
         const idx = kbIdx >= 0 ? kbIdx : 0;
-        openItem(flatNav[idx]);
+        // ⌘/Ctrl+Enter → 新窗口
+        openItem(flatNav[idx], { metaKey: e.metaKey, ctrlKey: e.ctrlKey });
       }
     };
     window.addEventListener('keydown', onKey);
@@ -565,17 +566,24 @@ function PanelInner({ onClose }: { onClose: () => void }) {
     el?.scrollIntoView({ block: 'nearest' });
   }, [kbIdx]);
 
-  function openItem(id: string) {
+  function openItem(
+    id: string,
+    ev?: { metaKey?: boolean; ctrlKey?: boolean },
+  ) {
     const qt = q.trim();
     if (qt) {
       pushRecent(qt);
       setRecent(getRecent());
     }
-    if (id.startsWith('products/')) {
-      nav(`/products/${id.replace(/^products\//, '')}`);
-    } else {
-      nav(`/item/${id}`);
+    const path = id.startsWith('products/')
+      ? `/products/${id.replace(/^products\//, '')}`
+      : `/item/${id}`;
+    // ⌘/Ctrl+click（或 ⌘/Ctrl+Enter / 中键）→ 新窗口打开 · 保留面板让用户继续搜
+    if (ev?.metaKey || ev?.ctrlKey) {
+      window.open(path, '_blank', 'noopener');
+      return;
     }
+    nav(path);
     onClose();
   }
 
@@ -791,7 +799,7 @@ function QueryResults({
   q: string;
   kbIdx: number;
   flatNav: string[];
-  onOpen: (id: string) => void;
+  onOpen: (id: string, ev?: { metaKey?: boolean; ctrlKey?: boolean }) => void;
 }) {
   // 按 type 分组（query 模式 collapse buckets，按 type 看更直观）
   const byType: Record<EntryType, RegistryItem[]> = {
@@ -829,7 +837,13 @@ function QueryResults({
                 key={i.id}
                 type="button"
                 data-kb={idx}
-                onClick={() => onOpen(i.id)}
+                onClick={(e) => onOpen(i.id, e)}
+                onAuxClick={(e) => {
+                  if (e.button === 1) {
+                    e.preventDefault();
+                    onOpen(i.id, { metaKey: true });
+                  }
+                }}
                 className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left transition ${
                   on ? 'bg-slate-100' : 'hover:bg-slate-50'
                 }`}
@@ -871,7 +885,7 @@ function EmptyView({
   type: TypeFilter;
   kbIdx: number;
   flatNav: string[];
-  onOpen: (id: string) => void;
+  onOpen: (id: string, ev?: { metaKey?: boolean; ctrlKey?: boolean }) => void;
 }) {
   return (
     <>
@@ -893,7 +907,13 @@ function EmptyView({
                   key={i.id}
                   type="button"
                   data-kb={idx}
-                  onClick={() => onOpen(i.id)}
+                  onClick={(e) => onOpen(i.id, e)}
+                  onAuxClick={(e) => {
+                    if (e.button === 1) {
+                      e.preventDefault();
+                      onOpen(i.id, { metaKey: true });
+                    }
+                  }}
                   className={`flex items-center gap-3.5 rounded-xl border bg-white p-3 text-left transition hover:-translate-y-0.5 hover:shadow-[0_2px_6px_-1px_rgba(15,23,42,0.06),0_12px_28px_-10px_rgba(15,23,42,0.18)] ${
                     on
                       ? '-translate-y-0.5 border-slate-900 shadow-[0_2px_6px_-1px_rgba(15,23,42,0.06),0_12px_28px_-10px_rgba(15,23,42,0.18)]'
@@ -957,7 +977,13 @@ function EmptyView({
                   key={i.id}
                   type="button"
                   data-kb={idx}
-                  onClick={() => onOpen(i.id)}
+                  onClick={(e) => onOpen(i.id, e)}
+                  onAuxClick={(e) => {
+                    if (e.button === 1) {
+                      e.preventDefault();
+                      onOpen(i.id, { metaKey: true });
+                    }
+                  }}
                   className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left transition ${
                     on ? 'bg-slate-100' : 'hover:bg-slate-50'
                   }`}
