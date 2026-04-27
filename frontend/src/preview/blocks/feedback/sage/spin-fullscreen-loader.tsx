@@ -1,13 +1,44 @@
 import { useState } from 'react';
 import { PreviewFrame } from '../../../_layout';
 
-const SPIN_CSS = `
-@keyframes sv-spin-rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-@keyframes sv-spin-bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+// 复刻 Antd Spin 默认 indicator · 4 个圆点正方形布局 + 容器 0.6s rotate + 每个 dot scale bounce
+const ANTD_SPIN_CSS = `
+@keyframes sv-antdspin-rotate {
+  to { transform: rotate(405deg); }
+}
+@keyframes sv-antdspin-move {
+  to { opacity: 1; }
+}
+.sv-antd-spin {
+  position: relative;
+  display: inline-block;
+  font-size: var(--sv-spin-size, 32px);
+  width: 1em; height: 1em;
+  transform: rotate(45deg);
+  animation: sv-antdspin-rotate 1.2s infinite linear;
+}
+.sv-antd-spin > i {
+  position: absolute;
+  display: block;
+  width: 0.4em; height: 0.4em;
+  background: var(--sv-spin-color, #10b981);
+  border-radius: 100%;
+  transform: scale(0.75);
+  transform-origin: 50% 50%;
+  opacity: 0.3;
+  animation: sv-antdspin-move 1s infinite linear alternate;
+}
+.sv-antd-spin > i:nth-child(1) { top: 0; left: 0; }
+.sv-antd-spin > i:nth-child(2) { top: 0; right: 0; animation-delay: 0.4s; }
+.sv-antd-spin > i:nth-child(3) { right: 0; bottom: 0; animation-delay: 0.8s; }
+.sv-antd-spin > i:nth-child(4) { bottom: 0; left: 0; animation-delay: 1.2s; }
 `;
 
 const THEMES = [
-  { hex: '#10b981' }, { hex: '#22d3ee' }, { hex: '#fb7185' }, { hex: '#a78bfa' },
+  { name: 'green', hex: '#10b981' },
+  { name: 'blue',  hex: '#60a5fa' },
+  { name: 'rose',  hex: '#fb7185' },
+  { name: 'cyan',  hex: '#22d3ee' },
 ];
 
 export default function SpinFullscreenLoaderPreview() {
@@ -16,12 +47,14 @@ export default function SpinFullscreenLoaderPreview() {
 
   return (
     <PreviewFrame bg="rgb(249,249,249)">
-      <style>{SPIN_CSS}</style>
+      <style>{ANTD_SPIN_CSS}</style>
       <div style={{ fontFamily: 'Inter, sans-serif', color: '#0f172a' }}>
-        <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: 2, color: '#94a3b8' }}>BLOCK · FEEDBACK</div>
-        <h1 style={{ fontSize: 24, fontWeight: 700, margin: '8px 0 4px' }}>Spin Fullscreen Loader</h1>
+        <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: 2, color: '#94a3b8' }}>
+          BLOCK · FEEDBACK
+        </div>
+        <h1 style={{ fontSize: 24, fontWeight: 700, margin: '8px 0 4px' }}>全屏加载</h1>
         <p style={{ color: '#64748b', fontSize: 14, marginBottom: 16 }}>
-          Antd Spin · 主题色注入到 .ant-spin-dot-item · slate-50 背景
+          Antd Spin 默认 indicator · 主题色注入 .ant-spin-dot-item · 背景 #f8fafc (slate-50)
         </p>
 
         <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
@@ -36,58 +69,46 @@ export default function SpinFullscreenLoaderPreview() {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
-          <Panel label="size: small" size={14} hex={t.hex} />
-          <Panel label="size: default" size={20} hex={t.hex} />
-          <Panel label="size: large (默认)" size={32} hex={t.hex} />
+          <Panel label="size: small · 14px" hex={t.hex} size={14} />
+          <Panel label="size: default · 20px" hex={t.hex} size={20} />
+          <Panel label="size: large (默认) · 32px" hex={t.hex} size={32} />
         </div>
 
         <div style={{
           marginTop: 16, padding: 24,
           background: '#f8fafc', borderRadius: 8,
-          height: 200,
+          minHeight: 240,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          flexDirection: 'column', gap: 8,
+          flexDirection: 'column', gap: 12,
         }}>
-          <DotSpinner hex={t.hex} size={32} />
-          <span style={{ fontSize: 12, color: '#94a3b8', marginTop: 8 }}>fullScreen 模式 · min-height: 100vh · 背景 #f8fafc (slate-50)</span>
+          <AntdSpin hex={t.hex} size={32} />
+          <span style={{ fontSize: 12, color: '#94a3b8', marginTop: 8 }}>fullScreen 模式 · min-height: 100vh · 背景 #f8fafc</span>
         </div>
       </div>
     </PreviewFrame>
   );
 }
 
-function Panel({ label, size, hex }: { label: string; size: number; hex: string }) {
+function Panel({ label, hex, size }: { label: string; hex: string; size: number }) {
   return (
     <div style={{
       background: '#f8fafc', borderRadius: 8, height: 140,
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       flexDirection: 'column', gap: 12,
     }}>
-      <DotSpinner hex={hex} size={size} />
+      <AntdSpin hex={hex} size={size} />
       <span style={{ fontSize: 12, color: '#94a3b8' }}>{label}</span>
     </div>
   );
 }
 
-function DotSpinner({ hex, size }: { hex: string; size: number }) {
-  const dotSize = Math.max(4, size / 4);
+function AntdSpin({ hex, size }: { hex: string; size: number }) {
   return (
-    <div style={{ position: 'relative', width: size, height: size, animation: 'sv-spin-rotate 1.2s linear infinite' }}>
-      {[0, 1, 2, 3].map(i => {
-        const angle = i * 90;
-        return (
-          <span
-            key={i}
-            style={{
-              position: 'absolute', top: '50%', left: '50%',
-              width: dotSize, height: dotSize,
-              background: hex, borderRadius: '50%',
-              transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-${size / 2 - dotSize / 2}px)`,
-              animation: `sv-spin-bounce 1s ${i * 0.25}s infinite ease-in-out`,
-            }}
-          />
-        );
-      })}
-    </div>
+    <span
+      className="sv-antd-spin"
+      style={{ ['--sv-spin-size' as 'opacity']: `${size}px`, ['--sv-spin-color' as 'opacity']: hex } as React.CSSProperties}
+    >
+      <i /><i /><i /><i />
+    </span>
   );
 }

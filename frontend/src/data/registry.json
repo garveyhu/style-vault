@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-27T10:26:59.624Z",
+  "version": "2026-04-27T11:37:29.839Z",
   "items": [
     {
       "id": "blocks/display/acme/saas-data-table",
@@ -350,7 +350,7 @@
     {
       "id": "blocks/feedback/sage/admin-overlay-modal",
       "type": "block",
-      "name": "Admin 全屏 Overlay",
+      "name": "管理后台浮层",
       "description": "bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl 全屏管理面板 + 右上角关闭，sage 所有 admin 模块的统一外壳",
       "platforms": [
         "web"
@@ -411,7 +411,7 @@
     {
       "id": "blocks/feedback/sage/spin-fullscreen-loader",
       "type": "block",
-      "name": "全屏 Spin 加载",
+      "name": "全屏加载",
       "description": "AntD Spin + 主题色注入 + slate-50 背景 + 可选 fullScreen 占据 100vh",
       "platforms": [
         "web"
@@ -545,7 +545,7 @@
     {
       "id": "blocks/form/sage/chat-composer",
       "type": "block",
-      "name": "Chat 消息输入器",
+      "name": "消息输入器",
       "description": "整体 ChatInput 模块——glow border textarea + skill bar + voice + send/stop，sage 主聊天页输入腰带",
       "platforms": [
         "web"
@@ -685,7 +685,7 @@
     {
       "id": "blocks/layout/sage/sidebar-detail-split",
       "type": "block",
-      "name": "侧栏 + 主区分屏布局",
+      "name": "侧栏分屏布局",
       "description": "280px Sidebar + 主区 styled-components 布局骨架，SpaceManagement / AgentStorePage 等管理页通用",
       "platforms": [
         "web"
@@ -709,8 +709,8 @@
       "preview": "/preview/blocks/layout/sage/sidebar-detail-split",
       "usedBy": [
         "styles/saas-tool/sage-multitheme-data-platform",
-        "pages/list-table/sage/space-management-split",
-        "pages/list-table/sage/agent-store-split-tabs"
+        "pages/list-table/sage/agent-store-split-tabs",
+        "pages/list-table/sage/space-management-split"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/layout/sage/sidebar-detail-split.md"
@@ -784,7 +784,7 @@
     {
       "id": "blocks/marketing/sage/auth-emerald-card",
       "type": "block",
-      "name": "Emerald 登录卡片",
+      "name": "登录卡片",
       "description": "max-w-md 居中卡片 + emerald CTA + 图标前缀输入 + 注册码切换，sage 登录页核心模块",
       "platforms": [
         "web"
@@ -927,7 +927,7 @@
     {
       "id": "blocks/nav/sage/command-palette",
       "type": "block",
-      "name": "Cmd+P 命令面板",
+      "name": "命令面板",
       "description": "Linear / Raycast 风全局命令面板，分组列表 + 键盘导航 + 状态栏，admin 专属",
       "platforms": [
         "web"
@@ -1025,7 +1025,7 @@
     {
       "id": "blocks/nav/sage/space-switcher-dropdown",
       "type": "block",
-      "name": "空间切换 Dropdown",
+      "name": "空间切换下拉",
       "description": "LayoutGrid icon + Antd Dropdown + 当前空间高亮（注入 selectionColor 背景 + Check 图标）",
       "platforms": [
         "web"
@@ -1116,16 +1116,16 @@
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/detail/skillhub/user-public-profile",
-        "pages/detail/skillhub/practice-post-detail",
         "pages/dashboard/skillhub/admin-overview",
         "pages/dashboard/skillhub/user-home",
+        "pages/detail/skillhub/practice-post-detail",
+        "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/practice-compose",
+        "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/landing/skillhub/skill-community-home",
-        "pages/form-flow/skillhub/profile-edit",
-        "pages/list-table/skillhub/admin-console",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/list-table/skillhub/admin-console"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/nav/skillhub/glass-pill-navbar.md"
@@ -1267,10 +1267,10 @@
         "blocks/form/skillhub/profile-edit-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/detail/skillhub/user-public-profile",
-        "pages/detail/skillhub/practice-post-detail",
         "pages/dashboard/skillhub/user-home",
+        "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/skill-article-detail",
+        "pages/detail/skillhub/user-public-profile",
         "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza"
       ],
@@ -1345,8 +1345,8 @@
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/dashboard/acme/saas-monitor-overview",
-        "pages/pricing/acme/saas-cold-pricing",
-        "pages/list-table/acme/saas-incident-list"
+        "pages/list-table/acme/saas-incident-list",
+        "pages/pricing/acme/saas-cold-pricing"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/buttons/acme/ghost-button.md"
@@ -1386,7 +1386,7 @@
     {
       "id": "components/buttons/sage/stop-pulse-button",
       "type": "component",
-      "name": "停止生成 · 脉冲按钮",
+      "name": "停止生成脉冲按钮",
       "description": "三层 ping/pulse + 渐变 sheen + 白色内嵌方块，告诉用户\"AI 正在跑，按这里中止\"",
       "platforms": [
         "web"
@@ -1419,7 +1419,7 @@
     {
       "id": "components/buttons/sage/theme-bg-cta",
       "type": "component",
-      "name": "主题色 CTA",
+      "name": "主题色主按钮",
       "description": "用 ${themeClasses.bg} ${themeClasses.bgHover} 动态着色的圆/方角主按钮，整站发送 / 提交 / 主操作",
       "platforms": [
         "web"
@@ -1513,12 +1513,12 @@
         "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/detail/skillhub/user-public-profile",
-        "pages/detail/skillhub/practice-post-detail",
         "pages/dashboard/skillhub/user-home",
+        "pages/detail/skillhub/practice-post-detail",
+        "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/practice-compose",
-        "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/form-flow/skillhub/profile-edit",
+        "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
@@ -1634,7 +1634,7 @@
     {
       "id": "components/indicators/sage/crystal-progress-bar",
       "type": "component",
-      "name": "Crystal 玻璃进度条",
+      "name": "玻璃质感进度条",
       "description": "10px 圆角条 + 玻璃反光 + 对角条纹 + shimmer 流光 + pulse 阴影呼吸的复合进度组件",
       "platforms": [
         "web"
@@ -1765,7 +1765,7 @@
     {
       "id": "components/inputs/sage/glow-border-textarea",
       "type": "component",
-      "name": "霓虹光晕 textarea",
+      "name": "霓虹光晕输入框",
       "description": "rounded-[24px] textarea + 双层 box-shadow 主题色 focus 光晕，sage Chat 主输入框的灵魂",
       "platforms": [
         "web"
@@ -1797,7 +1797,7 @@
     {
       "id": "components/inputs/sage/icon-prefix-input",
       "type": "component",
-      "name": "前缀图标 Input",
+      "name": "前缀图标输入框",
       "description": "pl-10 + 绝对定位 lucide 图标的表单输入，sage 登录页 / 注册码 / 部分 admin 表单的标准款",
       "platforms": [
         "web"
@@ -1923,8 +1923,8 @@
       "usedBy": [
         "blocks/display/skillhub/leaderboard-row",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/detail/skillhub/user-public-profile",
         "pages/detail/skillhub/practice-post-detail",
+        "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/practice-compose",
         "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza"
@@ -2042,7 +2042,7 @@
     {
       "id": "pages/auth/sage/login-emerald-card",
       "type": "page",
-      "name": "Sage 登录页",
+      "name": "登录页",
       "description": "slate-50 全屏背景 + 居中卡片 + emerald CTA + 注册码可选 + 右上语言切换",
       "platforms": [
         "web"
@@ -2181,7 +2181,7 @@
     {
       "id": "pages/dashboard/sage/agent-chat-stream",
       "type": "page",
-      "name": "Agent Chat Stream",
+      "name": "智能体问答主页",
       "description": "ChatPage 主舞台——header (model select + title + more) + 消息流 + ChatInput + QuestionNavSidebar",
       "platforms": [
         "web"
@@ -2550,7 +2550,7 @@
     {
       "id": "pages/empty-error/sage/crt-tv-404",
       "type": "page",
-      "name": "CRT 电视机 404",
+      "name": "复古电视机 404",
       "description": "复古橘色 CRT 电视机 + 天线 + 旋钮 + 喇叭 + 彩条信号干扰屏 + 4 0 4 大字阴影",
       "platforms": [
         "web"
@@ -2581,7 +2581,7 @@
     {
       "id": "pages/form-flow/sage/rule-set-stepper-modal",
       "type": "page",
-      "name": "规则集 Stepper Modal",
+      "name": "规则集分步弹窗",
       "description": "1200px 大弹窗 + Steps + 双段（规则配置 / 用户分配）+ 嵌套 Card + Transfer 用户穿梭框",
       "platforms": [
         "web"
@@ -2853,7 +2853,7 @@
     {
       "id": "pages/list-table/sage/admin-table-management",
       "type": "page",
-      "name": "Admin Table Management",
+      "name": "管理后台通用表格",
       "description": "ManagementLayout + Antd Table + 操作列 通用模板，UserManagement / RoleManagement / Collections 共用",
       "platforms": [
         "web"
@@ -2884,7 +2884,7 @@
     {
       "id": "pages/list-table/sage/agent-store-split-tabs",
       "type": "page",
-      "name": "Agent Store Split Tabs",
+      "name": "智能体商店分屏",
       "description": "280px sidebar agent list + 主区 ContentHeader + Tabs (config / run) + AgentConfigModal",
       "platforms": [
         "web"
@@ -2916,7 +2916,7 @@
     {
       "id": "pages/list-table/sage/datasource-grid",
       "type": "page",
-      "name": "数据源 Grid（含 New / Detail）",
+      "name": "数据源网格页",
       "description": "4 列 datasource card 网格 + filter + add，合并 list / new / detail 三路由的统一外壳",
       "platforms": [
         "web"
@@ -2947,7 +2947,7 @@
     {
       "id": "pages/list-table/sage/space-management-split",
       "type": "page",
-      "name": "Space Management Split",
+      "name": "工作区管理分屏",
       "description": "280 sidebar (空间列表) + 主区 (空间详情 + 成员表 + 角色 + Tab)，AgentStorePage 同款骨架",
       "platforms": [
         "web"
@@ -3582,8 +3582,8 @@
     {
       "id": "styles/saas-tool/sage-multitheme-data-platform",
       "type": "style",
-      "name": "Sage 多主题色数据平台",
-      "description": "12 主题色用户切换 + 9 阶手调灰阶 + Inter + 雪人 FAB 彩蛋的 AI 数据分析整套设计语言",
+      "name": "多主题切换工作台",
+      "description": "12 主题色用户切换 + 9 阶手调灰阶 + 单字体 Inter + 一处装饰彩蛋的 SaaS 工具型整套设计语言",
       "platforms": [
         "web"
       ],
@@ -3775,7 +3775,7 @@
     {
       "id": "tokens/motion/sage/animate-in-suite",
       "type": "token",
-      "name": "Sage Tailwind animate-in 套件",
+      "name": "动效入场套件",
       "description": "tailwindcss-animate 提供的 fade-in / zoom-in / slide-in 标准过渡集合，sage 整站弹层入场基线",
       "platforms": [
         "web"
@@ -3805,7 +3805,7 @@
     {
       "id": "tokens/motion/sage/styled-keyframes",
       "type": "token",
-      "name": "Sage 7 段 styled-components keyframes",
+      "name": "七段装饰性动画",
       "description": "bling/earthSpin/snowFall/wobble/shimmer/pulse/stripes 七段专属 keyframes，承载 RevolverMenu 飘雪与 CrystalProgress 流光",
       "platforms": [
         "web"
@@ -3859,10 +3859,10 @@
       "uses": [],
       "preview": "/preview/tokens/motion/skillhub/gentle-flow",
       "usedBy": [
-        "blocks/marketing/skillhub/gradient-hero",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/skeleton-card",
+        "blocks/marketing/skillhub/gradient-hero",
         "components/buttons/skillhub/border-trace-cta",
         "styles/community-social/skillhub-soft-modernist",
         "pages/form-flow/skillhub/skill-publish-wizard",
@@ -3897,9 +3897,9 @@
       "preview": "/preview/tokens/motion/style-vault/editorial-flow",
       "uses": [],
       "usedBy": [
-        "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
+        "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/search/style-vault/cmd-k-search-panel",
         "components/buttons/style-vault/dark-pill-cta",
@@ -3942,8 +3942,8 @@
         "blocks/nav/acme/saas-cold-topbar",
         "components/buttons/acme/cyan-cta",
         "components/buttons/acme/ghost-button",
-        "components/inputs/acme/mono-input",
         "components/indicators/acme/status-pulse",
+        "components/inputs/acme/mono-input",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
@@ -3954,7 +3954,7 @@
     {
       "id": "tokens/palettes/sage/neutral-rgb-ladder",
       "type": "token",
-      "name": "Sage 9 阶 RGB 灰阶",
+      "name": "九阶手调灰阶",
       "description": "bg-[rgb(231..252)] 9 个手调灰阶 + slate 体系，承载 sage 整站背景与 hover/selected 微差",
       "platforms": [
         "web"
@@ -3986,7 +3986,7 @@
     {
       "id": "tokens/palettes/sage/twelve-theme-spectrum",
       "type": "token",
-      "name": "Sage 十二主题色谱",
+      "name": "十二主题色谱",
       "description": "12 个用户可切换主题色 × 3 档明度（hex / light / selection），驱动整站 119 处动态着色",
       "platforms": [
         "web"
@@ -4008,6 +4008,8 @@
       "preview": "/preview/tokens/palettes/sage/twelve-theme-spectrum",
       "usedBy": [
         "blocks/display/sage/datasource-card",
+        "blocks/feedback/sage/spin-fullscreen-loader",
+        "blocks/form/sage/chat-composer",
         "blocks/layout/sage/management-layout-header",
         "blocks/layout/sage/sidebar-detail-split",
         "blocks/nav/sage/command-palette",
@@ -4015,13 +4017,11 @@
         "blocks/nav/sage/sidebar-session-row",
         "blocks/nav/sage/space-switcher-dropdown",
         "blocks/nav/sage/themed-sidebar-shell",
-        "blocks/feedback/sage/spin-fullscreen-loader",
-        "blocks/form/sage/chat-composer",
+        "components/avatars-icons/sage/themed-circle-avatar",
         "components/buttons/sage/stop-pulse-button",
         "components/buttons/sage/theme-bg-cta",
-        "components/avatars-icons/sage/themed-circle-avatar",
-        "components/inputs/sage/glow-border-textarea",
         "components/indicators/sage/crystal-progress-bar",
+        "components/inputs/sage/glow-border-textarea",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -4052,33 +4052,33 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/skillhub/skillhub-teal-mist",
       "usedBy": [
-        "blocks/marketing/skillhub/gradient-hero",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
-        "blocks/nav/skillhub/glass-pill-navbar",
         "blocks/feedback/skillhub/empty-state",
         "blocks/feedback/skillhub/skeleton-card",
-        "components/buttons/skillhub/border-trace-cta",
-        "components/buttons/skillhub/dark-primary-cta",
         "blocks/form/skillhub/auth-split-form",
         "blocks/form/skillhub/profile-edit-form",
+        "blocks/marketing/skillhub/gradient-hero",
+        "blocks/nav/skillhub/glass-pill-navbar",
+        "components/avatars-icons/skillhub/letter-avatar",
+        "components/buttons/skillhub/border-trace-cta",
+        "components/buttons/skillhub/dark-primary-cta",
+        "components/indicators/skillhub/pulse-dot",
         "components/inputs/skillhub/soft-form-input",
         "components/tags-badges/skillhub/teal-pill",
-        "components/indicators/skillhub/pulse-dot",
-        "components/avatars-icons/skillhub/letter-avatar",
         "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/detail/skillhub/user-public-profile",
         "pages/dashboard/skillhub/admin-overview",
         "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/skill-article-detail",
+        "pages/detail/skillhub/user-public-profile",
+        "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/landing/skillhub/skill-community-home",
-        "pages/form-flow/skillhub/profile-edit",
-        "pages/list-table/skillhub/admin-console",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/list-table/skillhub/admin-console"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/skillhub/skillhub-teal-mist.md"
@@ -4110,11 +4110,11 @@
       "preview": "/preview/tokens/palettes/style-vault/slate-cyan-cool",
       "uses": [],
       "usedBy": [
-        "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
-        "blocks/marketing/style-vault/cool-blob-hero",
+        "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/layout/style-vault/browser-chrome-frame",
+        "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/nav/style-vault/sticky-platform-topbar",
         "blocks/search/style-vault/cmd-k-search-panel",
         "components/buttons/style-vault/dark-pill-cta",
@@ -4202,7 +4202,7 @@
     {
       "id": "tokens/typography/pairs/sage/inter-stack",
       "type": "token",
-      "name": "Sage Inter 单字体栈",
+      "name": "Inter 单字体栈",
       "description": "Inter 本地字体替代 Google Fonts + sans 单字体策略，让中文 fallback 接管 CJK 字",
       "platforms": [
         "web"
@@ -4252,12 +4252,12 @@
       "uses": [],
       "preview": "/preview/tokens/typography/pairs/skillhub/inter-jetbrains-duo",
       "usedBy": [
-        "blocks/marketing/skillhub/gradient-hero",
         "blocks/form/skillhub/auth-split-form",
+        "blocks/marketing/skillhub/gradient-hero",
         "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
-        "pages/detail/skillhub/practice-post-detail",
         "pages/dashboard/skillhub/admin-overview",
+        "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/skill-article-detail",
         "pages/form-flow/skillhub/practice-compose",
         "pages/landing/skillhub/skill-community-home",
@@ -4292,11 +4292,11 @@
       "preview": "/preview/tokens/typography/pairs/style-vault/inter-editorial-display",
       "uses": [],
       "usedBy": [
-        "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
-        "blocks/marketing/style-vault/cool-blob-hero",
+        "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/layout/style-vault/browser-chrome-frame",
+        "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/nav/style-vault/sticky-platform-topbar",
         "blocks/search/style-vault/cmd-k-search-panel",
         "components/overlays/style-vault/spring-toast",
