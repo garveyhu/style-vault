@@ -221,6 +221,9 @@ const TABLE_ROWS: Array<[string, string, string, string, string]> = [
 ];
 
 function ChatMessages({ themeHex }: { themeHex: string }) {
+  // 思考过程默认折叠（源码 setIsThinkingExpanded 默认 false，仅流式新步骤时自动展开）
+  const [thinkingOpen, setThinkingOpen] = useState(false);
+
   return (
     <div style={{
       flex: 1, padding: '24px 0', overflowY: 'auto', background: '#fff',
@@ -237,43 +240,47 @@ function ChatMessages({ themeHex }: { themeHex: string }) {
           }}><Bot size={16} /></span>
 
           <div style={{ flex: 1, minWidth: 0 }}>
-            {/* 思考过程 button */}
-            <button style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              padding: '0 8px', height: 32,
-              fontSize: 14, fontWeight: 500,
-              color: '#64748b', background: 'transparent',
-              border: 'none', cursor: 'pointer', borderRadius: 6,
-              fontFamily: SAGE_FONT,
-              marginBottom: 8,
-            }}>
-              <ChevronDown size={16} />
+            {/* 思考过程 button · 默认折叠，点击切换 */}
+            <button
+              onClick={() => setThinkingOpen(v => !v)}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                padding: '0 8px', height: 32,
+                fontSize: 14, fontWeight: 500,
+                color: '#64748b', background: 'transparent',
+                border: 'none', cursor: 'pointer', borderRadius: 6,
+                fontFamily: SAGE_FONT,
+                marginBottom: thinkingOpen ? 8 : 12,
+              }}>
+              {thinkingOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                 思考过程<span style={{ color: '#94a3b8', fontWeight: 400 }}>21.3s</span>
               </span>
             </button>
 
-            {/* 思考过程列表 · border-l-2 + 每条 ✓ 主题色圆 + step 名 + ChevronRight */}
-            <div style={{
-              marginLeft: 8, paddingLeft: 16,
-              borderLeft: '2px solid #f1f5f9',
-              marginBottom: 18,
-              display: 'flex', flexDirection: 'column', gap: 8,
-              fontSize: 13,
-            }}>
-              {THINKING_STEPS.map(s => (
-                <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <span style={{
-                    width: 18, height: 18, borderRadius: '50%',
-                    background: `${themeHex}1A`, color: themeHex,
-                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                    flexShrink: 0,
-                  }}><Check size={12} strokeWidth={3} /></span>
-                  <span style={{ color: '#334155', fontWeight: 500 }}>{s}</span>
-                  <ChevronRight size={14} color="#cbd5e1" />
-                </div>
-              ))}
-            </div>
+            {/* 思考过程列表 · 仅展开时显示 */}
+            {thinkingOpen && (
+              <div style={{
+                marginLeft: 8, paddingLeft: 16,
+                borderLeft: '2px solid #f1f5f9',
+                marginBottom: 18,
+                display: 'flex', flexDirection: 'column', gap: 8,
+                fontSize: 13,
+              }}>
+                {THINKING_STEPS.map(s => (
+                  <div key={s} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <span style={{
+                      width: 18, height: 18, borderRadius: '50%',
+                      background: `${themeHex}1A`, color: themeHex,
+                      display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                      flexShrink: 0,
+                    }}><Check size={12} strokeWidth={3} /></span>
+                    <span style={{ color: '#334155', fontWeight: 500 }}>{s}</span>
+                    <ChevronRight size={14} color="#cbd5e1" />
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* 口径解读卡片 · 答案 + chip + 折叠"查看使用的规则和备注" 三块合一 */}
             <div style={{
@@ -285,7 +292,7 @@ function ChatMessages({ themeHex }: { themeHex: string }) {
               <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
                 <BookOpen size={16} color={themeHex} style={{ marginTop: 4, flexShrink: 0 }} />
                 <span style={{ fontSize: 14, color: '#334155', lineHeight: 1.7 }}>
-                  根据本月销售订单数据聚合，按销售额（数量 × 单价）降序排列，给出销量前 10 的产品。仅统计已支付订单，剔除退款。
+                  根据本月销售订单数据聚合，按销售额（数量 × 单价）降序排列，给出销量前 4 的产品。仅统计已支付订单，剔除退款。
                 </span>
               </div>
               {/* chip tags */}
@@ -303,8 +310,32 @@ function ChatMessages({ themeHex }: { themeHex: string }) {
                 color: '#64748b', fontSize: 13, cursor: 'pointer',
                 fontFamily: SAGE_FONT,
               }}>
-                <ChevronDown size={14} /> 查看使用的规则和备注
+                <ChevronRight size={14} /> 查看使用的规则和备注
               </button>
+            </div>
+
+            {/* 数据洞察 bullet 列表 · 数据概览 / 关键分布 / 异常点 / 建议 */}
+            <div style={{
+              marginTop: 14,
+              borderLeft: `3px solid ${themeHex}`,
+              padding: '10px 14px 10px 16px',
+              background: `linear-gradient(135deg, ${themeHex}0D 0%, ${themeHex}05 100%)`,
+              borderRadius: '0 8px 8px 0',
+              fontSize: 13, color: '#334155', lineHeight: 1.85,
+            }}>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                {[
+                  ['数据概览', '本月销售前 4 名产品总销售额 ¥3,090,400，覆盖椅、电子、家电、咖啡四大品类。'],
+                  ['关键分布', '头部产品 Aeron 椅独占 ¥1,872,000，约 60% 销售额；其它三款合计约 40%。'],
+                  ['异常点', 'AeroPress 销量虽 1,820 件第一，但单价低使销售额排末位；环比 +22.7% 增速最高。'],
+                  ['建议', '关注 Aeron 椅库存避免断货；推广 AeroPress 高增长品类；评估 Kindle / 小米空气的促销策略。'],
+                ].map(([k, v]) => (
+                  <li key={k} style={{ display: 'flex', gap: 8, alignItems: 'baseline' }}>
+                    <span style={{ width: 4, height: 4, borderRadius: '50%', background: '#0f172a', flexShrink: 0, marginTop: 8 }} />
+                    <span><strong style={{ color: '#0f172a' }}>{k}</strong>:{v}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
             {/* 数据表格 · 还原源码 QueryResult.tsx · 浮层 actions hover 显 */}
