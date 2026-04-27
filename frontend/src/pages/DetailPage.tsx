@@ -1,25 +1,23 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useParams, useNavigate, Navigate } from 'react-router-dom';
-import { Tag, Button, Empty, Select, Tabs, message, Tooltip } from 'antd';
+import { Tag, Empty, Select } from 'antd';
 import {
   ArrowLeftOutlined,
   CopyOutlined,
-  CodeOutlined,
   FullscreenOutlined,
-  EyeOutlined,
-  EditOutlined,
   MobileOutlined,
   TabletOutlined,
   DesktopOutlined,
   ExpandOutlined,
+  DownOutlined,
+  UpOutlined,
 } from '@ant-design/icons';
 import { useRegistry, useItem, isRegistryMissing } from '../data/useRegistry';
 import { typeLabel, typeColor, platformLabel, themeLabel, zh } from '../utils/taxonomy';
 import { buildPrompt } from '../utils/prompt';
 import { TopBar } from '../components/TopBar';
 import { FavoriteButton } from '../components/FavoriteButton';
-import { NoteEditor } from '../components/NoteEditor';
-import { ScreenshotGallery } from '../components/ScreenshotGallery';
+import { toast } from '../components/Toast';
 import { getPreviewComponent } from '../preview/registry';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 
@@ -89,12 +87,138 @@ function typeDotColor(type: string): string {
   }
 }
 
+/* --- 关联组：按 type 分组、空组不展示，每组超过 N 项独立折叠 --- */
+const TYPE_ORDER: RegistryItem['type'][] = [
+  'product',
+  'style',
+  'page',
+  'block',
+  'component',
+  'token',
+];
+const PER_GROUP_COLLAPSE = 4;
+
+type GroupState = { collapsed: boolean; expanded: boolean };
+
+function RelationGroups({
+  title,
+  items,
+  onItemClick,
+}: {
+  title: string;
+  items: RegistryItem[];
+  onItemClick: (id: string) => void;
+}) {
+  const [stateMap, setStateMap] = useState<Record<string, GroupState>>({});
+
+  const groups = useMemo(() => {
+    const m: Partial<Record<RegistryItem['type'], RegistryItem[]>> = {};
+    items.forEach((it) => {
+      (m[it.type] ??= []).push(it);
+    });
+    return TYPE_ORDER.map((t) => ({ type: t, items: m[t] ?? [] })).filter(
+      (g) => g.items.length > 0,
+    );
+  }, [items]);
+
+  return (
+    <div>
+      <div className="mb-2 flex items-baseline justify-between">
+        <h3 className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+          {title}
+        </h3>
+        <span className="text-[11px] tabular-nums text-slate-300">
+          {items.length}
+        </span>
+      </div>
+      <div className="space-y-3">
+        {groups.map(({ type, items: groupItems }) => {
+          const { collapsed, expanded } = stateMap[type] ?? {
+            collapsed: false,
+            expanded: false,
+          };
+          const visible = collapsed
+            ? []
+            : expanded
+              ? groupItems
+              : groupItems.slice(0, PER_GROUP_COLLAPSE);
+          const hidden = groupItems.length - visible.length;
+          const toggleCollapsed = () =>
+            setStateMap((s) => ({
+              ...s,
+              [type]: { collapsed: !collapsed, expanded: false },
+            }));
+          const toggleExpanded = () =>
+            setStateMap((s) => ({
+              ...s,
+              [type]: { collapsed: false, expanded: !expanded },
+            }));
+          return (
+            <div key={type}>
+              <button
+                type="button"
+                onClick={toggleCollapsed}
+                aria-expanded={!collapsed}
+                className="group/group mb-1.5 flex w-full items-center justify-between rounded-md px-1 py-1 text-[11px] font-medium text-slate-500 transition hover:bg-slate-50 hover:text-slate-700"
+              >
+                <span className="flex items-center gap-1.5">
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${typeDotColor(type)}`}
+                  />
+                  {typeLabel[type]}
+                </span>
+                <span className="flex items-center gap-1.5 text-slate-300 group-hover/group:text-slate-500">
+                  <span className="tabular-nums">{groupItems.length}</span>
+                  <DownOutlined
+                    className="text-[9px] transition-transform"
+                    rotate={collapsed ? -90 : 0}
+                  />
+                </span>
+              </button>
+              {!collapsed && (
+                <>
+                  <div className="space-y-1">
+                    {visible.map((u) => (
+                      <RelatedItem
+                        key={u.id}
+                        item={u}
+                        onClick={() => onItemClick(u.id)}
+                      />
+                    ))}
+                  </div>
+                  {groupItems.length > PER_GROUP_COLLAPSE && (
+                    <button
+                      type="button"
+                      onClick={toggleExpanded}
+                      className="mt-1 inline-flex items-center gap-1 text-[11px] text-slate-400 transition hover:text-slate-700"
+                    >
+                      {expanded ? (
+                        <>
+                          收起 <UpOutlined className="text-[9px]" />
+                        </>
+                      ) : (
+                        <>
+                          展开剩余 {hidden} 项{' '}
+                          <DownOutlined className="text-[9px]" />
+                        </>
+                      )}
+                    </button>
+                  )}
+                </>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function DetailPage() {
   const reg = useRegistry();
   const params = useParams();
   const nav = useNavigate();
   const [viewport, setViewport] = useState<ViewportKey>(1024);
-  const [messageApi, ctx] = message.useMessage();
 
   const id = params['*'] ?? '';
   const item = useItem(id);
@@ -121,19 +245,9 @@ export default function DetailPage() {
   const handleCopyPrompt = async () => {
     try {
       await navigator.clipboard.writeText(buildPrompt(item));
-      messageApi.success({ content: 'Prompt 已复制', duration: 2 });
+      toast.success('Prompt 已复制');
     } catch {
-      messageApi.error({ content: '复制失败', duration: 2 });
-    }
-  };
-  const handleCopySkillPath = async () => {
-    try {
-      await navigator.clipboard.writeText(
-        `~/.agents/skills/style-vault/references/${item.skillPath}`,
-      );
-      messageApi.success({ content: '源码路径已复制', duration: 2 });
-    } catch {
-      messageApi.error({ content: '复制失败', duration: 2 });
+      toast.error('复制失败');
     }
   };
 
@@ -148,7 +262,6 @@ export default function DetailPage() {
 
   return (
     <div className="min-h-screen bg-[#fafafa]">
-      {ctx}
       <TopBar />
 
       {/* 面包屑 */}
@@ -188,6 +301,16 @@ export default function DetailPage() {
               </p>
             </div>
 
+            {/* 主 CTA · 复制 Prompt · 描边幽灵 */}
+            <button
+              type="button"
+              onClick={handleCopyPrompt}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border-[1.5px] border-slate-300 bg-white px-4 py-2 text-[13px] font-medium text-slate-700 transition hover:border-slate-900 hover:text-slate-900"
+            >
+              <CopyOutlined className="text-[13px]" />
+              复制 Prompt
+            </button>
+
             {/* 平台 + 主题（顶层元数据） */}
             <div className="flex flex-wrap items-center gap-1.5">
               {item.platforms.map((p) => (
@@ -212,183 +335,102 @@ export default function DetailPage() {
 
             {/* 关联 */}
             {usesItems.length > 0 && (
-              <div>
-                <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                  依赖
-                </h3>
-                <div className="space-y-1">
-                  {usesItems.map((u) => (
-                    <RelatedItem
-                      key={u.id}
-                      item={u}
-                      onClick={() => nav(`/item/${u.id}`)}
-                    />
-                  ))}
-                </div>
-              </div>
+              <RelationGroups
+                title="依赖"
+                items={usesItems}
+                onItemClick={(id) => nav(`/item/${id}`)}
+              />
             )}
 
             {usedByItems.length > 0 && (
-              <div>
-                <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                  被引用
-                </h3>
-                <div className="space-y-1">
-                  {usedByItems.map((u) => (
-                    <RelatedItem
-                      key={u.id}
-                      item={u}
-                      onClick={() => nav(`/item/${u.id}`)}
-                    />
-                  ))}
-                </div>
-              </div>
+              <RelationGroups
+                title="被引用"
+                items={usedByItems}
+                onItemClick={(id) => nav(`/item/${id}`)}
+              />
             )}
-
-            {/* CTA：主按钮 + 次级 icon */}
-            <div className="flex items-stretch gap-2 pt-2">
-              <Button
-                type="primary"
-                size="large"
-                icon={<CopyOutlined />}
-                onClick={handleCopyPrompt}
-                className="!h-12 !flex-1 !border-0 !bg-slate-900 !font-medium !shadow-sm hover:!bg-slate-700"
-              >
-                复制 Prompt
-              </Button>
-              <Tooltip title="复制源码路径">
-                <Button
-                  size="large"
-                  icon={<CodeOutlined />}
-                  onClick={handleCopySkillPath}
-                  className="!h-12 !w-12 !border-slate-200 !bg-white !text-slate-600 hover:!border-slate-300 hover:!text-slate-900"
-                />
-              </Tooltip>
-            </div>
           </div>
         </aside>
 
-        {/* ===================== 右列：预览 / 笔记 ===================== */}
+        {/* ===================== 右列：预览 ===================== */}
         <main className="min-w-0 flex-1">
-          <Tabs
-            defaultActiveKey="preview"
-            size="large"
-            items={[
-              {
-                key: 'preview',
-                label: (
-                  <span className="flex items-center gap-1.5">
-                    <EyeOutlined /> 预览
-                  </span>
-                ),
-                children: (
-                  <div className="space-y-4">
-                    {/* 视口选择 + 全屏 */}
-                    <div className="flex items-center gap-3">
-                      <Select<ViewportKey>
-                        value={viewport}
-                        onChange={(v) => setViewport(v)}
-                        size="large"
-                        suffixIcon={null}
-                        className="sv-viewport-select"
-                        popupMatchSelectWidth={200}
-                        style={{ width: 200 }}
-                        options={VIEWPORT_OPTIONS.map((v) => ({
-                          value: v.value,
-                          label: (
-                            <div className="flex items-center gap-2">
-                              <span className="flex h-6 w-6 items-center justify-center rounded-md bg-slate-100 text-slate-600">
-                                {v.icon}
-                              </span>
-                              <span className="flex-1 text-[13px] font-medium">
-                                {v.label}
-                              </span>
-                              <span className="text-[11px] text-slate-400">
-                                {v.desc}
-                              </span>
-                            </div>
-                          ),
-                        }))}
-                      />
-                      <button
-                        type="button"
-                        onClick={openFullscreen}
-                        disabled={!item.hasPreviewFile}
-                        className="flex h-10 items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-4 text-[13px] text-slate-600 transition hover:border-slate-300 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-40"
-                      >
-                        <FullscreenOutlined />
-                        全屏预览
-                      </button>
-                      <div className="ml-auto flex items-center gap-1 text-[12px] text-slate-400">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                        {currentViewport?.label}
-                      </div>
+          <div className="space-y-4">
+            {/* 视口选择 + 全屏 */}
+            <div className="flex items-center gap-3">
+              <Select<ViewportKey>
+                value={viewport}
+                onChange={(v) => setViewport(v)}
+                size="large"
+                suffixIcon={null}
+                className="sv-viewport-select"
+                popupMatchSelectWidth={200}
+                style={{ width: 200 }}
+                options={VIEWPORT_OPTIONS.map((v) => ({
+                  value: v.value,
+                  label: (
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-md bg-slate-100 text-slate-600">
+                        {v.icon}
+                      </span>
+                      <span className="flex-1 text-[13px] font-medium">
+                        {v.label}
+                      </span>
+                      <span className="text-[11px] text-slate-400">
+                        {v.desc}
+                      </span>
                     </div>
+                  ),
+                }))}
+              />
+              <button
+                type="button"
+                onClick={openFullscreen}
+                disabled={!item.hasPreviewFile}
+                className="flex h-10 items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-4 text-[13px] text-slate-600 transition hover:border-slate-300 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <FullscreenOutlined />
+                全屏预览
+              </button>
+              <div className="ml-auto flex items-center gap-1 text-[12px] text-slate-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                {currentViewport?.label}
+              </div>
+            </div>
 
-                    {/* 浏览器 chrome */}
-                    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-                      <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50 px-4 py-2.5">
-                        <div className="flex gap-1.5">
-                          <div className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-                          <div className="h-3 w-3 rounded-full bg-[#febc2e]" />
-                          <div className="h-3 w-3 rounded-full bg-[#28c840]" />
-                        </div>
-                        <div className="flex-1 truncate text-center text-[12px] font-medium text-slate-500">
-                          {item.name}
-                        </div>
-                        <div className="w-16" />
-                      </div>
-                      <div className="flex justify-center bg-slate-50 p-4">
-                        <div
-                          className="sv-preview-embedded relative overflow-auto rounded-md border border-slate-200 bg-white"
-                          style={{
-                            maxWidth: iframeMaxWidth,
-                            width: '100%',
-                            maxHeight: '72vh',
-                            transition: 'max-width 240ms ease',
-                          }}
-                        >
-                          {PreviewComp ? (
-                            <PreviewComp />
-                          ) : (
-                            <Empty description="暂无预览" className="py-16" />
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ),
-              },
-              {
-                key: 'notes',
-                label: (
-                  <span className="flex items-center gap-1.5">
-                    <EditOutlined /> 我的笔记
-                  </span>
-                ),
-                children: <NoteEditor entryId={item.id} />,
-              },
-            ]}
-          />
-        </main>
-      </div>
-
-      {/* ===================== 底部：应用截图（宽版独立 section） ===================== */}
-      <section className="border-t border-slate-100 bg-white">
-        <div className="mx-auto max-w-[1600px] px-8 py-14">
-          <div className="mb-6 flex items-end justify-between">
-            <div>
-              <h2 className="font-display text-[28px] font-bold tracking-[-0.02em] text-slate-900">
-                应用截图
-              </h2>
-              <p className="mt-1 text-[13px] text-slate-500">
-                在自己的项目里用上了？上传一张截图，记录风格是如何落地的
-              </p>
+            {/* 浏览器 chrome */}
+            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+              <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50 px-4 py-2.5">
+                <div className="flex gap-1.5">
+                  <div className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+                  <div className="h-3 w-3 rounded-full bg-[#febc2e]" />
+                  <div className="h-3 w-3 rounded-full bg-[#28c840]" />
+                </div>
+                <div className="flex-1 truncate text-center text-[12px] font-medium text-slate-500">
+                  {item.name}
+                </div>
+                <div className="w-16" />
+              </div>
+              <div className="flex justify-center bg-slate-50 p-4">
+                <div
+                  className="sv-preview-embedded relative overflow-auto rounded-md border border-slate-200 bg-white"
+                  style={{
+                    maxWidth: iframeMaxWidth,
+                    width: '100%',
+                    maxHeight: '72vh',
+                    transition: 'max-width 240ms ease',
+                  }}
+                >
+                  {PreviewComp ? (
+                    <PreviewComp />
+                  ) : (
+                    <Empty description="暂无预览" className="py-16" />
+                  )}
+                </div>
+              </div>
             </div>
           </div>
-          <ScreenshotGallery entryId={item.id} variant="section" />
-        </div>
-      </section>
+        </main>
+      </div>
     </div>
   );
 }
