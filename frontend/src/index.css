@@ -274,3 +274,12 @@ iframe {
 .sv-dot-1 { animation-delay: 0s; }
 .sv-dot-2 { animation-delay: 0.16s; }
 .sv-dot-3 { animation-delay: 0.32s; }
+
+/* Toast bubble 入场（B · 顶部居中胶囊） */
+@keyframes sv-toast-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.sv-toast-anim {
+  animation: sv-toast-in 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
-import { message } from 'antd';
 import { useAuth } from '../auth/AuthContext';
 import { useFavorites } from '../auth/FavoritesContext';
 import { LoginModal } from './LoginModal';
+import { toast } from './Toast';
 
 type Size = 'sm' | 'md' | 'lg';
 
@@ -20,7 +20,6 @@ export function FavoriteButton({
   const { isFavorited, toggleFavorite } = useFavorites();
   const [loginOpen, setLoginOpen] = useState(false);
   const [bump, setBump] = useState(false);
-  const [messageApi, ctx] = message.useMessage();
 
   const active = isFavorited(entryId);
 
@@ -40,16 +39,15 @@ export function FavoriteButton({
     setTimeout(() => setBump(false), 260);
     try {
       const nowFav = await toggleFavorite(entryId);
-      messageApi.success({ content: nowFav ? '已收藏' : '已取消收藏', duration: 1.5 });
+      toast.success(nowFav ? '已收藏' : '已取消收藏', 1500);
     } catch (err) {
       const e = err as Error;
-      messageApi.error({ content: e.message || '操作失败', duration: 2 });
+      toast.error(e.message || '操作失败', 2000);
     }
   };
 
   return (
     <>
-      {ctx}
       <button
         type="button"
         onClick={handle}

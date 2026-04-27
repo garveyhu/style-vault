@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Button, message } from 'antd';
+import { Button } from 'antd';
 import { CheckCircleFilled, LoadingOutlined, EditOutlined } from '@ant-design/icons';
 import { notesApi } from '@/services';
 import { useAuth } from '../auth/AuthContext';
 import { LoginModal } from './LoginModal';
+import { toast } from './Toast';
 
 type Status = 'idle' | 'saving' | 'saved' | 'error';
 
@@ -17,7 +18,6 @@ export function NoteEditor({ entryId }: { entryId: string }) {
   const [status, setStatus] = useState<Status>('idle');
   const [loginOpen, setLoginOpen] = useState(false);
   const debounceRef = useRef<number | null>(null);
-  const [messageApi, ctx] = message.useMessage();
 
   // 载入服务端笔记
   useEffect(() => {
@@ -62,11 +62,11 @@ export function NoteEditor({ entryId }: { entryId: string }) {
         } catch (err) {
           const e = err as Error;
           setStatus('error');
-          messageApi.error({ content: e.message || '保存失败', duration: 2 });
+          toast.error(e.message || '保存失败');
         }
       }, SAVE_DEBOUNCE_MS);
     },
-    [entryId, user, serverContent, messageApi],
+    [entryId, user, serverContent],
   );
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -119,7 +119,6 @@ export function NoteEditor({ entryId }: { entryId: string }) {
 
   return (
     <div className="flex flex-col gap-2">
-      {ctx}
       <textarea
         value={content}
         onChange={onChange}

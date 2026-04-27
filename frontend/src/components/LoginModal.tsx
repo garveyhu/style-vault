@@ -1,6 +1,7 @@
-import { Modal, message } from 'antd';
+import { Modal } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
 import { useAuth } from '../auth/AuthContext';
+import { toast } from './Toast';
 
 export function LoginModal({
   open,
@@ -10,16 +11,15 @@ export function LoginModal({
   onClose: () => void;
 }) {
   const { login, loggingIn } = useAuth();
-  const [messageApi, ctx] = message.useMessage();
 
   const handle = async () => {
     try {
       await login();
-      messageApi.success('登录成功');
+      toast.success('登录成功');
       onClose();
     } catch (e) {
       const msg = e instanceof Error ? e.message : '登录失败';
-      messageApi.error(msg);
+      toast.error(msg);
     }
   };
 
@@ -32,7 +32,6 @@ export function LoginModal({
       centered
       className="login-modal"
     >
-      {ctx}
       <div className="px-2 py-4 text-center">
         <h2 className="font-display text-[28px] font-semibold text-slate-900">
           登录 Style Vault

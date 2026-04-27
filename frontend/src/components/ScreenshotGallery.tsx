@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Button, Empty, Image, Upload, message } from 'antd';
+import { Button, Empty, Image, Upload } from 'antd';
 import type { UploadFile, UploadProps } from 'antd';
 import {
   InboxOutlined,
@@ -10,6 +10,7 @@ import {
 import { filesApi, screenshotsApi, type Screenshot } from '@/services';
 import { useAuth } from '../auth/AuthContext';
 import { LoginModal } from './LoginModal';
+import { toast } from './Toast';
 
 const { Dragger } = Upload;
 
@@ -25,7 +26,6 @@ export function ScreenshotGallery({
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
-  const [messageApi, ctx] = message.useMessage();
 
   const load = useCallback(async () => {
     if (!user) return;
@@ -53,7 +53,7 @@ export function ScreenshotGallery({
     const { file, onSuccess, onError } = options;
     const f = file as File;
     if (!f.type.startsWith('image/')) {
-      messageApi.error({ content: '只支持图片文件', duration: 2 });
+      toast.error('只支持图片文件');
       onError?.(new Error('not image'));
       return;
     }
@@ -65,11 +65,11 @@ export function ScreenshotGallery({
         url: uploaded.url,
       });
       setItems((prev) => [shot, ...prev]);
-      messageApi.success({ content: '已上传', duration: 1.5 });
+      toast.success('已上传', 1500);
       onSuccess?.({}, new XMLHttpRequest());
     } catch (err) {
       const e = err as Error;
-      messageApi.error({ content: e.message || '上传失败', duration: 2 });
+      toast.error(e.message || '上传失败');
       onError?.(e);
     } finally {
       setUploading(false);
@@ -80,10 +80,10 @@ export function ScreenshotGallery({
     try {
       await screenshotsApi.remove(id);
       setItems((prev) => prev.filter((x) => x.id !== id));
-      messageApi.success({ content: '已删除', duration: 1.5 });
+      toast.success('已删除', 1500);
     } catch (err) {
       const e = err as Error;
-      messageApi.error({ content: e.message || '删除失败', duration: 2 });
+      toast.error(e.message || '删除失败');
     }
   };
 
@@ -114,7 +114,6 @@ export function ScreenshotGallery({
 
   return (
     <div className={isSection ? 'space-y-6' : 'space-y-3'}>
-      {ctx}
       <Dragger
         name="file"
         multiple={false}

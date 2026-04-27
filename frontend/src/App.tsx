@@ -14,6 +14,7 @@ import { FavoritesProvider } from './auth/FavoritesContext';
 import { PlatformProvider } from './contexts/PlatformContext';
 import { ScrollToTop } from './components/ScrollToTop';
 import { GlobalLoading } from './components/GlobalLoading';
+import { ToastViewport } from './components/Toast';
 
 // 动态收集 preview 页（排除 _layout / _templates）
 const previewModules = import.meta.glob('./preview/**/*.tsx');
@@ -33,6 +34,7 @@ export default function App() {
         <FavoritesProvider>
           <PlatformProvider>
             <ScrollToTop />
+            <ToastViewport />
             <Suspense fallback={<GlobalLoading />}>
               <Routes>
                 <Route path="/" element={<HomePage />} />
