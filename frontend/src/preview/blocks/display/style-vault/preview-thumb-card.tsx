@@ -93,6 +93,10 @@ function Card({ s }: { s: (typeof SAMPLES)[number] }) {
           position: 'relative',
           background: '#f8fafc',
         }}
+        // 缩略图内禁所有焦点 —— 部分预览组件带 autoFocus，
+        // 否则懒加载渲染时浏览器会"scroll focused into view"，整页跳到末尾
+        aria-hidden
+        inert
       >
         <div
           style={{

@@ -130,6 +130,10 @@ export function StyleCard({
                 transform: `scale(${scale})`,
               }}
               aria-hidden
+              // 缩略图内禁用所有焦点 —— 部分预览组件带 autoFocus（如命令面板 / 输入框），
+              // 触发懒加载时新挂载的卡片会把焦点吸进去，浏览器随即"滚动焦点入视"，
+              // 整页跳到那张卡 = 用户看到的"懒加载跳到末尾"现象。
+              inert
             >
               <PreviewComp />
             </div>

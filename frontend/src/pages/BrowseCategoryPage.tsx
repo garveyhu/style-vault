@@ -9,7 +9,6 @@ import { CategoryTabs } from '../components/CategoryTabs';
 import { FiltersPanel } from '../components/FiltersPanel';
 import { emptyFilterValue, type FilterValue } from '../components/TagFilterBar';
 import { usePlatform, matchesPlatform } from '../contexts/PlatformContext';
-import { ChevronDown } from 'lucide-react';
 import { useCols } from '../hooks/useCols';
 import { useInfiniteList } from '../hooks/useInfiniteList';
 import { tagDict } from '../utils/taxonomy';
@@ -141,7 +140,7 @@ export default function BrowseCategoryPage() {
   );
 }
 
-/** 懒加载 grid · 滚动到底部加载下一批，>150ms 才显 InlineLoading */
+/** 懒加载 grid · IntersectionObserver sentinel 在距底 300px 时自动追加下一批 */
 function BrowseGrid({
   items,
   cols,
@@ -153,7 +152,11 @@ function BrowseGrid({
   cacheKey: string;
   onClick: (id: string) => void;
 }) {
-  const { visible, loadMore, hasMore, visibleCount, total } = useInfiniteList(items, cols, { rowsPerPage: 4, cacheKey });
+  const { visible, sentinelRef, hasMore, visibleCount, total } = useInfiniteList(
+    items,
+    cols,
+    { rowsPerPage: 4, cacheKey },
+  );
   return (
     <div style={{ overflowAnchor: 'none' }}>
       <div
@@ -161,36 +164,25 @@ function BrowseGrid({
         style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`, overflowAnchor: 'none' }}
       >
         {visible.map((item) => (
-          <StyleCard
-            key={item.id}
-            item={item}
-            onClick={() => onClick(item.id)}
-          />
+          <StyleCard key={item.id} item={item} onClick={() => onClick(item.id)} />
         ))}
       </div>
-      {/* 手动翻页按钮 · 居中带向下箭头 */}
-      <div className="mt-12 flex flex-col items-center gap-2">
-        {hasMore ? (
-          <>
-            <button
-              onMouseDown={(e) => e.preventDefault()}
-              onClick={loadMore}
-              tabIndex={-1}
-              className="group flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-400 transition-all hover:border-slate-400 hover:text-slate-700 hover:shadow-md hover:translate-y-[2px] focus:outline-none"
-              aria-label="加载下一页"
-            >
-              <ChevronDown size={22} className="transition-transform group-hover:translate-y-0.5" />
-            </button>
+      {hasMore ? (
+        <>
+          <div ref={sentinelRef} aria-hidden style={{ height: 1 }} />
+          <div className="mt-8 flex items-center justify-center">
             <span className="text-[11px] text-slate-400 font-medium tracking-[0.18em] uppercase">
-              {visibleCount} / {total} · Next
+              {visibleCount} / {total}
             </span>
-          </>
-        ) : (
+          </div>
+        </>
+      ) : (
+        <div className="mt-12 flex items-center justify-center">
           <span className="text-[11px] text-slate-300 font-medium tracking-[0.18em] uppercase">
             · {total} · End ·
           </span>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

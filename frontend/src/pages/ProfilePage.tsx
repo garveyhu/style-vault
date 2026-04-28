@@ -10,6 +10,8 @@ import { toast } from '../components/Toast';
 import { useAuth } from '../auth/AuthContext';
 import { useFavorites } from '../auth/FavoritesContext';
 import { typeLabel } from '../utils/taxonomy';
+import { useCols } from '../hooks/useCols';
+import { useInfiniteList } from '../hooks/useInfiniteList';
 import type { RegistryItem } from '../../scripts/sync-from-skill/types';
 
 const TYPE_ORDER: RegistryItem['type'][] = [
@@ -308,16 +310,53 @@ function Collections({ nav }: { nav: (to: string) => void }) {
       </div>
 
       <main className="mx-auto max-w-[1700px] px-8 py-10 sm:px-12">
-        <ResponsiveGrid mode="fixed" min={300} gap={20}>
-          {current.items.map((item) => (
-            <StyleCard
-              key={item.id}
-              item={item}
-              onClick={() => handleClick(item)}
-            />
-          ))}
-        </ResponsiveGrid>
+        <FavGrid items={current.items} cacheKey={`profile:fav:${current.type}`} onClick={handleClick} />
       </main>
     </>
+  );
+}
+
+/** 收藏栏懒加载 grid · sentinel 触底前 300px 自动追加下一批 */
+function FavGrid({
+  items,
+  cacheKey,
+  onClick,
+}: {
+  items: RegistryItem[];
+  cacheKey: string;
+  onClick: (item: RegistryItem) => void;
+}) {
+  const cols = useCols();
+  const { visible, sentinelRef, hasMore, visibleCount, total } = useInfiniteList(
+    items,
+    cols,
+    { rowsPerPage: 4, cacheKey },
+  );
+  return (
+    <div style={{ overflowAnchor: 'none' }}>
+      <ResponsiveGrid mode="fixed" min={300} gap={20} style={{ overflowAnchor: 'none' }}>
+        {visible.map((item) => (
+          <StyleCard key={item.id} item={item} onClick={() => onClick(item)} />
+        ))}
+      </ResponsiveGrid>
+      {hasMore ? (
+        <>
+          <div ref={sentinelRef} aria-hidden style={{ height: 1 }} />
+          <div className="mt-8 flex items-center justify-center">
+            <span className="text-[11px] text-slate-400 font-medium tracking-[0.18em] uppercase">
+              {visibleCount} / {total}
+            </span>
+          </div>
+        </>
+      ) : (
+        total > 0 && (
+          <div className="mt-12 flex items-center justify-center">
+            <span className="text-[11px] text-slate-300 font-medium tracking-[0.18em] uppercase">
+              · {total} · End ·
+            </span>
+          </div>
+        )
+      )}
+    </div>
   );
 }

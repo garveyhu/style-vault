@@ -5,6 +5,49 @@ import { PreviewFrame } from '../../../_layout';
 const SANS =
   "'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif";
 
+/**
+ * 主导航 tab · 复用 sv-underline-tab 13px 小档 + pt-2.5 对称居中
+ * 真实环境跟随 pathname 激活；预览里写死 active 演示
+ */
+function NavTab({ label, active }: { label: string; active: boolean }) {
+  const [hov, setHov] = useState(false);
+  return (
+    <a
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        position: 'relative',
+        fontFamily: SANS,
+        fontSize: 13,
+        fontWeight: 500,
+        color: active ? '#0f172a' : hov ? '#334155' : '#94a3b8',
+        letterSpacing: '0.02em',
+        // 对称 padding 让文字在 items-center 容器里视觉居中
+        paddingTop: 10,
+        paddingBottom: 10,
+        cursor: 'pointer',
+        transition: 'color 200ms ease',
+      }}
+    >
+      {label}
+      <span
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: 2,
+          borderRadius: 2,
+          background: 'linear-gradient(90deg, #0891b2, #0f172a)',
+          transform: active ? 'scaleX(1)' : 'scaleX(0)',
+          transformOrigin: 'left center',
+          transition: 'transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1)',
+        }}
+      />
+    </a>
+  );
+}
+
 function PlatformTab({
   label,
   active,
@@ -104,28 +147,11 @@ export default function StickyPlatformTopbarPreview() {
             >
               SV
             </div>
-            {/* nav */}
+            {/* nav · 主导航复用 sv-underline-tab，跟随路径激活 */}
             <nav style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
-              <a
-                style={{
-                  fontSize: 13,
-                  fontWeight: 500,
-                  color: '#475569',
-                  cursor: 'pointer',
-                }}
-              >
-                浏览
-              </a>
-              <a
-                style={{
-                  fontSize: 13,
-                  fontWeight: 500,
-                  color: '#475569',
-                  cursor: 'pointer',
-                }}
-              >
-                产品集
-              </a>
+              {/* 演示：当前激活"浏览" · 实际跟随 pathname */}
+              <NavTab label="浏览" active />
+              <NavTab label="产品集" active={false} />
               {/* 搜索胶囊触发器 · 唤起 cmd-k-search-panel */}
               <button
                 type="button"

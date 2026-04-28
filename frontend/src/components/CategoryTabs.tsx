@@ -2,11 +2,14 @@ import { useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
 /**
- * 浏览分类 sticky 栏：风格 / 页面 / 模块 / 组件 / 原语
+ * 浏览分类 sticky 栏：总览 / 风格 / 页面 / 模块 / 组件 / 原语
  * 下滑时固定在 TopBar 下面。产品集是独立入口，不放在这里。
  * 视觉：Editorial 大字下划线 —— 16px 字、2px 下划线 scaleX 动画。
+ *
+ * 总览（all）= /browse 路径，永远有一个 tab 激活，避免用户不知道自己在哪儿。
  */
 const TABS: Array<{ key: string; label: string; to: string }> = [
+  { key: 'all', label: '总览', to: '/browse' },
   { key: 'style', label: '风格', to: '/browse/style' },
   { key: 'page', label: '页面', to: '/browse/page' },
   { key: 'block', label: '模块', to: '/browse/block' },
@@ -18,7 +21,7 @@ export function CategoryTabs() {
   const location = useLocation();
   const activeKey = useMemo(() => {
     const m = location.pathname.match(/^\/browse\/([^/?]+)/);
-    return m ? m[1] : null; // 在 /browse 总览无激活项
+    return m ? m[1] : 'all'; // /browse 总览页激活 'all'
   }, [location.pathname]);
 
   return (

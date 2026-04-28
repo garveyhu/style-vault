@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useNavigationType } from 'react-router-dom';
 import { SearchOutlined, CloseOutlined } from '@ant-design/icons';
 import { useRegistry } from '../data/useRegistry';
 import { typeLabel } from '../utils/taxonomy';
@@ -17,6 +17,13 @@ import type {
    ========================================================= */
 
 let isOpen = false;
+// 跨 mount 持久化的查询状态 —— 用户点结果跳详情后回退能续上之前的搜索
+let storedQ = '';
+let storedType: TypeFilter = 'all';
+let storedPlatform: 'all' | PlatformSel = 'all';
+// 标记"因为打开了一个结果项而关闭" —— 浏览器 POP 回到来源页时自动重开面板
+let pendingReopen = false;
+
 const listeners = new Set<() => void>();
 function emit() {
   listeners.forEach((l) => l());
@@ -25,14 +32,23 @@ function emit() {
 export const searchPanel = {
   open: () => {
     isOpen = true;
+    pendingReopen = false;
     emit();
   },
   close: () => {
     isOpen = false;
+    pendingReopen = false; // 主动关闭：清掉 reopen 意图
+    emit();
+  },
+  // 因点击结果而临时关闭 —— 保留 pendingReopen=true，POP 回来时自动复活
+  closeForNavigation: () => {
+    isOpen = false;
+    pendingReopen = true;
     emit();
   },
   toggle: () => {
     isOpen = !isOpen;
+    if (isOpen) pendingReopen = false;
     emit();
   },
 };
@@ -394,6 +410,8 @@ function PopPreview({ id }: { id: string }) {
 
 export function SearchPanel() {
   const [open, setOpen] = useState(isOpen);
+  const { key: locationKey } = useLocation();
+  const navType = useNavigationType();
 
   useEffect(() => {
     const cb = () => setOpen(isOpen);
@@ -419,6 +437,15 @@ export function SearchPanel() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  // 浏览器后退（POP）回到搜索来源页时，自动复活面板
+  // 仅在「之前是因为点击结果而关闭」(pendingReopen) 才生效
+  useEffect(() => {
+    if (navType === 'POP' && pendingReopen && !isOpen) {
+      searchPanel.open();
+    }
+    // 依赖 locationKey：每次路由切换都跑一次判断
+  }, [locationKey, navType]);
+
   if (!open) return null;
   return <PanelInner onClose={() => searchPanel.close()} />;
 }
@@ -431,9 +458,14 @@ function PanelInner({ onClose }: { onClose: () => void }) {
   const reg = useRegistry();
   const nav = useNavigate();
 
-  const [q, setQ] = useState('');
-  const [type, setType] = useState<TypeFilter>('all');
-  const [platform, setPlatform] = useState<'all' | PlatformSel>('all');
+  const [q, setQ] = useState(storedQ);
+  const [type, setType] = useState<TypeFilter>(storedType);
+  const [platform, setPlatform] = useState<'all' | PlatformSel>(storedPlatform);
+
+  // 同步回 module storage —— 下次打开 / POP 重开时还能续上
+  useEffect(() => { storedQ = q; }, [q]);
+  useEffect(() => { storedType = type; }, [type]);
+  useEffect(() => { storedPlatform = platform; }, [platform]);
   const [kbIdx, setKbIdx] = useState(-1);
   const [recent, setRecent] = useState<string[]>(() => getRecent());
 
@@ -583,8 +615,9 @@ function PanelInner({ onClose }: { onClose: () => void }) {
       window.open(path, '_blank', 'noopener');
       return;
     }
+    // 临时关闭面板（保留 q/type/platform）—— 用户点回退时 wrapper 会自动重开
+    searchPanel.closeForNavigation();
     nav(path);
-    onClose();
   }
 
   return (

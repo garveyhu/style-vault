@@ -36,7 +36,7 @@ const ROWS = [
   },
 ];
 
-const TABS = ['风格', '页面', '模块', '组件', '原语'];
+const TABS = ['总览', '风格', '页面', '模块', '组件', '原语'];
 
 function Tab({
   label,
@@ -196,7 +196,8 @@ function MiniCard({ type, label }: { type: string; label: string }) {
 }
 
 export default function CategoryRowBrowsePreview() {
-  const [activeTab, setActiveTab] = useState('风格'); // overview behavior would be no active; here we show one for visibility
+  // 6 tab：/browse 时激活「总览」；/browse/:type 时激活对应类型 tab —— 永远有锚点
+  const [activeTab, setActiveTab] = useState('总览');
   return (
     <PreviewFrame bg="#fafafa" padded={false}>
       <div style={{ fontFamily: SANS, color: '#0f172a' }}>

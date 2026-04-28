@@ -43,13 +43,15 @@ export function TopBar() {
         <nav className="hidden items-center gap-7 md:flex">
           <Link
             to="/browse"
-            className="text-[13px] font-medium text-slate-600 transition hover:text-slate-900"
+            className="sv-underline-tab pt-2.5"
+            data-on={pathname === '/browse' || pathname.startsWith('/browse/')}
           >
             浏览
           </Link>
           <Link
             to="/products"
-            className="text-[13px] font-medium text-slate-600 transition hover:text-slate-900"
+            className="sv-underline-tab pt-2.5"
+            data-on={pathname === '/products' || pathname.startsWith('/products/')}
           >
             产品集
           </Link>
