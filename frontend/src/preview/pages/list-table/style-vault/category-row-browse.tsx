@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { SearchOutlined } from '@ant-design/icons';
 import { PreviewFrame } from '../../../_layout';
 
 const SANS =
@@ -117,6 +118,40 @@ function NavTab({ label, active }: { label: string; active: boolean }) {
         }}
       />
     </a>
+  );
+}
+
+/**
+ * 搜索胶囊触发器 · h-9 rounded-full 玻璃白底 · 真实环境 click 唤起 cmd-k-search-panel
+ */
+function SearchPill() {
+  const [hov, setHov] = useState(false);
+  return (
+    <button
+      type="button"
+      aria-label="搜索"
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 8,
+        height: 36,
+        padding: '0 14px',
+        borderRadius: 9999,
+        border: `1px solid ${hov ? '#cbd5e1' : '#e2e8f0'}`,
+        background: hov ? '#fff' : 'rgba(255,255,255,0.6)',
+        fontFamily: SANS,
+        fontSize: 13,
+        fontWeight: 500,
+        color: hov ? '#0f172a' : '#64748b',
+        cursor: 'pointer',
+        transition: 'all 200ms cubic-bezier(0.2, 0.7, 0.2, 1)',
+      }}
+    >
+      <SearchOutlined style={{ fontSize: 14 }} />
+      搜索风格
+    </button>
   );
 }
 
@@ -274,6 +309,7 @@ export default function CategoryRowBrowsePreview() {
           {/* 主导航：路径激活下划线 nav · 这页是 /browse 所以「浏览」激活 */}
           <NavTab label="浏览" active />
           <NavTab label="产品集" active={false} />
+          <SearchPill />
           <div style={{ flex: 1 }} />
           <button
             style={{
