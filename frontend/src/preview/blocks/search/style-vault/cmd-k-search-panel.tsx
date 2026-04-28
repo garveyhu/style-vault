@@ -51,6 +51,43 @@ const TYPE_LABEL: Record<string, string> = {
   block: '模块', component: '组件', token: '原语',
 };
 
+/**
+ * TopBar 主导航 tab · 复用 sv-underline-tab 13px 小档 + 对称 padding 视觉居中
+ */
+function NavTab({ label, active }: { label: string; active: boolean }) {
+  return (
+    <a
+      style={{
+        position: 'relative',
+        fontFamily: SANS,
+        fontSize: 13,
+        fontWeight: 500,
+        color: active ? '#0f172a' : '#94a3b8',
+        letterSpacing: '0.02em',
+        paddingTop: 10,
+        paddingBottom: 10,
+        cursor: 'pointer',
+      }}
+    >
+      {label}
+      <span
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: 2,
+          borderRadius: 2,
+          background: 'linear-gradient(90deg, #0891b2, #0f172a)',
+          transform: active ? 'scaleX(1)' : 'scaleX(0)',
+          transformOrigin: 'left center',
+          transition: 'transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1)',
+        }}
+      />
+    </a>
+  );
+}
+
 function PopPreview({ id }: { id: string }) {
   switch (id) {
     case 'products/style-vault':
@@ -135,8 +172,9 @@ export default function CmdKSearchPanelPreview() {
           }}
         >
           <div style={{ width: 36, height: 36, borderRadius: 8, background: 'linear-gradient(135deg, #0891b2, #0f172a)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontFamily: MONO, fontWeight: 600 }}>SV</div>
-          <span style={{ fontSize: 13, fontWeight: 500, color: '#475569' }}>浏览</span>
-          <span style={{ fontSize: 13, fontWeight: 500, color: '#475569' }}>产品集</span>
+          {/* 主导航：路径激活下划线 nav · 演示「浏览」激活态 */}
+          <NavTab label="浏览" active />
+          <NavTab label="产品集" active={false} />
           <button style={{ height: 36, padding: '0 14px', borderRadius: 9999, border: '1px solid #e2e8f0', background: 'rgba(255,255,255,0.6)', display: 'inline-flex', alignItems: 'center', gap: 8, color: '#64748b', fontSize: 13, fontFamily: SANS, fontWeight: 500 }}>
             <SearchOutlined style={{ fontSize: 14 }} />
             搜索风格

@@ -82,6 +82,44 @@ function Tab({
   );
 }
 
+/**
+ * TopBar 主导航 tab · 复用 sv-underline-tab 13px 小档 + 对称 padding 视觉居中
+ * 真实环境跟随 pathname 激活；预览里写死 active 演示
+ */
+function NavTab({ label, active }: { label: string; active: boolean }) {
+  return (
+    <a
+      style={{
+        position: 'relative',
+        fontFamily: SANS,
+        fontSize: 13,
+        fontWeight: 500,
+        color: active ? '#0f172a' : '#94a3b8',
+        letterSpacing: '0.02em',
+        paddingTop: 10,
+        paddingBottom: 10,
+        cursor: 'pointer',
+      }}
+    >
+      {label}
+      <span
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: 2,
+          borderRadius: 2,
+          background: 'linear-gradient(90deg, #0891b2, #0f172a)',
+          transform: active ? 'scaleX(1)' : 'scaleX(0)',
+          transformOrigin: 'left center',
+          transition: 'transform 320ms cubic-bezier(0.2, 0.7, 0.2, 1)',
+        }}
+      />
+    </a>
+  );
+}
+
 function MoreLink() {
   const [hov, setHov] = useState(false);
   return (
@@ -233,12 +271,9 @@ export default function CategoryRowBrowsePreview() {
           >
             SV
           </div>
-          <span style={{ fontSize: 13, fontWeight: 500, color: '#475569' }}>
-            浏览
-          </span>
-          <span style={{ fontSize: 13, fontWeight: 500, color: '#475569' }}>
-            产品集
-          </span>
+          {/* 主导航：路径激活下划线 nav · 这页是 /browse 所以「浏览」激活 */}
+          <NavTab label="浏览" active />
+          <NavTab label="产品集" active={false} />
           <div style={{ flex: 1 }} />
           <button
             style={{
