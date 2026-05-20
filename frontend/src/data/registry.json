@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-28T06:24:21.301Z",
+  "version": "2026-05-20T01:22:29.086Z",
   "items": [
     {
       "id": "blocks/display/acme/saas-data-table",
@@ -71,6 +71,41 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/acme/saas-metric-grid.md"
+    },
+    {
+      "id": "blocks/display/mission-ops/coded-panel-header",
+      "type": "block",
+      "name": "4 字母代号工程面板",
+      "description": "工程屏 panel 标志性头部模式——左侧 4 字母大写代号（OVRV-MTRX / RTM-FEED 等）+ 中文副标题 + 右侧 σ/max/min 三微统计 + 状态点 + 1px hairline 分隔",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "industrial",
+          "editorial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "html-tailwind",
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/mission-ops/deep-space-amber",
+        "tokens/typography/pairs/mission-ops/plex-mono-inter-duo"
+      ],
+      "preview": "/preview/blocks/display/mission-ops/coded-panel-header",
+      "usedBy": [
+        "styles/admin-console/mission-ops-flight-deck",
+        "pages/dashboard/mission-ops/realtime-deck"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/mission-ops/coded-panel-header.md"
     },
     {
       "id": "blocks/display/sage/chart-card-tabs",
@@ -196,8 +231,8 @@
       "preview": "/preview/blocks/display/skillhub/leaderboard-row",
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
-        "pages/landing/skillhub/skill-community-home",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/skillhub/leaderboard-row.md"
@@ -339,6 +374,41 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/style-vault/preview-thumb-card.md"
+    },
+    {
+      "id": "blocks/display/tactical-hud/radar-sweep-panel",
+      "type": "block",
+      "name": "雷达扫描全息面板",
+      "description": "backdrop-blur 玻璃面板 + 4 角 HUD 角标 + 缓慢旋转的雷达扫描扇形 + PING 脉冲圆，HUD / 战术屏的标志性容器",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "industrial",
+          "glass"
+        ],
+        "mood": [
+          "confident",
+          "cold"
+        ],
+        "stack": [
+          "html-tailwind",
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/tactical-hud/hud-cyan-glass",
+        "tokens/typography/pairs/tactical-hud/orbitron-rajdhani-trio"
+      ],
+      "preview": "/preview/blocks/display/tactical-hud/radar-sweep-panel",
+      "usedBy": [
+        "styles/admin-console/tactical-hud-jarvis",
+        "pages/dashboard/tactical-hud/realtime-deck"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/tactical-hud/radar-sweep-panel.md"
     },
     {
       "id": "blocks/feedback/acme/saas-status-banner",
@@ -1315,16 +1385,16 @@
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/detail/skillhub/practice-post-detail",
-        "pages/detail/skillhub/user-public-profile",
         "pages/dashboard/skillhub/admin-overview",
         "pages/dashboard/skillhub/user-home",
-        "pages/form-flow/skillhub/practice-compose",
+        "pages/detail/skillhub/user-public-profile",
+        "pages/detail/skillhub/practice-post-detail",
         "pages/form-flow/skillhub/profile-edit",
-        "pages/form-flow/skillhub/skill-publish-wizard",
-        "pages/landing/skillhub/skill-community-home",
+        "pages/form-flow/skillhub/practice-compose",
         "pages/list-table/skillhub/admin-console",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/nav/skillhub/glass-pill-navbar.md"
@@ -1466,12 +1536,12 @@
         "blocks/form/skillhub/profile-edit-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/detail/skillhub/practice-post-detail",
-        "pages/detail/skillhub/user-public-profile",
-        "pages/detail/skillhub/skill-article-detail",
         "pages/dashboard/skillhub/user-home",
-        "pages/landing/skillhub/skill-community-home",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/detail/skillhub/skill-article-detail",
+        "pages/detail/skillhub/user-public-profile",
+        "pages/detail/skillhub/practice-post-detail",
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/avatars-icons/skillhub/letter-avatar.md"
@@ -1542,8 +1612,8 @@
       "usedBy": [
         "blocks/display/acme/saas-data-table",
         "styles/saas-tool/cold-industrial-saas",
-        "pages/auth/acme/auth-cold-split",
         "pages/dashboard/acme/saas-monitor-overview",
+        "pages/auth/acme/auth-cold-split",
         "pages/list-table/acme/saas-incident-list",
         "pages/pricing/acme/saas-cold-pricing"
       ],
@@ -1712,11 +1782,11 @@
         "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/detail/skillhub/practice-post-detail",
-        "pages/detail/skillhub/user-public-profile",
         "pages/dashboard/skillhub/user-home",
-        "pages/form-flow/skillhub/practice-compose",
+        "pages/detail/skillhub/user-public-profile",
+        "pages/detail/skillhub/practice-post-detail",
         "pages/form-flow/skillhub/profile-edit",
+        "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/list-table/skillhub/practice-plaza"
       ],
@@ -1823,12 +1893,47 @@
       "preview": "/preview/components/indicators/acme/status-pulse",
       "usedBy": [
         "blocks/display/acme/saas-data-table",
-        "blocks/nav/acme/saas-cold-topbar",
         "blocks/feedback/acme/saas-status-banner",
+        "blocks/nav/acme/saas-cold-topbar",
         "styles/saas-tool/cold-industrial-saas"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/indicators/acme/status-pulse.md"
+    },
+    {
+      "id": "components/indicators/mission-ops/coded-kpi-card",
+      "type": "component",
+      "name": "代号 KPI 卡",
+      "description": "带 KPI-NN 大写编号 + value/unit 拆分 + delta + 内嵌 sparkline 的工程 KPI 卡片，模仿 Bloomberg Terminal / NASA MOCR 的\"模块化数据格\"",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "industrial",
+          "editorial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "html-tailwind",
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/mission-ops/deep-space-amber",
+        "tokens/typography/pairs/mission-ops/plex-mono-inter-duo"
+      ],
+      "preview": "/preview/components/indicators/mission-ops/coded-kpi-card",
+      "usedBy": [
+        "styles/admin-console/mission-ops-flight-deck",
+        "pages/dashboard/mission-ops/realtime-deck"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/indicators/mission-ops/coded-kpi-card.md"
     },
     {
       "id": "components/indicators/sage/crystal-progress-bar",
@@ -1927,6 +2032,41 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "components/indicators/skillhub/pulse-dot.md"
+    },
+    {
+      "id": "components/indicators/tactical-hud/arc-ring-kpi",
+      "type": "component",
+      "name": "270° 圆环 KPI",
+      "description": "SVG 圆环（270° 弧 + 8 个 cardinal 刻度 + 渐变描边 + drop-shadow 霓虹光） + 中心 Orbitron 数字 + 单位，HUD / 战术屏标志性 KPI 形态",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "industrial",
+          "glass"
+        ],
+        "mood": [
+          "confident",
+          "cold"
+        ],
+        "stack": [
+          "html-tailwind",
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/tactical-hud/hud-cyan-glass",
+        "tokens/typography/pairs/tactical-hud/orbitron-rajdhani-trio"
+      ],
+      "preview": "/preview/components/indicators/tactical-hud/arc-ring-kpi",
+      "usedBy": [
+        "styles/admin-console/tactical-hud-jarvis",
+        "pages/dashboard/tactical-hud/realtime-deck"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/indicators/tactical-hud/arc-ring-kpi.md"
     },
     {
       "id": "components/inputs/acme/mono-input",
@@ -2048,8 +2188,8 @@
       "preview": "/preview/components/inputs/sage/sql-editor-monaco",
       "uses": [],
       "usedBy": [
-        "blocks/feedback/sage/vector-test-modal",
-        "pages/detail/sage/datasource-detail-tabs"
+        "pages/detail/sage/datasource-detail-tabs",
+        "blocks/feedback/sage/vector-test-modal"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/inputs/sage/sql-editor-monaco/README.md"
@@ -2153,11 +2293,11 @@
       "usedBy": [
         "blocks/display/skillhub/leaderboard-row",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
+        "pages/detail/skillhub/practice-post-detail",
         "pages/form-flow/skillhub/practice-compose",
-        "pages/landing/skillhub/skill-community-home",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/tags-badges/skillhub/teal-pill.md"
@@ -2409,6 +2549,41 @@
       "skillPath": "pages/dashboard/acme/saas-monitor-overview/README.md"
     },
     {
+      "id": "pages/dashboard/mission-ops/realtime-deck",
+      "type": "page",
+      "name": "Mission Ops 实时大屏",
+      "description": "NASA MOCR / Bloomberg Terminal 风的实时监控大屏 —— 左侧目录树 + 主区域 12-col 致密网格（4 KPI + 11×N 动态业务矩阵 + 实时事件流 + 失败 Top + 24h 趋势 + 系统遥测） + 底部 14 段状态栏",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "industrial",
+          "editorial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "html-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/mission-ops/deep-space-amber",
+        "tokens/typography/pairs/mission-ops/plex-mono-inter-duo",
+        "components/indicators/mission-ops/coded-kpi-card",
+        "blocks/display/mission-ops/coded-panel-header"
+      ],
+      "preview": "/preview/pages/dashboard/mission-ops/realtime-deck",
+      "usedBy": [
+        "styles/admin-console/mission-ops-flight-deck"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/dashboard/mission-ops/realtime-deck/README.md"
+    },
+    {
       "id": "pages/dashboard/sage/agent-chat-stream",
       "type": "page",
       "name": "智能体问答主页",
@@ -2612,6 +2787,41 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/dashboard/style-vault/profile-collections/README.md"
+    },
+    {
+      "id": "pages/dashboard/tactical-hud/realtime-deck",
+      "type": "page",
+      "name": "Tactical HUD 实时大屏",
+      "description": "钢铁侠贾维斯 / 银翼杀手 2049 战术屏风的实时监控大屏 —— 左侧目录树 + 主区域玻璃面板拼接（4 圆环 KPI + 11×N 区域 HUD 卡 + 实时事件流 + 失败 Top + 雷达扫描趋势图 + 浙江 mini-map）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "industrial",
+          "glass"
+        ],
+        "mood": [
+          "confident",
+          "cold"
+        ],
+        "stack": [
+          "html-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/tactical-hud/hud-cyan-glass",
+        "tokens/typography/pairs/tactical-hud/orbitron-rajdhani-trio",
+        "components/indicators/tactical-hud/arc-ring-kpi",
+        "blocks/display/tactical-hud/radar-sweep-panel"
+      ],
+      "preview": "/preview/pages/dashboard/tactical-hud/realtime-deck",
+      "usedBy": [
+        "styles/admin-console/tactical-hud-jarvis"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/dashboard/tactical-hud/realtime-deck/README.md"
     },
     {
       "id": "pages/detail/sage/collection-detail",
@@ -3833,6 +4043,74 @@
       "skillPath": "products/style-vault/README.md"
     },
     {
+      "id": "styles/admin-console/mission-ops-flight-deck",
+      "type": "style",
+      "name": "Mission Ops 飞控台",
+      "description": "NASA MOCR / Bloomberg Terminal / 量化交易桌的工程 nerd 风。极致信息密度 + 4 字母代号系统 + 工程图纹 + Mono 主导字体，专为监控大屏 / 运维台 / 数据工程后台设计",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "industrial",
+          "editorial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "html-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/mission-ops/deep-space-amber",
+        "tokens/typography/pairs/mission-ops/plex-mono-inter-duo",
+        "components/indicators/mission-ops/coded-kpi-card",
+        "blocks/display/mission-ops/coded-panel-header",
+        "pages/dashboard/mission-ops/realtime-deck"
+      ],
+      "preview": "/preview/styles/admin-console/mission-ops-flight-deck",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "styles/admin-console/mission-ops-flight-deck/README.md"
+    },
+    {
+      "id": "styles/admin-console/tactical-hud-jarvis",
+      "type": "style",
+      "name": "Tactical HUD Jarvis",
+      "description": "钢铁侠贾维斯 / 银翼杀手 2049 / Halo 战术屏风。圆环刻度 + 玻璃透视 + 雷达扫描 + 全息蓝，专为科技感运维台 / 实时控制系统 / 安防 / 战术展示设计",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "industrial",
+          "glass"
+        ],
+        "mood": [
+          "confident",
+          "cold"
+        ],
+        "stack": [
+          "html-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/tactical-hud/hud-cyan-glass",
+        "tokens/typography/pairs/tactical-hud/orbitron-rajdhani-trio",
+        "components/indicators/tactical-hud/arc-ring-kpi",
+        "blocks/display/tactical-hud/radar-sweep-panel",
+        "pages/dashboard/tactical-hud/realtime-deck"
+      ],
+      "preview": "/preview/styles/admin-console/tactical-hud-jarvis",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "styles/admin-console/tactical-hud-jarvis/README.md"
+    },
+    {
       "id": "styles/community-social/skillhub-soft-modernist",
       "type": "style",
       "name": "SkillHub 柔雾现代风",
@@ -4181,8 +4459,8 @@
       "preview": "/preview/tokens/layout/_shared/scroll-state-system",
       "usedBy": [
         "pages/dashboard/style-vault/profile-collections",
-        "pages/list-table/style-vault/category-row-browse",
-        "pages/list-table/style-vault/sticky-filter-product-list"
+        "pages/list-table/style-vault/sticky-filter-product-list",
+        "pages/list-table/style-vault/category-row-browse"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/layout/_shared/scroll-state-system.md"
@@ -4243,8 +4521,8 @@
       "uses": [],
       "preview": "/preview/tokens/motion/sage/animate-in-suite",
       "usedBy": [
-        "blocks/nav/sage/command-palette",
         "components/buttons/sage/stop-pulse-button",
+        "blocks/nav/sage/command-palette",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -4275,8 +4553,8 @@
       "uses": [],
       "preview": "/preview/tokens/motion/sage/styled-keyframes",
       "usedBy": [
-        "blocks/nav/sage/revolver-menu-fab",
         "components/indicators/sage/crystal-progress-bar",
+        "blocks/nav/sage/revolver-menu-fab",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -4307,11 +4585,11 @@
       "uses": [],
       "preview": "/preview/tokens/motion/skillhub/gentle-flow",
       "usedBy": [
-        "blocks/marketing/skillhub/gradient-hero",
+        "components/buttons/skillhub/border-trace-cta",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
-        "components/buttons/skillhub/border-trace-cta",
         "blocks/feedback/skillhub/skeleton-card",
+        "blocks/marketing/skillhub/gradient-hero",
         "styles/community-social/skillhub-soft-modernist",
         "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/landing/skillhub/skill-community-home"
@@ -4345,15 +4623,15 @@
       "preview": "/preview/tokens/motion/style-vault/editorial-flow",
       "uses": [],
       "usedBy": [
+        "components/buttons/style-vault/dark-pill-cta",
+        "components/buttons/style-vault/ghost-bordered-cta",
+        "components/toggles/style-vault/editorial-underline-tab",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
+        "blocks/feedback/style-vault/full-screen-loader",
         "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/search/style-vault/cmd-k-search-panel",
-        "components/buttons/style-vault/dark-pill-cta",
-        "components/buttons/style-vault/ghost-bordered-cta",
-        "blocks/feedback/style-vault/full-screen-loader",
-        "components/toggles/style-vault/editorial-underline-tab",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
@@ -4385,20 +4663,54 @@
       "preview": "/preview/tokens/palettes/acme/slate-cyan-ice",
       "uses": [],
       "usedBy": [
-        "blocks/display/acme/saas-data-table",
-        "blocks/display/acme/saas-metric-grid",
         "components/buttons/acme/cyan-cta",
         "components/buttons/acme/ghost-button",
-        "blocks/nav/acme/saas-cold-topbar",
-        "blocks/feedback/acme/saas-status-banner",
         "components/inputs/acme/mono-input",
         "components/indicators/acme/status-pulse",
+        "blocks/display/acme/saas-data-table",
+        "blocks/display/acme/saas-metric-grid",
+        "blocks/feedback/acme/saas-status-banner",
+        "blocks/nav/acme/saas-cold-topbar",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/acme/slate-cyan-ice.md"
+    },
+    {
+      "id": "tokens/palettes/mission-ops/deep-space-amber",
+      "type": "token",
+      "name": "深空琥珀",
+      "description": "4 层深蓝黑背景递进 + 全息绿 / 琥珀 / 玫瑰红状态色 + 4 级中性文本，NASA MOCR / Bloomberg Terminal 工程屏调色板",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "industrial",
+          "editorial"
+        ],
+        "mood": [
+          "cold",
+          "serious"
+        ],
+        "stack": [
+          "html-tailwind",
+          "react-tailwind"
+        ]
+      },
+      "preview": "/preview/tokens/palettes/mission-ops/deep-space-amber",
+      "uses": [],
+      "usedBy": [
+        "components/indicators/mission-ops/coded-kpi-card",
+        "blocks/display/mission-ops/coded-panel-header",
+        "styles/admin-console/mission-ops-flight-deck",
+        "pages/dashboard/mission-ops/realtime-deck"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/palettes/mission-ops/deep-space-amber.md"
     },
     {
       "id": "tokens/palettes/sage/neutral-rgb-ladder",
@@ -4423,10 +4735,10 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/sage/neutral-rgb-ladder",
       "usedBy": [
-        "blocks/nav/sage/sidebar-session-row",
-        "blocks/nav/sage/themed-sidebar-shell",
         "components/buttons/sage/icon-circle-ghost",
         "components/indicators/sage/hairline-scrollbar",
+        "blocks/nav/sage/sidebar-session-row",
+        "blocks/nav/sage/themed-sidebar-shell",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -4456,7 +4768,13 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/sage/twelve-theme-spectrum",
       "usedBy": [
+        "components/avatars-icons/sage/themed-circle-avatar",
+        "components/buttons/sage/stop-pulse-button",
+        "components/buttons/sage/theme-bg-cta",
+        "components/inputs/sage/glow-border-textarea",
+        "components/indicators/sage/crystal-progress-bar",
         "blocks/display/sage/datasource-card",
+        "blocks/feedback/sage/spin-fullscreen-loader",
         "blocks/layout/sage/management-layout-header",
         "blocks/layout/sage/sidebar-detail-split",
         "blocks/form/sage/chat-composer",
@@ -4465,12 +4783,6 @@
         "blocks/nav/sage/sidebar-session-row",
         "blocks/nav/sage/space-switcher-dropdown",
         "blocks/nav/sage/themed-sidebar-shell",
-        "components/buttons/sage/stop-pulse-button",
-        "components/buttons/sage/theme-bg-cta",
-        "blocks/feedback/sage/spin-fullscreen-loader",
-        "components/indicators/sage/crystal-progress-bar",
-        "components/avatars-icons/sage/themed-circle-avatar",
-        "components/inputs/sage/glow-border-textarea",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -4501,33 +4813,33 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/skillhub/skillhub-teal-mist",
       "usedBy": [
-        "blocks/marketing/skillhub/gradient-hero",
+        "components/avatars-icons/skillhub/letter-avatar",
+        "components/buttons/skillhub/border-trace-cta",
+        "components/buttons/skillhub/dark-primary-cta",
+        "components/inputs/skillhub/soft-form-input",
+        "components/indicators/skillhub/pulse-dot",
+        "components/tags-badges/skillhub/teal-pill",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
-        "blocks/form/skillhub/auth-split-form",
-        "blocks/form/skillhub/profile-edit-form",
-        "components/buttons/skillhub/border-trace-cta",
-        "components/buttons/skillhub/dark-primary-cta",
-        "blocks/nav/skillhub/glass-pill-navbar",
-        "components/indicators/skillhub/pulse-dot",
         "blocks/feedback/skillhub/empty-state",
         "blocks/feedback/skillhub/skeleton-card",
-        "components/avatars-icons/skillhub/letter-avatar",
-        "components/inputs/skillhub/soft-form-input",
-        "components/tags-badges/skillhub/teal-pill",
+        "blocks/marketing/skillhub/gradient-hero",
+        "blocks/form/skillhub/auth-split-form",
+        "blocks/form/skillhub/profile-edit-form",
+        "blocks/nav/skillhub/glass-pill-navbar",
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
         "pages/auth/skillhub/auth-split",
-        "pages/detail/skillhub/user-public-profile",
         "pages/dashboard/skillhub/admin-overview",
-        "pages/detail/skillhub/skill-article-detail",
         "pages/dashboard/skillhub/user-home",
+        "pages/detail/skillhub/skill-article-detail",
+        "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/profile-edit",
-        "pages/form-flow/skillhub/skill-publish-wizard",
-        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/skillhub/skillhub-teal-mist.md"
@@ -4559,23 +4871,57 @@
       "preview": "/preview/tokens/palettes/style-vault/slate-cyan-cool",
       "uses": [],
       "usedBy": [
+        "components/buttons/style-vault/dark-pill-cta",
+        "components/buttons/style-vault/ghost-bordered-cta",
+        "components/overlays/style-vault/spring-toast",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
+        "components/toggles/style-vault/editorial-underline-tab",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
+        "blocks/feedback/style-vault/full-screen-loader",
         "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/layout/style-vault/browser-chrome-frame",
         "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/search/style-vault/cmd-k-search-panel",
-        "components/buttons/style-vault/dark-pill-cta",
-        "components/buttons/style-vault/ghost-bordered-cta",
         "blocks/nav/style-vault/sticky-platform-topbar",
-        "blocks/feedback/style-vault/full-screen-loader",
-        "components/toggles/style-vault/editorial-underline-tab",
-        "components/overlays/style-vault/spring-toast",
-        "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/style-vault/slate-cyan-cool.md"
+    },
+    {
+      "id": "tokens/palettes/tactical-hud/hud-cyan-glass",
+      "type": "token",
+      "name": "HUD 青光玻璃",
+      "description": "深空蓝径向渐变 + HUD 蓝主色 + 玻璃透视卡片底 + 4 色状态（绿/琥珀/红/紫），钢铁侠贾维斯 / 银翼杀手 2049 战术屏调色板",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "industrial",
+          "glass"
+        ],
+        "mood": [
+          "cold",
+          "confident"
+        ],
+        "stack": [
+          "html-tailwind",
+          "react-tailwind"
+        ]
+      },
+      "preview": "/preview/tokens/palettes/tactical-hud/hud-cyan-glass",
+      "uses": [],
+      "usedBy": [
+        "components/indicators/tactical-hud/arc-ring-kpi",
+        "blocks/display/tactical-hud/radar-sweep-panel",
+        "styles/admin-console/tactical-hud-jarvis",
+        "pages/dashboard/tactical-hud/realtime-deck"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/palettes/tactical-hud/hud-cyan-glass.md"
     },
     {
       "id": "tokens/shadow/skillhub/ambient-float",
@@ -4602,10 +4948,10 @@
       "uses": [],
       "preview": "/preview/tokens/shadow/skillhub/ambient-float",
       "usedBy": [
+        "components/indicators/skillhub/pulse-dot",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/skill-card",
         "blocks/nav/skillhub/glass-pill-navbar",
-        "components/indicators/skillhub/pulse-dot",
         "styles/community-social/skillhub-soft-modernist"
       ],
       "hasPreviewFile": true,
@@ -4637,17 +4983,51 @@
       "preview": "/preview/tokens/typography/pairs/acme/ibm-plex-duo",
       "uses": [],
       "usedBy": [
+        "components/inputs/acme/mono-input",
         "blocks/display/acme/saas-data-table",
         "blocks/display/acme/saas-metric-grid",
-        "blocks/nav/acme/saas-cold-topbar",
         "blocks/feedback/acme/saas-status-banner",
-        "components/inputs/acme/mono-input",
+        "blocks/nav/acme/saas-cold-topbar",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/acme/ibm-plex-duo.md"
+    },
+    {
+      "id": "tokens/typography/pairs/mission-ops/plex-mono-inter-duo",
+      "type": "token",
+      "name": "Plex Mono 主导 + Inter 双字体",
+      "description": "IBM Plex Mono 主导 80%（数据 / 标签 / 编号） + Inter 副（中文与人名标签），与 ibm-plex-duo 的差异是 mono first 且用 Inter 替代 Plex Sans",
+      "platforms": [
+        "any"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "industrial",
+          "editorial"
+        ],
+        "mood": [
+          "serious",
+          "cold"
+        ],
+        "stack": [
+          "html-tailwind",
+          "react-tailwind"
+        ]
+      },
+      "preview": "/preview/tokens/typography/pairs/mission-ops/plex-mono-inter-duo",
+      "uses": [],
+      "usedBy": [
+        "components/indicators/mission-ops/coded-kpi-card",
+        "blocks/display/mission-ops/coded-panel-header",
+        "styles/admin-console/mission-ops-flight-deck",
+        "pages/dashboard/mission-ops/realtime-deck"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/typography/pairs/mission-ops/plex-mono-inter-duo.md"
     },
     {
       "id": "tokens/typography/pairs/sage/inter-stack",
@@ -4705,13 +5085,13 @@
         "blocks/marketing/skillhub/gradient-hero",
         "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/detail/skillhub/practice-post-detail",
         "pages/auth/skillhub/auth-split",
         "pages/dashboard/skillhub/admin-overview",
         "pages/detail/skillhub/skill-article-detail",
+        "pages/detail/skillhub/practice-post-detail",
         "pages/form-flow/skillhub/practice-compose",
-        "pages/landing/skillhub/skill-community-home",
-        "pages/list-table/skillhub/admin-console"
+        "pages/list-table/skillhub/admin-console",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/skillhub/inter-jetbrains-duo.md"
@@ -4742,20 +5122,53 @@
       "preview": "/preview/tokens/typography/pairs/style-vault/inter-editorial-display",
       "uses": [],
       "usedBy": [
+        "components/overlays/style-vault/spring-toast",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
+        "blocks/feedback/style-vault/full-screen-loader",
         "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/layout/style-vault/browser-chrome-frame",
         "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/search/style-vault/cmd-k-search-panel",
         "blocks/nav/style-vault/sticky-platform-topbar",
-        "blocks/feedback/style-vault/full-screen-loader",
-        "components/overlays/style-vault/spring-toast",
-        "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/style-vault/inter-editorial-display.md"
+    },
+    {
+      "id": "tokens/typography/pairs/tactical-hud/orbitron-rajdhani-trio",
+      "type": "token",
+      "name": "Orbitron · Rajdhani · JetBrains Mono 三件套",
+      "description": "HUD / 战术屏风格的三层字体——Orbitron 做品牌与大数字（未来感）、Rajdhani 做正文与中文（紧凑现代）、JetBrains Mono 做数据与代码（等宽工程）",
+      "platforms": [
+        "any"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "industrial"
+        ],
+        "mood": [
+          "confident",
+          "cold"
+        ],
+        "stack": [
+          "html-tailwind",
+          "react-tailwind"
+        ]
+      },
+      "preview": "/preview/tokens/typography/pairs/tactical-hud/orbitron-rajdhani-trio",
+      "uses": [],
+      "usedBy": [
+        "components/indicators/tactical-hud/arc-ring-kpi",
+        "blocks/display/tactical-hud/radar-sweep-panel",
+        "styles/admin-console/tactical-hud-jarvis",
+        "pages/dashboard/tactical-hud/realtime-deck"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/typography/pairs/tactical-hud/orbitron-rajdhani-trio.md"
     }
   ]
 }
