@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { PreviewFrame } from '../../../../_layout';
+import { PreviewFrame } from '../../../_layout';
 
 const FONT_URL =
   'https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&family=Rajdhani:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap';

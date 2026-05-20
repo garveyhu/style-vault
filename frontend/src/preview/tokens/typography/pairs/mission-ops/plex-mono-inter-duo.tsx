@@ -1,4 +1,4 @@
-import { PreviewFrame } from '../../../_layout';
+import { PreviewFrame } from '../../../../_layout';
 
 const MONO = "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace";
 const SANS =
