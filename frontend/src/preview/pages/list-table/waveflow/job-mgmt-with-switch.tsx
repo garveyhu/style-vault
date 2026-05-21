@@ -108,6 +108,9 @@ function Pagination({ from, to, total, page, totalPages, pageSize = 10 }: { from
         <span style={{ fontFamily: 'JetBrains Mono, monospace', fontVariantNumeric: 'tabular-nums', padding: '0 4px', color: '#1c1917', fontWeight: 500 }}>{page} / {totalPages}</span>
         {navBtn({ disabled: page >= totalPages, title: '下一页', children: <ChevronRight size={14} /> })}
         {navBtn({ disabled: page >= totalPages, title: '末页', children: <ChevronsRight size={14} /> })}
+        <span style={{ marginLeft: 18, color: '#78716c' }}>跳至</span>
+        <input type="text" inputMode="numeric" defaultValue={page} style={{ background: 'transparent', border: 'none', borderBottom: '1px dashed #d6d3d1', width: 32, height: 22, padding: 0, textAlign: 'center', fontFamily: 'JetBrains Mono, monospace', fontSize: 11.5, fontWeight: 500, fontVariantNumeric: 'tabular-nums', color: '#292524', outline: 'none' }} />
+        <span style={{ color: '#78716c' }}>页</span>
       </div>
     </div>
   );
