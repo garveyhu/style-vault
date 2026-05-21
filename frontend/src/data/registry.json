@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-21T08:15:59.178Z",
+  "version": "2026-05-21T08:26:09.775Z",
   "items": [
     {
       "id": "blocks/display/acme/saas-data-table",
@@ -1975,13 +1975,13 @@
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
-        "pages/form-flow/skillhub/practice-compose",
         "pages/dashboard/skillhub/admin-overview",
-        "pages/form-flow/skillhub/profile-edit",
-        "pages/form-flow/skillhub/skill-publish-wizard",
-        "pages/landing/skillhub/skill-community-home",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
+        "pages/form-flow/skillhub/practice-compose",
+        "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/landing/skillhub/skill-community-home",
+        "pages/form-flow/skillhub/profile-edit",
         "pages/list-table/skillhub/admin-console",
         "pages/list-table/skillhub/practice-plaza"
       ],
@@ -2253,10 +2253,10 @@
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
-        "pages/detail/skillhub/skill-article-detail",
-        "pages/landing/skillhub/skill-community-home",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
+        "pages/detail/skillhub/skill-article-detail",
+        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
@@ -2330,8 +2330,8 @@
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/dashboard/acme/saas-monitor-overview",
-        "pages/pricing/acme/saas-cold-pricing",
-        "pages/list-table/acme/saas-incident-list"
+        "pages/list-table/acme/saas-incident-list",
+        "pages/pricing/acme/saas-cold-pricing"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/buttons/acme/ghost-button.md"
@@ -2499,11 +2499,11 @@
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
-        "pages/form-flow/skillhub/practice-compose",
-        "pages/form-flow/skillhub/profile-edit",
-        "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
+        "pages/form-flow/skillhub/practice-compose",
+        "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/form-flow/skillhub/profile-edit",
         "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
@@ -2606,10 +2606,10 @@
       ],
       "preview": "/preview/components/buttons/waveflow/cva-engineer-button",
       "usedBy": [
-        "components/buttons/waveflow/dark-pill-arrow-cta",
         "blocks/feedback/waveflow/danger-confirm-modal",
         "blocks/form/waveflow/dialog-vertical-form",
         "blocks/form/waveflow/stepper-section-form",
+        "components/buttons/waveflow/dark-pill-arrow-cta",
         "styles/admin-console/waveflow-warm-engineer"
       ],
       "hasPreviewFile": true,
@@ -2678,8 +2678,8 @@
       "preview": "/preview/components/indicators/acme/status-pulse",
       "usedBy": [
         "blocks/display/acme/saas-data-table",
-        "blocks/nav/acme/saas-cold-topbar",
         "blocks/feedback/acme/saas-status-banner",
+        "blocks/nav/acme/saas-cold-topbar",
         "styles/saas-tool/cold-industrial-saas"
       ],
       "hasPreviewFile": true,
@@ -3136,10 +3136,10 @@
       ],
       "preview": "/preview/components/inputs/waveflow/blue-focus-input",
       "usedBy": [
-        "components/selects/waveflow/multi-select-popover",
         "blocks/filters/waveflow/table-toolbar-tri",
         "blocks/form/waveflow/cron-builder-modal",
         "blocks/form/waveflow/dialog-vertical-form",
+        "components/selects/waveflow/multi-select-popover",
         "styles/admin-console/waveflow-warm-engineer"
       ],
       "hasPreviewFile": true,
@@ -3300,10 +3300,10 @@
       "usedBy": [
         "blocks/display/skillhub/leaderboard-row",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/form-flow/skillhub/practice-compose",
-        "pages/landing/skillhub/skill-community-home",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
+        "pages/form-flow/skillhub/practice-compose",
+        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
@@ -5567,7 +5567,7 @@
       "id": "products/waveflow",
       "type": "product",
       "name": "Waveflow · 数据同步与任务调度平台",
-      "description": "暖工业感 admin 控制台 - DataX 任务调度 + 任务集主从 + 多 KPI dashboard + ⌘K 全站搜 + 资源监控 - 内网部署友好（无 CDN）",
+      "description": "暖工业感数据控制台 · 任务编排全流程 + 任务集主从详情 + 6 KPI 实时 dashboard + 多机房资源监控 + 多数据库 JDBC 数据源",
       "platforms": [
         "web"
       ],
@@ -5727,7 +5727,7 @@
     {
       "id": "styles/admin-console/waveflow-warm-engineer",
       "type": "style",
-      "name": "Waveflow 暖工程师",
+      "name": "Waveflow · 暖纸数据控制台",
       "description": "暖白基底 (#fafaf7/#f4f3ee/#fffefb) + 墨黑 ink + blue-600 单一 CTA + Inter / JetBrains Mono / Instrument Serif 三字体 + tabular-nums 紧凑 + editorial 出口 (login serif italic)",
       "platforms": [
         "web"
@@ -6129,10 +6129,10 @@
       ],
       "preview": "/preview/tokens/iconography/waveflow/engineer-detail-classes",
       "usedBy": [
-        "components/indicators/waveflow/status-dot-ring",
-        "components/typography-atoms/waveflow/kbd-key-cap",
         "blocks/display/waveflow/data-table-leftbar-shimmer",
         "blocks/nav/waveflow/tree-line-sidebar",
+        "components/indicators/waveflow/status-dot-ring",
+        "components/typography-atoms/waveflow/kbd-key-cap",
         "styles/admin-console/waveflow-warm-engineer"
       ],
       "hasPreviewFile": true,
@@ -6320,8 +6320,8 @@
       "uses": [],
       "preview": "/preview/tokens/motion/sage/animate-in-suite",
       "usedBy": [
-        "components/buttons/sage/stop-pulse-button",
         "blocks/nav/sage/command-palette",
+        "components/buttons/sage/stop-pulse-button",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -6352,8 +6352,8 @@
       "uses": [],
       "preview": "/preview/tokens/motion/sage/styled-keyframes",
       "usedBy": [
-        "components/indicators/sage/crystal-progress-bar",
         "blocks/nav/sage/revolver-menu-fab",
+        "components/indicators/sage/crystal-progress-bar",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -6384,11 +6384,11 @@
       "uses": [],
       "preview": "/preview/tokens/motion/skillhub/gentle-flow",
       "usedBy": [
-        "components/buttons/skillhub/border-trace-cta",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/skeleton-card",
         "blocks/marketing/skillhub/gradient-hero",
+        "components/buttons/skillhub/border-trace-cta",
         "styles/community-social/skillhub-soft-modernist",
         "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/landing/skillhub/skill-community-home"
@@ -6422,15 +6422,15 @@
       "preview": "/preview/tokens/motion/style-vault/editorial-flow",
       "uses": [],
       "usedBy": [
+        "blocks/display/style-vault/floating-cover-row",
+        "blocks/display/style-vault/preview-thumb-card",
+        "blocks/feedback/style-vault/full-screen-loader",
+        "blocks/filters/style-vault/sticky-chip-filter-panel",
+        "blocks/marketing/style-vault/cool-blob-hero",
+        "blocks/search/style-vault/cmd-k-search-panel",
         "components/buttons/style-vault/dark-pill-cta",
         "components/buttons/style-vault/ghost-bordered-cta",
         "components/toggles/style-vault/editorial-underline-tab",
-        "blocks/display/style-vault/floating-cover-row",
-        "blocks/display/style-vault/preview-thumb-card",
-        "blocks/filters/style-vault/sticky-chip-filter-panel",
-        "blocks/feedback/style-vault/full-screen-loader",
-        "blocks/marketing/style-vault/cool-blob-hero",
-        "blocks/search/style-vault/cmd-k-search-panel",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
@@ -6461,9 +6461,9 @@
       "preview": "/preview/tokens/motion/waveflow/keyframes-suite",
       "usedBy": [
         "blocks/feedback/waveflow/top-progress-bar",
-        "styles/admin-console/waveflow-warm-engineer",
         "tokens/iconography/waveflow/engineer-detail-classes",
-        "tokens/texture/waveflow/login-floating-geom-quartet"
+        "tokens/texture/waveflow/login-floating-geom-quartet",
+        "styles/admin-console/waveflow-warm-engineer"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/waveflow/keyframes-suite.md"
@@ -6525,14 +6525,14 @@
       "preview": "/preview/tokens/palettes/acme/slate-cyan-ice",
       "uses": [],
       "usedBy": [
+        "blocks/display/acme/saas-data-table",
+        "blocks/display/acme/saas-metric-grid",
+        "blocks/feedback/acme/saas-status-banner",
+        "blocks/nav/acme/saas-cold-topbar",
         "components/indicators/acme/status-pulse",
         "components/inputs/acme/mono-input",
         "components/buttons/acme/cyan-cta",
         "components/buttons/acme/ghost-button",
-        "blocks/display/acme/saas-data-table",
-        "blocks/display/acme/saas-metric-grid",
-        "blocks/nav/acme/saas-cold-topbar",
-        "blocks/feedback/acme/saas-status-banner",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
@@ -6566,8 +6566,8 @@
       "preview": "/preview/tokens/palettes/mission-ops/deep-space-amber",
       "uses": [],
       "usedBy": [
-        "components/indicators/mission-ops/coded-kpi-card",
         "blocks/display/mission-ops/coded-panel-header",
+        "components/indicators/mission-ops/coded-kpi-card",
         "styles/admin-console/mission-ops-flight-deck",
         "pages/dashboard/mission-ops/realtime-deck"
       ],
@@ -6597,10 +6597,10 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/sage/neutral-rgb-ladder",
       "usedBy": [
-        "components/indicators/sage/hairline-scrollbar",
-        "components/buttons/sage/icon-circle-ghost",
         "blocks/nav/sage/sidebar-session-row",
         "blocks/nav/sage/themed-sidebar-shell",
+        "components/indicators/sage/hairline-scrollbar",
+        "components/buttons/sage/icon-circle-ghost",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -6630,21 +6630,21 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/sage/twelve-theme-spectrum",
       "usedBy": [
-        "components/indicators/sage/crystal-progress-bar",
-        "components/avatars-icons/sage/themed-circle-avatar",
-        "components/inputs/sage/glow-border-textarea",
-        "components/buttons/sage/stop-pulse-button",
-        "components/buttons/sage/theme-bg-cta",
         "blocks/display/sage/datasource-card",
         "blocks/feedback/sage/spin-fullscreen-loader",
         "blocks/layout/sage/management-layout-header",
         "blocks/layout/sage/sidebar-detail-split",
+        "blocks/form/sage/chat-composer",
         "blocks/nav/sage/command-palette",
         "blocks/nav/sage/revolver-menu-fab",
         "blocks/nav/sage/sidebar-session-row",
         "blocks/nav/sage/space-switcher-dropdown",
         "blocks/nav/sage/themed-sidebar-shell",
-        "blocks/form/sage/chat-composer",
+        "components/avatars-icons/sage/themed-circle-avatar",
+        "components/indicators/sage/crystal-progress-bar",
+        "components/inputs/sage/glow-border-textarea",
+        "components/buttons/sage/stop-pulse-button",
+        "components/buttons/sage/theme-bg-cta",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -6675,31 +6675,31 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/skillhub/skillhub-teal-mist",
       "usedBy": [
-        "components/indicators/skillhub/pulse-dot",
-        "components/avatars-icons/skillhub/letter-avatar",
-        "components/inputs/skillhub/soft-form-input",
-        "components/buttons/skillhub/border-trace-cta",
-        "components/buttons/skillhub/dark-primary-cta",
-        "components/tags-badges/skillhub/teal-pill",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/empty-state",
         "blocks/feedback/skillhub/skeleton-card",
-        "blocks/marketing/skillhub/gradient-hero",
-        "blocks/nav/skillhub/glass-pill-navbar",
         "blocks/form/skillhub/auth-split-form",
         "blocks/form/skillhub/profile-edit-form",
+        "blocks/marketing/skillhub/gradient-hero",
+        "blocks/nav/skillhub/glass-pill-navbar",
+        "components/avatars-icons/skillhub/letter-avatar",
+        "components/indicators/skillhub/pulse-dot",
+        "components/inputs/skillhub/soft-form-input",
+        "components/buttons/skillhub/border-trace-cta",
+        "components/buttons/skillhub/dark-primary-cta",
+        "components/tags-badges/skillhub/teal-pill",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/content-reader/skillhub/im-conversation",
         "pages/auth/skillhub/auth-split",
+        "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
         "pages/dashboard/skillhub/admin-overview",
-        "pages/form-flow/skillhub/profile-edit",
-        "pages/form-flow/skillhub/skill-publish-wizard",
-        "pages/detail/skillhub/skill-article-detail",
-        "pages/landing/skillhub/skill-community-home",
         "pages/detail/skillhub/user-public-profile",
+        "pages/detail/skillhub/skill-article-detail",
+        "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/landing/skillhub/skill-community-home",
+        "pages/form-flow/skillhub/profile-edit",
         "pages/list-table/skillhub/admin-console",
         "pages/list-table/skillhub/practice-plaza"
       ],
@@ -6733,19 +6733,19 @@
       "preview": "/preview/tokens/palettes/style-vault/slate-cyan-cool",
       "uses": [],
       "usedBy": [
-        "components/buttons/style-vault/dark-pill-cta",
-        "components/buttons/style-vault/ghost-bordered-cta",
-        "components/tags-badges/style-vault/cyan-dot-meta-pill",
-        "components/toggles/style-vault/editorial-underline-tab",
-        "components/overlays/style-vault/spring-toast",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
-        "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/feedback/style-vault/full-screen-loader",
+        "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/layout/style-vault/browser-chrome-frame",
         "blocks/marketing/style-vault/cool-blob-hero",
-        "blocks/search/style-vault/cmd-k-search-panel",
         "blocks/nav/style-vault/sticky-platform-topbar",
+        "blocks/search/style-vault/cmd-k-search-panel",
+        "components/buttons/style-vault/dark-pill-cta",
+        "components/buttons/style-vault/ghost-bordered-cta",
+        "components/overlays/style-vault/spring-toast",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
+        "components/toggles/style-vault/editorial-underline-tab",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
@@ -6777,8 +6777,8 @@
       "preview": "/preview/tokens/palettes/tactical-hud/hud-cyan-glass",
       "uses": [],
       "usedBy": [
-        "components/indicators/tactical-hud/arc-ring-kpi",
         "blocks/display/tactical-hud/radar-sweep-panel",
+        "components/indicators/tactical-hud/arc-ring-kpi",
         "styles/admin-console/tactical-hud-jarvis",
         "pages/dashboard/tactical-hud/realtime-deck"
       ],
@@ -6810,11 +6810,11 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/waveflow/warm-paper-ink-blue",
       "usedBy": [
-        "components/inputs/waveflow/blue-focus-input",
-        "components/buttons/waveflow/cva-engineer-button",
         "blocks/display/waveflow/article-gauge-monitor",
         "blocks/display/waveflow/canonical-table-shell",
         "blocks/nav/waveflow/tree-line-sidebar",
+        "components/inputs/waveflow/blue-focus-input",
+        "components/buttons/waveflow/cva-engineer-button",
         "styles/admin-console/waveflow-warm-engineer"
       ],
       "hasPreviewFile": true,
@@ -6845,10 +6845,10 @@
       "uses": [],
       "preview": "/preview/tokens/shadow/skillhub/ambient-float",
       "usedBy": [
-        "components/indicators/skillhub/pulse-dot",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/skill-card",
         "blocks/nav/skillhub/glass-pill-navbar",
+        "components/indicators/skillhub/pulse-dot",
         "styles/community-social/skillhub-soft-modernist"
       ],
       "hasPreviewFile": true,
@@ -6975,11 +6975,11 @@
       "preview": "/preview/tokens/typography/pairs/acme/ibm-plex-duo",
       "uses": [],
       "usedBy": [
-        "components/inputs/acme/mono-input",
         "blocks/display/acme/saas-data-table",
         "blocks/display/acme/saas-metric-grid",
-        "blocks/nav/acme/saas-cold-topbar",
         "blocks/feedback/acme/saas-status-banner",
+        "blocks/nav/acme/saas-cold-topbar",
+        "components/inputs/acme/mono-input",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
@@ -7013,8 +7013,8 @@
       "preview": "/preview/tokens/typography/pairs/mission-ops/plex-mono-inter-duo",
       "uses": [],
       "usedBy": [
-        "components/indicators/mission-ops/coded-kpi-card",
         "blocks/display/mission-ops/coded-panel-header",
+        "components/indicators/mission-ops/coded-kpi-card",
         "styles/admin-console/mission-ops-flight-deck",
         "pages/dashboard/mission-ops/realtime-deck"
       ],
@@ -7074,15 +7074,15 @@
       "uses": [],
       "preview": "/preview/tokens/typography/pairs/skillhub/inter-jetbrains-duo",
       "usedBy": [
-        "blocks/marketing/skillhub/gradient-hero",
         "blocks/form/skillhub/auth-split-form",
+        "blocks/marketing/skillhub/gradient-hero",
         "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
-        "pages/form-flow/skillhub/practice-compose",
         "pages/dashboard/skillhub/admin-overview",
-        "pages/detail/skillhub/skill-article-detail",
-        "pages/landing/skillhub/skill-community-home",
         "pages/detail/skillhub/practice-post-detail",
+        "pages/detail/skillhub/skill-article-detail",
+        "pages/form-flow/skillhub/practice-compose",
+        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console"
       ],
       "hasPreviewFile": true,
@@ -7114,16 +7114,16 @@
       "preview": "/preview/tokens/typography/pairs/style-vault/inter-editorial-display",
       "uses": [],
       "usedBy": [
-        "components/tags-badges/style-vault/cyan-dot-meta-pill",
-        "components/overlays/style-vault/spring-toast",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
-        "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/feedback/style-vault/full-screen-loader",
+        "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/layout/style-vault/browser-chrome-frame",
         "blocks/marketing/style-vault/cool-blob-hero",
-        "blocks/search/style-vault/cmd-k-search-panel",
         "blocks/nav/style-vault/sticky-platform-topbar",
+        "blocks/search/style-vault/cmd-k-search-panel",
+        "components/overlays/style-vault/spring-toast",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
@@ -7154,8 +7154,8 @@
       "preview": "/preview/tokens/typography/pairs/tactical-hud/orbitron-rajdhani-trio",
       "uses": [],
       "usedBy": [
-        "components/indicators/tactical-hud/arc-ring-kpi",
         "blocks/display/tactical-hud/radar-sweep-panel",
+        "components/indicators/tactical-hud/arc-ring-kpi",
         "styles/admin-console/tactical-hud-jarvis",
         "pages/dashboard/tactical-hud/realtime-deck"
       ],

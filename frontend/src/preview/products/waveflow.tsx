@@ -30,11 +30,11 @@ export default function WaveflowProduct() {
         <div style={{ marginTop: 32, background: '#fffefb', border: '1px solid rgba(231,229,224,0.4)', borderRadius: 12, padding: 20, boxShadow: '0 1px 2px rgb(0 0 0 / 4%), 0 4px 12px rgb(0 0 0 / 3%)' }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: '#292524', marginBottom: 12 }}>核心特征</div>
           <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: '#57534e', lineHeight: 1.8 }}>
-            <li><strong style={{ color: '#1c1917' }}>DataX 任务全生命周期</strong>：Reader/Writer/字段映射 4-step → 模板复用 → 单任务/任务集 → 日志/终止</li>
-            <li><strong style={{ color: '#1c1917' }}>跨网数据同步</strong>：JDBC 数据源 + 12 数据库（MySQL/PG/Oracle/SQL Server/Kingbase/DM/...）</li>
-            <li><strong style={{ color: '#1c1917' }}>实时 dashboard</strong>：6 KPI + ECharts line/pie/bar/gauge + 资源监控 + 30s 自刷</li>
-            <li><strong style={{ color: '#1c1917' }}>⌘K 全站搜</strong>：跨类型 (任务/集合/项目) + amber 高亮 + 最近搜索 chips</li>
-            <li><strong style={{ color: '#1c1917' }}>内网友好</strong>：所有字体走 @fontsource 静态打包，运行时无 CDN 依赖</li>
+            <li><strong style={{ color: '#1c1917' }}>任务编排全流程</strong>：Reader / Writer / 字段映射 4-step 构建 → 模板复用 → 单任务 / 任务集 → 日志 / 终止</li>
+            <li><strong style={{ color: '#1c1917' }}>跨网数据同步</strong>：JDBC 数据源 + 12 数据库（MySQL / PG / Oracle / SQL Server / Kingbase / DM / ClickHouse / Doris / ...）</li>
+            <li><strong style={{ color: '#1c1917' }}>实时 dashboard</strong>：6 KPI + ECharts line / pie / bar / gauge + 30s 自动刷新</li>
+            <li><strong style={{ color: '#1c1917' }}>资源监控</strong>：每台执行器 CPU / 内存 / Load 三 gauge 圆环 · 多机房 article 堆叠</li>
+            <li><strong style={{ color: '#1c1917' }}>多用户多权限</strong>：用户管理 + 角色（ROLE_ADMIN）+ 项目隔离 + 任务集成员分配</li>
             <li><strong style={{ color: '#1c1917' }}>Editorial 性格出口</strong>：登录页 Three.js icosahedron + serif italic 诗句，跟 admin 主体强对比</li>
           </ul>
         </div>
