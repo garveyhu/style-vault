@@ -1,5 +1,5 @@
 import { PreviewFrame } from '../../../_layout';
-import { Calendar, ChevronDown, Trash2, Eye } from 'lucide-react';
+import { Calendar, ChevronDown, Trash2, Eye, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
 const LOGS = [
   { id: 100201, jobId: 1001, desc: '财务对账日终', time: '2026-05-21 09:00:01', dur: '3.2s', code: 200 },
@@ -57,6 +57,7 @@ export default function JobLogBatchSelect() {
               </tbody>
             </table>
           </div>
+          <Pagination from={1} to={4} total={1234} page={1} totalPages={124} pageSize={10} />
         </section>
       </div>
     </PreviewFrame>
@@ -65,3 +66,26 @@ export default function JobLogBatchSelect() {
 
 const th: React.CSSProperties = { padding: '8px 12px', textAlign: 'left', fontWeight: 500 };
 const td: React.CSSProperties = { padding: '10px 12px' };
+
+function Pagination({ from, to, total, page, totalPages, pageSize = 10 }: { from: number; to: number; total: number; page: number; totalPages: number; pageSize?: number }) {
+  const navBtn = (p: { disabled?: boolean; children: React.ReactNode; title: string }) => (
+    <button title={p.title} disabled={p.disabled} style={{ background: 'transparent', border: 'none', borderRadius: 4, padding: 4, cursor: p.disabled ? 'default' : 'pointer', opacity: p.disabled ? 0.3 : 1, display: 'inline-flex', alignItems: 'center', color: '#57534e' }}>{p.children}</button>
+  );
+  return (
+    <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 11.5, color: '#78716c' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontVariantNumeric: 'tabular-nums' }}>{from}–{to} / {total.toLocaleString()}</span>
+        <button style={{ display: 'inline-flex', alignItems: 'center', gap: 6, height: 28, padding: '0 10px', minWidth: 80, background: '#fff', border: '1px solid #d6d3d1', borderRadius: 6, fontSize: 11.5, color: '#44403c', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+          <span>{pageSize} 条/页</span><ChevronDown size={12} color="#a8a29e" style={{ marginLeft: 'auto' }} />
+        </button>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+        {navBtn({ disabled: page <= 1, title: '首页', children: <ChevronsLeft size={14} /> })}
+        {navBtn({ disabled: page <= 1, title: '上一页', children: <ChevronLeft size={14} /> })}
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontVariantNumeric: 'tabular-nums', padding: '0 4px', color: '#1c1917', fontWeight: 500 }}>{page} / {totalPages}</span>
+        {navBtn({ disabled: page >= totalPages, title: '下一页', children: <ChevronRight size={14} /> })}
+        {navBtn({ disabled: page >= totalPages, title: '末页', children: <ChevronsRight size={14} /> })}
+      </div>
+    </div>
+  );
+}

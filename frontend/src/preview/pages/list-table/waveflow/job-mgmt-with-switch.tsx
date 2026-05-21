@@ -1,5 +1,5 @@
 import { PreviewFrame } from '../../../_layout';
-import { Search, ChevronDown, Plus, Play, ScrollText, MoreHorizontal } from 'lucide-react';
+import { Search, ChevronDown, Plus, Play, ScrollText, MoreHorizontal, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
 const ROWS = [
   { id: 1001, name: '财务对账日终任务', leftBar: '#10b981', glue: 'FETCH', cron: '0 0 9 * * ?', status: 'success', on: true, next: '05-22 09:00' },
@@ -79,6 +79,7 @@ export default function JobMgmtWithSwitch() {
               </tbody>
             </table>
           </div>
+          <Pagination from={1} to={4} total={48} page={1} totalPages={12} />
         </section>
       </div>
     </PreviewFrame>
@@ -88,3 +89,26 @@ export default function JobMgmtWithSwitch() {
 const th: React.CSSProperties = { padding: '8px 12px', textAlign: 'left', fontWeight: 500 };
 const td: React.CSSProperties = { padding: '10px 12px' };
 const iconBtn: React.CSSProperties = { background: 'transparent', border: 'none', borderRadius: 4, padding: 4, cursor: 'pointer', marginLeft: 2 };
+
+function Pagination({ from, to, total, page, totalPages, pageSize = 10 }: { from: number; to: number; total: number; page: number; totalPages: number; pageSize?: number }) {
+  const navBtn = (p: { disabled?: boolean; children: React.ReactNode; title: string }) => (
+    <button title={p.title} disabled={p.disabled} style={{ background: 'transparent', border: 'none', borderRadius: 4, padding: 4, cursor: p.disabled ? 'default' : 'pointer', opacity: p.disabled ? 0.3 : 1, display: 'inline-flex', alignItems: 'center', color: '#57534e' }}>{p.children}</button>
+  );
+  return (
+    <div style={{ marginTop: 12, display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 11.5, color: '#78716c' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontVariantNumeric: 'tabular-nums' }}>{from}–{to} / {total}</span>
+        <button style={{ display: 'inline-flex', alignItems: 'center', gap: 6, height: 28, padding: '0 10px', minWidth: 80, background: '#fff', border: '1px solid #d6d3d1', borderRadius: 6, fontSize: 11.5, color: '#44403c', cursor: 'pointer', whiteSpace: 'nowrap' }}>
+          <span>{pageSize} 条/页</span><ChevronDown size={12} color="#a8a29e" style={{ marginLeft: 'auto' }} />
+        </button>
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+        {navBtn({ disabled: page <= 1, title: '首页', children: <ChevronsLeft size={14} /> })}
+        {navBtn({ disabled: page <= 1, title: '上一页', children: <ChevronLeft size={14} /> })}
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontVariantNumeric: 'tabular-nums', padding: '0 4px', color: '#1c1917', fontWeight: 500 }}>{page} / {totalPages}</span>
+        {navBtn({ disabled: page >= totalPages, title: '下一页', children: <ChevronRight size={14} /> })}
+        {navBtn({ disabled: page >= totalPages, title: '末页', children: <ChevronsRight size={14} /> })}
+      </div>
+    </div>
+  );
+}
