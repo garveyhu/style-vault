@@ -10,7 +10,7 @@ export default function DataTableLeftbarShimmer() {
   ];
   return (
     <PreviewFrame bg="#fafaf7" padded={false}>
-      <style>{`@keyframes wf-pulse { 0%,100% { opacity: 1 } 50% { opacity: 0.4 } }`}</style>
+      <style>{`@keyframes wf-shimmer { 0% { background-position: -200px 0 } 100% { background-position: 200px 0 } }`}</style>
       <div style={{ padding: '16px 24px', fontFamily: 'Inter, system-ui, sans-serif' }}>
         <div style={{ border: '1px solid rgba(231,229,224,0.6)', borderRadius: 8, overflow: 'hidden', background: '#fff' }}>
           <table style={{ width: '100%', fontSize: 12.5, borderCollapse: 'collapse', tableLayout: 'fixed' }}>
@@ -44,12 +44,20 @@ export default function DataTableLeftbarShimmer() {
                   </td>
                 </tr>
               ))}
-              {/* shimmer row */}
-              {[1, 2].map(i => (
-                <tr key={'skl' + i} style={{ borderTop: '1px solid #f5f4ee', animation: 'wf-pulse 1.6s ease-in-out infinite' }}>
+              {/* shimmer rows · 暖灰渐变横向波 + rounded-full pill */}
+              {[1, 2, 3, 4].map(i => (
+                <tr key={'skl' + i} style={{ borderTop: '1px solid #f5f4ee' }}>
                   <td style={{ padding: 0 }}><div style={{ height: 40 }} /></td>
                   {Array.from({ length: 6 }).map((_, c) => (
-                    <td key={c} style={{ padding: '10px 12px' }}><div style={{ height: 12, borderRadius: 3, background: '#f5f4ee', width: `${40 + ((i * 7 + c * 11) % 50)}%` }} /></td>
+                    <td key={c} style={{ padding: '10px 12px' }}>
+                      <div style={{
+                        height: 8, borderRadius: 9999,
+                        background: 'linear-gradient(90deg, #ebe9e3 0%, #f5f4ee 50%, #ebe9e3 100%)',
+                        backgroundSize: '400px 100%',
+                        animation: 'wf-shimmer 1.6s ease-in-out infinite',
+                        width: `${40 + ((i * 7 + c * 11) % 50)}%`,
+                      }} />
+                    </td>
                   ))}
                 </tr>
               ))}
