@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-20T01:22:29.086Z",
+  "version": "2026-05-21T07:58:19.265Z",
   "items": [
     {
       "id": "blocks/display/acme/saas-data-table",
@@ -231,8 +231,8 @@
       "preview": "/preview/blocks/display/skillhub/leaderboard-row",
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
-        "pages/list-table/skillhub/practice-plaza",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/landing/skillhub/skill-community-home",
+        "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/skillhub/leaderboard-row.md"
@@ -409,6 +409,208 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/tactical-hud/radar-sweep-panel.md"
+    },
+    {
+      "id": "blocks/display/waveflow/article-gauge-monitor",
+      "type": "block",
+      "name": "资源监控 Article + 3-Gauge",
+      "description": "资源监控页 article 卡 - header（执行器 + 注册地址 + 更新时间）+ 3-column gauge 网格（CPU / 内存 / Load Average）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/waveflow/warm-paper-ink-blue",
+        "components/typography-atoms/waveflow/meta-caps-mono-pair"
+      ],
+      "preview": "/preview/blocks/display/waveflow/article-gauge-monitor",
+      "usedBy": [
+        "pages/dashboard/waveflow/registry-monitor-articles"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/waveflow/article-gauge-monitor.md"
+    },
+    {
+      "id": "blocks/display/waveflow/canonical-table-shell",
+      "type": "block",
+      "name": "列表页规范外壳",
+      "description": "页面 `h-full px-6 py-4` + rounded-xl border/40 paper bg shadow-soft section + 内部 TableToolbar + DataTable + TablePagination 三件套",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/waveflow/warm-paper-ink-blue",
+        "tokens/shadow/waveflow/soft-card-pop-trio",
+        "blocks/filters/waveflow/table-toolbar-tri",
+        "blocks/display/waveflow/data-table-leftbar-shimmer"
+      ],
+      "preview": "/preview/blocks/display/waveflow/canonical-table-shell",
+      "usedBy": [
+        "pages/list-table/waveflow/canonical-section-list",
+        "pages/list-table/waveflow/job-log-batch-select",
+        "pages/list-table/waveflow/job-mgmt-with-switch"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/waveflow/canonical-table-shell.md"
+    },
+    {
+      "id": "blocks/display/waveflow/dashboard-kpi-six-row",
+      "type": "block",
+      "name": "6 KPI 卡片大数字行",
+      "description": "调度+sparkline / 成功率+渐变 bar / 平均耗时 + min-max / 在线执行器 + 健康 dot / 活跃任务 + glue chips / 24h 失败 - 6 张差异化 KPI 卡",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious",
+          "confident"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "components/tags-badges/waveflow/glue-type-badge-duo",
+        "components/indicators/waveflow/pulse-ping-dot",
+        "components/typography-atoms/waveflow/meta-caps-mono-pair"
+      ],
+      "preview": "/preview/blocks/display/waveflow/dashboard-kpi-six-row",
+      "usedBy": [
+        "pages/dashboard/waveflow/admin-runtime-report"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/waveflow/dashboard-kpi-six-row.md"
+    },
+    {
+      "id": "blocks/display/waveflow/data-table-leftbar-shimmer",
+      "type": "block",
+      "name": "左状态条 + 延迟 shimmer 表格",
+      "description": "DataTable 完整体 - 4px 左状态条 + 8 行延迟 200ms shimmer 骨架 + warm-2 sticky 表头 + ArrowUpDown 排序 + zebra-free hover + divide stone-100",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "tokens/iconography/waveflow/engineer-detail-classes",
+        "tokens/border/waveflow/translucent-stone-system",
+        "components/typography-atoms/waveflow/meta-caps-mono-pair"
+      ],
+      "preview": "/preview/blocks/display/waveflow/data-table-leftbar-shimmer",
+      "usedBy": [
+        "blocks/display/waveflow/canonical-table-shell",
+        "blocks/layout/waveflow/master-detail-list-aside",
+        "pages/detail/waveflow/jobset-master-detail",
+        "pages/list-table/waveflow/job-mgmt-with-switch"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/waveflow/data-table-leftbar-shimmer.md"
+    },
+    {
+      "id": "blocks/display/waveflow/metric-card-quartet",
+      "type": "block",
+      "name": "4 tone 度量卡四件",
+      "description": "default warm-2 / success emerald-50 / warning orange-50 / danger red-50 - rounded-lg border + icon + 11px label + 24px mono 大数字",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "serious",
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/blocks/display/waveflow/metric-card-quartet",
+      "usedBy": [
+        "blocks/layout/waveflow/master-detail-list-aside",
+        "pages/detail/waveflow/jobset-master-detail"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/waveflow/metric-card-quartet.md"
+    },
+    {
+      "id": "blocks/display/waveflow/set-card-segmented",
+      "type": "block",
+      "name": "任务集 button-card",
+      "description": "jobSet sidebar 内单卡 - preset icon + 名称 + 计数 + SegmentedBlocks 状态条 + active blue-50/70 / hover stone-50",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "components/indicators/waveflow/segmented-blocks"
+      ],
+      "preview": "/preview/blocks/display/waveflow/set-card-segmented",
+      "usedBy": [
+        "blocks/layout/waveflow/master-detail-list-aside",
+        "pages/detail/waveflow/jobset-master-detail"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/waveflow/set-card-segmented.md"
     },
     {
       "id": "blocks/feedback/acme/saas-status-banner",
@@ -670,6 +872,146 @@
       "skillPath": "blocks/feedback/style-vault/full-screen-loader.md"
     },
     {
+      "id": "blocks/feedback/waveflow/action-dropdown-more",
+      "type": "block",
+      "name": "表格行 MoreHorizontal 操作菜单",
+      "description": "行内 MoreHorizontal trigger 按钮 + Radix DropdownMenu 内容（编辑 / 列表跳转 / 终止 / Separator / 危险删除）+ danger 项 red 文",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/blocks/feedback/waveflow/action-dropdown-more",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/feedback/waveflow/action-dropdown-more.md"
+    },
+    {
+      "id": "blocks/feedback/waveflow/danger-confirm-modal",
+      "type": "block",
+      "name": "Danger 确认弹窗",
+      "description": "title 内嵌 28x28 red-50 圆 + AlertTriangle red-600 icon + 命令式 useConfirm() await 返 bool",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "blocks/form/waveflow/dialog-vertical-form",
+        "components/buttons/waveflow/cva-engineer-button"
+      ],
+      "preview": "/preview/blocks/feedback/waveflow/danger-confirm-modal",
+      "usedBy": [
+        "pages/detail/waveflow/jobset-master-detail"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/feedback/waveflow/danger-confirm-modal.md"
+    },
+    {
+      "id": "blocks/feedback/waveflow/empty-dashed-state",
+      "type": "block",
+      "name": "虚线圆框空态",
+      "description": "2px dashed border + 12x12 圆 stone-100 icon + 14px font-semibold title + 12px stone-500 desc + 可选 action 槽",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/blocks/feedback/waveflow/empty-dashed-state",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/feedback/waveflow/empty-dashed-state.md"
+    },
+    {
+      "id": "blocks/feedback/waveflow/log-pre-viewer",
+      "type": "block",
+      "name": "pre 日志查看器",
+      "description": "header (13px 标题 +",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/blocks/feedback/waveflow/log-pre-viewer",
+      "usedBy": [
+        "pages/detail/waveflow/log-viewer-pre"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/feedback/waveflow/log-pre-viewer.md"
+    },
+    {
+      "id": "blocks/feedback/waveflow/top-progress-bar",
+      "type": "block",
+      "name": "顶部 2px indeterminate progress bar",
+      "description": "fixed top h-[2px] z-300 indeterminate blue gradient bar - 500ms 防闪 + 100% fade-out + RouteChange + axios pending 双源触发",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "tokens/motion/waveflow/keyframes-suite"
+      ],
+      "preview": "/preview/blocks/feedback/waveflow/top-progress-bar",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/feedback/waveflow/top-progress-bar.md"
+    },
+    {
       "id": "blocks/filters/style-vault/sticky-chip-filter-panel",
       "type": "block",
       "name": "Sticky 玻璃感筛选面板",
@@ -703,6 +1045,36 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/filters/style-vault/sticky-chip-filter-panel.md"
+    },
+    {
+      "id": "blocks/filters/waveflow/table-toolbar-tri",
+      "type": "block",
+      "name": "表格三段工具栏",
+      "description": "title (左) + 右侧 search icon-prefix + N 个 h-7 select filter + extra slot (按钮 / MultiSelect)",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "components/inputs/waveflow/blue-focus-input"
+      ],
+      "preview": "/preview/blocks/filters/waveflow/table-toolbar-tri",
+      "usedBy": [
+        "blocks/display/waveflow/canonical-table-shell"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/filters/waveflow/table-toolbar-tri.md"
     },
     {
       "id": "blocks/form/sage/chat-composer",
@@ -866,6 +1238,167 @@
       "skillPath": "blocks/form/skillhub/profile-edit-form.md"
     },
     {
+      "id": "blocks/form/waveflow/cron-builder-modal",
+      "type": "block",
+      "name": "Cron 可视化构建器",
+      "description": "5 mode radio (每 N 分 / 每小时 / 每天 / 每周 / 每月) + 对应数字输入 + 实时反馈 cron 字符串 + 内置 next trigger time popover",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "components/inputs/waveflow/blue-focus-input",
+        "blocks/form/waveflow/dialog-vertical-form"
+      ],
+      "preview": "/preview/blocks/form/waveflow/cron-builder-modal",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/form/waveflow/cron-builder-modal.md"
+    },
+    {
+      "id": "blocks/form/waveflow/dialog-vertical-form",
+      "type": "block",
+      "name": "Dialog 垂直表单",
+      "description": "Radix Dialog (rounded-2xl + paper + pop shadow) + 5px Header (border-b-100) + Body space-y-3.5 vertical fields (Label[required] + Input/Textarea + error) + Footer warm-2/40 ghost+primary 按钮",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "components/inputs/waveflow/blue-focus-input",
+        "components/buttons/waveflow/cva-engineer-button"
+      ],
+      "preview": "/preview/blocks/form/waveflow/dialog-vertical-form",
+      "usedBy": [
+        "blocks/feedback/waveflow/danger-confirm-modal",
+        "blocks/form/waveflow/cron-builder-modal",
+        "pages/list-table/waveflow/canonical-section-list"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/form/waveflow/dialog-vertical-form.md"
+    },
+    {
+      "id": "blocks/form/waveflow/login-editorial-form",
+      "type": "block",
+      "name": "Editorial 登录左半表单",
+      "description": "14vh padding-top + hero (56px logo + 28px Waveflow. period + tagline) + 10mt 表单 (underline inputs + checkbox + dark-pill CTA) + footer year © sticky 底",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "components/inputs/waveflow/underline-bare-input",
+        "components/buttons/waveflow/dark-pill-arrow-cta"
+      ],
+      "preview": "/preview/blocks/form/waveflow/login-editorial-form",
+      "usedBy": [
+        "pages/auth/waveflow/login-editorial-three"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/form/waveflow/login-editorial-form.md"
+    },
+    {
+      "id": "blocks/form/waveflow/login-three-decor-right",
+      "type": "block",
+      "name": "登录右半 Three.js 装饰区",
+      "description": "dark linear gradient + radial overlay glow + Three.js icosahedron canvas + bottom tagline (11px tracking-[0.4em] 上 / 30px serif italic 诗句下) - 仅 lg+ 显示",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "minimal"
+        ],
+        "mood": [
+          "dreamy",
+          "confident"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "tokens/motion/waveflow/three-icosahedron-bg"
+      ],
+      "preview": "/preview/blocks/form/waveflow/login-three-decor-right",
+      "usedBy": [
+        "pages/auth/waveflow/login-editorial-three"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/form/waveflow/login-three-decor-right.md"
+    },
+    {
+      "id": "blocks/form/waveflow/stepper-section-form",
+      "type": "block",
+      "name": "Stepper 多步骤表单",
+      "description": "顶部 Stepper（圆圈数字 / 已完成 ✓ / blue-600 当前 ring-blue-100）+ section divider + 当前步内容 + 底部 prev/next ghost+primary 按钮",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious",
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "components/buttons/waveflow/cva-engineer-button"
+      ],
+      "preview": "/preview/blocks/form/waveflow/stepper-section-form",
+      "usedBy": [
+        "pages/form-flow/waveflow/json-build-stepper"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/form/waveflow/stepper-section-form.md"
+    },
+    {
       "id": "blocks/layout/sage/management-layout-header",
       "type": "block",
       "name": "管理页头",
@@ -891,8 +1424,8 @@
       "preview": "/preview/blocks/layout/sage/management-layout-header",
       "usedBy": [
         "styles/saas-tool/sage-multitheme-data-platform",
-        "pages/dashboard/sage/analytics-usage",
         "pages/dashboard/sage/analytics-feedback",
+        "pages/dashboard/sage/analytics-usage",
         "pages/form-flow/sage/rule-set-stepper-modal",
         "pages/list-table/sage/admin-table-management"
       ],
@@ -997,6 +1530,40 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/layout/style-vault/browser-chrome-frame.md"
+    },
+    {
+      "id": "blocks/layout/waveflow/master-detail-list-aside",
+      "type": "block",
+      "name": "256px 左 aside + 右详情面板主从",
+      "description": "jobSet 招牌布局 - 左 256px 任务集列表 aside (折叠态隐藏 + 弹出展开按钮) + 右详情面板 HERO + 4 MetricCard + 内嵌 DataTable",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "blocks/display/waveflow/set-card-segmented",
+        "blocks/display/waveflow/metric-card-quartet",
+        "blocks/display/waveflow/data-table-leftbar-shimmer"
+      ],
+      "preview": "/preview/blocks/layout/waveflow/master-detail-list-aside",
+      "usedBy": [
+        "pages/detail/waveflow/jobset-master-detail"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/layout/waveflow/master-detail-list-aside.md"
     },
     {
       "id": "blocks/marketing/sage/auth-emerald-card",
@@ -1385,16 +1952,16 @@
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
-        "pages/dashboard/skillhub/admin-overview",
         "pages/dashboard/skillhub/user-home",
-        "pages/detail/skillhub/user-public-profile",
         "pages/detail/skillhub/practice-post-detail",
-        "pages/form-flow/skillhub/profile-edit",
+        "pages/detail/skillhub/user-public-profile",
+        "pages/dashboard/skillhub/admin-overview",
         "pages/form-flow/skillhub/practice-compose",
-        "pages/list-table/skillhub/admin-console",
         "pages/form-flow/skillhub/skill-publish-wizard",
-        "pages/list-table/skillhub/practice-plaza",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/form-flow/skillhub/profile-edit",
+        "pages/landing/skillhub/skill-community-home",
+        "pages/list-table/skillhub/admin-console",
+        "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/nav/skillhub/glass-pill-navbar.md"
@@ -1435,6 +2002,125 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/nav/style-vault/sticky-platform-topbar.md"
+    },
+    {
+      "id": "blocks/nav/waveflow/cmdk-search-modal",
+      "type": "block",
+      "name": "⌘K 命令面板",
+      "description": "12vh-from-top 720×560 modal · 类型 sidebar(136px) + 搜索输入 + 最近 chips + 列表 + amber 高亮 + footer Kbd 提示",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "components/typography-atoms/waveflow/kbd-key-cap",
+        "tokens/shadow/waveflow/soft-card-pop-trio"
+      ],
+      "preview": "/preview/blocks/nav/waveflow/cmdk-search-modal",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/waveflow/cmdk-search-modal.md"
+    },
+    {
+      "id": "blocks/nav/waveflow/icon-collapsed-sidebar",
+      "type": "block",
+      "name": "56px 折叠态侧栏",
+      "description": "w-14 折叠态 - logo (40×40) + 展开按钮 + icon-only 菜单 (9×9 button + 17px icon) + tooltip",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/blocks/nav/waveflow/icon-collapsed-sidebar",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/waveflow/icon-collapsed-sidebar.md"
+    },
+    {
+      "id": "blocks/nav/waveflow/topbar-search-ping",
+      "type": "block",
+      "name": "48px 顶部栏 + ⌘K 搜索 + 在线状态",
+      "description": "h-12 极简顶部栏 - 260px 搜索按钮 (⌘K Kbd) + ping 双层在线 dot + N 在线计数",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "components/indicators/waveflow/pulse-ping-dot",
+        "components/typography-atoms/waveflow/kbd-key-cap"
+      ],
+      "preview": "/preview/blocks/nav/waveflow/topbar-search-ping",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/waveflow/topbar-search-ping.md"
+    },
+    {
+      "id": "blocks/nav/waveflow/tree-line-sidebar",
+      "type": "block",
+      "name": "暖底 Tree-line 侧栏",
+      "description": "240px sidebar - brand + UPPERCASE 分组头 + Tree-line 子项 + count badge + bottom user dropdown - 完整侧栏单元",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "tokens/iconography/waveflow/engineer-detail-classes",
+        "tokens/palettes/waveflow/warm-paper-ink-blue",
+        "components/typography-atoms/waveflow/meta-caps-mono-pair"
+      ],
+      "preview": "/preview/blocks/nav/waveflow/tree-line-sidebar",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/waveflow/tree-line-sidebar.md"
     },
     {
       "id": "blocks/search/style-vault/cmd-k-search-panel",
@@ -1537,11 +2223,11 @@
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
-        "pages/detail/skillhub/skill-article-detail",
-        "pages/detail/skillhub/user-public-profile",
         "pages/detail/skillhub/practice-post-detail",
-        "pages/list-table/skillhub/practice-plaza",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/detail/skillhub/user-public-profile",
+        "pages/detail/skillhub/skill-article-detail",
+        "pages/landing/skillhub/skill-community-home",
+        "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/avatars-icons/skillhub/letter-avatar.md"
@@ -1612,8 +2298,8 @@
       "usedBy": [
         "blocks/display/acme/saas-data-table",
         "styles/saas-tool/cold-industrial-saas",
-        "pages/dashboard/acme/saas-monitor-overview",
         "pages/auth/acme/auth-cold-split",
+        "pages/dashboard/acme/saas-monitor-overview",
         "pages/list-table/acme/saas-incident-list",
         "pages/pricing/acme/saas-cold-pricing"
       ],
@@ -1783,11 +2469,11 @@
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
-        "pages/detail/skillhub/user-public-profile",
         "pages/detail/skillhub/practice-post-detail",
-        "pages/form-flow/skillhub/profile-edit",
+        "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/form-flow/skillhub/profile-edit",
         "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
@@ -1862,6 +2548,73 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "components/buttons/style-vault/ghost-bordered-cta.md"
+    },
+    {
+      "id": "components/buttons/waveflow/cva-engineer-button",
+      "type": "component",
+      "name": "CVA 工程师按钮",
+      "description": "7 variant × 5 size CVA 按钮 (primary/outline/ghost/link/danger/danger-outline/dark) + loading 自动 Loader2 + Slot 多态",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious",
+          "confident"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/waveflow/warm-paper-ink-blue"
+      ],
+      "preview": "/preview/components/buttons/waveflow/cva-engineer-button",
+      "usedBy": [
+        "blocks/feedback/waveflow/danger-confirm-modal",
+        "components/buttons/waveflow/dark-pill-arrow-cta",
+        "blocks/form/waveflow/dialog-vertical-form",
+        "blocks/form/waveflow/stepper-section-form"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/buttons/waveflow/cva-engineer-button.md"
+    },
+    {
+      "id": "components/buttons/waveflow/dark-pill-arrow-cta",
+      "type": "component",
+      "name": "深色胶囊箭头 CTA",
+      "description": "登录页\"继续\"按钮 - stone-900 底 + rounded-full + 箭头 hover translate-x-1 + loading 切 Loader2",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "minimal"
+        ],
+        "mood": [
+          "confident",
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "components/buttons/waveflow/cva-engineer-button"
+      ],
+      "preview": "/preview/components/buttons/waveflow/dark-pill-arrow-cta",
+      "usedBy": [
+        "blocks/form/waveflow/login-editorial-form"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/buttons/waveflow/dark-pill-arrow-cta.md"
     },
     {
       "id": "components/indicators/acme/status-pulse",
@@ -2069,6 +2822,99 @@
       "skillPath": "components/indicators/tactical-hud/arc-ring-kpi.md"
     },
     {
+      "id": "components/indicators/waveflow/pulse-ping-dot",
+      "type": "component",
+      "name": "Ping 双层在线点",
+      "description": "1.5×1.5px 实心 emerald-500 + 外层同色 animate-ping opacity-60 涟漪扩散；topbar / dashboard \"实时\" 标记",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/components/indicators/waveflow/pulse-ping-dot",
+      "usedBy": [
+        "blocks/display/waveflow/dashboard-kpi-six-row",
+        "blocks/nav/waveflow/topbar-search-ping"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/indicators/waveflow/pulse-ping-dot.md"
+    },
+    {
+      "id": "components/indicators/waveflow/segmented-blocks",
+      "type": "component",
+      "name": "任务集分段方块进度",
+      "description": "N 个 14×6px 方块平铺，每个对应一个任务状态 (running emerald / error red / stopped stone / pending stone-200)，配套 3-segment percentage bar",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious",
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "components/indicators/waveflow/status-dot-ring"
+      ],
+      "preview": "/preview/components/indicators/waveflow/segmented-blocks",
+      "usedBy": [
+        "blocks/display/waveflow/set-card-segmented"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/indicators/waveflow/segmented-blocks.md"
+    },
+    {
+      "id": "components/indicators/waveflow/status-dot-ring",
+      "type": "component",
+      "name": "7px 状态点 + 2px ring",
+      "description": "任务状态点（运行 emerald / 停 stone / 异常 red），7×7px + 2px 半透色 ring + 派生 deriveJobStatus / deriveRunStatus 函数",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "tokens/iconography/waveflow/engineer-detail-classes"
+      ],
+      "preview": "/preview/components/indicators/waveflow/status-dot-ring",
+      "usedBy": [
+        "components/indicators/waveflow/segmented-blocks"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/indicators/waveflow/status-dot-ring.md"
+    },
+    {
       "id": "components/inputs/acme/mono-input",
       "type": "component",
       "name": "等宽数字输入框",
@@ -2188,8 +3034,8 @@
       "preview": "/preview/components/inputs/sage/sql-editor-monaco",
       "uses": [],
       "usedBy": [
-        "pages/detail/sage/datasource-detail-tabs",
-        "blocks/feedback/sage/vector-test-modal"
+        "blocks/feedback/sage/vector-test-modal",
+        "pages/detail/sage/datasource-detail-tabs"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/inputs/sage/sql-editor-monaco/README.md"
@@ -2231,6 +3077,97 @@
       "skillPath": "components/inputs/skillhub/soft-form-input.md"
     },
     {
+      "id": "components/inputs/waveflow/blue-focus-input",
+      "type": "component",
+      "name": "蓝聚焦输入框",
+      "description": "h-8 默认 input + focus:border-blue-500 + ring-2 ring-blue-100 + error 红 + mono 模式",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/waveflow/warm-paper-ink-blue"
+      ],
+      "preview": "/preview/components/inputs/waveflow/blue-focus-input",
+      "usedBy": [
+        "blocks/filters/waveflow/table-toolbar-tri",
+        "blocks/form/waveflow/cron-builder-modal",
+        "blocks/form/waveflow/dialog-vertical-form",
+        "components/selects/waveflow/multi-select-popover"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/inputs/waveflow/blue-focus-input.md"
+    },
+    {
+      "id": "components/inputs/waveflow/datetime-range-presets",
+      "type": "component",
+      "name": "日期时间范围 + 预设",
+      "description": "触发器 + Popover 双 datetime-local input + 今天 / 昨天 / 7 天 / 30 天 等预设快捷条",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/components/inputs/waveflow/datetime-range-presets",
+      "usedBy": [
+        "pages/list-table/waveflow/job-log-batch-select"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/inputs/waveflow/datetime-range-presets.md"
+    },
+    {
+      "id": "components/inputs/waveflow/underline-bare-input",
+      "type": "component",
+      "name": "极简下划线输入",
+      "description": "登录表单专属 - bg 透明 + border-b only + py-2.5 + 15px Inter + 失焦深 stone-300 / 聚焦 stone-900 / error red-400→600",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/components/inputs/waveflow/underline-bare-input",
+      "usedBy": [
+        "blocks/form/waveflow/login-editorial-form"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/inputs/waveflow/underline-bare-input.md"
+    },
+    {
       "id": "components/overlays/style-vault/spring-toast",
       "type": "component",
       "name": "Spring Toast 操作反馈胶囊",
@@ -2265,6 +3202,37 @@
       "skillPath": "components/overlays/style-vault/spring-toast.md"
     },
     {
+      "id": "components/selects/waveflow/multi-select-popover",
+      "type": "component",
+      "name": "多选 Popover",
+      "description": "trigger + popover + 可搜索 + 选项 checkbox + 已选 count chip + 清空按钮的多选下拉",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "components/inputs/waveflow/blue-focus-input"
+      ],
+      "preview": "/preview/components/selects/waveflow/multi-select-popover",
+      "usedBy": [
+        "pages/form-flow/waveflow/json-build-stepper",
+        "pages/list-table/waveflow/job-mgmt-with-switch"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/selects/waveflow/multi-select-popover.md"
+    },
+    {
       "id": "components/tags-badges/skillhub/teal-pill",
       "type": "component",
       "name": "Teal 胶囊标签",
@@ -2293,11 +3261,11 @@
       "usedBy": [
         "blocks/display/skillhub/leaderboard-row",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/detail/skillhub/user-public-profile",
         "pages/detail/skillhub/practice-post-detail",
+        "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/practice-compose",
-        "pages/list-table/skillhub/practice-plaza",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/landing/skillhub/skill-community-home",
+        "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/tags-badges/skillhub/teal-pill.md"
@@ -2339,6 +3307,65 @@
       "skillPath": "components/tags-badges/style-vault/cyan-dot-meta-pill.md"
     },
     {
+      "id": "components/tags-badges/waveflow/code-status-badge",
+      "type": "component",
+      "name": "执行码状态徽章",
+      "description": "jobLog 状态徽章 (200 成功 / 0 进行中 / 500 / null) - 浅底 + 深字 + border + px-1.5 紧凑 chip",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/components/tags-badges/waveflow/code-status-badge",
+      "usedBy": [
+        "pages/list-table/waveflow/job-log-batch-select"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/tags-badges/waveflow/code-status-badge.md"
+    },
+    {
+      "id": "components/tags-badges/waveflow/glue-type-badge-duo",
+      "type": "component",
+      "name": "任务类型徽章双变体",
+      "description": "11 种业务类型 chip · light 浅底深字带边 / solid 反显实心白字 · emerald/pink/blue/amber/indigo/cyan/stone 7 色映射",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious",
+          "playful"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/components/tags-badges/waveflow/glue-type-badge-duo",
+      "usedBy": [
+        "blocks/display/waveflow/dashboard-kpi-six-row",
+        "pages/list-table/waveflow/job-mgmt-with-switch"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/tags-badges/waveflow/glue-type-badge-duo.md"
+    },
+    {
       "id": "components/toggles/style-vault/editorial-underline-tab",
       "type": "component",
       "name": "编辑式 Tab 下划线",
@@ -2372,6 +3399,98 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "components/toggles/style-vault/editorial-underline-tab.md"
+    },
+    {
+      "id": "components/toggles/waveflow/emerald-switch",
+      "type": "component",
+      "name": "Emerald 开关",
+      "description": "h-5 w-9 Radix Switch + checked emerald-500 / unchecked stone-300 + thumb h-4 w-4 white + translate-x-4 切换",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/components/toggles/waveflow/emerald-switch",
+      "usedBy": [
+        "pages/list-table/waveflow/job-mgmt-with-switch"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/toggles/waveflow/emerald-switch.md"
+    },
+    {
+      "id": "components/typography-atoms/waveflow/kbd-key-cap",
+      "type": "component",
+      "name": "键帽 Kbd",
+      "description": "padding 1px 5px + 10px mono + 1px stone-200 border + 1px shadow 模拟物理键帽",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "tokens/iconography/waveflow/engineer-detail-classes"
+      ],
+      "preview": "/preview/components/typography-atoms/waveflow/kbd-key-cap",
+      "usedBy": [
+        "blocks/nav/waveflow/cmdk-search-modal",
+        "blocks/nav/waveflow/topbar-search-ping"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/typography-atoms/waveflow/kbd-key-cap.md"
+    },
+    {
+      "id": "components/typography-atoms/waveflow/meta-caps-mono-pair",
+      "type": "component",
+      "name": "元信息 caps + mono 数字对",
+      "description": "两个最常用的工程师印章 - `text-[10.5px] uppercase tracking-wider text-stone-500` 元标签 / `font-mono text-[11.5px] tnum text-stone-600` 数字段",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "industrial",
+          "minimal"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/components/typography-atoms/waveflow/meta-caps-mono-pair",
+      "usedBy": [
+        "blocks/display/waveflow/article-gauge-monitor",
+        "blocks/display/waveflow/dashboard-kpi-six-row",
+        "blocks/display/waveflow/data-table-leftbar-shimmer",
+        "blocks/nav/waveflow/tree-line-sidebar"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/typography-atoms/waveflow/meta-caps-mono-pair.md"
     },
     {
       "id": "pages/auth/acme/auth-cold-split",
@@ -2474,6 +3593,41 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/auth/skillhub/auth-split/README.md"
+    },
+    {
+      "id": "pages/auth/waveflow/login-editorial-three",
+      "type": "page",
+      "name": "Editorial Split 登录（含 Three.js）",
+      "description": "左半 editorial 表单 (14vh hero + underline inputs + dark-pill CTA) + 右半 Three.js dark scene (三 icosahedron + 200 stars + 双 radial glow + serif italic 诗句) + LeftDecor 4 SVG 浮件 + 动态连线",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "dreamy",
+          "confident"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "blocks/form/waveflow/login-editorial-form",
+        "blocks/form/waveflow/login-three-decor-right",
+        "tokens/texture/waveflow/login-floating-geom-quartet",
+        "tokens/texture/waveflow/login-dot-grid-mask",
+        "tokens/motion/waveflow/three-icosahedron-bg"
+      ],
+      "preview": "/preview/pages/auth/waveflow/login-editorial-three",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/auth/waveflow/login-editorial-three/README.md"
     },
     {
       "id": "pages/content-reader/skillhub/im-conversation",
@@ -2824,6 +3978,93 @@
       "skillPath": "pages/dashboard/tactical-hud/realtime-deck/README.md"
     },
     {
+      "id": "pages/dashboard/waveflow/admin-runtime-report",
+      "type": "page",
+      "name": "运行报表 Dashboard",
+      "description": "6 KPI row + 12-col 主图(line)+状态分布(pie) + executor health table + recent failures + 时长 bar + 调度 TOP 5 + 失败 TOP 5",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious",
+          "confident"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "blocks/display/waveflow/dashboard-kpi-six-row",
+        "tokens/layout/waveflow/data-console-shell"
+      ],
+      "preview": "/preview/pages/dashboard/waveflow/admin-runtime-report",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/dashboard/waveflow/admin-runtime-report/README.md"
+    },
+    {
+      "id": "pages/dashboard/waveflow/json-format-ace-dual",
+      "type": "page",
+      "name": "双 ACE Editor JSON 格式化工具",
+      "description": "标题 + 双面板镜像 (左输入 ACE + 右只读格式化 ACE) + 错误 footer (red-50 + red-700 错误信息) + 内置 DataX 示例 JSON",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/pages/dashboard/waveflow/json-format-ace-dual",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/dashboard/waveflow/json-format-ace-dual/README.md"
+    },
+    {
+      "id": "pages/dashboard/waveflow/registry-monitor-articles",
+      "type": "page",
+      "name": "资源监控（Article 堆叠 + 3-Gauge）",
+      "description": "顶部独立 search section + 多 article 堆叠 (每个执行器一卡 - header 信息 + 3-col gauge grid (CPU 蓝 / 内存 红 / Load 自定))",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "blocks/display/waveflow/article-gauge-monitor"
+      ],
+      "preview": "/preview/pages/dashboard/waveflow/registry-monitor-articles",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/dashboard/waveflow/registry-monitor-articles/README.md"
+    },
+    {
       "id": "pages/detail/sage/collection-detail",
       "type": "page",
       "name": "收藏夹详情（问答重放）",
@@ -3049,6 +4290,69 @@
       "skillPath": "pages/detail/style-vault/sticky-toc-product/README.md"
     },
     {
+      "id": "pages/detail/waveflow/jobset-master-detail",
+      "type": "page",
+      "name": "任务集主从详情",
+      "description": "左 256px aside (status overview list + segmented blocks) + 右详情 (HERO icon+breadcrumb+name+desc+actions + 4 MetricCard + members 二级 toolbar+table+pagination) + 7 dialogs",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious",
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "blocks/layout/waveflow/master-detail-list-aside",
+        "blocks/display/waveflow/set-card-segmented",
+        "blocks/display/waveflow/metric-card-quartet",
+        "blocks/display/waveflow/data-table-leftbar-shimmer",
+        "blocks/feedback/waveflow/danger-confirm-modal"
+      ],
+      "preview": "/preview/pages/detail/waveflow/jobset-master-detail",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/detail/waveflow/jobset-master-detail/README.md"
+    },
+    {
+      "id": "pages/detail/waveflow/log-viewer-pre",
+      "type": "page",
+      "name": "任务日志详情（pre viewer 全屏）",
+      "description": "独立无 Layout 路由 /data/log - URL query 携带 executor/triggerTime/id - 简单 section 套 log-pre-viewer block - h-calc(100vh-180px) 高显示",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "blocks/feedback/waveflow/log-pre-viewer"
+      ],
+      "preview": "/preview/pages/detail/waveflow/log-viewer-pre",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/detail/waveflow/log-viewer-pre/README.md"
+    },
+    {
       "id": "pages/empty-error/sage/crt-tv-404",
       "type": "page",
       "name": "复古电视机 404",
@@ -3078,6 +4382,33 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/empty-error/sage/crt-tv-404/README.md"
+    },
+    {
+      "id": "pages/empty-error/waveflow/minimal-text-401",
+      "type": "page",
+      "name": "极简文本 401",
+      "description": "居中容器 - \"401\" 大数字 + 主消息 + 副描述 + 返回 / 回首页 双按钮 - 纯样式 CSS 类不走 Tailwind",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/pages/empty-error/waveflow/minimal-text-401",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/empty-error/waveflow/minimal-text-401/README.md"
     },
     {
       "id": "pages/form-flow/sage/datasource-new-form",
@@ -3242,6 +4573,36 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/form-flow/skillhub/skill-publish-wizard/README.md"
+    },
+    {
+      "id": "pages/form-flow/waveflow/json-build-stepper",
+      "type": "page",
+      "name": "JSON 构建 4 步 Stepper",
+      "description": "Reader → Writer → 字段映射 → 构建 4-step + 各步 Panel (数据源 select + Schema/Table 二级 select + Column 双列 transfer) + drawer 模板选择器 + Textarea JSON preview + 复制按钮",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "blocks/form/waveflow/stepper-section-form",
+        "components/selects/waveflow/multi-select-popover"
+      ],
+      "preview": "/preview/pages/form-flow/waveflow/json-build-stepper",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/form-flow/waveflow/json-build-stepper/README.md"
     },
     {
       "id": "pages/landing/acme/saas-landing",
@@ -3671,6 +5032,99 @@
       "skillPath": "pages/list-table/style-vault/sticky-filter-product-list/README.md"
     },
     {
+      "id": "pages/list-table/waveflow/canonical-section-list",
+      "type": "page",
+      "name": "单 Section 列表页（项目 / 执行器 / 用户 / 数据源）",
+      "description": "单一 paper section 套壳 + TableToolbar (title + search + extra) + DataTable (无 leftBar) + Pagination + FormDialog - waveflow 4 个最简列表页共用形态",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "blocks/display/waveflow/canonical-table-shell",
+        "blocks/form/waveflow/dialog-vertical-form"
+      ],
+      "preview": "/preview/pages/list-table/waveflow/canonical-section-list",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/list-table/waveflow/canonical-section-list/README.md"
+    },
+    {
+      "id": "pages/list-table/waveflow/job-log-batch-select",
+      "type": "page",
+      "name": "日志列表（批量选择 + 清理）",
+      "description": "heavy filter + 自定义 toolbar (任务ID/描述 search + 执行器 select + 状态 select + datetime-range + 批量删 + 清理日志 dialog) + 表格首列 checkbox + indeterminate",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "blocks/display/waveflow/canonical-table-shell",
+        "components/inputs/waveflow/datetime-range-presets",
+        "components/tags-badges/waveflow/code-status-badge"
+      ],
+      "preview": "/preview/pages/list-table/waveflow/job-log-batch-select",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/list-table/waveflow/job-log-batch-select/README.md"
+    },
+    {
+      "id": "pages/list-table/waveflow/job-mgmt-with-switch",
+      "type": "page",
+      "name": "任务管理列表（带行 Switch + LeftBar）",
+      "description": "jobInfo / jobTemplate 共用 - TableToolbar 三 filter (类型/执行状态/开关状态) + MultiSelect 项目 + DataTable 含 LeftBar (emerald/red/stone) + Switch + GlueTypeBadge + 最近触发 mono + MoreHorizontal dropdown",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "blocks/display/waveflow/canonical-table-shell",
+        "blocks/display/waveflow/data-table-leftbar-shimmer",
+        "components/toggles/waveflow/emerald-switch",
+        "components/tags-badges/waveflow/glue-type-badge-duo",
+        "components/selects/waveflow/multi-select-popover"
+      ],
+      "preview": "/preview/pages/list-table/waveflow/job-mgmt-with-switch",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/list-table/waveflow/job-mgmt-with-switch/README.md"
+    },
+    {
       "id": "pages/pricing/acme/saas-cold-pricing",
       "type": "page",
       "name": "冷感 SaaS 定价页",
@@ -4043,6 +5497,99 @@
       "skillPath": "products/style-vault/README.md"
     },
     {
+      "id": "products/waveflow",
+      "type": "product",
+      "name": "Waveflow · 数据同步与任务调度平台",
+      "description": "暖工业感 admin 控制台 - DataX 任务调度 + 任务集主从 + 多 KPI dashboard + ⌘K 全站搜 + 资源监控 - 内网部署友好（无 CDN）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "category": "productivity",
+      "refs": {
+        "style": "styles/admin-console/waveflow-warm-engineer",
+        "pages": [
+          "pages/dashboard/waveflow/admin-runtime-report",
+          "pages/list-table/waveflow/canonical-section-list",
+          "pages/list-table/waveflow/job-mgmt-with-switch",
+          "pages/list-table/waveflow/job-log-batch-select",
+          "pages/detail/waveflow/jobset-master-detail",
+          "pages/form-flow/waveflow/json-build-stepper",
+          "pages/dashboard/waveflow/registry-monitor-articles",
+          "pages/auth/waveflow/login-editorial-three",
+          "pages/empty-error/waveflow/minimal-text-401",
+          "pages/empty-error/sage/crt-tv-404",
+          "pages/dashboard/waveflow/json-format-ace-dual",
+          "pages/detail/waveflow/log-viewer-pre"
+        ],
+        "blocks": [
+          "blocks/nav/waveflow/tree-line-sidebar",
+          "blocks/nav/waveflow/icon-collapsed-sidebar",
+          "blocks/nav/waveflow/topbar-search-ping",
+          "blocks/nav/waveflow/cmdk-search-modal",
+          "blocks/display/waveflow/canonical-table-shell",
+          "blocks/display/waveflow/data-table-leftbar-shimmer",
+          "blocks/display/waveflow/dashboard-kpi-six-row",
+          "blocks/display/waveflow/article-gauge-monitor",
+          "blocks/display/waveflow/metric-card-quartet",
+          "blocks/display/waveflow/set-card-segmented",
+          "blocks/layout/waveflow/master-detail-list-aside",
+          "blocks/filters/waveflow/table-toolbar-tri",
+          "blocks/form/waveflow/dialog-vertical-form",
+          "blocks/form/waveflow/login-editorial-form",
+          "blocks/form/waveflow/login-three-decor-right",
+          "blocks/form/waveflow/cron-builder-modal",
+          "blocks/form/waveflow/stepper-section-form",
+          "blocks/feedback/waveflow/top-progress-bar",
+          "blocks/feedback/waveflow/empty-dashed-state",
+          "blocks/feedback/waveflow/danger-confirm-modal",
+          "blocks/feedback/waveflow/log-pre-viewer",
+          "blocks/feedback/waveflow/action-dropdown-more"
+        ],
+        "components": [
+          "components/buttons/waveflow/cva-engineer-button",
+          "components/buttons/waveflow/dark-pill-arrow-cta",
+          "components/inputs/waveflow/blue-focus-input",
+          "components/inputs/waveflow/underline-bare-input",
+          "components/inputs/waveflow/datetime-range-presets",
+          "components/toggles/waveflow/emerald-switch",
+          "components/selects/waveflow/multi-select-popover",
+          "components/indicators/waveflow/status-dot-ring",
+          "components/indicators/waveflow/segmented-blocks",
+          "components/indicators/waveflow/pulse-ping-dot",
+          "components/tags-badges/waveflow/glue-type-badge-duo",
+          "components/tags-badges/waveflow/code-status-badge",
+          "components/typography-atoms/waveflow/kbd-key-cap",
+          "components/typography-atoms/waveflow/meta-caps-mono-pair"
+        ],
+        "tokens": {
+          "palette": "tokens/palettes/waveflow/warm-paper-ink-blue",
+          "typography": "tokens/typography/pairs/waveflow/inter-jetbrains-instrument-trio",
+          "motion": "tokens/motion/waveflow/keyframes-suite"
+        }
+      },
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "serious",
+          "confident"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/pages/dashboard/waveflow/admin-runtime-report",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "products/waveflow/README.md"
+    },
+    {
       "id": "styles/admin-console/mission-ops-flight-deck",
       "type": "style",
       "name": "Mission Ops 飞控台",
@@ -4109,6 +5656,44 @@
       "usedBy": [],
       "hasPreviewFile": true,
       "skillPath": "styles/admin-console/tactical-hud-jarvis/README.md"
+    },
+    {
+      "id": "styles/admin-console/waveflow-warm-engineer",
+      "type": "style",
+      "name": "Waveflow 暖工程师",
+      "description": "暖白基底 (#fafaf7/#f4f3ee/#fffefb) + 墨黑 ink + blue-600 单一 CTA + Inter / JetBrains Mono / Instrument Serif 三字体 + tabular-nums 紧凑 + editorial 出口 (login serif italic)",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "serious",
+          "confident"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/waveflow/warm-paper-ink-blue",
+        "tokens/typography/pairs/waveflow/inter-jetbrains-instrument-trio",
+        "tokens/shadow/waveflow/soft-card-pop-trio",
+        "tokens/border/waveflow/translucent-stone-system",
+        "tokens/iconography/waveflow/engineer-detail-classes",
+        "tokens/motion/waveflow/keyframes-suite",
+        "tokens/layout/waveflow/data-console-shell"
+      ],
+      "preview": "/preview/styles/admin-console/waveflow-warm-engineer",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "styles/admin-console/waveflow-warm-engineer/README.md"
     },
     {
       "id": "styles/community-social/skillhub-soft-modernist",
@@ -4339,6 +5924,35 @@
       "skillPath": "styles/saas-tool/sage-multitheme-data-platform/README.md"
     },
     {
+      "id": "tokens/border/waveflow/translucent-stone-system",
+      "type": "token",
+      "name": "半透明 Stone 分层边框系统",
+      "description": "5 档 stone-200/40 · /60 · /70 · stone-100 · stone-300，按层级用\"透明度\"区分边框，让暖底色透出来",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/border/waveflow/translucent-stone-system",
+      "usedBy": [
+        "blocks/display/waveflow/data-table-leftbar-shimmer",
+        "styles/admin-console/waveflow-warm-engineer"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/border/waveflow/translucent-stone-system.md"
+    },
+    {
       "id": "tokens/gradient/style-vault/cool-blob-decor",
       "type": "token",
       "name": "冷感漂浮气泡装饰",
@@ -4369,6 +5983,42 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/gradient/style-vault/cool-blob-decor.md"
+    },
+    {
+      "id": "tokens/iconography/waveflow/engineer-detail-classes",
+      "type": "token",
+      "name": "工程师细节类合集",
+      "description": ".tnum / .kbd / .status-dot[-running/-stopped/-error] / .tree-line / .tree-item / .skeleton / .pulse-soft 全局工程师感细节类",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "industrial",
+          "minimal"
+        ],
+        "mood": [
+          "serious",
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "tokens/motion/waveflow/keyframes-suite"
+      ],
+      "preview": "/preview/tokens/iconography/waveflow/engineer-detail-classes",
+      "usedBy": [
+        "blocks/display/waveflow/data-table-leftbar-shimmer",
+        "blocks/nav/waveflow/tree-line-sidebar",
+        "components/indicators/waveflow/status-dot-ring",
+        "components/typography-atoms/waveflow/kbd-key-cap",
+        "styles/admin-console/waveflow-warm-engineer"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/iconography/waveflow/engineer-detail-classes.md"
     },
     {
       "id": "tokens/layout/_shared/fixed-cols-row",
@@ -4459,11 +6109,42 @@
       "preview": "/preview/tokens/layout/_shared/scroll-state-system",
       "usedBy": [
         "pages/dashboard/style-vault/profile-collections",
-        "pages/list-table/style-vault/sticky-filter-product-list",
-        "pages/list-table/style-vault/category-row-browse"
+        "pages/list-table/style-vault/category-row-browse",
+        "pages/list-table/style-vault/sticky-filter-product-list"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/layout/_shared/scroll-state-system.md"
+    },
+    {
+      "id": "tokens/layout/waveflow/data-console-shell",
+      "type": "token",
+      "name": "数据控制台外壳布局",
+      "description": "240px sidebar (折叠态 56px) + 48px topbar + main grid 三段式 admin 控制台布局",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/layout/waveflow/data-console-shell",
+      "usedBy": [
+        "styles/admin-console/waveflow-warm-engineer",
+        "pages/dashboard/waveflow/admin-runtime-report"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/layout/waveflow/data-console-shell.md"
     },
     {
       "id": "tokens/motion/acme/instant-snap",
@@ -4521,8 +6202,8 @@
       "uses": [],
       "preview": "/preview/tokens/motion/sage/animate-in-suite",
       "usedBy": [
-        "components/buttons/sage/stop-pulse-button",
         "blocks/nav/sage/command-palette",
+        "components/buttons/sage/stop-pulse-button",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -4553,8 +6234,8 @@
       "uses": [],
       "preview": "/preview/tokens/motion/sage/styled-keyframes",
       "usedBy": [
-        "components/indicators/sage/crystal-progress-bar",
         "blocks/nav/sage/revolver-menu-fab",
+        "components/indicators/sage/crystal-progress-bar",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -4585,11 +6266,11 @@
       "uses": [],
       "preview": "/preview/tokens/motion/skillhub/gentle-flow",
       "usedBy": [
-        "components/buttons/skillhub/border-trace-cta",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/skeleton-card",
         "blocks/marketing/skillhub/gradient-hero",
+        "components/buttons/skillhub/border-trace-cta",
         "styles/community-social/skillhub-soft-modernist",
         "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/landing/skillhub/skill-community-home"
@@ -4623,19 +6304,81 @@
       "preview": "/preview/tokens/motion/style-vault/editorial-flow",
       "uses": [],
       "usedBy": [
+        "blocks/display/style-vault/floating-cover-row",
+        "blocks/display/style-vault/preview-thumb-card",
+        "blocks/marketing/style-vault/cool-blob-hero",
+        "blocks/feedback/style-vault/full-screen-loader",
+        "blocks/filters/style-vault/sticky-chip-filter-panel",
+        "blocks/search/style-vault/cmd-k-search-panel",
         "components/buttons/style-vault/dark-pill-cta",
         "components/buttons/style-vault/ghost-bordered-cta",
         "components/toggles/style-vault/editorial-underline-tab",
-        "blocks/display/style-vault/floating-cover-row",
-        "blocks/display/style-vault/preview-thumb-card",
-        "blocks/feedback/style-vault/full-screen-loader",
-        "blocks/filters/style-vault/sticky-chip-filter-panel",
-        "blocks/marketing/style-vault/cool-blob-hero",
-        "blocks/search/style-vault/cmd-k-search-panel",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/style-vault/editorial-flow.md"
+    },
+    {
+      "id": "tokens/motion/waveflow/keyframes-suite",
+      "type": "token",
+      "name": "Waveflow 七 keyframe 动效套件",
+      "description": "accordion-down/up + decor-drift-1/2/3 + ping-soft + global-progress + boot-dot + shimmer + Tailwind animate-* 的全套 CSS keyframes",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "calm"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/motion/waveflow/keyframes-suite",
+      "usedBy": [
+        "blocks/feedback/waveflow/top-progress-bar",
+        "styles/admin-console/waveflow-warm-engineer",
+        "tokens/iconography/waveflow/engineer-detail-classes",
+        "tokens/texture/waveflow/login-floating-geom-quartet"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/motion/waveflow/keyframes-suite.md"
+    },
+    {
+      "id": "tokens/motion/waveflow/three-icosahedron-bg",
+      "type": "token",
+      "name": "Three.js 三层同心二十面体背景",
+      "description": "3 层不同尺寸 IcosahedronGeometry wireframe (indigo / pink / cyan) + 200 颗背景星点 + 自旋 + 鼠标 lerp 跟随；登录右半页专属",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "editorial"
+        ],
+        "mood": [
+          "dreamy",
+          "confident"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/motion/waveflow/three-icosahedron-bg",
+      "usedBy": [
+        "blocks/form/waveflow/login-three-decor-right",
+        "pages/auth/waveflow/login-editorial-three"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/motion/waveflow/three-icosahedron-bg.md"
     },
     {
       "id": "tokens/palettes/acme/slate-cyan-ice",
@@ -4663,14 +6406,14 @@
       "preview": "/preview/tokens/palettes/acme/slate-cyan-ice",
       "uses": [],
       "usedBy": [
-        "components/buttons/acme/cyan-cta",
-        "components/buttons/acme/ghost-button",
-        "components/inputs/acme/mono-input",
-        "components/indicators/acme/status-pulse",
         "blocks/display/acme/saas-data-table",
         "blocks/display/acme/saas-metric-grid",
         "blocks/feedback/acme/saas-status-banner",
         "blocks/nav/acme/saas-cold-topbar",
+        "components/buttons/acme/cyan-cta",
+        "components/buttons/acme/ghost-button",
+        "components/inputs/acme/mono-input",
+        "components/indicators/acme/status-pulse",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
@@ -4704,8 +6447,8 @@
       "preview": "/preview/tokens/palettes/mission-ops/deep-space-amber",
       "uses": [],
       "usedBy": [
-        "components/indicators/mission-ops/coded-kpi-card",
         "blocks/display/mission-ops/coded-panel-header",
+        "components/indicators/mission-ops/coded-kpi-card",
         "styles/admin-console/mission-ops-flight-deck",
         "pages/dashboard/mission-ops/realtime-deck"
       ],
@@ -4735,10 +6478,10 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/sage/neutral-rgb-ladder",
       "usedBy": [
-        "components/buttons/sage/icon-circle-ghost",
-        "components/indicators/sage/hairline-scrollbar",
         "blocks/nav/sage/sidebar-session-row",
         "blocks/nav/sage/themed-sidebar-shell",
+        "components/buttons/sage/icon-circle-ghost",
+        "components/indicators/sage/hairline-scrollbar",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -4768,21 +6511,21 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/sage/twelve-theme-spectrum",
       "usedBy": [
-        "components/avatars-icons/sage/themed-circle-avatar",
-        "components/buttons/sage/stop-pulse-button",
-        "components/buttons/sage/theme-bg-cta",
-        "components/inputs/sage/glow-border-textarea",
-        "components/indicators/sage/crystal-progress-bar",
         "blocks/display/sage/datasource-card",
         "blocks/feedback/sage/spin-fullscreen-loader",
         "blocks/layout/sage/management-layout-header",
         "blocks/layout/sage/sidebar-detail-split",
-        "blocks/form/sage/chat-composer",
         "blocks/nav/sage/command-palette",
         "blocks/nav/sage/revolver-menu-fab",
         "blocks/nav/sage/sidebar-session-row",
         "blocks/nav/sage/space-switcher-dropdown",
         "blocks/nav/sage/themed-sidebar-shell",
+        "components/buttons/sage/stop-pulse-button",
+        "components/buttons/sage/theme-bg-cta",
+        "components/inputs/sage/glow-border-textarea",
+        "blocks/form/sage/chat-composer",
+        "components/avatars-icons/sage/themed-circle-avatar",
+        "components/indicators/sage/crystal-progress-bar",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -4813,33 +6556,33 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/skillhub/skillhub-teal-mist",
       "usedBy": [
-        "components/avatars-icons/skillhub/letter-avatar",
-        "components/buttons/skillhub/border-trace-cta",
-        "components/buttons/skillhub/dark-primary-cta",
-        "components/inputs/skillhub/soft-form-input",
-        "components/indicators/skillhub/pulse-dot",
-        "components/tags-badges/skillhub/teal-pill",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/empty-state",
         "blocks/feedback/skillhub/skeleton-card",
         "blocks/marketing/skillhub/gradient-hero",
+        "blocks/nav/skillhub/glass-pill-navbar",
+        "components/buttons/skillhub/border-trace-cta",
+        "components/buttons/skillhub/dark-primary-cta",
         "blocks/form/skillhub/auth-split-form",
         "blocks/form/skillhub/profile-edit-form",
-        "blocks/nav/skillhub/glass-pill-navbar",
+        "components/inputs/skillhub/soft-form-input",
+        "components/tags-badges/skillhub/teal-pill",
+        "components/avatars-icons/skillhub/letter-avatar",
+        "components/indicators/skillhub/pulse-dot",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/content-reader/skillhub/im-conversation",
         "pages/auth/skillhub/auth-split",
-        "pages/dashboard/skillhub/admin-overview",
+        "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
-        "pages/detail/skillhub/skill-article-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/form-flow/skillhub/profile-edit",
-        "pages/list-table/skillhub/admin-console",
+        "pages/detail/skillhub/skill-article-detail",
+        "pages/dashboard/skillhub/admin-overview",
         "pages/form-flow/skillhub/skill-publish-wizard",
-        "pages/list-table/skillhub/practice-plaza",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/form-flow/skillhub/profile-edit",
+        "pages/landing/skillhub/skill-community-home",
+        "pages/list-table/skillhub/admin-console",
+        "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/skillhub/skillhub-teal-mist.md"
@@ -4871,19 +6614,19 @@
       "preview": "/preview/tokens/palettes/style-vault/slate-cyan-cool",
       "uses": [],
       "usedBy": [
-        "components/buttons/style-vault/dark-pill-cta",
-        "components/buttons/style-vault/ghost-bordered-cta",
-        "components/overlays/style-vault/spring-toast",
-        "components/tags-badges/style-vault/cyan-dot-meta-pill",
-        "components/toggles/style-vault/editorial-underline-tab",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
-        "blocks/feedback/style-vault/full-screen-loader",
-        "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/layout/style-vault/browser-chrome-frame",
         "blocks/marketing/style-vault/cool-blob-hero",
-        "blocks/search/style-vault/cmd-k-search-panel",
+        "blocks/feedback/style-vault/full-screen-loader",
         "blocks/nav/style-vault/sticky-platform-topbar",
+        "blocks/filters/style-vault/sticky-chip-filter-panel",
+        "blocks/search/style-vault/cmd-k-search-panel",
+        "components/buttons/style-vault/dark-pill-cta",
+        "components/buttons/style-vault/ghost-bordered-cta",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
+        "components/toggles/style-vault/editorial-underline-tab",
+        "components/overlays/style-vault/spring-toast",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
@@ -4915,13 +6658,48 @@
       "preview": "/preview/tokens/palettes/tactical-hud/hud-cyan-glass",
       "uses": [],
       "usedBy": [
-        "components/indicators/tactical-hud/arc-ring-kpi",
         "blocks/display/tactical-hud/radar-sweep-panel",
+        "components/indicators/tactical-hud/arc-ring-kpi",
         "styles/admin-console/tactical-hud-jarvis",
         "pages/dashboard/tactical-hud/realtime-deck"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/tactical-hud/hud-cyan-glass.md"
+    },
+    {
+      "id": "tokens/palettes/waveflow/warm-paper-ink-blue",
+      "type": "token",
+      "name": "暖纸墨蓝调色板",
+      "description": "暖白基底 (#fafaf7 /",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/palettes/waveflow/warm-paper-ink-blue",
+      "usedBy": [
+        "blocks/display/waveflow/article-gauge-monitor",
+        "blocks/display/waveflow/canonical-table-shell",
+        "blocks/nav/waveflow/tree-line-sidebar",
+        "components/buttons/waveflow/cva-engineer-button",
+        "components/inputs/waveflow/blue-focus-input",
+        "styles/admin-console/waveflow-warm-engineer"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/palettes/waveflow/warm-paper-ink-blue.md"
     },
     {
       "id": "tokens/shadow/skillhub/ambient-float",
@@ -4948,14 +6726,107 @@
       "uses": [],
       "preview": "/preview/tokens/shadow/skillhub/ambient-float",
       "usedBy": [
-        "components/indicators/skillhub/pulse-dot",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/skill-card",
         "blocks/nav/skillhub/glass-pill-navbar",
+        "components/indicators/skillhub/pulse-dot",
         "styles/community-social/skillhub-soft-modernist"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/shadow/skillhub/ambient-float.md"
+    },
+    {
+      "id": "tokens/shadow/waveflow/soft-card-pop-trio",
+      "type": "token",
+      "name": "软卡浮三档阴影",
+      "description": "3 档极淡阴影 (soft / card / pop)，4-8% alpha 双层叠加；CSS var 引用 28 处",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/shadow/waveflow/soft-card-pop-trio",
+      "usedBy": [
+        "blocks/display/waveflow/canonical-table-shell",
+        "blocks/nav/waveflow/cmdk-search-modal",
+        "styles/admin-console/waveflow-warm-engineer"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/shadow/waveflow/soft-card-pop-trio.md"
+    },
+    {
+      "id": "tokens/texture/waveflow/login-dot-grid-mask",
+      "type": "token",
+      "name": "登录页 radial dot 网格 + radial 椭圆 mask",
+      "description": "24x24px 灰点阵 + radial 椭圆 mask 中实边羽化 + opacity 0.35 + 鼠标 480px multiply 柔光跟随",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "dreamy"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/texture/waveflow/login-dot-grid-mask",
+      "usedBy": [
+        "pages/auth/waveflow/login-editorial-three"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/texture/waveflow/login-dot-grid-mask.md"
+    },
+    {
+      "id": "tokens/texture/waveflow/login-floating-geom-quartet",
+      "type": "token",
+      "name": "登录页 4 SVG 浮件 + RAF 动态连线",
+      "description": "同心圆紫 / 圆角方粉 / 三角青 / 圆点橙 4 个 SVG 几何浮件 + decor-drift 漂浮 + 鼠标 ↔ 浮件 / 浮件 ↔ 浮件 RAF 动态 SVG 连线",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "minimal"
+        ],
+        "mood": [
+          "dreamy",
+          "playful"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [
+        "tokens/motion/waveflow/keyframes-suite"
+      ],
+      "preview": "/preview/tokens/texture/waveflow/login-floating-geom-quartet",
+      "usedBy": [
+        "pages/auth/waveflow/login-editorial-three"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/texture/waveflow/login-floating-geom-quartet.md"
     },
     {
       "id": "tokens/typography/pairs/acme/ibm-plex-duo",
@@ -4983,11 +6854,11 @@
       "preview": "/preview/tokens/typography/pairs/acme/ibm-plex-duo",
       "uses": [],
       "usedBy": [
-        "components/inputs/acme/mono-input",
         "blocks/display/acme/saas-data-table",
         "blocks/display/acme/saas-metric-grid",
         "blocks/feedback/acme/saas-status-banner",
         "blocks/nav/acme/saas-cold-topbar",
+        "components/inputs/acme/mono-input",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
@@ -5021,8 +6892,8 @@
       "preview": "/preview/tokens/typography/pairs/mission-ops/plex-mono-inter-duo",
       "uses": [],
       "usedBy": [
-        "components/indicators/mission-ops/coded-kpi-card",
         "blocks/display/mission-ops/coded-panel-header",
+        "components/indicators/mission-ops/coded-kpi-card",
         "styles/admin-console/mission-ops-flight-deck",
         "pages/dashboard/mission-ops/realtime-deck"
       ],
@@ -5086,12 +6957,12 @@
         "blocks/form/skillhub/auth-split-form",
         "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
-        "pages/dashboard/skillhub/admin-overview",
-        "pages/detail/skillhub/skill-article-detail",
         "pages/detail/skillhub/practice-post-detail",
+        "pages/detail/skillhub/skill-article-detail",
+        "pages/dashboard/skillhub/admin-overview",
         "pages/form-flow/skillhub/practice-compose",
-        "pages/list-table/skillhub/admin-console",
-        "pages/landing/skillhub/skill-community-home"
+        "pages/landing/skillhub/skill-community-home",
+        "pages/list-table/skillhub/admin-console"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/skillhub/inter-jetbrains-duo.md"
@@ -5122,16 +6993,16 @@
       "preview": "/preview/tokens/typography/pairs/style-vault/inter-editorial-display",
       "uses": [],
       "usedBy": [
-        "components/overlays/style-vault/spring-toast",
-        "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
-        "blocks/feedback/style-vault/full-screen-loader",
-        "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/layout/style-vault/browser-chrome-frame",
         "blocks/marketing/style-vault/cool-blob-hero",
-        "blocks/search/style-vault/cmd-k-search-panel",
+        "blocks/feedback/style-vault/full-screen-loader",
         "blocks/nav/style-vault/sticky-platform-topbar",
+        "blocks/filters/style-vault/sticky-chip-filter-panel",
+        "blocks/search/style-vault/cmd-k-search-panel",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
+        "components/overlays/style-vault/spring-toast",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
@@ -5162,13 +7033,45 @@
       "preview": "/preview/tokens/typography/pairs/tactical-hud/orbitron-rajdhani-trio",
       "uses": [],
       "usedBy": [
-        "components/indicators/tactical-hud/arc-ring-kpi",
         "blocks/display/tactical-hud/radar-sweep-panel",
+        "components/indicators/tactical-hud/arc-ring-kpi",
         "styles/admin-console/tactical-hud-jarvis",
         "pages/dashboard/tactical-hud/realtime-deck"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/tactical-hud/orbitron-rajdhani-trio.md"
+    },
+    {
+      "id": "tokens/typography/pairs/waveflow/inter-jetbrains-instrument-trio",
+      "type": "token",
+      "name": "Inter · JetBrains Mono · Instrument Serif 三字体栈",
+      "description": "三字体策略 (sans / mono / serif-italic) + `tabular-nums` 工程师细节 + 内网静态打包（@fontsource，无外网）",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "minimal",
+          "industrial"
+        ],
+        "mood": [
+          "serious",
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "shadcn-radix"
+        ]
+      },
+      "uses": [],
+      "preview": "/preview/tokens/typography/pairs/waveflow/inter-jetbrains-instrument-trio",
+      "usedBy": [
+        "styles/admin-console/waveflow-warm-engineer"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/typography/pairs/waveflow/inter-jetbrains-instrument-trio.md"
     }
   ]
 }
