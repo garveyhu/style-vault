@@ -49,7 +49,7 @@ export default function DataTableLeftbarShimmer() {
                 <tr key={'skl' + i} style={{ borderTop: '1px solid #f5f4ee', animation: 'wf-pulse 1.6s ease-in-out infinite' }}>
                   <td style={{ padding: 0 }}><div style={{ height: 40 }} /></td>
                   {Array.from({ length: 6 }).map((_, c) => (
-                    <td key={c} style={{ padding: '10px 12px' }}><div style={{ height: 12, borderRadius: 3, background: '#f5f4ee', width: `${50 + ((i * 7 + c * 13) % 30)}%` }} /></td>
+                    <td key={c} style={{ padding: '10px 12px' }}><div style={{ height: 12, borderRadius: 3, background: '#f5f4ee', width: `${40 + ((i * 7 + c * 11) % 50)}%` }} /></td>
                   ))}
                 </tr>
               ))}

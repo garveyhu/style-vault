@@ -20,29 +20,29 @@ export default function LoginFloatingGeomQuartet() {
           <line x1="320" y1="182" x2="450" y2="106" stroke="#6366f1" strokeWidth="0.5" opacity="0.2" />
         </svg>
 
-        {/* 同心圆紫 */}
-        <div style={{ position: 'absolute', top: 80, right: 110, animation: 'wf-drift1 7s ease-in-out infinite' }}>
+        {/* 同心圆紫 · 源码 top 22% right 18% */}
+        <div style={{ position: 'absolute', top: '22%', right: '18%', animation: 'wf-drift1 7s ease-in-out infinite' }}>
           <svg width="48" height="48" viewBox="0 0 48 48">
             <circle cx="24" cy="24" r="22" fill="none" stroke="#6366f1" strokeWidth="1" opacity="0.5" />
             <circle cx="24" cy="24" r="14" fill="#6366f1" opacity="0.18" />
           </svg>
         </div>
-        {/* 圆角方粉 */}
-        <div style={{ position: 'absolute', top: 220, right: 50, animation: 'wf-drift2 8s ease-in-out infinite' }}>
+        {/* 圆角方粉 · 源码 top 50% right 8% */}
+        <div style={{ position: 'absolute', top: '50%', right: '8%', animation: 'wf-drift2 8s ease-in-out infinite' }}>
           <svg width="36" height="36" viewBox="0 0 36 36">
             <rect x="2" y="2" width="32" height="32" rx="6" fill="none" stroke="#ec4899" strokeWidth="1" opacity="0.6" />
             <rect x="8" y="8" width="20" height="20" rx="3" fill="#ec4899" opacity="0.15" />
           </svg>
         </div>
-        {/* 三角青 */}
-        <div style={{ position: 'absolute', top: 316, right: 200, animation: 'wf-drift3 9s ease-in-out infinite' }}>
+        {/* 三角青 · 源码 top 70% right 28% */}
+        <div style={{ position: 'absolute', top: '70%', right: '28%', animation: 'wf-drift3 9s ease-in-out infinite' }}>
           <svg width="40" height="40" viewBox="0 0 40 40">
             <polygon points="20,4 36,32 4,32" fill="none" stroke="#06b6d4" strokeWidth="1" opacity="0.55" />
             <polygon points="20,12 30,28 10,28" fill="#06b6d4" opacity="0.18" />
           </svg>
         </div>
-        {/* 圆点橙 */}
-        <div style={{ position: 'absolute', top: 168, right: 280, animation: 'wf-drift1 6s ease-in-out infinite' }}>
+        {/* 圆点橙 · 源码 top 38% right 35% */}
+        <div style={{ position: 'absolute', top: '38%', right: '35%', animation: 'wf-drift1 6s ease-in-out infinite' }}>
           <svg width="28" height="28" viewBox="0 0 28 28">
             <circle cx="14" cy="14" r="3" fill="#f59e0b" />
             <circle cx="14" cy="14" r="12" fill="none" stroke="#f59e0b" strokeWidth="1" opacity="0.4" />

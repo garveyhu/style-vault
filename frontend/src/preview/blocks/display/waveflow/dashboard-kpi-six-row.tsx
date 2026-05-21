@@ -8,7 +8,7 @@ export default function DashboardKpiSixRow() {
         <div style={{ fontSize: 10.5, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#78716c' }}>BLOCK · DISPLAY · DASHBOARD</div>
         <h1 style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-0.02em', margin: '8px 0 24px' }}>6 KPI Row</h1>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: 12 }}>
           <KPI label="今日调度" value="12,345" delta={12.5} suffix="% vs ytd">
             <Spark color="#6366f1" />
           </KPI>

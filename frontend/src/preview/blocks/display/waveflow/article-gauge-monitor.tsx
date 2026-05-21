@@ -24,7 +24,6 @@ export default function ArticleGaugeMonitor() {
 }
 
 function Gauge({ title, value, max = 100, color, unit = '%' }: { title: string; value: number; max?: number; color: string; unit?: string }) {
-  const angle = (value / max) * 270 - 135;
   return (
     <div style={{ background: '#fff', borderRadius: 8, padding: 12, textAlign: 'center' }}>
       <div style={{ fontSize: 11.5, color: '#57534e', marginBottom: 8 }}>{title}</div>
