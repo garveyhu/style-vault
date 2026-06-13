@@ -30,7 +30,7 @@ function Line({ no, indent = 0, tokens }: { no: number; indent?: number; tokens:
 
 function Editor({ label, error }: { label: string; error?: string }) {
   return (
-    <div style={{ overflow: 'hidden', borderRadius: 6, border: '1px solid #e7e5e0' }}>
+    <div style={{ overflow: 'hidden', borderRadius: 6, border: '1px solid #e7e5e4' }}>
       {/* 顶栏 */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #f5f5f4', background: 'rgba(250,250,249,0.8)', padding: '4px 8px' }}>
         <span style={{ fontSize: 10.5, fontWeight: 500, color: '#78716c' }}>{label}</span>

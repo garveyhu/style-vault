@@ -65,7 +65,7 @@ export default function RunMasterDetailRailOverlay() {
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 6, paddingLeft: 12 }}>
                       {r.parent && (
-                        <span style={{ background: '#f5f3ff', padding: '0 4px', borderRadius: 4, fontSize: 9, color: '#6d28d9', border: '1px solid #ddd6fe' }}>优化产物</span>
+                        <span style={{ background: '#f5f3ff', padding: '0 4px', borderRadius: 6, fontSize: 9, color: '#6d28d9', border: '1px solid #d6d3d1' }}>优化产物</span>
                       )}
                       <span style={{ fontSize: 11, fontVariantNumeric: 'tabular-nums', color: scoreColor(r.score) }}>{r.score != null ? r.score.toFixed(2) : '—'}</span>
                       <span style={{ marginLeft: 'auto', fontSize: 10, color: '#a8a29e' }}>{STATUS_LABEL[r.status]}</span>

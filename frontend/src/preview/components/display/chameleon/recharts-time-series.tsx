@@ -1,7 +1,9 @@
 import { PreviewFrame } from '../../../_layout';
 
+// 线条颜色由调用方 series.color 传入，组件本身不规定颜色。
+// 这里示意：左轴用 var(--color-primary-600)（默认 #2563eb），右轴是调用方自选的另一色。
 const PRIMARY_600 = '#2563eb';
-const VIOLET = '#8b5cf6';
+const SECOND = '#8b5cf6'; // 调用方传入的第二条线颜色（非组件内置）
 
 // 模拟时序数据点（左轴调用量 / 右轴成本）
 const POINTS = [
@@ -45,11 +47,11 @@ export default function RechartsTimeSeries() {
         <div style={{ fontSize: 10.5, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#78716c' }}>COMPONENT · DISPLAY · signature</div>
         <h1 style={{ fontSize: 28, fontWeight: 600, letterSpacing: '-0.02em', margin: '8px 0 24px' }}>Recharts Time Series</h1>
 
-        {/* 双轴折线 */}
-        <div style={{ fontSize: 10.5, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#78716c', marginBottom: 12 }}>双轴：调用量 (primary) + 成本 (violet · 右轴)</div>
-        <div style={{ borderRadius: 8, border: '1px solid #e7e5e0', background: '#ffffff', boxShadow: '0 1px 3px rgb(0 0 0 / 5%), 0 2px 8px rgb(0 0 0 / 3%)', padding: 12 }}>
+        {/* 双轴折线 —— 线色来自 series.color（调用方传入） */}
+        <div style={{ fontSize: 10.5, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#78716c', marginBottom: 12 }}>双轴：调用量 + 成本 (右轴) · 线色来自 series.color</div>
+        <div style={{ borderRadius: 8, border: '1px solid #e7e5e0', background: '#fffefb', boxShadow: '0 1px 3px rgb(0 0 0 / 5%), 0 2px 8px rgb(0 0 0 / 3%)', padding: 12 }}>
           <svg width="100%" viewBox={`0 0 ${W} ${H}`} style={{ display: 'block' }}>
-            {/* CartesianGrid 半透明黑虚线 */}
+            {/* CartesianGrid 半透明黑虚线 strokeDasharray 3 3 */}
             {gridY.map((y, i) => (
               <line key={i} x1={PAD.left} x2={W - PAD.right} y1={y} y2={y} stroke="rgb(0 0 0 / 6%)" strokeDasharray="3 3" />
             ))}
@@ -59,7 +61,7 @@ export default function RechartsTimeSeries() {
             <line x1={W - PAD.right} x2={W - PAD.right} y1={PAD.top} y2={PAD.top + innerH} stroke="#999999" strokeWidth={1} />
             {/* X 轴 */}
             <line x1={PAD.left} x2={W - PAD.right} y1={PAD.top + innerH} y2={PAD.top + innerH} stroke="#999999" strokeWidth={1} />
-            {/* X 刻度 */}
+            {/* X 刻度 fontSize 11 / #999 */}
             {POINTS.map((p, i) => (
               <text key={p.x} x={PAD.left + (i / (POINTS.length - 1)) * innerW} y={H - 10} fontSize={11} fill="#999999" textAnchor="middle">{p.x}</text>
             ))}
@@ -71,27 +73,27 @@ export default function RechartsTimeSeries() {
             {[0, 1, 2, 3, 4].map(i => (
               <text key={i} x={W - PAD.right + 6} y={PAD.top + (i / 4) * innerH + 4} fontSize={11} fill="#999999" textAnchor="start">¥{(7.5 - i * 1.875).toFixed(1)}</text>
             ))}
-            {/* Line primary（调用量） */}
+            {/* Line type=monotone strokeWidth 2 dot=false — 左轴(调用量) */}
             <path d={path(calls)} fill="none" stroke={PRIMARY_600} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-            {/* Line violet（成本，右轴） */}
-            <path d={path(costs)} fill="none" stroke={VIOLET} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+            {/* Line — 右轴(成本)，调用方自选色 */}
+            <path d={path(costs)} fill="none" stroke={SECOND} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          {/* tooltip 示意 */}
-          <div style={{ display: 'inline-flex', flexDirection: 'column', gap: 2, background: '#ffffff', border: '1px solid rgb(0 0 0 / 10%)', borderRadius: 8, fontSize: 12, padding: '6px 10px', marginTop: 8 }}>
+          {/* tooltip 示意 contentStyle: bg var(--color-paper) / border 1px rgb(0 0 0/10%) / radius 8 / fontSize 12 */}
+          <div style={{ display: 'inline-flex', flexDirection: 'column', gap: 2, background: '#fffefb', border: '1px solid rgb(0 0 0 / 10%)', borderRadius: 8, fontSize: 12, padding: '6px 10px', marginTop: 8 }}>
             <span style={{ color: '#1c1917', fontWeight: 500 }}>06-13</span>
             <span style={{ color: PRIMARY_600 }}>调用量 : 3,420</span>
-            <span style={{ color: VIOLET }}>成本 : ¥7.1</span>
+            <span style={{ color: SECOND }}>成本 : ¥7.1</span>
           </div>
         </div>
 
-        {/* 空态 */}
+        {/* 空态：flex items-center justify-center text-sm text-stone-400 height 256 */}
         <div style={{ fontSize: 10.5, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#78716c', margin: '24px 0 12px' }}>空态兜底</div>
-        <div style={{ borderRadius: 8, border: '1px solid #e7e5e0', background: '#ffffff', boxShadow: '0 1px 3px rgb(0 0 0 / 5%), 0 2px 8px rgb(0 0 0 / 3%)' }}>
+        <div style={{ borderRadius: 8, border: '1px solid #e7e5e0', background: '#fffefb', boxShadow: '0 1px 3px rgb(0 0 0 / 5%), 0 2px 8px rgb(0 0 0 / 3%)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: '#a8a29e', height: 256 }}>暂无数据</div>
         </div>
 
         <div style={{ marginTop: 16, fontSize: 11, color: '#a8a29e', lineHeight: 1.7 }}>
-          网格 rgb(0 0 0 / 6%) 虚线 3 3 · 轴 #999 / 11px · tooltip paper 底 + 8px 圆角 · Line monotone / 2px / dot=false
+          网格 rgb(0 0 0 / 6%) 虚线 3 3 · 轴 #999 / 11px · tooltip paper(#fffefb) 底 + 8px 圆角 · Line monotone / 2px / dot=false · 线色由调用方 series.color 决定
         </div>
       </div>
     </PreviewFrame>

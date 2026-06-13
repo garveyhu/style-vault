@@ -26,30 +26,30 @@ import type { LucideIcon } from 'lucide-react';
 
 const MONO = 'JetBrains Mono, monospace';
 
-// 树：type → icon + 文字色
+// 树：type → icon + 文字色（源码 TYPE_ICON / TYPE_COLOR）
 const TREE: Record<string, { icon: LucideIcon; color: string }> = {
-  trace: { icon: Layers, color: '#44403c' },
-  span: { icon: CircleDashed, color: '#78716c' },
-  generation: { icon: Sparkles, color: '#7c3aed' },
-  agent: { icon: Bot, color: '#2563eb' },
-  tool: { icon: Wrench, color: '#ea580c' },
-  retriever: { icon: Database, color: '#059669' },
-  evaluator: { icon: ShieldCheck, color: '#d97706' },
-  embedding: { icon: Cpu, color: '#0891b2' },
-  guardrail: { icon: ShieldCheck, color: '#e11d48' },
+  trace: { icon: Layers, color: '#44403c' }, // text-stone-700
+  span: { icon: CircleDashed, color: '#78716c' }, // text-stone-500
+  generation: { icon: Sparkles, color: '#7c3aed' }, // text-violet-600
+  agent: { icon: Bot, color: '#2563eb' }, // text-blue-600
+  tool: { icon: Wrench, color: '#ea580c' }, // text-orange-600
+  retriever: { icon: Database, color: '#059669' }, // text-emerald-600
+  evaluator: { icon: ShieldCheck, color: '#d97706' }, // text-amber-600
+  embedding: { icon: Cpu, color: '#0891b2' }, // text-cyan-600
+  guardrail: { icon: ShieldCheck, color: '#e11d48' }, // text-rose-600
 };
 
-// 甘特：type → bar 底色
+// 甘特：type → bar 底色（源码 OBS_COLOR，*-400 阶）
 const BAR_COLOR: Record<string, string> = {
-  trace: '#a8a29e',
-  span: '#38bdf8',
-  generation: '#a78bfa',
-  agent: '#818cf8',
-  tool: '#fbbf24',
-  retriever: '#2dd4bf',
-  evaluator: '#e879f9',
-  embedding: '#22d3ee',
-  guardrail: '#fda4af',
+  trace: '#a8a29e', // bg-stone-400
+  span: '#38bdf8', // bg-sky-400
+  generation: '#a78bfa', // bg-violet-400
+  agent: '#818cf8', // bg-indigo-400
+  tool: '#fbbf24', // bg-amber-400
+  retriever: '#2dd4bf', // bg-teal-400
+  evaluator: '#e879f9', // bg-fuchsia-400
+  embedding: '#22d3ee', // bg-cyan-400
+  guardrail: '#fda4af', // bg-rose-300
 };
 
 interface Node {
@@ -111,158 +111,150 @@ export default function TraceObservationTreeGantt() {
   return (
     <PreviewFrame bg="#fafaf7" padded>
       <div style={{ fontFamily: 'Inter, system-ui, sans-serif', display: 'flex', flexDirection: 'column', gap: 20 }}>
-        {/* ===== ① 观测树 ===== */}
-        <div>
-          <div style={{ marginBottom: 6, fontSize: 11, color: '#a8a29e', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            观测树视图
-          </div>
-          <div
-            style={{
-              borderRadius: 8,
-              border: '1px solid rgba(231,229,224,0.6)',
-              background: '#fffefb',
-              padding: 8,
-              fontFamily: MONO,
-              fontSize: 11.5,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-            }}
-          >
-            {NODES.map((n, i) => {
-              const t = TREE[n.type];
-              const Icon = t.icon;
-              const selected = i === selectedTreeIdx;
-              const widthPct = Math.max(2, Math.min(100, (n.durationMs / n.total) * 100));
-              return (
-                <div
-                  key={i}
-                  style={{
-                    position: 'relative',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 8,
-                    borderRadius: 4,
-                    padding: '4px 4px',
-                    paddingLeft: n.depth * 14 + 4,
-                    background: selected ? '#eff6ff' : 'transparent',
-                  }}
-                >
-                  {selected && (
-                    <span
-                      style={{ position: 'absolute', insetBlock: 0, left: 0, width: 3, borderRadius: '0 2px 2px 0', background: '#3b82f6' }}
-                    />
-                  )}
-                  {/* depth guide line */}
-                  {n.depth > 0 && (
-                    <span
-                      style={{
-                        pointerEvents: 'none',
-                        position: 'absolute',
-                        top: 0,
-                        bottom: 0,
-                        borderLeft: '1px solid rgba(231,229,224,0.8)',
-                        left: (n.depth - 1) * 14 + 10,
-                      }}
-                    />
-                  )}
-                  {/* 折叠占位 */}
-                  <span style={{ width: 16, flexShrink: 0, display: 'inline-flex' }}>
-                    {(i === 0 || i === 1) && <ChevronDown size={12} color="#a8a29e" />}
-                  </span>
-                  <Icon size={14} color={n.success ? t.color : '#f43f5e'} style={{ flexShrink: 0 }} />
-                  <span style={{ width: 64, flexShrink: 0, fontWeight: 500, color: t.color }}>{n.type}</span>
-                  {/* 名称 + 失败 */}
+        {/* ===== ① 观测树（ObservationTree：space-y-0.5 font-mono text-[11.5px]） ===== */}
+        <div
+          style={{
+            borderRadius: 8,
+            border: '1px solid rgba(231,229,224,0.6)',
+            background: '#fffefb',
+            padding: 8,
+            fontFamily: MONO,
+            fontSize: 11.5,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          {NODES.map((n, i) => {
+            const t = TREE[n.type];
+            const Icon = t.icon;
+            const selected = i === selectedTreeIdx;
+            const widthPct = Math.max(2, Math.min(100, (n.durationMs / n.total) * 100));
+            return (
+              <div
+                key={i}
+                style={{
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  borderRadius: 4,
+                  padding: '4px 4px',
+                  paddingLeft: n.depth * 14 + 4,
+                  background: selected ? '#eff6ff' : 'transparent',
+                }}
+              >
+                {selected && (
+                  <span
+                    style={{ position: 'absolute', insetBlock: 0, left: 0, width: 3, borderRadius: '0 2px 2px 0', background: '#3b82f6' }}
+                  />
+                )}
+                {/* depth guide line */}
+                {n.depth > 0 && (
                   <span
                     style={{
-                      minWidth: 0,
-                      flex: 1,
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
-                      color: '#292524',
+                      pointerEvents: 'none',
+                      position: 'absolute',
+                      top: 0,
+                      bottom: 0,
+                      borderLeft: '1px solid rgba(231,229,224,0.8)',
+                      left: (n.depth - 1) * 14 + 10,
+                    }}
+                  />
+                )}
+                {/* 折叠箭头（有子节点时） */}
+                <span style={{ width: 16, flexShrink: 0, display: 'inline-flex' }}>
+                  {(i === 0 || i === 1) && <ChevronDown size={12} color="#a8a29e" />}
+                </span>
+                <Icon size={14} color={n.success ? t.color : '#f43f5e'} style={{ flexShrink: 0 }} />
+                <span style={{ width: 64, flexShrink: 0, fontWeight: 500, color: t.color }}>{n.type}</span>
+                {/* 名称 + 失败 */}
+                <span
+                  style={{
+                    minWidth: 0,
+                    flex: 1,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    color: '#292524',
+                  }}
+                >
+                  {n.name}
+                  {!n.success && (
+                    <span style={{ marginLeft: 6, display: 'inline-flex', alignItems: 'center', gap: 2, color: '#f43f5e' }}>
+                      <AlertCircle size={12} />
+                      {n.error}
+                    </span>
+                  )}
+                </span>
+                {/* scores 徽章 */}
+                {n.score && (
+                  <span
+                    style={{
+                      flexShrink: 0,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 2,
+                      borderRadius: 4,
+                      border: `1px solid ${n.score.thumb ? '#a7f3d0' : '#ddd6fe'}`,
+                      background: n.score.thumb ? '#ecfdf5' : '#f5f3ff',
+                      color: n.score.thumb ? '#047857' : '#6d28d9',
+                      padding: '1px 4px',
+                      fontSize: 10,
                     }}
                   >
-                    {n.name}
-                    {!n.success && (
-                      <span style={{ marginLeft: 6, display: 'inline-flex', alignItems: 'center', gap: 2, color: '#f43f5e' }}>
-                        <AlertCircle size={12} />
-                        {n.error}
-                      </span>
+                    {n.score.thumb ? (
+                      <ThumbsUp size={12} />
+                    ) : (
+                      <>
+                        <span style={{ fontWeight: 500 }}>{n.score.name}</span>
+                        <span style={{ fontVariantNumeric: 'tabular-nums' }}>{n.score.value}</span>
+                      </>
                     )}
                   </span>
-                  {/* scores 徽章 */}
-                  {n.score && (
-                    <span
-                      style={{
-                        flexShrink: 0,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 2,
-                        borderRadius: 4,
-                        border: `1px solid ${n.score.thumb ? '#a7f3d0' : '#ddd6fe'}`,
-                        background: n.score.thumb ? '#ecfdf5' : '#f5f3ff',
-                        color: n.score.thumb ? '#047857' : '#6d28d9',
-                        padding: '1px 4px',
-                        fontSize: 10,
-                      }}
-                    >
-                      {n.score.thumb ? (
-                        <ThumbsUp size={12} />
-                      ) : (
-                        <>
-                          <span style={{ fontWeight: 500 }}>{n.score.name}</span>
-                          <span style={{ fontVariantNumeric: 'tabular-nums' }}>{n.score.value}</span>
-                        </>
-                      )}
-                    </span>
-                  )}
-                  {/* token Badge */}
-                  {n.tok && (
-                    <span
-                      style={{
-                        flexShrink: 0,
-                        borderRadius: 4,
-                        border: '1px solid #d6d3d1',
-                        padding: '1px 5px',
-                        fontFamily: MONO,
-                        fontSize: 10,
-                        color: '#57534e',
-                      }}
-                    >
-                      {n.tok.toLocaleString()} tok
-                    </span>
-                  )}
-                  {/* duration 条 + 数字 */}
-                  <div style={{ display: 'flex', width: 128, flexShrink: 0, alignItems: 'center', gap: 6 }}>
-                    <div style={{ height: 4, flex: 1, overflow: 'hidden', borderRadius: 9999, background: '#f4f3ee' }}>
-                      <div
-                        style={{ height: '100%', background: n.success ? '#60a5fa' : '#fb7185', width: `${widthPct}%` }}
-                      />
-                    </div>
-                    <span
-                      style={{
-                        width: 48,
-                        textAlign: 'right',
-                        fontVariantNumeric: 'tabular-nums',
-                        fontSize: 10.5,
-                        color: '#78716c',
-                      }}
-                    >
-                      {n.durationMs}ms
-                    </span>
+                )}
+                {/* token Badge */}
+                {n.tok && (
+                  <span
+                    style={{
+                      flexShrink: 0,
+                      borderRadius: 4,
+                      border: '1px solid #d6d3d1',
+                      padding: '1px 5px',
+                      fontFamily: MONO,
+                      fontSize: 10,
+                      color: '#57534e',
+                    }}
+                  >
+                    {n.tok.toLocaleString()} tok
+                  </span>
+                )}
+                {/* duration 条 + 数字（轨道 bg-stone-100 #f5f5f4） */}
+                <div style={{ display: 'flex', width: 128, flexShrink: 0, alignItems: 'center', gap: 6 }}>
+                  <div style={{ height: 4, flex: 1, overflow: 'hidden', borderRadius: 9999, background: '#f5f5f4' }}>
+                    <div
+                      style={{ height: '100%', background: n.success ? '#60a5fa' : '#fb7185', width: `${widthPct}%` }}
+                    />
                   </div>
+                  <span
+                    style={{
+                      width: 48,
+                      textAlign: 'right',
+                      fontVariantNumeric: 'tabular-nums',
+                      fontSize: 10.5,
+                      color: '#78716c',
+                    }}
+                  >
+                    {n.durationMs}ms
+                  </span>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
 
-        {/* ===== ② 甘特时间轴 ===== */}
+        {/* ===== ② 甘特时间轴（TraceGantt） ===== */}
         <div>
-          <div style={{ marginBottom: 6, fontSize: 11, color: '#a8a29e', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            甘特时间轴视图
-          </div>
           {/* 缩放工具条 */}
           <div
             style={{
@@ -293,9 +285,9 @@ export default function TraceObservationTreeGantt() {
               overflow: 'hidden',
             }}
           >
-            {/* ruler */}
+            {/* ruler：label 占位（源码仅 shrink-0 text-[10.5px] text-stone-400 width:210，无 flex/居中/paddingLeft） */}
             <div style={{ display: 'flex', height: 24 }}>
-              <div style={{ width: LABEL_W, flexShrink: 0, fontSize: 10.5, color: '#a8a29e', display: 'flex', alignItems: 'center', paddingLeft: 6 }}>
+              <div style={{ width: LABEL_W, flexShrink: 0, fontSize: 10.5, color: '#a8a29e' }}>
                 时间轴
               </div>
               <div style={{ position: 'relative', flex: 1, borderBottom: '1px solid rgba(231,229,224,0.7)' }}>
@@ -304,7 +296,7 @@ export default function TraceObservationTreeGantt() {
                     key={ms}
                     style={{
                       position: 'absolute',
-                      top: 4,
+                      top: 0,
                       left: `${(ms / 4120) * 100}%`,
                       transform: i === arr.length - 1 ? 'translateX(-100%)' : undefined,
                       fontFamily: MONO,
@@ -330,12 +322,13 @@ export default function TraceObservationTreeGantt() {
                     style={{
                       display: 'flex',
                       alignItems: 'stretch',
-                      borderBottom: '1px solid #f1f0eb',
+                      borderBottom: '1px solid #f5f5f4',
                       height: ROW_H,
-                      background: g.selected ? 'rgba(254,243,199,0.6)' : '#fff',
+                      // 选中行 bg-amber-50/60 = rgba(255,251,235,0.6)
+                      background: g.selected ? 'rgba(255,251,235,0.6)' : '#fff',
                     }}
                   >
-                    {/* label 列 sticky-left */}
+                    {/* label 列 sticky-left（选中 bg-amber-50/95 = rgba(255,251,235,0.95)） */}
                     <div
                       style={{
                         width: LABEL_W,
@@ -345,7 +338,7 @@ export default function TraceObservationTreeGantt() {
                         gap: 4,
                         padding: '0 6px',
                         paddingLeft: 6 + n.depth * 12,
-                        background: g.selected ? 'rgba(254,243,199,0.95)' : '#fff',
+                        background: g.selected ? 'rgba(255,251,235,0.95)' : '#fff',
                       }}
                     >
                       <span style={{ width: 16, flexShrink: 0 }} />
@@ -357,7 +350,8 @@ export default function TraceObservationTreeGantt() {
                           fontFamily: MONO,
                           fontSize: 9,
                           textTransform: 'uppercase',
-                          background: n.success ? '#f4f3ee' : '#fef2f2',
+                          // 成功 bg-stone-100 #f5f5f4 text-stone-500 #78716c / 失败 bg-rose-50 #fff1f2 text-rose-600 #e11d48
+                          background: n.success ? '#f5f5f4' : '#fff1f2',
                           color: n.success ? '#78716c' : '#e11d48',
                         }}
                       >
@@ -381,7 +375,7 @@ export default function TraceObservationTreeGantt() {
                           background: color,
                           left: `${g.leftPct}%`,
                           width: `${g.widthPct}%`,
-                          boxShadow: g.selected ? '0 0 0 2px #fff, 0 0 0 4px #292524' : 'none',
+                          boxShadow: g.selected ? '0 0 0 1px #fff, 0 0 0 3px #292524' : 'none',
                         }}
                       >
                         {g.widthPct > 12 && (
@@ -402,7 +396,7 @@ export default function TraceObservationTreeGantt() {
                           </span>
                         )}
                       </div>
-                      {/* CostLabel：generation 有成本绿色 / 其它 token 灰 */}
+                      {/* CostLabel：有成本 text-emerald-700 #047857 / token text-stone-400 #a8a29e */}
                       <span
                         style={{
                           position: 'absolute',

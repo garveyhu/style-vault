@@ -39,8 +39,8 @@ const RECENT = [
 export default function CmdkGroupedPalette() {
   return (
     <PreviewFrame bg="#fafaf7" padded={false}>
-      {/* 遮罩 */}
-      <div style={{ position: 'relative', height: 620, display: 'flex', alignItems: 'flex-start', justifyContent: 'center', background: 'rgba(12,10,9,0.4)', backdropFilter: 'blur(4px)', fontFamily: 'Inter, system-ui, sans-serif' }}>
+      {/* 遮罩 bg-stone-950/40 + backdrop-blur-sm */}
+      <div style={{ position: 'relative', minHeight: 760, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, paddingBottom: 24, background: 'rgba(12,10,9,0.4)', backdropFilter: 'blur(4px)', fontFamily: 'Inter, system-ui, sans-serif' }}>
         {/* Command 容器 */}
         <div style={{ position: 'relative', marginTop: '10vh', width: 600, maxWidth: '90vw', overflow: 'hidden', borderRadius: 12, border: '1px solid #e7e5e0', background: '#fffefb', boxShadow: '0 8px 24px rgb(0 0 0 / 8%), 0 2px 8px rgb(0 0 0 / 4%)', display: 'flex', flexDirection: 'column', maxHeight: '70vh' }}>
           {/* 输入行 */}
@@ -63,7 +63,8 @@ export default function CmdkGroupedPalette() {
                   <Item key={r.title} selected={i === 0}>
                     <Icon size={14} color="#a8a29e" />
                     <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      <span style={{ fontWeight: 500, color: i === 0 ? '#1d4ed8' : '#292524' }}>{r.title}</span>
+                      {/* 标题有显式 text-stone-800，覆盖选中态蓝色——选中行标题仍恒为 #292524 */}
+                      <span style={{ fontWeight: 500, color: '#292524' }}>{r.title}</span>
                       <span style={{ marginLeft: 8, fontFamily: 'JetBrains Mono, monospace', fontSize: 10.5, color: '#a8a29e' }}>{r.snippet}</span>
                     </span>
                     <span style={{ borderRadius: 4, background: '#f5f5f4', padding: '2px 6px', fontSize: 10, fontWeight: 500, color: '#78716c' }}>{r.type}</span>
@@ -119,6 +120,24 @@ export default function CmdkGroupedPalette() {
               <Code2 size={12} />
               <FootKbd>⌘K</FootKbd>
             </span>
+          </div>
+        </div>
+
+        {/* 空态变体：无匹配项时 Command.Empty（py-8 text-center text-[12.5px] text-stone-400） */}
+        <div style={{ position: 'relative', width: 600, maxWidth: '90vw', overflow: 'hidden', borderRadius: 12, border: '1px solid #e7e5e0', background: '#fffefb', boxShadow: '0 8px 24px rgb(0 0 0 / 8%), 0 2px 8px rgb(0 0 0 / 4%)', display: 'flex', flexDirection: 'column' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #f5f5f4', padding: '0 16px' }}>
+            <Search size={16} strokeWidth={1.75} color="#a8a29e" />
+            <input
+              defaultValue="zzzz"
+              placeholder="搜索 agent / model / KB / app / user，或输入命令"
+              style={{ display: 'flex', height: 48, width: '100%', background: 'transparent', fontSize: 13.5, color: '#292524', border: 'none', outline: 'none' }}
+            />
+            <kbd style={{ borderRadius: 4, border: '1px solid #e7e5e0', padding: '2px 6px', fontSize: 10, fontFamily: 'JetBrains Mono, monospace', color: '#a8a29e' }}>Esc</kbd>
+          </div>
+          <div style={{ flex: 1, overflowY: 'auto', padding: '8px' }}>
+            <div style={{ padding: '32px 0', textAlign: 'center', fontSize: 12.5, color: '#a8a29e' }}>
+              没有匹配项。试试搜索 agent 名 / model 名 / app_key。
+            </div>
           </div>
         </div>
       </div>

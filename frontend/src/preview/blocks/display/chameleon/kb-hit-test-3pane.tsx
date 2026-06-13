@@ -152,25 +152,29 @@ export default function KbHitTest3Pane() {
             }}
           >
             <span>多查询扩展</span>
+            {/* Switch: h-5 w-9(20×36) border-2 transparent, checked bg-primary-600 #2563eb,
+                thumb h-4 w-4(16) bg-white shadow-soft, checked translate-x-4(16) */}
             <span
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                width: 32,
-                height: 18,
+                width: 36,
+                height: 20,
                 borderRadius: 9999,
-                background: '#10b981',
-                padding: 2,
+                border: '2px solid transparent',
+                background: '#2563eb',
+                backgroundClip: 'padding-box',
+                boxSizing: 'border-box',
               }}
             >
               <span
                 style={{
-                  width: 14,
-                  height: 14,
+                  width: 16,
+                  height: 16,
                   borderRadius: '50%',
                   background: '#fff',
-                  transform: 'translateX(14px)',
-                  boxShadow: '0 1px 2px rgb(0 0 0 / 10%)',
+                  transform: 'translateX(16px)',
+                  boxShadow: '0 1px 2px rgb(0 0 0 / 4%), 0 4px 12px rgb(0 0 0 / 3%)',
                 }}
               />
             </span>
@@ -179,18 +183,19 @@ export default function KbHitTest3Pane() {
             <FieldLabel>标签过滤（多个用逗号）</FieldLabel>
             <input placeholder="product, faq" style={inputStyle} />
           </div>
+          {/* Button 默认 primary / size=md → h-8(32) px-3 text-[12.5px]，Search h-3.5(14) mr-1 */}
           <button
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
               width: '100%',
-              height: 36,
+              height: 32,
               background: '#2563eb',
               color: '#fff',
               border: 'none',
               borderRadius: 6,
-              fontSize: 13,
+              fontSize: 12.5,
               fontWeight: 500,
               cursor: 'pointer',
             }}
@@ -328,11 +333,12 @@ export default function KbHitTest3Pane() {
                   </span>
                   <div
                     style={{
+                      // ChannelRow 轨道 bg-stone-100 = #f5f5f4
                       height: 6,
                       flex: 1,
                       overflow: 'hidden',
                       borderRadius: 9999,
-                      background: '#f4f3ee',
+                      background: '#f5f5f4',
                     }}
                   >
                     <div style={{ height: '100%', borderRadius: 9999, background: c.bar, width: `${vals[i]}%` }} />
@@ -367,11 +373,12 @@ export default function KbHitTest3Pane() {
             }}
           >
             变色龙平台支持多源模型统一聚合，直连不同的上游{' '}
-            <mark style={{ background: '#fef08a', color: '#854d0e', borderRadius: 2, padding: '0 1px' }}>
+            {/* highlight <mark class="bg-amber-100 rounded px-0.5 text-stone-900"> */}
+            <mark style={{ background: '#fef3c7', color: '#1c1917', borderRadius: 4, padding: '0 2px' }}>
               provider
             </mark>{' '}
             调用。检索增强{' '}
-            <mark style={{ background: '#fef08a', color: '#854d0e', borderRadius: 2, padding: '0 1px' }}>
+            <mark style={{ background: '#fef3c7', color: '#1c1917', borderRadius: 4, padding: '0 2px' }}>
               生成
             </mark>
             （RAG）先从知识库召回相关切块，再拼进 prompt 交给大模型生成答案。

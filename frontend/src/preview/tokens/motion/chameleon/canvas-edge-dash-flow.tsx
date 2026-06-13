@@ -61,7 +61,8 @@ export default function CanvasEdgeDashFlow() {
                 strokeWidth={2.25}
                 strokeDasharray="6 4"
               />
-              <polygon points="250,79 259,84 250,89" fill="#8b5cf6" />
+              {/* 箭头恒灰 #d6d3d1（defaultEdgeOptions ArrowClosed 14×14），仅 stroke 随状态变色 */}
+              <polygon points="250,79 259,84 250,89" fill="#d6d3d1" />
               <text x="300" y="88" fontSize={11} fill="#7c3aed" fontFamily={MONO}>
                 highlighted · 6 4 · w 2.25
               </text>
@@ -74,7 +75,7 @@ export default function CanvasEdgeDashFlow() {
                 strokeWidth={1.5}
                 strokeDasharray="5 3"
               />
-              <polygon points="250,132 258,136 250,140" fill="#fb7185" />
+              <polygon points="250,132 258,136 250,140" fill="#d6d3d1" />
               <g>
                 <rect x={150} y={120} width={36} height={15} rx={7.5} fill="#fff1f2" stroke="#fecdd3" />
                 <text x={168} y={130.5} fontSize={9} fill="#fb7185" fontFamily={MONO} textAnchor="middle">
@@ -86,8 +87,8 @@ export default function CanvasEdgeDashFlow() {
               </text>
 
               {/* handles */}
-              <circle cx={64} cy={32} r={5} fill="#fff" stroke="#a8c0ee" strokeWidth={1.5} />
-              <circle cx={64} cy={84} r={5} fill="#fff" stroke="#a8c0ee" strokeWidth={1.5} />
+              <circle cx={64} cy={32} r={5} fill="#fff" stroke="#93c5fd" strokeWidth={1.5} />
+              <circle cx={64} cy={84} r={5} fill="#fff" stroke="#93c5fd" strokeWidth={1.5} />
               <circle cx={64} cy={136} r={5} fill="#fff" stroke="#fb7185" strokeWidth={1.5} />
             </svg>
           </div>
@@ -138,6 +139,7 @@ export default function CanvasEdgeDashFlow() {
                 </span>
               </div>
               <div style={{ fontSize: 10, color: '#a8a29e', fontFamily: MONO, marginBottom: 2 }}>← from-left-2 · 200ms</div>
+              <div style={{ fontSize: 9, color: '#c4c0b8', fontFamily: MONO, marginBottom: 2 }}>实宽 w-[21rem] 336px</div>
               <div style={{ height: 8 }} />
               <div style={{ height: 9, background: '#f4f3ee', borderRadius: 4, marginBottom: 5 }} />
               <div style={{ height: 9, width: '74%', background: '#f4f3ee', borderRadius: 4 }} />
@@ -158,8 +160,12 @@ export default function CanvasEdgeDashFlow() {
                 padding: 10,
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 7, color: '#7c3aed', fontSize: 12, fontWeight: 600 }}>
-                <Sparkles size={14} strokeWidth={2} /> AI 编排助手
+              {/* copilot 头 —— h-7 w-7 rounded-lg bg-blue-50 text-blue-600 + 标题 stone-900 */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 7 }}>
+                <span style={{ display: 'flex', height: 28, width: 28, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 8, background: '#eff6ff', color: '#2563eb' }}>
+                  <Sparkles size={14} strokeWidth={2} />
+                </span>
+                <span style={{ fontSize: 12, fontWeight: 600, color: '#1c1917' }}>AI 编排助手</span>
               </div>
               <div style={{ fontSize: 10, color: '#a8a29e', fontFamily: MONO }}>from-right-2 · 200ms →</div>
               <div style={{ height: 10 }} />

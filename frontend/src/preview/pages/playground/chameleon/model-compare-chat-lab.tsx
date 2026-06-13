@@ -1,16 +1,21 @@
 import { PreviewFrame } from '../../../_layout';
 import {
+  BookmarkPlus,
   Bot,
+  Copy,
   History,
   KeyRound,
   ListTree,
   MessageSquare,
   Paperclip,
   Plus,
+  RefreshCw,
   Send,
   Settings2,
   Sparkles,
+  ThumbsUp,
   Trash2,
+  Wand2,
   X,
 } from 'lucide-react';
 
@@ -50,12 +55,13 @@ export default function ModelCompareChatLab() {
         {/* top bar */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, borderBottom: '1px solid rgba(231,229,224,0.7)', padding: '10px 16px' }}>
           <h2 style={{ fontSize: 14, fontWeight: 500, color: '#1c1917', margin: 0 }}>Playground</h2>
-          <div style={{ display: 'flex', overflow: 'hidden', borderRadius: 8, border: '1px solid #e7e5e0', fontSize: 12 }}>
+          {/* segmented —— border-stone-200 #e7e5e4 */}
+          <div style={{ display: 'flex', overflow: 'hidden', borderRadius: 8, border: '1px solid #e7e5e4', fontSize: 12 }}>
             <span style={{ padding: '4px 12px', color: '#78716c' }}>单聊</span>
             <span style={{ padding: '4px 12px', background: '#eff6ff', fontWeight: 500, color: '#1d4ed8' }}>对比</span>
           </div>
           <div style={{ marginLeft: 'auto' }} />
-          {/* KeyPicker */}
+          {/* KeyPicker —— h-7 w-[200px] */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, height: 28, width: 200, borderRadius: 6, border: '1px solid #d6d3d1', background: '#fff', padding: '0 8px', fontSize: 12, color: '#44403c' }}>
             <KeyRound size={14} strokeWidth={2} color="#a8a29e" />
             <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>生产溯源 Key</span>
@@ -63,15 +69,16 @@ export default function ModelCompareChatLab() {
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 12, color: '#78716c' }}>
             <Sparkles size={14} strokeWidth={2} /> 新对比
           </span>
+          {/* 加列（最多 MAX_COLUMNS=4） —— Plus h-3.5 */}
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 12, color: '#78716c' }}>
-            <Plus size={14} strokeWidth={2} /> 加列
+            <Plus size={14} strokeWidth={2} /> 加列（最多 4）
           </span>
         </div>
 
         {/* body */}
         <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
-          {/* compare history sidebar */}
-          <aside style={{ display: 'flex', width: 200, flexShrink: 0, flexDirection: 'column', borderRight: '1px solid rgba(231,229,224,0.7)', background: 'rgba(244,243,238,0.3)', padding: 6 }}>
+          {/* compare history sidebar —— aside w-56 (224px) */}
+          <aside style={{ display: 'flex', width: 224, flexShrink: 0, flexDirection: 'column', borderRight: '1px solid rgba(231,229,224,0.7)', background: 'rgba(244,243,238,0.3)', padding: 6 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 6px', fontSize: 10.5, letterSpacing: '0.04em', color: '#a8a29e' }}>
               <History size={12} strokeWidth={2} /> 对比历史
             </div>
@@ -83,7 +90,7 @@ export default function ModelCompareChatLab() {
                   borderRadius: 6,
                   background: h.active ? '#fff' : 'transparent',
                   boxShadow: h.active ? '0 1px 2px rgb(0 0 0/5%)' : undefined,
-                  border: h.active ? '1px solid #e7e5e0' : '1px solid transparent',
+                  border: h.active ? '1px solid #e7e5e4' : '1px solid transparent',
                   padding: '6px 8px',
                 }}
               >
@@ -129,7 +136,7 @@ function CompareColumn({
 }) {
   return (
     <div style={{ display: 'flex', flex: 1, minWidth: 0, flexDirection: 'column', borderRight: bordered ? '1px solid rgba(231,229,224,0.7)' : 'none' }}>
-      {/* column head */}
+      {/* column head —— 渐变标 from-violet-500 to-blue-500 */}
       <header style={{ display: 'flex', alignItems: 'center', gap: 6, borderBottom: '1px solid rgba(231,229,224,0.7)', background: 'rgba(244,243,238,0.3)', padding: '8px 12px' }}>
         <span style={{ height: 16, width: 16, flexShrink: 0, borderRadius: 4, background: GRADIENT }} />
         <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 12, fontWeight: 500, color: '#292524' }}>
@@ -165,15 +172,17 @@ function MessageBubble({ bubble }: { bubble: Bubble }) {
         <div
           style={{
             minWidth: 0,
+            // rounded-2xl=16 + user rounded-tr-sm / bot rounded-tl-sm（sm=2）
             borderRadius: 16,
-            borderTopRightRadius: isUser ? 4 : 16,
-            borderTopLeftRadius: isUser ? 16 : 4,
+            borderTopRightRadius: isUser ? 2 : 16,
+            borderTopLeftRadius: isUser ? 16 : 2,
             padding: '8px 12px',
             fontSize: 13,
-            lineHeight: 1.55,
+            // leading-relaxed 1.625
+            lineHeight: 1.625,
             background: isUser ? '#2563eb' : '#fff',
             color: isUser ? '#fff' : '#292524',
-            border: isUser ? 'none' : '1px solid #e7e5e0',
+            border: isUser ? 'none' : '1px solid #e7e5e4',
             boxShadow: isUser ? 'none' : '0 1px 2px rgba(0,0,0,0.04)',
           }}
         >
@@ -184,9 +193,20 @@ function MessageBubble({ bubble }: { bubble: Bubble }) {
             {bubble.tok && (
               <span style={{ fontFamily: MONO }}>↑{bubble.tok[0]} ↓{bubble.tok[1]}</span>
             )}
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 2 }}>
+            {/* hover 浮现的动作条：trace / 存样本 / 改写提示词 + MessageActions */}
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 2, color: '#a8a29e' }}>
               <ListTree size={12} strokeWidth={2} /> trace
             </span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 2, color: '#a8a29e' }}>
+              <BookmarkPlus size={12} strokeWidth={2} /> 存样本
+            </span>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 2, color: '#a8a29e' }}>
+              <Wand2 size={12} strokeWidth={2} /> 改写提示词
+            </span>
+            {/* MessageActions —— 内联主操作 copy / regenerate / 👍 */}
+            <Copy size={12} strokeWidth={2} color="#a8a29e" />
+            <RefreshCw size={12} strokeWidth={2} color="#a8a29e" />
+            <ThumbsUp size={12} strokeWidth={2} color="#a8a29e" />
           </div>
         )}
       </div>

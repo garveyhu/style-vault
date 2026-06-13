@@ -39,6 +39,46 @@ const PRIMARIES = [
   { key: 'teal', hex: '#0d9488' },
 ];
 
+// 源码各 variant 的 base/hover/active 实色 + base 的 focus-visible:ring-2 ring-primary-200(#bfdbfe)
+const STATE_ROWS = [
+  {
+    name: 'primary', color: '#fff',
+    states: [
+      { label: 'base', bg: '#2563eb' },                  // primary-600
+      { label: 'hover', bg: '#1d4ed8' },                 // primary-700
+      { label: 'active', bg: '#1e40af' },                // primary-800
+      { label: 'focus', bg: '#2563eb', ring: '#bfdbfe' },// ring primary-200
+    ],
+  },
+  {
+    name: 'outline', color: '#44403c',
+    states: [
+      { label: 'base', bg: '#ffffff', border: '#d6d3d1' },   // bg-white border-stone-300
+      { label: 'hover', bg: '#fafaf9', border: '#d6d3d1' },  // hover:bg-stone-50
+      { label: 'active', bg: '#f5f5f4', border: '#d6d3d1' }, // active:bg-stone-100
+      { label: 'focus', bg: '#ffffff', border: '#d6d3d1', ring: '#bfdbfe' },
+    ],
+  },
+  {
+    name: 'ghost', color: '#44403c',
+    states: [
+      { label: 'base', bg: 'transparent' },              // text-stone-700
+      { label: 'hover', bg: '#f5f5f4' },                 // hover:bg-stone-100
+      { label: 'active', bg: '#e7e5e4' },                // active:bg-stone-200
+      { label: 'focus', bg: 'transparent', ring: '#bfdbfe' },
+    ],
+  },
+  {
+    name: 'danger', color: '#fff',
+    states: [
+      { label: 'base', bg: '#dc2626' },                  // red-600
+      { label: 'hover', bg: '#b91c1c' },                 // red-700
+      { label: 'active', bg: '#991b1b' },                // red-800
+      { label: 'focus', bg: '#dc2626', ring: '#bfdbfe' },
+    ],
+  },
+] as const;
+
 export default function ThemeableCvaButton() {
   return (
     <PreviewFrame bg="#fafaf7">
@@ -53,6 +93,28 @@ export default function ThemeableCvaButton() {
               background: v.bg, color: v.color, border: `1px solid ${v.border}`,
               textDecoration: v.underline ? 'underline' : 'none', textUnderlineOffset: 2,
             }}>{v.name}</button>
+          ))}
+        </Section>
+
+        {/* 交互态：源码每 variant 都有 hover/active，base 有 focus-visible:ring-2 ring-primary-200 */}
+        <Section title="交互态快照 · base / hover / active / focus">
+          {STATE_ROWS.map(row => (
+            <div key={row.name} style={{ display: 'flex', flexDirection: 'column', gap: 6, marginRight: 20 }}>
+              <span style={{ fontSize: 9.5, fontFamily: 'JetBrains Mono, monospace', color: '#a8a29e' }}>{row.name}</span>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                {row.states.map(st => (
+                  <div key={st.label} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                    <button style={{
+                      ...btnBase, height: 32, padding: '0 12px', fontSize: 12.5,
+                      background: st.bg, color: row.color,
+                      border: `1px solid ${'border' in st ? st.border : 'transparent'}`,
+                      boxShadow: 'ring' in st ? `0 0 0 2px ${st.ring}` : 'none',
+                    }}>{row.name}</button>
+                    <span style={{ fontSize: 9, color: '#a8a29e' }}>{st.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           ))}
         </Section>
 

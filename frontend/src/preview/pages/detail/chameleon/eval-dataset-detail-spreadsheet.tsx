@@ -72,7 +72,7 @@ export default function EvalDatasetDetailSpreadsheet() {
               </thead>
               <tbody>
                 {ROWS.map((r, i) => (
-                  <tr key={i} style={{ borderTop: i ? '1px solid #f5f4ee' : 'none', fontSize: 12.5 }}>
+                  <tr key={i} style={{ borderTop: i ? '1px solid #f5f5f4' : 'none', fontSize: 12.5 }}>
                     <td style={td}><input type="checkbox" style={{ width: 14, height: 14, accentColor: '#44403c', marginTop: 2 }} /></td>
                     <td style={td}><span style={truncate('#44403c')}>{r.input}</span></td>
                     <td style={td}>{r.context ? <span style={truncate('#44403c')}>{r.context}</span> : <span style={{ color: '#d6d3d1' }}>—</span>}</td>
@@ -89,9 +89,9 @@ export default function EvalDatasetDetailSpreadsheet() {
               </tbody>
             </table>
           </div>
-          {/* 新增行 */}
+          {/* 新增行：Button variant=secondary = bg-stone-100 text-stone-900 无边框 */}
           <div style={{ marginTop: 12 }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, height: 28, borderRadius: 6, border: '1px solid #e7e5e0', background: '#f4f3ee', padding: '0 10px', fontSize: 11.5, color: '#44403c', cursor: 'pointer' }}>
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, height: 28, borderRadius: 6, border: 'none', background: '#f5f5f4', padding: '0 10px', fontSize: 11.5, fontWeight: 500, color: '#1c1917', cursor: 'pointer' }}>
               <Plus size={14} strokeWidth={2} /> 新增行
             </span>
           </div>
@@ -109,12 +109,13 @@ function truncate(color: string, fs = 12.5): React.CSSProperties {
 }
 
 function Btn({ children, ghost }: { children: React.ReactNode; ghost?: boolean }) {
+  // secondary = bg-stone-100(#f5f5f4) text-stone-900(#1c1917) 无边框；ghost = text-stone-700(#44403c) 透明无边框
   return (
     <span style={{
       display: 'inline-flex', alignItems: 'center', gap: 4, height: 28, borderRadius: 6,
-      padding: '0 10px', fontSize: 11.5, fontWeight: 500, cursor: 'pointer',
-      background: ghost ? 'transparent' : '#f4f3ee',
-      color: '#44403c', border: ghost ? '1px solid transparent' : '1px solid #e7e5e0',
+      padding: '0 10px', fontSize: 11.5, fontWeight: 500, cursor: 'pointer', border: 'none',
+      background: ghost ? 'transparent' : '#f5f5f4',
+      color: ghost ? '#44403c' : '#1c1917',
     }}>{children}</span>
   );
 }

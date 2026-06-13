@@ -12,7 +12,7 @@ export default function AmberNavProgress() {
 
         {/* 模拟浏览器窗口顶栏，进度条贴在最上沿 */}
         <div style={{ fontSize: 10.5, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#78716c', marginBottom: 12 }}>fixed top · z-[1000] · 智能导航预取中</div>
-        <div style={{ position: 'relative', borderRadius: 8, border: '1px solid #e7e5e0', background: '#ffffff', overflow: 'hidden', boxShadow: '0 1px 3px rgb(0 0 0 / 5%), 0 2px 8px rgb(0 0 0 / 3%)' }}>
+        <div style={{ position: 'relative', borderRadius: 8, border: '1px solid #e7e5e0', background: '#fffefb', overflow: 'hidden', boxShadow: '0 1px 3px rgb(0 0 0 / 5%), 0 2px 8px rgb(0 0 0 / 3%)' }}>
           {/* 顶部 2px 透明轨 */}
           <div style={{ position: 'absolute', left: 0, right: 0, top: 0, height: 2, background: 'transparent', pointerEvents: 'none' }}>
             <div

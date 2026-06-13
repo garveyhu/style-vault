@@ -56,7 +56,7 @@ function Segmented({ size, options, initial }: { size: 'sm' | 'md'; options: str
       role="tablist"
       style={{
         position: 'relative', display: 'flex', width: 'fit-content', alignItems: 'center', gap: 2,
-        borderRadius: 8, border: '1px solid #e7e5e0', background: 'rgba(245,244,238,0.7)', padding: 2,
+        borderRadius: 8, border: '1px solid #e7e5e4', background: 'rgba(245,245,244,0.7)', padding: 2,
       }}
     >
       {thumb && (
@@ -64,7 +64,7 @@ function Segmented({ size, options, initial }: { size: 'sm' | 'md'; options: str
           aria-hidden
           style={{
             pointerEvents: 'none', position: 'absolute', left: 0, top: 0, zIndex: 0,
-            borderRadius: 6, background: '#fffefb', boxShadow: '0 1px 2px rgb(0 0 0 / 6%)',
+            borderRadius: 6, background: '#fffefb', boxShadow: '0 1px 2px 0 rgb(0 0 0 / 5%)',
             transition: 'transform 300ms cubic-bezier(.34,1.4,.5,1), width 300ms cubic-bezier(.34,1.4,.5,1), height 300ms cubic-bezier(.34,1.4,.5,1)',
             transform: `translate(${thumb.x}px, ${thumb.y}px)`, width: thumb.w, height: thumb.h,
           }}

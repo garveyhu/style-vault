@@ -31,8 +31,6 @@ export default function AiCopilotPanel() {
             flexDirection: 'column',
             width: 384,
             background: '#fff',
-            borderLeft: '1px solid rgba(226,232,240,0.8)',
-            boxShadow: '-4px 0 24px rgb(0 0 0 / 6%)',
           }}
         >
           {/* 头部 */}
@@ -192,7 +190,7 @@ export default function AiCopilotPanel() {
                   background: '#2563eb',
                   color: '#fff',
                   border: 'none',
-                  boxShadow: '0 1px 2px rgb(0 0 0 / 10%)',
+                  boxShadow: '0 1px 2px 0 rgb(0 0 0 / 5%)',
                   cursor: 'pointer',
                 }}
               >

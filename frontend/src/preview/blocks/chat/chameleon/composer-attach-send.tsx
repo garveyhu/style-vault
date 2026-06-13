@@ -19,6 +19,7 @@ export default function ComposerAttachSend() {
         <div style={{ flex: '1 1 360px', minWidth: 320, display: 'flex', flexDirection: 'column', gap: 16 }}>
           <Composer />
           <ComposerStreaming />
+          <ComposerEmpty />
         </div>
 
         {/* ============ 右：运行参数面板 ============ */}
@@ -34,7 +35,7 @@ export default function ComposerAttachSend() {
 /* ── 输入框卡（默认态：可发送） ── */
 function Composer() {
   return (
-    <div style={{ borderRadius: 12, border: '1px solid #e7e5e0', background: '#fff', padding: 10, boxShadow: '0 1px 2px rgba(0,0,0,.03)' }}>
+    <div style={{ borderRadius: 12, border: '1px solid #e7e5e4', background: '#fff', padding: 10, boxShadow: '0 1px 2px rgba(0,0,0,.03)' }}>
       <textarea
         rows={2}
         defaultValue={'帮我把这张图改成黄昏色调'}
@@ -63,10 +64,35 @@ function Composer() {
   );
 }
 
+/* ── 输入框卡（空态：发送禁用 —— input 空且无附件） ── */
+function ComposerEmpty() {
+  return (
+    <div style={{ borderRadius: 12, border: '1px solid #e7e5e4', background: '#fff', padding: 10, boxShadow: '0 1px 2px rgba(0,0,0,.03)' }}>
+      <textarea
+        rows={2}
+        placeholder="输入消息… Enter 发送（Shift+Enter 换行）"
+        style={{ border: 0, padding: 0, margin: 0, width: '100%', resize: 'none', fontSize: 12.5, lineHeight: 1.5, color: '#1c1917', fontFamily: sans, outline: 'none', background: 'transparent', boxSizing: 'border-box' }}
+      />
+      <div style={{ marginTop: 6, display: 'flex', alignItems: 'center', gap: 8 }}>
+        <button title="上传附件（图片 / 音频 / PDF，最大 20MB）" style={attachBtn}>
+          <Paperclip size={14} color="#78716c" strokeWidth={2} />
+        </button>
+        <div style={{ marginLeft: 'auto' }}>
+          {/* disabled 发送：半透明 + 不可点（disabled:opacity-50 cursor-not-allowed） */}
+          <button style={{ ...sendBtn, opacity: 0.5, cursor: 'not-allowed' }} disabled>
+            <Send size={12} color="#fff" strokeWidth={2} style={{ marginRight: 4 }} />
+            发送
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ── 输入框卡（流式态：停止 + 上传中） ── */
 function ComposerStreaming() {
   return (
-    <div style={{ borderRadius: 12, border: '1px solid #e7e5e0', background: '#fff', padding: 10, boxShadow: '0 1px 2px rgba(0,0,0,.03)' }}>
+    <div style={{ borderRadius: 12, border: '1px solid #e7e5e4', background: '#fff', padding: 10, boxShadow: '0 1px 2px rgba(0,0,0,.03)' }}>
       <textarea
         rows={2}
         placeholder="输入消息… Enter 发送（Shift+Enter 换行）"
@@ -117,7 +143,7 @@ function ParamPanel() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
           {['role', 'tone'].map(v => (
             <div key={v} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ flexShrink: 0, borderRadius: 4, background: '#f5f4ee', padding: '2px 6px', fontFamily: mono, fontSize: 10.5, color: '#57534e' }}>{`{{${v}}}`}</span>
+              <span style={{ flexShrink: 0, borderRadius: 4, background: '#f5f5f4', padding: '2px 6px', fontFamily: mono, fontSize: 10.5, color: '#57534e' }}>{`{{${v}}}`}</span>
               <input placeholder="未填，将原样发送" style={{ ...inputBox, height: 28, flex: 1 }} />
             </div>
           ))}
@@ -196,13 +222,15 @@ function NumberField({ label, value, placeholder }: { label: string; value?: str
 }
 
 const attachBtn: React.CSSProperties = {
+  // h-7 w-7 rounded-md border border-stone-200/70 bg-white text-stone-500
   display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-  height: 28, width: 28, borderRadius: 6, border: '1px solid rgba(231,229,224,0.7)',
+  height: 28, width: 28, borderRadius: 6, border: '1px solid rgba(231,229,228,0.7)',
   background: '#fff', cursor: 'pointer',
 };
 const chip: React.CSSProperties = {
+  // rounded-md border border-stone-200/70 bg-stone-50/60 (#fafaf9 @ .6) px-1.5 py-0.5 text-[11px]
   display: 'flex', alignItems: 'center', gap: 4, borderRadius: 6,
-  border: '1px solid rgba(231,229,224,0.7)', background: 'rgba(250,250,247,0.6)',
+  border: '1px solid rgba(231,229,228,0.7)', background: 'rgba(250,250,249,0.6)',
   padding: '2px 6px', fontSize: 11,
 };
 const chipX: React.CSSProperties = { borderRadius: 4, padding: 2, background: 'none', border: 'none', cursor: 'pointer', display: 'inline-flex' };

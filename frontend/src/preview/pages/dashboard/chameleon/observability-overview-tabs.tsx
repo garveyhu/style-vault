@@ -1,6 +1,8 @@
 import { PreviewFrame } from '../../../_layout';
 import { Activity, Bot, Calendar, Sparkles, TrendingDown, TrendingUp, Users } from 'lucide-react';
 
+const MONO = 'JetBrains Mono, ui-monospace, monospace';
+
 const CARD_LG: React.CSSProperties = {
   borderRadius: 8, border: '1px solid #e7e5e0', background: '#fffefb',
   boxShadow: '0 1px 3px rgb(0 0 0 / 5%), 0 2px 8px rgb(0 0 0 / 3%)',
@@ -63,13 +65,13 @@ export default function ObservabilityOverviewTabs() {
             const chip = TONE_CHIP[k.tone];
             const up = k.delta != null && k.delta > 0;
             const down = k.delta != null && k.delta < 0;
-            const good = k.tone === 'success' ? up : up; // 演示：上升为好
+            const good = up;
             const deltaColor = k.delta == null || k.delta === 0 ? '#a8a29e' : good ? '#059669' : '#dc2626';
             return (
-              <div key={k.label} style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', borderRadius: 12, border: '1px solid #e7e5e0', background: '#fffefb', padding: 20 }}>
+              <div key={k.label} style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', borderRadius: 16, border: '1px solid #e7e5e0', background: '#fffefb', padding: 20 }}>
                 <div style={{ minWidth: 0 }}>
                   <div style={{ fontSize: 12, color: '#78716c' }}>{k.label}</div>
-                  <div style={{ marginTop: 8, fontFamily: 'JetBrains Mono, monospace', fontSize: 24, letterSpacing: '-0.02em', color: '#1c1917', lineHeight: 1 }}>{k.value}</div>
+                  <div style={{ marginTop: 8, fontFamily: MONO, fontSize: 24, letterSpacing: '-0.025em', color: '#1c1917', lineHeight: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{k.value}</div>
                   <div style={{ marginTop: 4, display: 'flex', alignItems: 'center', gap: 8, fontSize: 11 }}>
                     <span style={{ color: '#a8a29e', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{k.hint}</span>
                     {k.delta != null && (
@@ -95,10 +97,6 @@ export default function ObservabilityOverviewTabs() {
             <span style={{ fontSize: 11, color: '#a8a29e' }}>按天</span>
           </div>
           <TrendChart />
-          <div style={{ display: 'flex', gap: 16, marginTop: 8, fontSize: 11.5 }}>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}><span style={{ width: 8, height: 2, background: '#2563eb' }} />总调用</span>
-            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}><span style={{ width: 8, height: 2, background: '#ef4444' }} />错误数</span>
-          </div>
         </div>
 
         {/* 分布行 */}
@@ -123,18 +121,43 @@ export default function ObservabilityOverviewTabs() {
   );
 }
 
+/** recharts LineChart 复刻：CartesianGrid 虚线 3 3 + X/Y 轴(stroke #999 fontSize 11) + 两条 Line(stroke 2 dot=false)，无面积无图例 */
 function TrendChart() {
   const total = [40, 64, 52, 88, 72, 110, 96];
   const errs = [6, 12, 8, 4, 10, 5, 7];
-  const W = 600, H = 200, pad = 8;
+  const days = ['06/07', '06/08', '06/09', '06/10', '06/11', '06/12', '06/13'];
+  // 内边距：左留 Y 轴刻度，下留 X 轴刻度
+  const W = 600, H = 240;
+  const padL = 36, padR = 12, padT = 10, padB = 24;
+  const plotW = W - padL - padR;
+  const plotH = H - padT - padB;
   const max = 120;
-  const toPath = (arr: number[]) =>
-    arr.map((v, i) => `${i === 0 ? 'M' : 'L'} ${pad + (i * (W - pad * 2)) / (arr.length - 1)},${H - pad - (v / max) * (H - pad * 2)}`).join(' ');
+  const yTicks = [0, 30, 60, 90, 120];
+  const x = (i: number) => padL + (i * plotW) / (total.length - 1);
+  const y = (v: number) => padT + plotH - (v / max) * plotH;
+  const toPath = (arr: number[]) => arr.map((v, i) => `${i === 0 ? 'M' : 'L'} ${x(i)},${y(v)}`).join(' ');
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 200 }}>
-      {[0, 1, 2, 3].map(i => <line key={i} x1={pad} y1={pad + (i * (H - pad * 2)) / 3} x2={W - pad} y2={pad + (i * (H - pad * 2)) / 3} stroke="#f5f4ee" strokeWidth="1" />)}
+    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 240 }}>
+      {/* CartesianGrid 横向虚线 */}
+      {yTicks.map(t => (
+        <line key={`gh-${t}`} x1={padL} y1={y(t)} x2={W - padR} y2={y(t)} stroke="rgb(0 0 0 / 6%)" strokeWidth="1" strokeDasharray="3 3" />
+      ))}
+      {/* CartesianGrid 纵向虚线 */}
+      {total.map((_, i) => (
+        <line key={`gv-${i}`} x1={x(i)} y1={padT} x2={x(i)} y2={padT + plotH} stroke="rgb(0 0 0 / 6%)" strokeWidth="1" strokeDasharray="3 3" />
+      ))}
+      {/* Y 轴线 + 刻度 */}
+      <line x1={padL} y1={padT} x2={padL} y2={padT + plotH} stroke="#999" strokeWidth="1" />
+      {yTicks.map(t => (
+        <text key={`yt-${t}`} x={padL - 6} y={y(t) + 3.5} textAnchor="end" fontSize="11" fill="#999">{t}</text>
+      ))}
+      {/* X 轴线 + 刻度 */}
+      <line x1={padL} y1={padT + plotH} x2={W - padR} y2={padT + plotH} stroke="#999" strokeWidth="1" />
+      {days.map((d, i) => (
+        <text key={`xt-${i}`} x={x(i)} y={padT + plotH + 15} textAnchor="middle" fontSize="11" fill="#999">{d}</text>
+      ))}
+      {/* 两条 Line：total primary-600 / errors red-500，strokeWidth 2，无填充 */}
       <path d={toPath(total)} fill="none" stroke="#2563eb" strokeWidth="2" />
-      <path d={`${toPath(total)} L ${W - pad},${H - pad} L ${pad},${H - pad} Z`} fill="#2563eb" opacity="0.08" />
       <path d={toPath(errs)} fill="none" stroke="#ef4444" strokeWidth="2" />
     </svg>
   );
@@ -153,7 +176,7 @@ function DistCard({ title, rows }: { title: string; rows: { l: string; c: number
                 {r.c.toLocaleString()}<span style={{ marginLeft: 4, color: '#a8a29e' }}>{r.pct}%</span>
               </span>
             </div>
-            <div style={{ position: 'relative', height: 6, width: '100%', overflow: 'hidden', borderRadius: 4, background: '#f5f4ee' }}>
+            <div style={{ position: 'relative', height: 6, width: '100%', overflow: 'hidden', borderRadius: 4, background: '#f5f5f4' }}>
               <div style={{ position: 'absolute', inset: '0 auto 0 0', borderRadius: 4, background: '#60a5fa', width: `${r.pct}%` }} />
             </div>
           </li>
@@ -168,27 +191,47 @@ function TopCard({ title, rows, max }: { title: string; rows: { n: string; c: nu
     if (i === 0) return { bg: '#fef3c7', color: '#b45309', ring: '#fde68a' };
     if (i === 1) return { bg: '#e2e8f0', color: '#475569', ring: '#cbd5e1' };
     if (i === 2) return { bg: '#ffedd5', color: '#c2410c', ring: '#fed7aa' };
-    return { bg: '#f5f4ee', color: '#a8a29e', ring: '#e7e5e0' };
+    return { bg: '#f5f5f4', color: '#a8a29e', ring: '#e7e5e0' };
   };
   return (
     <div style={{ ...CARD_LG, padding: 20 }}>
       <h3 style={{ fontSize: 14, fontWeight: 500, color: '#1c1917', margin: '0 0 12px' }}>{title}</h3>
-      <div>
-        {rows.map((r, i) => {
-          const t = rankTone(i);
-          return (
-            <div key={r.n} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 0', borderTop: i ? '1px solid #f5f4ee' : 'none', fontSize: 13 }}>
-              <span style={{ display: 'inline-flex', flexShrink: 0, width: 20, height: 20, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontSize: 10, fontWeight: 600, fontVariantNumeric: 'tabular-nums', background: t.bg, color: t.color, boxShadow: `inset 0 0 0 1px ${t.ring}` }}>{i + 1}</span>
-              <span style={{ flex: 1, color: '#44403c', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.n}</span>
-              <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8 }}>
-                <span style={{ height: 6, width: 64, overflow: 'hidden', borderRadius: 9999, background: '#f5f4ee' }}>
-                  <span style={{ display: 'block', height: '100%', borderRadius: 9999, background: 'linear-gradient(to right, #93c5fd, #3b82f6)', width: `${(r.c / max) * 100}%` }} />
-                </span>
-                <span style={{ width: 40, textAlign: 'right', color: '#57534e', fontVariantNumeric: 'tabular-nums', fontSize: 12.5 }}>{r.c.toLocaleString()}</span>
-              </span>
-            </div>
-          );
-        })}
+      {/* DataTable 壳：rounded-lg border-stone-200/60 overflow-hidden */}
+      <div style={{ borderRadius: 8, border: '1px solid rgba(231,229,224,0.6)', overflow: 'hidden' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
+          {/* thead 表头：名称 / 调用，border-b border-stone-200/70 */}
+          <thead style={{ borderBottom: '1px solid rgba(231,229,224,0.7)' }}>
+            <tr>
+              <th style={{ padding: '10px 12px', textAlign: 'left', fontSize: 11, fontWeight: 500, color: '#a8a29e' }}>名称</th>
+              <th style={{ width: 160, padding: '10px 12px', textAlign: 'right', fontSize: 11, fontWeight: 500, color: '#a8a29e' }}>调用</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r, i) => {
+              const t = rankTone(i);
+              return (
+                <tr key={r.n} style={{ borderTop: i ? '1px solid #f5f5f4' : 'none', fontSize: 12.5 }}>
+                  {/* 名称列 px-3 py-3 */}
+                  <td style={{ padding: '12px 12px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ display: 'inline-flex', flexShrink: 0, width: 20, height: 20, alignItems: 'center', justifyContent: 'center', borderRadius: '50%', fontSize: 10, fontWeight: 600, fontVariantNumeric: 'tabular-nums', background: t.bg, color: t.color, boxShadow: `inset 0 0 0 1px ${t.ring}` }}>{i + 1}</span>
+                      <span style={{ flex: 1, minWidth: 0, color: '#44403c', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.n}</span>
+                    </div>
+                  </td>
+                  {/* 调用列 px-3 py-3 align right */}
+                  <td style={{ padding: '12px 12px', textAlign: 'right' }}>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8 }}>
+                      <span style={{ height: 6, width: 64, overflow: 'hidden', borderRadius: 9999, background: '#f5f5f4' }}>
+                        <span style={{ display: 'block', height: '100%', borderRadius: 9999, background: 'linear-gradient(to right, #93c5fd, #3b82f6)', width: `${(r.c / max) * 100}%` }} />
+                      </span>
+                      <span style={{ width: 40, textAlign: 'right', color: '#57534e', fontVariantNumeric: 'tabular-nums' }}>{r.c.toLocaleString()}</span>
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );

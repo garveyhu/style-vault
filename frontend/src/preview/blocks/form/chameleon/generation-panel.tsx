@@ -1,5 +1,5 @@
 import { PreviewFrame } from '../../../_layout';
-import { Dices, ImagePlus, X, ChevronDown, ChevronRight } from 'lucide-react';
+import { Dices, ImagePlus, X } from 'lucide-react';
 import { useState } from 'react';
 
 /**
@@ -7,6 +7,10 @@ import { useState } from 'react';
  * 声明式生图/视频参数面板：首帧上传 + 提示词 + 紫色风格 chip + aspect_ratio
  * (预设 chip + 自定义宽高) + select/seed(骰子) + 高级参数折叠
  * 源码：frontend/src/core/components/common/generation-panel.tsx
+ *
+ * Input/Textarea 默认 token：h-8 rounded-md(6) border-stone-300(#d6d3d1) px-3(12) text-[13px]
+ * chip idle border-stone-200(#e7e5e4)，active border-violet-500/bg-violet-50/text-violet-700
+ * 高级参数折叠触发器用纯文本三角字形 ▾/▸（无 lucide icon）
  */
 
 const STYLES = [
@@ -48,12 +52,13 @@ export default function GenerationPanelPreview() {
               <Label>首帧图（图生视频必填）</Label>
               {hasFrame ? (
                 <div style={{ position: 'relative', display: 'inline-block' }}>
+                  {/* 源码 img h-24 w-auto rounded-md border border-stone-200(#e7e5e4) object-cover */}
                   <div
                     style={{
                       height: 96,
                       width: 128,
                       borderRadius: 6,
-                      border: '1px solid #e7e5e0',
+                      border: '1px solid #e7e5e4',
                       background:
                         'linear-gradient(135deg, #c7d2fe 0%, #93c5fd 50%, #a5f3fc 100%)',
                     }}
@@ -103,7 +108,7 @@ export default function GenerationPanelPreview() {
               )}
             </Field>
 
-            {/* ── 提示词 ── */}
+            {/* ── 提示词（Textarea：border-stone-300 #d6d3d1 rounded-md(6) px-3 py-1.5 text-[12.5px] rows-3） ── */}
             <Field>
               <Label>提示词</Label>
               <textarea
@@ -111,9 +116,9 @@ export default function GenerationPanelPreview() {
                 rows={3}
                 style={{
                   fontSize: 12.5,
-                  padding: '8px 10px',
-                  borderRadius: 8,
-                  border: '1px solid #e7e5e0',
+                  padding: '6px 12px',
+                  borderRadius: 6,
+                  border: '1px solid #d6d3d1',
                   resize: 'none',
                   outline: 'none',
                   color: '#1c1917',
@@ -181,7 +186,7 @@ export default function GenerationPanelPreview() {
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: 6,
-                    border: '1px solid #e7e5e0',
+                    border: '1px solid #e7e5e4',
                     background: 'transparent',
                     color: '#78716c',
                     cursor: 'pointer',
@@ -194,12 +199,10 @@ export default function GenerationPanelPreview() {
 
             {/* ── 高级参数折叠（border-t border-stone-100 pt-2） ── */}
             <div style={{ borderTop: '1px solid #f5f4ee', paddingTop: 8 }}>
+              {/* 源码用纯文本三角字形：▾ 收起高级参数 / ▸ 高级参数（text-[11.5px] text-stone-500，无 lucide） */}
               <button
                 onClick={() => setShowAdvanced(s => !s)}
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 2,
                   fontSize: 11.5,
                   color: '#78716c',
                   background: 'transparent',
@@ -208,8 +211,7 @@ export default function GenerationPanelPreview() {
                   padding: 0,
                 }}
               >
-                {showAdvanced ? <ChevronDown size={13} /> : <ChevronRight size={13} />}
-                {showAdvanced ? '收起高级参数' : '高级参数'}
+                {showAdvanced ? '▾ 收起高级参数' : '▸ 高级参数'}
               </button>
               {showAdvanced && (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 8 }}>
@@ -256,7 +258,9 @@ function Chip({
         padding: '4px 10px', // px-2.5 py-1
         fontSize: 11.5,
         cursor: 'pointer',
-        border: active ? '1px solid #8b5cf6' : '1px solid #e7e5e0',
+        // idle border-stone-200(#e7e5e4) text-stone-600(#57534e)
+        // active border-violet-500(#8b5cf6) bg-violet-50(#f5f3ff) text-violet-700(#6d28d9)
+        border: active ? '1px solid #8b5cf6' : '1px solid #e7e5e4',
         background: active ? '#f5f3ff' : 'transparent',
         color: active ? '#6d28d9' : '#57534e',
         transition: 'all 120ms',
@@ -286,10 +290,11 @@ function NumInput({
         flex: flex ? 1 : undefined,
         width: flex ? undefined : 0,
         minWidth: 0,
-        padding: '0 10px',
+        // 源码基础 Input：border-stone-300(#d6d3d1) rounded-md(6) px-3(12) text-[12px]（override）
+        padding: '0 12px',
         fontSize: 12,
-        borderRadius: 8,
-        border: '1px solid #e7e5e0',
+        borderRadius: 6,
+        border: '1px solid #d6d3d1',
         outline: 'none',
         color: '#1c1917',
         boxSizing: 'border-box',

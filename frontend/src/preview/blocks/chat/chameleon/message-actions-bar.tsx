@@ -42,7 +42,8 @@ export default function MessageActionsBar() {
         {/* ── ⋯ 下拉菜单展开示意 ── */}
         <div>
           <p style={{ margin: '0 0 8px', fontSize: 11.5, color: '#a8a29e' }}>⋯ 下拉（align=end · min-w 9rem · delete 分隔 + 玫瑰）</p>
-          <div style={{ width: 144, borderRadius: 8, border: '1px solid #e7e5e0', background: '#fffefb', boxShadow: '0 8px 24px rgb(0 0 0 / 8%), 0 2px 8px rgb(0 0 0 / 4%)', padding: 4 }}>
+          {/* DropdownMenuContent: rounded-md(6) border-stone-200 bg-paper(#fffefb) p-1(4) shadow-pop · min-w-[9rem]=144 */}
+          <div style={{ width: 144, borderRadius: 6, border: '1px solid #e7e5e4', background: '#fffefb', boxShadow: '0 8px 24px rgb(0 0 0 / 8%), 0 2px 8px rgb(0 0 0 / 4%)', padding: 4 }}>
             <MenuRow icon={<ArrowDownFromLine size={12} color="#78716c" strokeWidth={2} />} label="继续生成" />
             <MenuRow icon={<Languages size={12} color="#78716c" strokeWidth={2} />} label="翻译" sub />
             <MenuRow icon={<Volume2 size={12} color="#78716c" strokeWidth={2} />} label="朗读" />
@@ -50,8 +51,8 @@ export default function MessageActionsBar() {
             <MenuRow icon={<Pin size={12} color="#b45309" strokeWidth={2} />} label="取消置顶" active />
             <MenuRow icon={<Download size={12} color="#78716c" strokeWidth={2} />} label="导出 Markdown" />
             <MenuRow icon={<Share2 size={12} color="#78716c" strokeWidth={2} />} label="复制分享片段" />
-            {/* Separator + delete */}
-            <div style={{ height: 1, background: '#e7e5e0', margin: '4px -4px' }} />
+            {/* DropdownMenuSeparator: -mx-1 my-1 h-px bg-stone-200(#e7e5e4) */}
+            <div style={{ height: 1, background: '#e7e5e4', margin: '4px -4px' }} />
             <MenuRow icon={<Trash2 size={12} color="#dc2626" strokeWidth={2} />} label="删除" danger />
           </div>
         </div>
@@ -63,10 +64,11 @@ export default function MessageActionsBar() {
 function Bar({ children }: { children: React.ReactNode }) {
   return (
     <div style={{
+      // gap-0.5(2) rounded-md(6) border-stone-200/70 bg-white/90 p-0.5(2) shadow-sm backdrop-blur
       display: 'inline-flex', alignItems: 'center', gap: 2,
-      borderRadius: 6, border: '1px solid rgba(231,229,224,0.7)',
+      borderRadius: 6, border: '1px solid rgba(231,229,228,0.7)',
       background: 'rgba(255,255,255,0.9)', padding: 2,
-      boxShadow: '0 1px 2px rgb(0 0 0 / 5%)', backdropFilter: 'blur(4px)',
+      boxShadow: '0 1px 2px 0 rgb(0 0 0 / 5%)', backdropFilter: 'blur(4px)',
     }}>
       {children}
     </div>
@@ -74,11 +76,13 @@ function Bar({ children }: { children: React.ReactNode }) {
 }
 
 function ActionBtn({ title, children, active, danger }: { title: string; children: React.ReactNode; active?: boolean; more?: boolean; danger?: boolean }) {
-  const bg = active ? (danger ? '#ffe4e6' : '#fef3c7') : 'transparent';
+  // active: danger→bg-rose-100(#ffe1e2) text-rose-700 / 否则 bg-amber-100(#fef3c7) text-amber-800
+  const bg = active ? (danger ? '#ffe1e2' : '#fef3c7') : 'transparent';
   return (
     <button
       title={title}
       style={{
+        // ActionBtn: rounded(4) px-1 py-1(4) text-stone-500
         display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
         borderRadius: 4, padding: 4, border: 'none', cursor: 'pointer',
         background: bg, lineHeight: 0,
@@ -91,11 +95,13 @@ function ActionBtn({ title, children, active, danger }: { title: string; childre
 
 function MenuRow({ icon, label, active, danger, sub }: { icon: React.ReactNode; label: string; active?: boolean; danger?: boolean; sub?: boolean }) {
   return (
+    // DropdownMenuItem: rounded-sm(2) px-2(8) py-1.5(6) · danger→text-rose-600 / active→text-amber-700
     <div style={{
-      display: 'flex', alignItems: 'center', gap: 8, padding: '5px 6px',
-      borderRadius: 5, cursor: 'pointer',
+      display: 'flex', alignItems: 'center', gap: 8, padding: '6px 8px',
+      borderRadius: 2, cursor: 'pointer',
       color: danger ? '#dc2626' : active ? '#b45309' : '#1c1917',
     }}>
+      {/* MenuRow 内 icon span: text-stone-500 · 标签 text-[12.5px] */}
       <span style={{ display: 'inline-flex', color: '#78716c' }}>{icon}</span>
       <span style={{ fontSize: 12.5, flex: 1 }}>{label}</span>
       {sub && <ChevronRight size={12} color="#a8a29e" strokeWidth={2} />}

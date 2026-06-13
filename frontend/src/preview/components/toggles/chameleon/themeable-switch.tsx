@@ -14,19 +14,22 @@ export default function ThemeableSwitch() {
         <Row label="OFF · unchecked stone-300">
           <Switch />
         </Row>
+        <Row label="focus-visible · ring-2 ring-primary-400">
+          <Switch defaultOn focused />
+        </Row>
         <Row label="disabled (on)">
           <Switch defaultOn disabled />
         </Row>
 
         <div style={{ fontSize: 12, color: '#a8a29e', marginTop: 24 }}>
-          h-5 w-9 (20×36) · thumb h-4 w-4 + shadow-soft · translate-x-4 切换 · checked primary-600(#2563eb) 随主题 / unchecked stone-300
+          h-5 w-9 (20×36) · thumb h-4 w-4 + shadow-soft · translate-x-4 切换 · checked primary-600(#2563eb) 随主题 / unchecked stone-300 · focus-visible:ring-2 ring-primary-400(#60a5fa)
         </div>
       </div>
     </PreviewFrame>
   );
 }
 
-function Switch({ defaultOn, disabled }: { defaultOn?: boolean; disabled?: boolean }) {
+function Switch({ defaultOn, disabled, focused }: { defaultOn?: boolean; disabled?: boolean; focused?: boolean }) {
   const [on, setOn] = useState(!!defaultOn);
   return (
     <span
@@ -37,6 +40,7 @@ function Switch({ defaultOn, disabled }: { defaultOn?: boolean; disabled?: boole
         display: 'inline-flex', alignItems: 'center', width: 36, height: 20, borderRadius: 9999,
         border: '2px solid transparent', boxSizing: 'border-box',
         background: on ? '#2563eb' : '#d6d3d1', opacity: disabled ? 0.5 : 1,
+        boxShadow: focused ? '0 0 0 2px #60a5fa' : undefined,
         cursor: disabled ? 'not-allowed' : 'pointer', transition: 'background 200ms',
       }}
     >

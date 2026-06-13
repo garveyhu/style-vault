@@ -45,8 +45,8 @@ export default function RadixSingleSelect() {
                 minWidth: 128,
                 overflow: 'hidden',
                 borderRadius: 6,
-                border: '1px solid #e7e5e0',
-                background: '#fff',
+                border: '1px solid #e7e5e4',
+                background: '#fffefb',
                 color: '#1c1917',
                 boxShadow: '0 8px 24px rgb(0 0 0/0.08), 0 2px 8px rgb(0 0 0/0.04)',
               }}
@@ -55,6 +55,8 @@ export default function RadixSingleSelect() {
                 {OPTIONS.map((opt, i) => (
                   <Item key={opt} label={opt} selected={active === opt} hovered={i === 1} onClick={() => setActive(opt)} />
                 ))}
+                {/* disabled item（data-[disabled]:opacity-50） */}
+                <Item label="legacy 旧模型" selected={false} disabled />
               </div>
             </div>
           </div>
@@ -103,7 +105,8 @@ function Trigger({
       }}
     >
       <span>{label}</span>
-      <ChevronDown size={16} color={disabled ? '#a8a29e' : '#1c1917'} style={{ opacity: 0.5 }} />
+      {/* ChevronDown 随文字色（currentColor）+ opacity-50 */}
+      <ChevronDown size={16} style={{ opacity: 0.5 }} />
     </button>
   );
 }
@@ -112,16 +115,19 @@ function Item({
   label,
   selected,
   hovered,
+  disabled,
   onClick,
 }: {
   label: string;
   selected: boolean;
   hovered?: boolean;
-  onClick: () => void;
+  disabled?: boolean;
+  onClick?: () => void;
 }) {
   return (
     <button
       onClick={onClick}
+      disabled={disabled}
       style={{
         position: 'relative',
         display: 'flex',
@@ -132,9 +138,10 @@ function Item({
         fontSize: 13,
         textAlign: 'left',
         border: 'none',
-        cursor: 'pointer',
+        cursor: disabled ? 'not-allowed' : 'pointer',
         background: hovered ? '#f5f5f4' : 'transparent',
         color: '#1c1917',
+        opacity: disabled ? 0.5 : 1,
         fontFamily: SANS,
       }}
     >

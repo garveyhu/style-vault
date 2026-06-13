@@ -14,7 +14,9 @@ export default function PaperCardShell() {
         <div style={card}>
           {/* CardHeader: flex-col space-y-1.5 p-5 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: 20 }}>
-            <div style={{ fontSize: 16, fontWeight: 600, lineHeight: 1, letterSpacing: '-0.02em' }}>知识库索引配置</div>
+            {/* CardTitle: text-base(16) font-semibold(600) leading-none(1) tracking-tight(-0.025em) */}
+            <div style={{ fontSize: 16, fontWeight: 600, lineHeight: 1, letterSpacing: '-0.025em' }}>知识库索引配置</div>
+            {/* CardDescription: text-xs(12) text-stone-500 */}
             <div style={{ fontSize: 12, color: '#78716c' }}>分段策略、向量模型与精排开关</div>
           </div>
           {/* CardContent: p-5 pt-0 */}
@@ -30,11 +32,11 @@ export default function PaperCardShell() {
           </div>
         </div>
 
-        {/* 仅内容卡（pt-5 补边距） */}
+        {/* 仅内容卡（pt-5 补边距），标题用 CardTitle 同款 16px/600 */}
         <div style={{ fontSize: 10.5, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#78716c', margin: '24px 0 12px' }}>Content only · pt-5</div>
         <div style={card}>
           <div style={{ padding: '20px 20px 20px' }}>
-            <div style={{ fontSize: 14, fontWeight: 500, color: '#1c1917', marginBottom: 8 }}>无标题卡</div>
+            <div style={{ fontSize: 16, fontWeight: 600, lineHeight: 1, letterSpacing: '-0.025em', color: '#1c1917', marginBottom: 10 }}>无标题卡</div>
             <div style={{ fontSize: 13, color: '#78716c', lineHeight: 1.7 }}>
               不需要 Header 时直接 CardContent className="pt-5" 手动补回上内边距。
             </div>
@@ -42,7 +44,7 @@ export default function PaperCardShell() {
         </div>
 
         <div style={{ marginTop: 20, fontSize: 11, color: '#a8a29e', lineHeight: 1.7 }}>
-          rounded-lg (8px) · border stone-200 (#e7e5e0) · bg var(--color-paper) · shadow-card (双层极淡贴地)
+          rounded-lg (8px) · border stone-200 (#e7e5e0) · bg var(--color-paper) = #fffefb (默认暖白) · shadow-card (双层极淡贴地)
         </div>
       </div>
     </PreviewFrame>
@@ -52,7 +54,7 @@ export default function PaperCardShell() {
 const card: React.CSSProperties = {
   borderRadius: 8,
   border: '1px solid #e7e5e0',
-  background: '#ffffff',
+  background: '#fffefb',
   color: '#1c1917',
   boxShadow: SHADOW_CARD,
 };

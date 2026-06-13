@@ -10,9 +10,14 @@ import {
   GitBranch,
   Layers,
   Sparkles,
+  ThumbsUp,
 } from 'lucide-react';
 
 const MONO = 'ui-monospace, SFMono-Regular, "JetBrains Mono", monospace';
+
+type ScoreChip =
+  | { kind: 'thumbs'; up: boolean; source: 'feedback' | 'annotation' | 'eval' | 'api' }
+  | { kind: 'value'; name: string; value: string; source: 'feedback' | 'annotation' | 'eval' | 'api' };
 
 type Row = {
   depth: number;
@@ -27,6 +32,7 @@ type Row = {
   selected?: boolean;
   err?: string;
   collapse?: boolean;
+  scores?: ScoreChip[];
 };
 
 const TREE: Row[] = [
@@ -34,7 +40,13 @@ const TREE: Row[] = [
   { depth: 1, icon: Bot, type: 'agent', color: '#2563eb', name: 'rag-qa', dur: 3180, pct: 98, ok: true, collapse: true },
   { depth: 2, icon: Database, type: 'retriever', color: '#059669', name: 'product-kb', dur: 612, pct: 19, ok: true },
   { depth: 2, icon: Cpu, type: 'embedding', color: '#0891b2', name: 'bge-m3', dur: 88, pct: 3, ok: true, tok: 24 },
-  { depth: 2, icon: Sparkles, type: 'generation', color: '#7c3aed', name: 'qwen-max', dur: 2380, pct: 73, ok: true, tok: 1842, selected: true },
+  {
+    depth: 2, icon: Sparkles, type: 'generation', color: '#7c3aed', name: 'qwen-max', dur: 2380, pct: 73, ok: true, tok: 1842, selected: true,
+    scores: [
+      { kind: 'thumbs', up: true, source: 'feedback' },
+      { kind: 'value', name: 'relevance', value: '0.92', source: 'eval' },
+    ],
+  },
   { depth: 2, icon: CircleDashed, type: 'span', color: '#78716c', name: 'post-process', dur: 96, pct: 3, ok: false, err: 'JSON parse failed' },
 ];
 
@@ -43,6 +55,14 @@ const SPANS = [
   { name: 'llm.stream', ms: 2304, status: 'ok' },
   { name: 'usage.collect', ms: 6, status: 'ok' },
 ];
+
+// ScoreBadge 按 source 配色（border 实色）
+const SCORE_SOURCE: Record<ScoreChip['source'], { bg: string; fg: string; border: string }> = {
+  feedback: { bg: '#ecfdf5', fg: '#047857', border: '#a7f3d0' }, // emerald-50/700/200
+  annotation: { bg: '#fffbeb', fg: '#b45309', border: '#fde68a' }, // amber-50/700/200
+  eval: { bg: '#f5f3ff', fg: '#6d28d9', border: '#ddd6fe' }, // violet-50/700/200
+  api: { bg: '#eff6ff', fg: '#1d4ed8', border: '#bfdbfe' }, // blue-50/700/200
+};
 
 export default function TraceDetailTreeGantt() {
   return (
@@ -99,9 +119,14 @@ export default function TraceDetailTreeGantt() {
                   {r.depth > 0 && (
                     <span style={{ position: 'absolute', top: 0, bottom: 0, left: (r.depth - 1) * 14 + 10, borderLeft: '1px solid rgba(231,229,224,0.8)' }} />
                   )}
-                  <span style={{ width: 12, flexShrink: 0, color: '#a8a29e', display: 'flex' }}>
-                    {r.collapse ? <ChevronDown size={12} strokeWidth={2} /> : null}
-                  </span>
+                  {/* 折叠：hasChildren → chevron 按钮 -mr-1 p-0.5（h-3 w-3=12）；叶子 → -mr-1 w-4(16) 占位 */}
+                  {r.collapse ? (
+                    <span style={{ marginRight: -4, flexShrink: 0, borderRadius: 4, padding: 2, color: '#a8a29e', display: 'flex' }}>
+                      <ChevronDown size={12} strokeWidth={2} />
+                    </span>
+                  ) : (
+                    <span style={{ marginRight: -4, width: 16, flexShrink: 0 }} />
+                  )}
                   <r.icon size={14} strokeWidth={2} color={r.ok ? r.color : '#f43f5e'} style={{ flexShrink: 0 }} />
                   <span style={{ width: 64, flexShrink: 0, fontWeight: 500, color: r.ok ? r.color : '#f43f5e' }}>{r.type}</span>
                   <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: '#292524' }}>
@@ -113,23 +138,45 @@ export default function TraceDetailTreeGantt() {
                       </span>
                     )}
                   </span>
-                  {r.tok != null && (
-                    <span style={{ flexShrink: 0, borderRadius: 4, border: '1px solid #e7e5e0', padding: '0 4px', fontSize: 10, color: '#78716c' }}>{r.tok} tok</span>
-                  )}
-                  <div style={{ display: 'flex', width: 78, flexShrink: 0, alignItems: 'center', gap: 6 }}>
-                    <div style={{ height: 4, flex: 1, borderRadius: 2, background: '#f4f3ee', overflow: 'hidden' }}>
-                      <div style={{ height: 4, width: `${Math.max(2, r.pct)}%`, background: r.ok ? '#60a5fa' : '#fb7185' }} />
+                  {/* scores 徽章（feedback/annotation/eval/api 各配色） */}
+                  {r.scores && r.scores.length > 0 && (
+                    <div style={{ display: 'flex', flexShrink: 0, alignItems: 'center', gap: 2 }}>
+                      {r.scores.map((s, si) => {
+                        const c = SCORE_SOURCE[s.source];
+                        if (s.kind === 'thumbs') {
+                          return (
+                            <span key={si} style={{ display: 'inline-flex', alignItems: 'center', borderRadius: 4, border: `1px solid ${c.border}`, background: c.bg, color: c.fg, padding: '2px 4px' }}>
+                              <ThumbsUp size={12} strokeWidth={2} />
+                            </span>
+                          );
+                        }
+                        return (
+                          <span key={si} style={{ display: 'inline-flex', alignItems: 'center', gap: 2, borderRadius: 4, border: `1px solid ${c.border}`, background: c.bg, color: c.fg, padding: '2px 4px', fontSize: 10 }}>
+                            <span style={{ fontWeight: 500 }}>{s.name}</span>
+                            <span style={{ fontVariantNumeric: 'tabular-nums' }}>{s.value}</span>
+                          </span>
+                        );
+                      })}
                     </div>
-                    <span style={{ width: 40, textAlign: 'right', fontSize: 10.5, color: '#78716c' }}>{r.dur}ms</span>
+                  )}
+                  {/* token Badge：variant=outline = rounded-md(6) border-stone-300(#d6d3d1) text-stone-700(#44403c) px-2 py-0.5 font-mono text-[10px] */}
+                  {r.tok != null && (
+                    <span style={{ flexShrink: 0, display: 'inline-flex', alignItems: 'center', borderRadius: 6, border: '1px solid #d6d3d1', padding: '2px 8px', fontFamily: MONO, fontSize: 10, fontWeight: 500, color: '#44403c' }}>{r.tok} tok</span>
+                  )}
+                  {/* duration 块 w-32(128) + 数字 w-12(48) */}
+                  <div style={{ display: 'flex', width: 128, flexShrink: 0, alignItems: 'center', gap: 6 }}>
+                    <div style={{ height: 4, flex: 1, borderRadius: 9999, background: '#f5f5f4', overflow: 'hidden' }}>
+                      <div style={{ height: '100%', width: `${Math.max(2, r.pct)}%`, background: r.ok ? '#60a5fa' : '#fb7185' }} />
+                    </div>
+                    <span style={{ width: 48, textAlign: 'right', fontSize: 10.5, color: '#78716c', fontVariantNumeric: 'tabular-nums' }}>{r.dur}ms</span>
                   </div>
                 </div>
               ))}
             </div>
           </Card>
 
-          {/* node detail */}
+          {/* node detail —— SectionCard 内直接是 type 徽标行（无标题） */}
           <Card>
-            <div style={{ marginBottom: 8, fontSize: 11.5, fontWeight: 500, color: '#44403c' }}>节点详情</div>
             {/* badge row */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6, fontSize: 11.5 }}>
               <Bot size={14} strokeWidth={2} color="#78716c" />
@@ -174,15 +221,16 @@ export default function TraceDetailTreeGantt() {
   );
 }
 
+/** SectionCard !p-3：rounded-xl(16) border-stone-200/40 bg-paper shadow-soft p-3(12) */
 function Card({ children }: { children: React.ReactNode }) {
   return (
     <div
       style={{
-        borderRadius: 12,
-        border: '1px solid rgba(231,229,224,0.7)',
-        background: '#fff',
+        borderRadius: 16,
+        border: '1px solid rgba(231,229,224,0.4)',
+        background: '#fffefb',
         padding: 12,
-        boxShadow: '0 1px 3px rgb(0 0 0/5%), 0 2px 8px rgb(0 0 0/3%)',
+        boxShadow: '0 1px 2px rgb(0 0 0/4%), 0 4px 12px rgb(0 0 0/3%)',
       }}
     >
       {children}

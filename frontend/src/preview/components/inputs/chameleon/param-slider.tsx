@@ -19,7 +19,7 @@ export default function ParamSlider() {
             gap: 22,
             padding: 20,
             background: '#fff',
-            border: '1px solid #e7e5e0',
+            border: '1px solid #e7e5e4',
             borderRadius: 12,
             boxShadow: '0 1px 3px rgb(0 0 0/0.05), 0 2px 8px rgb(0 0 0/0.03)',
           }}
@@ -86,7 +86,7 @@ function Slider({
         <span>{minLabel ?? min}</span>
         <span>{maxLabel ?? max}</span>
       </div>
-      {hint && <p style={{ margin: 0, fontSize: 10.5, lineHeight: 1.4, color: '#78716c' }}>{hint}</p>}
+      {hint && <p style={{ margin: 0, fontSize: 10.5, lineHeight: 1.375, color: '#78716c' }}>{hint}</p>}
     </div>
   );
 }

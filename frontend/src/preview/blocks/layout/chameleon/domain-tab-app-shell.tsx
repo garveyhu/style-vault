@@ -69,17 +69,25 @@ export default function DomainTabAppShell() {
             padding: '0 16px',
           }}
         >
-          {/* 品牌 */}
+          {/* 品牌 link：gap-2.5(10) ——  img /logo-sm.png h-7 w-7(28) object-contain + 文字 */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {/* logo 图片占位（源码为 28px object-contain img，无渐变）—— 中性 mark 占位 */}
             <div
               style={{
                 height: 28,
                 width: 28,
+                flexShrink: 0,
                 borderRadius: 8,
-                background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+                background: '#f4f3ee', // --color-warm-2 中性占位（不编造渐变）
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
-            />
-            <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: '-0.01em', color: '#292524' }}>
+            >
+              <span style={{ fontSize: 14, fontWeight: 700, letterSpacing: '-0.04em', color: '#44403c' }}>C</span>
+            </div>
+            {/* text-[15px] font-semibold tracking-tight(-0.025em) text-stone-800 */}
+            <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: '-0.025em', color: '#292524' }}>
               Chameleon
             </span>
           </div>

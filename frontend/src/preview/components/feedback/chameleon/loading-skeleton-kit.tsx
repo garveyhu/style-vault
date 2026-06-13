@@ -23,7 +23,7 @@ function SkeletonText({ lines = 3, lineHeight = 10, gap = 8, lastLineWidth = 0.6
 
 function SkeletonCard({ avatar = false, lines = 3 }: { avatar?: boolean; lines?: number }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, borderRadius: 8, border: '1px solid rgba(231,229,224,0.6)', background: '#fffefb', padding: 16 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, borderRadius: 8, border: '1px solid rgba(231,229,228,0.6)', background: '#fffefb', padding: 16 }}>
       {avatar && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <Skeleton width={36} height={36} radius={9999} />
@@ -51,7 +51,7 @@ function ImageGenLoading({ hint }: { hint?: string }) {
         justifyContent: 'center',
         gap: 10,
         borderRadius: 12,
-        border: '1px solid #e7e5e0',
+        border: '1px solid #e7e5e4',
       }}
     >
       <div style={{ position: 'relative' }}>
@@ -68,7 +68,7 @@ function ImageGenLoading({ hint }: { hint?: string }) {
             justifyContent: 'center',
             borderRadius: 9999,
             background: '#fff',
-            boxShadow: '0 1px 2px rgb(0 0 0 / 8%)',
+            boxShadow: '0 1px 2px 0 rgb(0 0 0 / 5%)',
           }}
         >
           <Loader2 size={14} style={{ color: '#8b5cf6', animation: 'sk-spin 1s linear infinite' }} strokeWidth={2} />

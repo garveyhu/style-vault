@@ -1,7 +1,7 @@
 import { PreviewFrame } from '../../../_layout';
 
 const VARIANTS = [
-  { name: 'default', bg: '#f5f4ee', color: '#44403c', border: 'transparent' },
+  { name: 'default', bg: '#f5f5f4', color: '#44403c', border: 'transparent' },
   { name: 'primary', bg: '#dbeafe', color: '#1e40af', border: 'transparent' },
   { name: 'success', bg: '#d1fae5', color: '#065f46', border: 'transparent' },
   { name: 'warning', bg: '#fef3c7', color: '#92400e', border: 'transparent' },

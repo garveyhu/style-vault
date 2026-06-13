@@ -259,9 +259,10 @@ export default function KbChunking3PanePreview() {
                       <button
                         key={m}
                         style={{
+                          // 选中：border-amber-400 #fbbf24 / bg-amber-50/60 rgba(255,251,235,0.6) / text-amber-800 #92400e
                           borderRadius: 6,
                           border: `1px solid ${i === 0 ? '#fbbf24' : '#e7e5e0'}`,
-                          background: i === 0 ? 'rgba(254,243,199,0.6)' : '#fff',
+                          background: i === 0 ? 'rgba(255,251,235,0.6)' : '#fff',
                           color: i === 0 ? '#92400e' : '#57534e',
                           padding: '6px 8px',
                           fontSize: 11.5,
@@ -325,25 +326,29 @@ export default function KbChunking3PanePreview() {
                         }}
                       >
                         {r.label}
+                        {/* Switch: h-5 w-9(20×36) border-2 transparent, checked bg-primary-600 #2563eb,
+                            thumb h-4 w-4(16) bg-white shadow-soft, checked translate-x-4(16) */}
                         <span
                           style={{
                             display: 'inline-flex',
                             alignItems: 'center',
-                            width: 32,
-                            height: 18,
+                            width: 36,
+                            height: 20,
                             borderRadius: 9999,
-                            background: r.on ? '#10b981' : '#d6d3d1',
-                            padding: 2,
+                            border: '2px solid transparent',
+                            background: r.on ? '#2563eb' : '#d6d3d1',
+                            backgroundClip: 'padding-box',
+                            boxSizing: 'border-box',
                           }}
                         >
                           <span
                             style={{
-                              width: 14,
-                              height: 14,
+                              width: 16,
+                              height: 16,
                               borderRadius: '50%',
                               background: '#fff',
-                              transform: r.on ? 'translateX(14px)' : 'translateX(0)',
-                              boxShadow: '0 1px 2px rgb(0 0 0 / 10%)',
+                              transform: r.on ? 'translateX(16px)' : 'translateX(0)',
+                              boxShadow: '0 1px 2px rgb(0 0 0 / 4%), 0 4px 12px rgb(0 0 0 / 3%)',
                             }}
                           />
                         </span>

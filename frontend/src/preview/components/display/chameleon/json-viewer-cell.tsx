@@ -26,7 +26,7 @@ export default function JsonViewerCell() {
                     <button style={{ ...cellBtn, display: 'inline-flex', alignItems: 'center', gap: 2 }}>
                       <ChevronDown size={12} /> 收起
                     </button>
-                    <pre style={{ marginTop: 4, maxHeight: 256, overflow: 'auto', borderRadius: 6, background: '#fafaf7', padding: 8, fontFamily: 'monospace', fontSize: 11, lineHeight: 1.65, color: '#44403c', margin: '4px 0 0' }}>
+                    <pre style={{ marginTop: 4, maxHeight: 256, overflow: 'auto', borderRadius: 6, background: '#fafaf9', padding: 8, fontFamily: 'monospace', fontSize: 11, lineHeight: 1.625, color: '#44403c', margin: '4px 0 0' }}>
 {`{
   "model": "qwen-max",
   "temperature": 0.7,
@@ -47,7 +47,7 @@ export default function JsonViewerCell() {
         <Section title="JsonViewer · 零依赖树 + 搜索 + 类型着色">
           <div style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', borderRadius: 6, border: '1px solid #e7e5e0', background: '#fff' }}>
             {/* 搜索条 */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #e7e5e0', background: 'rgba(245,245,244,0.6)', padding: '6px 8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #e7e5e0', background: 'rgba(250,250,249,0.6)', padding: '6px 8px' }}>
               <Search size={14} color="#a8a29e" />
               <input
                 readOnly
@@ -59,8 +59,8 @@ export default function JsonViewerCell() {
               </button>
             </div>
             {/* 内容树 */}
-            <div style={{ overflow: 'auto', padding: 8, fontFamily: 'monospace', fontSize: 12, lineHeight: 1.4, maxHeight: 320 }}>
-              <Brace depth={0} chevron="down" text="{" />
+            <div style={{ overflow: 'auto', padding: 8, fontFamily: 'monospace', fontSize: 12, lineHeight: 1.375, maxHeight: 320 }}>
+              <Brace depth={0} chevron="down" text="{" copyShown />
               <KeyLine depth={1} k="model" highlight="model">
                 <span style={{ color: '#047857' }}>"qwen-max"</span>
               </KeyLine>
@@ -117,7 +117,27 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function Brace({ depth, chevron, text, suffix }: { depth: number; chevron: 'down' | 'right'; text: string; suffix?: React.ReactNode }) {
+function NodeCopyBtn({ shown }: { shown?: boolean }) {
+  return (
+    <button
+      style={{
+        marginLeft: 8,
+        display: shown ? 'inline-flex' : 'none',
+        alignItems: 'center',
+        borderRadius: 4,
+        padding: 2,
+        color: '#a8a29e',
+        background: shown ? '#f5f5f4' : 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+      }}
+    >
+      <Copy size={12} />
+    </button>
+  );
+}
+
+function Brace({ depth, chevron, text, suffix, copyShown }: { depth: number; chevron: 'down' | 'right'; text: string; suffix?: React.ReactNode; copyShown?: boolean }) {
   return (
     <div style={{ display: 'flex', alignItems: 'flex-start', paddingLeft: depth * 12 }}>
       <span style={{ marginRight: 4, color: '#a8a29e', display: 'inline-flex' }}>
@@ -125,6 +145,7 @@ function Brace({ depth, chevron, text, suffix }: { depth: number; chevron: 'down
       </span>
       <span style={{ color: '#78716c' }}>{text}</span>
       {suffix}
+      <NodeCopyBtn shown={copyShown} />
     </div>
   );
 }

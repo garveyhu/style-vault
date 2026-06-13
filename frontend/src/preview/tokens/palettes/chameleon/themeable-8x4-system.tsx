@@ -1,15 +1,26 @@
 import { PreviewFrame } from '../../../_layout';
 import { Check } from 'lucide-react';
 
-const PRIMARY = [
-  { name: 'blue', c50: '#eff6ff', c500: '#3b82f6', c600: '#2563eb', c700: '#1d4ed8', def: true },
-  { name: 'purple', c50: '#faf5ff', c500: '#a855f7', c600: '#9333ea', c700: '#7e22ce' },
-  { name: 'green', c50: '#ecfdf5', c500: '#10b981', c600: '#059669', c700: '#047857' },
-  { name: 'orange', c50: '#fff7ed', c500: '#f97316', c600: '#ea580c', c700: '#c2410c' },
-  { name: 'rose', c50: '#fff1f2', c500: '#f43f5e', c600: '#e11d48', c700: '#be123c' },
-  { name: 'cyan', c50: '#ecfeff', c500: '#06b6d4', c600: '#0891b2', c700: '#0e7490' },
-  { name: 'amber', c50: '#fffbeb', c500: '#f59e0b', c600: '#d97706', c700: '#b45309' },
-  { name: 'teal', c50: '#f0fdfa', c500: '#14b8a6', c600: '#0d9488', c700: '#0f766e' },
+// 每个 primary 完整 10 阶 50..900（index.css blue / theme.css 其余 7 色）
+const PRIMARY: { name: string; def?: boolean; ramp: string[] }[] = [
+  { name: 'blue', def: true, ramp: ['#eff6ff', '#dbeafe', '#bfdbfe', '#93c5fd', '#60a5fa', '#3b82f6', '#2563eb', '#1d4ed8', '#1e40af', '#1e3a8a'] },
+  { name: 'purple', ramp: ['#faf5ff', '#f3e8ff', '#e9d5ff', '#d8b4fe', '#c084fc', '#a855f7', '#9333ea', '#7e22ce', '#6b21a8', '#581c87'] },
+  { name: 'green', ramp: ['#ecfdf5', '#d1fae5', '#a7f3d0', '#6ee7b7', '#34d399', '#10b981', '#059669', '#047857', '#065f46', '#064e3b'] },
+  { name: 'orange', ramp: ['#fff7ed', '#ffedd5', '#fed7aa', '#fdba74', '#fb923c', '#f97316', '#ea580c', '#c2410c', '#9a3412', '#7c2d12'] },
+  { name: 'rose', ramp: ['#fff1f2', '#ffe4e6', '#fecdd3', '#fda4af', '#fb7185', '#f43f5e', '#e11d48', '#be123c', '#9f1239', '#881337'] },
+  { name: 'cyan', ramp: ['#ecfeff', '#cffafe', '#a5f3fc', '#67e8f9', '#22d3ee', '#06b6d4', '#0891b2', '#0e7490', '#155e75', '#164e63'] },
+  { name: 'amber', ramp: ['#fffbeb', '#fef3c7', '#fde68a', '#fcd34d', '#fbbf24', '#f59e0b', '#d97706', '#b45309', '#92400e', '#78350f'] },
+  { name: 'teal', ramp: ['#f0fdfa', '#ccfbf1', '#99f6e4', '#5eead4', '#2dd4bf', '#14b8a6', '#0d9488', '#0f766e', '#115e59', '#134e4a'] },
+];
+
+const STAGES = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
+
+// blue 默认 @theme 的语义角色 —— 100 focus ring/选中底 / 500 focus border / 700 hover / 600 CTA·链接·active
+const PRIMARY_ROLES = [
+  { stage: '100', hex: '#dbeafe', role: 'focus ring / 选中底' },
+  { stage: '500', hex: '#3b82f6', role: 'focus border' },
+  { stage: '600', hex: '#2563eb', role: 'CTA / 链接 / active' },
+  { stage: '700', hex: '#1d4ed8', role: 'hover' },
 ];
 
 const NEUTRAL = [
@@ -17,6 +28,13 @@ const NEUTRAL = [
   { name: 'slate', warm: '#f8fafc', warm2: '#f1f5f9', paper: '#ffffff', ink: '#0f172a' },
   { name: 'zinc', warm: '#fafafa', warm2: '#f4f4f5', paper: '#ffffff', ink: '#18181b' },
   { name: 'gray', warm: '#f9fafb', warm2: '#f3f4f6', paper: '#ffffff', ink: '#111827' },
+];
+
+// :root[data-anim] 三档 + reduced-motion
+const ANIM = [
+  { name: 'disabled', dur: '0ms', note: 'transition / animation 全 0ms !important' },
+  { name: 'agile', dur: '80ms', note: '默认 80ms · hover/focus 100ms !important' },
+  { name: 'smooth', dur: '默认', note: '不覆盖（CSS 原生时长）', def: true },
 ];
 
 const SEMANTIC = [
@@ -44,12 +62,12 @@ export default function Themeable8x4System() {
           Themeable 8×4 System
         </h1>
         <p style={{ color: '#57534e', fontSize: 13, marginBottom: 28 }}>
-          运行时 data-attribute 切换 · 8 primary × 4 neutral · 默认 = 暖纸墨蓝 (blue + stone)
+          运行时 data-attribute 切换 · 8 primary × 4 neutral × 3 anim · 默认 = 暖纸墨蓝 (blue + stone)
         </p>
 
-        {/* 8 primary 调色板 */}
-        <Section title="8 primary 调色板 · :root[data-primary]（锚 50 / 500 / 600 / 700）">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: 10, width: '100%' }}>
+        {/* 8 primary 调色板 —— 每板满 50..900 十色阶色带 */}
+        <Section title="8 primary 调色板 · :root[data-primary]（全 10 阶 50..900）">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 10, width: '100%' }}>
             {PRIMARY.map(p => (
               <div key={p.name} style={{
                 borderRadius: 12, border: '1px solid #e7e5e0', background: '#fffefb', padding: 12,
@@ -66,22 +84,59 @@ export default function Themeable8x4System() {
                     </span>
                   )}
                 </div>
-                <div style={{ display: 'flex', gap: 4 }}>
-                  {[p.c50, p.c500, p.c600, p.c700].map((c, i) => (
-                    <div key={i} style={{ flex: 1, height: 28, borderRadius: 6, background: c, border: '1px solid rgb(0 0 0 / 8%)' }} />
+                {/* 10 阶色带 */}
+                <div style={{ display: 'flex', gap: 2 }}>
+                  {p.ramp.map((c, i) => (
+                    <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                      <div style={{ height: 26, borderRadius: 4, background: c, border: '1px solid rgb(0 0 0 / 8%)' }} />
+                      <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 7.5, textAlign: 'center', color: i < 5 ? '#a8a29e' : '#78716c' }}>{STAGES[i]}</div>
+                    </div>
                   ))}
                 </div>
-                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 9.5, color: '#78716c', marginTop: 5, fontVariantNumeric: 'tabular-nums' }}>
-                  600 {p.c600}
-                </div>
+                {p.def && (
+                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 9, color: '#78716c', marginTop: 5 }}>
+                    600 {p.ramp[6]} · 700 {p.ramp[7]}
+                  </div>
+                )}
               </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* primary 交互态语义角色（blue 默认） */}
+        <Section title="primary 交互态语义角色 · @theme blue 默认">
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            {/* focus ring/选中底 100 */}
+            <RoleCard stage="100" hex="#dbeafe" role="focus ring / 选中底">
+              <span style={{ borderRadius: 6, background: '#dbeafe', padding: '6px 12px', fontSize: 12, color: '#1d4ed8', boxShadow: '0 0 0 3px #dbeafe' }}>选中项</span>
+            </RoleCard>
+            {/* focus border 500 */}
+            <RoleCard stage="500" hex="#3b82f6" role="focus border">
+              <span style={{ borderRadius: 6, border: '1px solid #3b82f6', background: '#fff', padding: '6px 12px', fontSize: 12, color: '#44403c', boxShadow: 'inset 0 0 0 1px rgb(59 130 246 / 0.35)' }}>聚焦输入</span>
+            </RoleCard>
+            {/* CTA/链接/active 600 */}
+            <RoleCard stage="600" hex="#2563eb" role="CTA / 链接 / active">
+              <span style={{ borderRadius: 6, background: '#2563eb', padding: '6px 12px', fontSize: 12, fontWeight: 500, color: '#fff' }}>主按钮</span>
+            </RoleCard>
+            {/* hover 700 */}
+            <RoleCard stage="700" hex="#1d4ed8" role="hover">
+              <span style={{ borderRadius: 6, background: '#1d4ed8', padding: '6px 12px', fontSize: 12, fontWeight: 500, color: '#fff' }}>悬停态</span>
+            </RoleCard>
+          </div>
+          {/* 角色清单 */}
+          <div style={{ marginTop: 4, display: 'flex', gap: 6, flexWrap: 'wrap', width: '100%' }}>
+            {PRIMARY_ROLES.map(r => (
+              <span key={r.stage} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, borderRadius: 999, border: '1px solid #e7e5e0', background: '#fffefb', padding: '3px 8px', fontFamily: 'JetBrains Mono, monospace', fontSize: 9.5, color: '#78716c' }}>
+                <span style={{ width: 10, height: 10, borderRadius: '50%', background: r.hex, border: '1px solid rgb(0 0 0 / 8%)' }} />
+                {r.stage} → {r.role}
+              </span>
             ))}
           </div>
         </Section>
 
         {/* 4 neutral 基底 —— 模拟一张卡浮在页面底上 */}
         <Section title="4 neutral 基底 · :root[data-neutral]（warm / warm-2 / paper / ink）">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(190px, 1fr))', gap: 10, width: '100%' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 10, width: '100%' }}>
             {NEUTRAL.map(n => (
               <div key={n.name} style={{
                 borderRadius: 12, border: '1px solid #e7e5e0', overflow: 'hidden',
@@ -100,20 +155,45 @@ export default function Themeable8x4System() {
                       </span>
                     )}
                   </div>
-                  {/* 卡片 paper 浮在 warm 上 */}
+                  {/* 卡片 paper 浮在 warm 上，warm-2 作描边 */}
                   <div style={{
                     background: n.paper, border: `1px solid ${n.warm2}`, borderRadius: 8, padding: '8px 10px',
                   }}>
                     <div style={{ fontSize: 12, fontWeight: 600, color: n.ink }}>卡片 paper</div>
-                    <div style={{ fontSize: 10.5, color: '#78716c', marginTop: 2 }}>warm &lt; paper 微对比</div>
+                    <div style={{ fontSize: 10.5, color: '#78716c', marginTop: 2 }}>warm &lt; warm-2 &lt; paper 微对比</div>
                   </div>
                 </div>
-                {/* hex 行 */}
-                <div style={{ background: n.warm2, padding: '6px 10px', fontFamily: 'JetBrains Mono, monospace', fontSize: 9, color: '#78716c' }}>
-                  {n.warm} · {n.paper} · {n.ink}
+                {/* hex 行 —— warm · warm-2 · paper · ink 四值 */}
+                <div style={{ background: n.warm2, padding: '6px 10px', fontFamily: 'JetBrains Mono, monospace', fontSize: 8.5, color: '#78716c', lineHeight: 1.5 }}>
+                  {n.warm} · {n.warm2}<br />{n.paper} · {n.ink}
                 </div>
               </div>
             ))}
+          </div>
+        </Section>
+
+        {/* anim 动效档位 + reduced-motion */}
+        <Section title="anim 动效档位 · :root[data-anim] 3 档（含 reduced-motion）">
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {ANIM.map(a => (
+              <div key={a.name} style={{
+                minWidth: 180, flex: '0 1 200px', borderRadius: 10, border: '1px solid #e7e5e0', background: '#fffefb', padding: 12,
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, fontWeight: 600, color: '#1c1917' }}>{a.name}</span>
+                  {a.def && (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 2, fontSize: 9.5, color: '#1d4ed8', background: '#eff6ff', borderRadius: 4, padding: '1px 5px' }}>
+                      <Check size={10} strokeWidth={2.5} /> 默认
+                    </span>
+                  )}
+                  <span style={{ marginLeft: 'auto', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, fontWeight: 600, color: '#2563eb' }}>{a.dur}</span>
+                </div>
+                <div style={{ fontSize: 10.5, color: '#78716c', marginTop: 4, lineHeight: 1.4 }}>{a.note}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 2, width: '100%', fontFamily: 'JetBrains Mono, monospace', fontSize: 10, color: '#a8a29e' }}>
+            reduced-motion → transition-duration 100ms !important
           </div>
         </Section>
 
@@ -146,6 +226,18 @@ export default function Themeable8x4System() {
         </Section>
       </div>
     </PreviewFrame>
+  );
+}
+
+function RoleCard({ stage, hex, role, children }: { stage: string; hex: string; role: string; children: React.ReactNode }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 6, minWidth: 130 }}>
+      <div style={{ display: 'flex', alignItems: 'center', minHeight: 40 }}>{children}</div>
+      <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 9.5, color: '#78716c' }}>
+        <span style={{ color: '#1c1917', fontWeight: 600 }}>{stage}</span> {hex}
+      </div>
+      <div style={{ fontSize: 10, color: '#a8a29e' }}>{role}</div>
+    </div>
   );
 }
 

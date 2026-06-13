@@ -64,18 +64,20 @@ export default function EvalSpreadsheetAirtable() {
   return (
     <PreviewFrame bg="#fafaf7" padded>
       <div style={{ fontFamily: FONT, display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {/* ColumnMenu 行：右对齐 */}
+        {/* ColumnMenu 行：右对齐 — Button size=sm variant=ghost text-stone-500 */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
           <button
             style={{
               display: 'inline-flex',
               alignItems: 'center',
-              height: 32,
-              padding: '0 8px',
+              gap: 6,
+              height: 28,
+              padding: '0 10px',
               background: 'transparent',
               border: 'none',
               borderRadius: 6,
-              fontSize: 12.5,
+              fontSize: 11.5,
+              fontWeight: 500,
               color: '#78716c',
               cursor: 'pointer',
             }}
@@ -86,7 +88,7 @@ export default function EvalSpreadsheetAirtable() {
               style={{
                 marginLeft: 4,
                 borderRadius: 4,
-                background: 'rgba(231,229,224,0.7)',
+                background: 'rgba(214,211,209,0.7)',
                 padding: '0 4px',
                 fontSize: 10,
                 color: '#78716c',
@@ -137,7 +139,9 @@ export default function EvalSpreadsheetAirtable() {
                 <tr
                   key={r.id}
                   style={{
-                    borderTop: idx === 0 ? 'none' : '1px solid #f1f0eb',
+                    // divide-y divide-stone-100 = #f5f5f4
+                    borderTop: idx === 0 ? 'none' : '1px solid #f5f5f4',
+                    // hover:bg-stone-50 = #fafaf9（演示第二行高亮态）
                     background: idx === 1 ? '#fafaf9' : 'transparent',
                   }}
                 >
@@ -218,7 +222,7 @@ export default function EvalSpreadsheetAirtable() {
                       </span>
                     )}
                   </td>
-                  {/* 元数据：JSON Popover 触发 */}
+                  {/* 元数据：JSON Popover 触发（font-mono 摘要） */}
                   <td style={td}>
                     <span
                       style={{
@@ -236,13 +240,15 @@ export default function EvalSpreadsheetAirtable() {
                       {r.meta ? r.meta.replace(/\s+/g, ' ') : '{ }'}
                     </span>
                   </td>
-                  {/* 备注 */}
+                  {/* 备注：NoteCell textarea（border-transparent bg-transparent，focus:border-blue-300） */}
                   <td style={td}>
-                    <input
+                    <textarea
                       defaultValue={r.note}
+                      rows={1}
                       placeholder="备注…"
                       style={{
                         width: '100%',
+                        resize: 'none',
                         borderRadius: 4,
                         border: '1px solid transparent',
                         background: 'transparent',
@@ -279,7 +285,29 @@ export default function EvalSpreadsheetAirtable() {
           </table>
         </div>
 
-        {/* JSON Popover 浮层（演示：附着在元数据列下方） */}
+        {/* +新增行 — Button size=sm variant=secondary（bg-stone-100 text-stone-900 无边框） */}
+        <button
+          style={{
+            alignSelf: 'flex-start',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 6,
+            height: 28,
+            padding: '0 10px',
+            background: '#f5f5f4',
+            border: 'none',
+            borderRadius: 6,
+            fontSize: 11.5,
+            fontWeight: 500,
+            color: '#1c1917',
+            cursor: 'pointer',
+          }}
+        >
+          <Plus size={14} style={{ marginRight: 4 }} />
+          新增行
+        </button>
+
+        {/* JSON Popover 浮层（演示：PopoverContent w-[28rem] 双视图查看态） */}
         <div
           style={{
             width: '28rem',
@@ -318,7 +346,7 @@ export default function EvalSpreadsheetAirtable() {
               maxHeight: '20rem',
               overflow: 'auto',
               borderRadius: 6,
-              background: '#f4f3ee',
+              background: '#f5f5f4',
               padding: 10,
               fontFamily: MONO,
               fontSize: 11.5,
@@ -337,27 +365,6 @@ export default function EvalSpreadsheetAirtable() {
             {'\n}'}
           </pre>
         </div>
-
-        {/* +新增行 */}
-        <button
-          style={{
-            alignSelf: 'flex-start',
-            display: 'inline-flex',
-            alignItems: 'center',
-            height: 32,
-            padding: '0 12px',
-            background: '#fff',
-            border: '1px solid #d6d3d1',
-            borderRadius: 6,
-            fontSize: 12.5,
-            fontWeight: 500,
-            color: '#44403c',
-            cursor: 'pointer',
-          }}
-        >
-          <Plus size={14} style={{ marginRight: 4 }} />
-          新增行
-        </button>
 
         {/* 视觉脚注：列菜单态预览 */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 11, color: '#a8a29e' }}>

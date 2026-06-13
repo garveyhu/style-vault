@@ -127,7 +127,8 @@ export default function TableToolbarRefreshLeading() {
                   <span style={{ flex: 1, textAlign: 'left', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {p}
                   </span>
-                  <ChevronDown size={12} color="#a8a29e" />
+                  {/* SelectTrigger 内置 ChevronDown：h-4 w-4(16px) opacity-50 */}
+                  <ChevronDown size={16} color="#a8a29e" style={{ opacity: 0.5, flexShrink: 0 }} />
                 </button>
               ))}
 
