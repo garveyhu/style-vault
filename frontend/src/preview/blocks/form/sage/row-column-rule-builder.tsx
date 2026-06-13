@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Card, ConfigProvider, Select, Tooltip } from 'antd';
 import {
-  CaretDownOutlined, CaretRightOutlined, DeleteOutlined,
+  CaretDownOutlined, DeleteOutlined,
   FolderAddOutlined, PlusOutlined,
   ClockCircleOutlined, CopyOutlined, UserOutlined,
 } from '@ant-design/icons';

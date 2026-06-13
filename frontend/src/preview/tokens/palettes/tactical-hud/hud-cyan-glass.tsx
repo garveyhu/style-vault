@@ -11,7 +11,6 @@ const MONO = "'JetBrains Mono', ui-monospace, Menlo, monospace";
 const BG_DEEP = 'radial-gradient(ellipse at center, #0a1228 0%, #040816 100%)';
 
 const HUD = '#38bdf8';
-const HUD_2 = '#22d3ee';
 
 const T1 = 'rgba(220,240,255,0.95)';
 const T2 = 'rgba(190,215,240,0.62)';

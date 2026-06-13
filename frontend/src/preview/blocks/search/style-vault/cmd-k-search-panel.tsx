@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { SearchOutlined, CloseOutlined } from '@ant-design/icons';
 import { PreviewFrame } from '../../../_layout';
 

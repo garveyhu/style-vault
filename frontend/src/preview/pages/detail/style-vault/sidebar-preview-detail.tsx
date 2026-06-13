@@ -3,7 +3,6 @@ import { PreviewFrame } from '../../../_layout';
 
 const SANS =
   "'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif";
-const MONO = "ui-monospace, 'SF Mono', Menlo, monospace";
 
 const TYPE_DOT: Record<string, string> = {
   product: '#a855f7',

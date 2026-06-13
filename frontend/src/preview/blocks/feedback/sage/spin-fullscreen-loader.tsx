@@ -106,7 +106,7 @@ function AntdSpin({ hex, size }: { hex: string; size: number }) {
   return (
     <span
       className="sv-antd-spin"
-      style={{ ['--sv-spin-size' as 'opacity']: `${size}px`, ['--sv-spin-color' as 'opacity']: hex } as React.CSSProperties}
+      style={{ ['--sv-spin-size' as 'opacity']: `${size}px`, ['--sv-spin-color' as 'color']: hex } as React.CSSProperties}
     >
       <i /><i /><i /><i />
     </span>

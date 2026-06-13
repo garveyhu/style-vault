@@ -204,10 +204,10 @@ export default function SpringToastPreview() {
             >
               {(
                 [
-                  { kind: 'success', text: 'Prompt 已复制' },
-                  { kind: 'info', text: '已切换到 iOS 视图' },
-                  { kind: 'error', text: '复制失败 · 请检查权限' },
-                ] as { kind: Kind; text: string }[]
+                  { kind: 'success', content: 'Prompt 已复制' },
+                  { kind: 'info', content: '已切换到 iOS 视图' },
+                  { kind: 'error', content: '复制失败 · 请检查权限' },
+                ] as { kind: Kind; content: string }[]
               ).map((s) => (
                 <Bubble key={s.kind} item={{ id: 0, ...s }} />
               ))}

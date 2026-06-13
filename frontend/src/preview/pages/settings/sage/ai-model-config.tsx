@@ -3,7 +3,7 @@ import { Button, ConfigProvider, Form, Input, Select, Tag, Typography } from 'an
 import {
   ArrowLeftOutlined, DeleteOutlined, EditOutlined, PlayCircleOutlined,
   PlusOutlined, SearchOutlined, StarFilled, StarOutlined, StopOutlined,
-  ThunderboltOutlined, UserOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 import { PreviewFrame } from '../../../_layout';
 

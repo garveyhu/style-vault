@@ -49,7 +49,8 @@ const polygon = (pts: Point[]): string => `polygon(${pts.map((p) => `${p.x.toFix
 class SceneBuilder {
   readonly nodes: SceneNode[] = [];
   readonly roomLabels: RoomLabel[] = [];
-  constructor(private readonly layout: Layout) {}
+  private readonly layout: Layout;
+  constructor(layout: Layout) { this.layout = layout; }
   private add(node: Omit<SceneNode, 'key'>): SceneNode {
     const full: SceneNode = { ...node, key: `n${this.nodes.length}` };
     this.nodes.push(full);
