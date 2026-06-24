@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-24T02:29:23.512Z",
+  "version": "2026-06-24T02:50:13.194Z",
   "items": [
     {
       "id": "blocks/canvas/chameleon/ai-copilot-panel",
@@ -3345,9 +3345,9 @@
         "styles/community-social/skillhub-soft-modernist",
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
+        "pages/dashboard/skillhub/admin-overview",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/dashboard/skillhub/admin-overview",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
@@ -3799,8 +3799,8 @@
       "usedBy": [
         "blocks/display/acme/saas-data-table",
         "styles/saas-tool/cold-industrial-saas",
-        "pages/auth/acme/auth-cold-split",
         "pages/dashboard/acme/saas-monitor-overview",
+        "pages/auth/acme/auth-cold-split",
         "pages/list-table/acme/saas-incident-list",
         "pages/pricing/acme/saas-cold-pricing"
       ],
@@ -4174,10 +4174,10 @@
       ],
       "preview": "/preview/components/buttons/waveflow/cva-engineer-button",
       "usedBy": [
+        "components/buttons/waveflow/dark-pill-arrow-cta",
         "blocks/feedback/waveflow/danger-confirm-modal",
         "blocks/form/waveflow/dialog-vertical-form",
         "blocks/form/waveflow/stepper-section-form",
-        "components/buttons/waveflow/dark-pill-arrow-cta",
         "styles/admin-console/waveflow-warm-engineer"
       ],
       "hasPreviewFile": true,
@@ -5345,17 +5345,17 @@
       ],
       "preview": "/preview/components/inputs/waveflow/blue-focus-input",
       "usedBy": [
+        "components/selects/chameleon/agent-picker-popover",
+        "components/selects/chameleon/model-picker-popover",
+        "components/selects/waveflow/multi-select-popover",
+        "components/inputs/chameleon/inline-edit-cell",
+        "components/inputs/chameleon/themeable-text-fields",
         "blocks/chat/chameleon/composer-attach-send",
         "blocks/display/chameleon/eval-spreadsheet-airtable",
         "blocks/filters/waveflow/table-toolbar-tri",
         "blocks/form/chameleon/json-schema-dynamic-form",
         "blocks/form/waveflow/cron-builder-modal",
         "blocks/form/waveflow/dialog-vertical-form",
-        "components/inputs/chameleon/inline-edit-cell",
-        "components/inputs/chameleon/themeable-text-fields",
-        "components/selects/chameleon/agent-picker-popover",
-        "components/selects/chameleon/model-picker-popover",
-        "components/selects/waveflow/multi-select-popover",
         "styles/admin-console/waveflow-warm-engineer"
       ],
       "hasPreviewFile": true,
@@ -5955,9 +5955,9 @@
       ],
       "preview": "/preview/components/typography-atoms/waveflow/kbd-key-cap",
       "usedBy": [
+        "blocks/nav/chameleon/cmdk-grouped-palette",
         "blocks/nav/waveflow/cmdk-search-modal",
         "blocks/nav/waveflow/topbar-search-ping",
-        "blocks/nav/chameleon/cmdk-grouped-palette",
         "styles/admin-console/waveflow-warm-engineer"
       ],
       "hasPreviewFile": true,
@@ -5991,8 +5991,8 @@
         "blocks/display/waveflow/canonical-table-shell",
         "blocks/display/waveflow/dashboard-kpi-six-row",
         "blocks/display/waveflow/data-table-leftbar-shimmer",
-        "blocks/nav/waveflow/tree-line-sidebar",
         "blocks/nav/chameleon/borderless-bookmark-rail",
+        "blocks/nav/waveflow/tree-line-sidebar",
         "styles/admin-console/waveflow-warm-engineer"
       ],
       "hasPreviewFile": true,
@@ -7158,8 +7158,8 @@
       "uses": [],
       "preview": "/preview/pages/empty-error/sage/crt-tv-404",
       "usedBy": [
-        "styles/admin-console/waveflow-warm-engineer",
-        "styles/saas-tool/sage-multitheme-data-platform"
+        "styles/saas-tool/sage-multitheme-data-platform",
+        "styles/admin-console/waveflow-warm-engineer"
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/empty-error/sage/crt-tv-404/README.md"
@@ -8255,10 +8255,10 @@
       "skillPath": "products/chameleon/README.md"
     },
     {
-      "id": "products/flywheel-inside",
+      "id": "products/media-studio",
       "type": "product",
-      "name": "飞轮的内部",
-      "description": "media-studio 制片流水线的可视化讲解站 —— 一页滚到底讲清「一句灵感→一条成片」，孟菲斯滚动叙事脸",
+      "name": "media-studio",
+      "description": "AI 制片工作台·可视化讲解站「飞轮的内部」—— 一页滚到底讲清「一句灵感→一条成片」，孟菲斯滚动叙事脸",
       "platforms": [
         "web"
       ],
@@ -8279,13 +8279,33 @@
         ]
       },
       "refs": {
-        "style": "styles/marketing-brand/memphis-scrolly-doc"
+        "style": "styles/marketing-brand/memphis-scrolly-doc",
+        "pages": [
+          "pages/landing/flywheel/scrolly-explainer-doc"
+        ],
+        "blocks": [
+          "blocks/layout/flywheel/numbered-section-shell",
+          "blocks/nav/flywheel/toc-scroll-rail",
+          "blocks/marketing/flywheel/scroll-pinned-spine",
+          "blocks/display/flywheel/layered-atlas-grid"
+        ],
+        "components": [
+          "components/display/flywheel/hard-shadow-card",
+          "components/typography-atoms/flywheel/kicker-collision-mark",
+          "components/indicators/flywheel/scroll-progress-bar"
+        ],
+        "tokens": [
+          "tokens/palettes/flywheel/memphis-collision",
+          "tokens/typography/pairs/flywheel/han-black-grotesk",
+          "tokens/shadow/flywheel/hard-offset-stack",
+          "tokens/motion/flywheel/reveal-pin-scroll"
+        ]
       },
-      "preview": "/preview/products/flywheel-inside",
+      "preview": "/preview/products/media-studio",
       "uses": [],
       "usedBy": [],
       "hasPreviewFile": true,
-      "skillPath": "products/flywheel-inside/README.md"
+      "skillPath": "products/media-studio/README.md"
     },
     {
       "id": "products/quiver",
@@ -9213,11 +9233,11 @@
       "uses": [],
       "preview": "/preview/tokens/border/waveflow/translucent-stone-system",
       "usedBy": [
+        "components/display/chameleon/recharts-time-series",
         "blocks/display/chameleon/responsive-overlay-data-table",
         "blocks/display/waveflow/data-table-leftbar-shimmer",
         "blocks/layout/chameleon/domain-tab-app-shell",
         "blocks/nav/chameleon/domain-tab-topbar-account",
-        "components/display/chameleon/recharts-time-series",
         "styles/admin-console/chameleon-ai-orchestration",
         "styles/admin-console/waveflow-warm-engineer"
       ],
@@ -9283,14 +9303,14 @@
       ],
       "preview": "/preview/tokens/iconography/waveflow/engineer-detail-classes",
       "usedBy": [
+        "components/display/chameleon/json-viewer-cell",
+        "components/display/chameleon/stat-tile-delta",
+        "components/indicators/waveflow/status-dot-ring",
+        "components/typography-atoms/waveflow/kbd-key-cap",
         "blocks/display/chameleon/responsive-overlay-data-table",
         "blocks/display/waveflow/canonical-table-shell",
         "blocks/display/waveflow/data-table-leftbar-shimmer",
         "blocks/nav/waveflow/tree-line-sidebar",
-        "components/indicators/waveflow/status-dot-ring",
-        "components/display/chameleon/json-viewer-cell",
-        "components/display/chameleon/stat-tile-delta",
-        "components/typography-atoms/waveflow/kbd-key-cap",
         "styles/admin-console/chameleon-ai-orchestration",
         "styles/admin-console/waveflow-warm-engineer"
       ],
@@ -9482,8 +9502,8 @@
       "preview": "/preview/tokens/motion/acme/instant-snap",
       "uses": [],
       "usedBy": [
-        "components/buttons/acme/cyan-cta",
         "components/indicators/acme/status-pulse",
+        "components/buttons/acme/cyan-cta",
         "styles/saas-tool/cold-industrial-saas"
       ],
       "hasPreviewFile": true,
@@ -9608,10 +9628,10 @@
       "preview": "/preview/tokens/motion/flywheel/reveal-pin-scroll",
       "uses": [],
       "usedBy": [
+        "components/indicators/flywheel/scroll-progress-bar",
         "blocks/layout/flywheel/numbered-section-shell",
         "blocks/marketing/flywheel/scroll-pinned-spine",
         "blocks/nav/flywheel/toc-scroll-rail",
-        "components/indicators/flywheel/scroll-progress-bar",
         "pages/landing/flywheel/scrolly-explainer-doc"
       ],
       "hasPreviewFile": true,
@@ -9642,9 +9662,9 @@
       "preview": "/preview/tokens/motion/quiver/pixel-steps",
       "uses": [],
       "usedBy": [
+        "components/avatars-icons/quiver/pixel-worker-sprite",
         "blocks/feedback/quiver/world-ambience",
         "blocks/layout/quiver/iso-office-world",
-        "components/avatars-icons/quiver/pixel-worker-sprite",
         "styles/experimental/quiver-night-studio"
       ],
       "hasPreviewFile": true,
@@ -9673,8 +9693,8 @@
       "uses": [],
       "preview": "/preview/tokens/motion/sage/animate-in-suite",
       "usedBy": [
-        "blocks/nav/sage/command-palette",
         "components/buttons/sage/stop-pulse-button",
+        "blocks/nav/sage/command-palette",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -9705,8 +9725,8 @@
       "uses": [],
       "preview": "/preview/tokens/motion/sage/styled-keyframes",
       "usedBy": [
-        "blocks/nav/sage/revolver-menu-fab",
         "components/indicators/sage/crystal-progress-bar",
+        "blocks/nav/sage/revolver-menu-fab",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -9737,11 +9757,11 @@
       "uses": [],
       "preview": "/preview/tokens/motion/skillhub/gentle-flow",
       "usedBy": [
+        "components/buttons/skillhub/border-trace-cta",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/skeleton-card",
         "blocks/marketing/skillhub/gradient-hero",
-        "components/buttons/skillhub/border-trace-cta",
         "styles/community-social/skillhub-soft-modernist",
         "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/landing/skillhub/skill-community-home"
@@ -9775,15 +9795,15 @@
       "preview": "/preview/tokens/motion/style-vault/editorial-flow",
       "uses": [],
       "usedBy": [
+        "components/buttons/style-vault/dark-pill-cta",
+        "components/buttons/style-vault/ghost-bordered-cta",
+        "components/toggles/style-vault/editorial-underline-tab",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
         "blocks/feedback/style-vault/full-screen-loader",
         "blocks/filters/style-vault/sticky-chip-filter-panel",
         "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/search/style-vault/cmd-k-search-panel",
-        "components/buttons/style-vault/dark-pill-cta",
-        "components/buttons/style-vault/ghost-bordered-cta",
-        "components/toggles/style-vault/editorial-underline-tab",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
@@ -9813,13 +9833,13 @@
       "uses": [],
       "preview": "/preview/tokens/motion/waveflow/keyframes-suite",
       "usedBy": [
+        "components/feedback/chameleon/loading-skeleton-kit",
         "blocks/display/chameleon/responsive-overlay-data-table",
         "blocks/feedback/chameleon/flair-glow-empty-state",
         "blocks/feedback/waveflow/top-progress-bar",
-        "components/feedback/chameleon/loading-skeleton-kit",
+        "styles/admin-console/waveflow-warm-engineer",
         "tokens/iconography/waveflow/engineer-detail-classes",
-        "tokens/texture/waveflow/login-floating-geom-quartet",
-        "styles/admin-console/waveflow-warm-engineer"
+        "tokens/texture/waveflow/login-floating-geom-quartet"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/waveflow/keyframes-suite.md"
@@ -9881,14 +9901,14 @@
       "preview": "/preview/tokens/palettes/acme/slate-cyan-ice",
       "uses": [],
       "usedBy": [
+        "components/indicators/acme/status-pulse",
+        "components/buttons/acme/cyan-cta",
+        "components/buttons/acme/ghost-button",
+        "components/inputs/acme/mono-input",
         "blocks/display/acme/saas-data-table",
         "blocks/display/acme/saas-metric-grid",
         "blocks/feedback/acme/saas-status-banner",
         "blocks/nav/acme/saas-cold-topbar",
-        "components/buttons/acme/cyan-cta",
-        "components/buttons/acme/ghost-button",
-        "components/inputs/acme/mono-input",
-        "components/indicators/acme/status-pulse",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
@@ -9923,6 +9943,7 @@
       ],
       "preview": "/preview/tokens/palettes/chameleon/node-type-hue-system",
       "usedBy": [
+        "components/inputs/chameleon/graph-config-field-kit",
         "blocks/canvas/chameleon/ai-copilot-panel",
         "blocks/canvas/chameleon/bezier-edge-add",
         "blocks/canvas/chameleon/canvas-controls-menus",
@@ -9930,7 +9951,6 @@
         "blocks/canvas/chameleon/graph-node-card",
         "blocks/canvas/chameleon/node-palette",
         "blocks/nav/chameleon/detail-left-tab-rail",
-        "components/inputs/chameleon/graph-config-field-kit",
         "styles/admin-console/chameleon-ai-orchestration",
         "pages/editor/chameleon/workflow-graph-editor"
       ],
@@ -9963,9 +9983,9 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/chameleon/themeable-8x4-system",
       "usedBy": [
+        "components/display/chameleon/stat-tile-delta",
         "components/buttons/chameleon/themeable-cva-button",
         "components/toggles/chameleon/sliding-thumb-segmented",
-        "components/display/chameleon/stat-tile-delta",
         "components/tags-badges/chameleon/cva-semantic-badge",
         "styles/admin-console/chameleon-ai-orchestration"
       ],
@@ -9998,13 +10018,13 @@
       "preview": "/preview/tokens/palettes/flywheel/memphis-collision",
       "uses": [],
       "usedBy": [
+        "components/display/flywheel/hard-shadow-card",
+        "components/indicators/flywheel/scroll-progress-bar",
+        "components/typography-atoms/flywheel/kicker-collision-mark",
         "blocks/display/flywheel/layered-atlas-grid",
         "blocks/layout/flywheel/numbered-section-shell",
         "blocks/marketing/flywheel/scroll-pinned-spine",
         "blocks/nav/flywheel/toc-scroll-rail",
-        "components/indicators/flywheel/scroll-progress-bar",
-        "components/display/flywheel/hard-shadow-card",
-        "components/typography-atoms/flywheel/kicker-collision-mark",
         "pages/landing/flywheel/scrolly-explainer-doc"
       ],
       "hasPreviewFile": true,
@@ -10036,8 +10056,8 @@
       "preview": "/preview/tokens/palettes/mission-ops/deep-space-amber",
       "uses": [],
       "usedBy": [
-        "blocks/display/mission-ops/coded-panel-header",
         "components/indicators/mission-ops/coded-kpi-card",
+        "blocks/display/mission-ops/coded-panel-header",
         "styles/admin-console/mission-ops-flight-deck",
         "pages/dashboard/mission-ops/realtime-deck"
       ],
@@ -10069,15 +10089,15 @@
       "preview": "/preview/tokens/palettes/quiver/night-studio",
       "uses": [],
       "usedBy": [
+        "components/avatars-icons/quiver/pixel-worker-sprite",
+        "components/indicators/quiver/autonomy-pill-badge",
+        "components/buttons/quiver/glass-chrome-button",
+        "components/buttons/quiver/lime-go-button",
         "blocks/display/quiver/glass-panel-modal",
         "blocks/feedback/quiver/world-ambience",
         "blocks/layout/quiver/iso-office-world",
         "blocks/nav/quiver/glass-topbar-hud",
         "blocks/search/quiver/command-palette",
-        "components/buttons/quiver/glass-chrome-button",
-        "components/buttons/quiver/lime-go-button",
-        "components/avatars-icons/quiver/pixel-worker-sprite",
-        "components/indicators/quiver/autonomy-pill-badge",
         "styles/experimental/quiver-night-studio"
       ],
       "hasPreviewFile": true,
@@ -10106,10 +10126,10 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/sage/neutral-rgb-ladder",
       "usedBy": [
+        "components/indicators/sage/hairline-scrollbar",
+        "components/buttons/sage/icon-circle-ghost",
         "blocks/nav/sage/sidebar-session-row",
         "blocks/nav/sage/themed-sidebar-shell",
-        "components/buttons/sage/icon-circle-ghost",
-        "components/indicators/sage/hairline-scrollbar",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -10139,8 +10159,14 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/sage/twelve-theme-spectrum",
       "usedBy": [
+        "components/avatars-icons/sage/themed-circle-avatar",
+        "components/indicators/sage/crystal-progress-bar",
+        "components/buttons/sage/stop-pulse-button",
+        "components/buttons/sage/theme-bg-cta",
+        "components/inputs/sage/glow-border-textarea",
         "blocks/display/sage/datasource-card",
         "blocks/feedback/sage/spin-fullscreen-loader",
+        "blocks/form/sage/chat-composer",
         "blocks/layout/sage/management-layout-header",
         "blocks/layout/sage/sidebar-detail-split",
         "blocks/nav/sage/command-palette",
@@ -10148,12 +10174,6 @@
         "blocks/nav/sage/sidebar-session-row",
         "blocks/nav/sage/space-switcher-dropdown",
         "blocks/nav/sage/themed-sidebar-shell",
-        "components/buttons/sage/stop-pulse-button",
-        "components/buttons/sage/theme-bg-cta",
-        "blocks/form/sage/chat-composer",
-        "components/inputs/sage/glow-border-textarea",
-        "components/avatars-icons/sage/themed-circle-avatar",
-        "components/indicators/sage/crystal-progress-bar",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -10184,28 +10204,28 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/skillhub/skillhub-teal-mist",
       "usedBy": [
+        "components/avatars-icons/skillhub/letter-avatar",
+        "components/indicators/skillhub/pulse-dot",
+        "components/buttons/skillhub/border-trace-cta",
+        "components/buttons/skillhub/dark-primary-cta",
+        "components/inputs/skillhub/soft-form-input",
+        "components/tags-badges/skillhub/teal-pill",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/leaderboard-row",
         "blocks/display/skillhub/skill-card",
         "blocks/feedback/skillhub/empty-state",
         "blocks/feedback/skillhub/skeleton-card",
-        "blocks/marketing/skillhub/gradient-hero",
-        "blocks/nav/skillhub/glass-pill-navbar",
-        "components/buttons/skillhub/border-trace-cta",
-        "components/buttons/skillhub/dark-primary-cta",
         "blocks/form/skillhub/auth-split-form",
         "blocks/form/skillhub/profile-edit-form",
-        "components/inputs/skillhub/soft-form-input",
-        "components/avatars-icons/skillhub/letter-avatar",
-        "components/indicators/skillhub/pulse-dot",
-        "components/tags-badges/skillhub/teal-pill",
+        "blocks/marketing/skillhub/gradient-hero",
+        "blocks/nav/skillhub/glass-pill-navbar",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/auth/skillhub/auth-split",
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
+        "pages/dashboard/skillhub/admin-overview",
         "pages/detail/skillhub/skill-article-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/dashboard/skillhub/admin-overview",
+        "pages/auth/skillhub/auth-split",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
         "pages/landing/skillhub/skill-community-home",
@@ -10242,6 +10262,11 @@
       "preview": "/preview/tokens/palettes/style-vault/slate-cyan-cool",
       "uses": [],
       "usedBy": [
+        "components/buttons/style-vault/dark-pill-cta",
+        "components/buttons/style-vault/ghost-bordered-cta",
+        "components/toggles/style-vault/editorial-underline-tab",
+        "components/overlays/style-vault/spring-toast",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
         "blocks/feedback/style-vault/full-screen-loader",
@@ -10250,11 +10275,6 @@
         "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/nav/style-vault/sticky-platform-topbar",
         "blocks/search/style-vault/cmd-k-search-panel",
-        "components/buttons/style-vault/dark-pill-cta",
-        "components/buttons/style-vault/ghost-bordered-cta",
-        "components/toggles/style-vault/editorial-underline-tab",
-        "components/tags-badges/style-vault/cyan-dot-meta-pill",
-        "components/overlays/style-vault/spring-toast",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
@@ -10286,8 +10306,8 @@
       "preview": "/preview/tokens/palettes/tactical-hud/hud-cyan-glass",
       "uses": [],
       "usedBy": [
-        "blocks/display/tactical-hud/radar-sweep-panel",
         "components/indicators/tactical-hud/arc-ring-kpi",
+        "blocks/display/tactical-hud/radar-sweep-panel",
         "styles/admin-console/tactical-hud-jarvis",
         "pages/dashboard/tactical-hud/realtime-deck"
       ],
@@ -10319,6 +10339,18 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/waveflow/warm-paper-ink-blue",
       "usedBy": [
+        "components/display/chameleon/distribution-score-bars",
+        "components/display/chameleon/json-viewer-cell",
+        "components/display/chameleon/stat-tile-delta",
+        "components/feedback/chameleon/amber-nav-progress",
+        "components/feedback/chameleon/loading-skeleton-kit",
+        "components/avatars-icons/chameleon/provider-bot-avatar",
+        "components/buttons/waveflow/cva-engineer-button",
+        "components/selects/chameleon/agent-picker-popover",
+        "components/selects/chameleon/model-picker-popover",
+        "components/inputs/chameleon/inline-edit-cell",
+        "components/inputs/waveflow/blue-focus-input",
+        "components/tags-badges/chameleon/orchestration-kind-badge",
         "blocks/chat/chameleon/composer-attach-send",
         "blocks/chat/chameleon/hitl-human-input-prompt",
         "blocks/chat/chameleon/markdown-message-citation",
@@ -10331,37 +10363,25 @@
         "blocks/display/chameleon/kb-hit-test-3pane",
         "blocks/display/chameleon/responsive-overlay-data-table",
         "blocks/display/chameleon/trace-observation-tree-gantt",
-        "blocks/feedback/chameleon/flair-glow-empty-state",
         "blocks/display/waveflow/article-gauge-monitor",
         "blocks/display/waveflow/canonical-table-shell",
+        "blocks/feedback/chameleon/flair-glow-empty-state",
         "blocks/filters/chameleon/table-toolbar-refresh-leading",
+        "blocks/form/chameleon/generation-panel",
+        "blocks/form/chameleon/json-schema-dynamic-form",
+        "blocks/form/chameleon/select-summary-cron-builder",
         "blocks/layout/chameleon/domain-tab-app-shell",
         "blocks/layout/chameleon/run-master-detail-rail-overlay",
-        "blocks/nav/waveflow/tree-line-sidebar",
         "blocks/nav/chameleon/borderless-bookmark-rail",
         "blocks/nav/chameleon/cmdk-grouped-palette",
         "blocks/nav/chameleon/detail-left-tab-rail",
         "blocks/nav/chameleon/domain-tab-topbar-account",
-        "blocks/form/chameleon/generation-panel",
-        "blocks/form/chameleon/json-schema-dynamic-form",
-        "blocks/form/chameleon/select-summary-cron-builder",
-        "components/feedback/chameleon/amber-nav-progress",
-        "components/feedback/chameleon/loading-skeleton-kit",
-        "components/inputs/chameleon/inline-edit-cell",
-        "components/buttons/waveflow/cva-engineer-button",
-        "components/inputs/waveflow/blue-focus-input",
-        "components/avatars-icons/chameleon/provider-bot-avatar",
-        "components/selects/chameleon/agent-picker-popover",
-        "components/selects/chameleon/model-picker-popover",
-        "components/display/chameleon/distribution-score-bars",
-        "components/display/chameleon/json-viewer-cell",
-        "components/display/chameleon/stat-tile-delta",
-        "components/tags-badges/chameleon/orchestration-kind-badge",
-        "tokens/palettes/chameleon/node-type-hue-system",
+        "blocks/nav/waveflow/tree-line-sidebar",
         "styles/admin-console/chameleon-ai-orchestration",
         "styles/admin-console/waveflow-warm-engineer",
         "pages/chat/chameleon/embed-fullscreen-chat",
-        "pages/playground/chameleon/model-compare-chat-lab"
+        "pages/playground/chameleon/model-compare-chat-lab",
+        "tokens/palettes/chameleon/node-type-hue-system"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/waveflow/warm-paper-ink-blue.md"
@@ -10390,10 +10410,10 @@
       "preview": "/preview/tokens/shadow/flywheel/hard-offset-stack",
       "uses": [],
       "usedBy": [
+        "components/display/flywheel/hard-shadow-card",
         "blocks/display/flywheel/layered-atlas-grid",
         "blocks/marketing/flywheel/scroll-pinned-spine",
         "blocks/nav/flywheel/toc-scroll-rail",
-        "components/display/flywheel/hard-shadow-card",
         "pages/landing/flywheel/scrolly-explainer-doc"
       ],
       "hasPreviewFile": true,
@@ -10424,10 +10444,10 @@
       "uses": [],
       "preview": "/preview/tokens/shadow/skillhub/ambient-float",
       "usedBy": [
+        "components/indicators/skillhub/pulse-dot",
         "blocks/display/skillhub/gradient-stat-card",
         "blocks/display/skillhub/skill-card",
         "blocks/nav/skillhub/glass-pill-navbar",
-        "components/indicators/skillhub/pulse-dot",
         "styles/community-social/skillhub-soft-modernist"
       ],
       "hasPreviewFile": true,
@@ -10457,19 +10477,19 @@
       "uses": [],
       "preview": "/preview/tokens/shadow/waveflow/soft-card-pop-trio",
       "usedBy": [
-        "blocks/canvas/chameleon/canvas-controls-menus",
-        "blocks/canvas/chameleon/config-panel-inspector",
-        "blocks/canvas/chameleon/graph-node-card",
-        "blocks/display/waveflow/canonical-table-shell",
-        "blocks/nav/waveflow/cmdk-search-modal",
-        "blocks/nav/chameleon/cmdk-grouped-palette",
-        "blocks/nav/chameleon/domain-tab-topbar-account",
-        "blocks/form/chameleon/graph-run-dialog",
+        "components/display/chameleon/paper-card-shell",
         "components/feedback/chameleon/modal-sheet-confirm",
         "components/feedback/chameleon/radix-overlay-primitives",
         "components/selects/chameleon/radix-single-select",
         "components/toggles/chameleon/themeable-switch",
-        "components/display/chameleon/paper-card-shell",
+        "blocks/canvas/chameleon/canvas-controls-menus",
+        "blocks/canvas/chameleon/config-panel-inspector",
+        "blocks/canvas/chameleon/graph-node-card",
+        "blocks/display/waveflow/canonical-table-shell",
+        "blocks/form/chameleon/graph-run-dialog",
+        "blocks/nav/chameleon/cmdk-grouped-palette",
+        "blocks/nav/chameleon/domain-tab-topbar-account",
+        "blocks/nav/waveflow/cmdk-search-modal",
         "styles/admin-console/chameleon-ai-orchestration",
         "styles/admin-console/waveflow-warm-engineer"
       ],
@@ -10566,11 +10586,11 @@
       "preview": "/preview/tokens/typography/pairs/acme/ibm-plex-duo",
       "uses": [],
       "usedBy": [
+        "components/inputs/acme/mono-input",
         "blocks/display/acme/saas-data-table",
         "blocks/display/acme/saas-metric-grid",
         "blocks/feedback/acme/saas-status-banner",
         "blocks/nav/acme/saas-cold-topbar",
-        "components/inputs/acme/mono-input",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
@@ -10603,8 +10623,8 @@
       "preview": "/preview/tokens/typography/pairs/flywheel/han-black-grotesk",
       "uses": [],
       "usedBy": [
-        "blocks/layout/flywheel/numbered-section-shell",
         "components/typography-atoms/flywheel/kicker-collision-mark",
+        "blocks/layout/flywheel/numbered-section-shell",
         "pages/landing/flywheel/scrolly-explainer-doc"
       ],
       "hasPreviewFile": true,
@@ -10636,8 +10656,8 @@
       "preview": "/preview/tokens/typography/pairs/mission-ops/plex-mono-inter-duo",
       "uses": [],
       "usedBy": [
-        "blocks/display/mission-ops/coded-panel-header",
         "components/indicators/mission-ops/coded-kpi-card",
+        "blocks/display/mission-ops/coded-panel-header",
         "styles/admin-console/mission-ops-flight-deck",
         "pages/dashboard/mission-ops/realtime-deck"
       ],
@@ -10729,13 +10749,13 @@
       "uses": [],
       "preview": "/preview/tokens/typography/pairs/skillhub/inter-jetbrains-duo",
       "usedBy": [
-        "blocks/marketing/skillhub/gradient-hero",
         "blocks/form/skillhub/auth-split-form",
+        "blocks/marketing/skillhub/gradient-hero",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/auth/skillhub/auth-split",
+        "pages/dashboard/skillhub/admin-overview",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/skill-article-detail",
-        "pages/dashboard/skillhub/admin-overview",
+        "pages/auth/skillhub/auth-split",
         "pages/form-flow/skillhub/practice-compose",
         "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console"
@@ -10769,6 +10789,8 @@
       "preview": "/preview/tokens/typography/pairs/style-vault/inter-editorial-display",
       "uses": [],
       "usedBy": [
+        "components/overlays/style-vault/spring-toast",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
         "blocks/feedback/style-vault/full-screen-loader",
@@ -10777,8 +10799,6 @@
         "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/nav/style-vault/sticky-platform-topbar",
         "blocks/search/style-vault/cmd-k-search-panel",
-        "components/tags-badges/style-vault/cyan-dot-meta-pill",
-        "components/overlays/style-vault/spring-toast",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
@@ -10809,8 +10829,8 @@
       "preview": "/preview/tokens/typography/pairs/tactical-hud/orbitron-rajdhani-trio",
       "uses": [],
       "usedBy": [
-        "blocks/display/tactical-hud/radar-sweep-panel",
         "components/indicators/tactical-hud/arc-ring-kpi",
+        "blocks/display/tactical-hud/radar-sweep-panel",
         "styles/admin-console/tactical-hud-jarvis",
         "pages/dashboard/tactical-hud/realtime-deck"
       ],
@@ -10844,8 +10864,8 @@
       "uses": [],
       "preview": "/preview/tokens/typography/pairs/waveflow/inter-jetbrains-instrument-trio",
       "usedBy": [
-        "blocks/display/chameleon/trace-observation-tree-gantt",
         "components/display/chameleon/stat-tile-delta",
+        "blocks/display/chameleon/trace-observation-tree-gantt",
         "styles/admin-console/chameleon-ai-orchestration",
         "styles/admin-console/waveflow-warm-engineer"
       ],
