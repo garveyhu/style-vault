@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-13T13:28:20.938Z",
+  "version": "2026-06-24T02:29:23.512Z",
   "items": [
     {
       "id": "blocks/canvas/chameleon/ai-copilot-panel",
@@ -770,6 +770,41 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/chameleon/trace-observation-tree-gantt.md"
+    },
+    {
+      "id": "blocks/display/flywheel/layered-atlas-grid",
+      "type": "block",
+      "name": "分层硬卡网格",
+      "description": "撞色头 + 硬阴影卡的响应式网格，每张卡一层/一类，卡内点状清单 —— 五区图/skill 地图同款",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "brutalist",
+          "bento"
+        ],
+        "mood": [
+          "confident",
+          "playful"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/flywheel/memphis-collision",
+        "tokens/shadow/flywheel/hard-offset-stack",
+        "components/display/flywheel/hard-shadow-card"
+      ],
+      "preview": "/preview/blocks/display/flywheel/layered-atlas-grid",
+      "usedBy": [
+        "styles/marketing-brand/memphis-scrolly-doc",
+        "pages/landing/flywheel/scrolly-explainer-doc"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/flywheel/layered-atlas-grid.md"
     },
     {
       "id": "blocks/display/mission-ops/coded-panel-header",
@@ -2444,6 +2479,42 @@
       "skillPath": "blocks/layout/chameleon/run-master-detail-rail-overlay.md"
     },
     {
+      "id": "blocks/layout/flywheel/numbered-section-shell",
+      "type": "block",
+      "name": "序号 Section 外壳",
+      "description": "全宽背景层 + 居中内容 + 序号 kicker + 超粗大标题 + 进场揭示的章节外壳，整页由它复用拼成",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "brutalist",
+          "editorial"
+        ],
+        "mood": [
+          "confident",
+          "energetic"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/flywheel/memphis-collision",
+        "tokens/typography/pairs/flywheel/han-black-grotesk",
+        "tokens/motion/flywheel/reveal-pin-scroll",
+        "components/typography-atoms/flywheel/kicker-collision-mark"
+      ],
+      "preview": "/preview/blocks/layout/flywheel/numbered-section-shell",
+      "usedBy": [
+        "styles/marketing-brand/memphis-scrolly-doc",
+        "pages/landing/flywheel/scrolly-explainer-doc"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/layout/flywheel/numbered-section-shell.md"
+    },
+    {
       "id": "blocks/layout/quiver/iso-office-world",
       "type": "block",
       "name": "等距像素办公室",
@@ -2505,8 +2576,8 @@
       "preview": "/preview/blocks/layout/sage/management-layout-header",
       "usedBy": [
         "styles/saas-tool/sage-multitheme-data-platform",
-        "pages/dashboard/sage/analytics-usage",
         "pages/dashboard/sage/analytics-feedback",
+        "pages/dashboard/sage/analytics-usage",
         "pages/form-flow/sage/rule-set-stepper-modal",
         "pages/list-table/sage/admin-table-management"
       ],
@@ -2646,6 +2717,42 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/layout/waveflow/master-detail-list-aside.md"
+    },
+    {
+      "id": "blocks/marketing/flywheel/scroll-pinned-spine",
+      "type": "block",
+      "name": "钉滚脊梁穿行交互",
+      "description": "signature moment —— 钉住的暗场节，滚动时数据令牌沿脊梁穿过各阶段、详情卡切换、产物累积",
+      "platforms": [
+        "web"
+      ],
+      "theme": "dark",
+      "tags": {
+        "aesthetic": [
+          "brutalist",
+          "editorial"
+        ],
+        "mood": [
+          "confident",
+          "energetic"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/flywheel/memphis-collision",
+        "tokens/motion/flywheel/reveal-pin-scroll",
+        "tokens/shadow/flywheel/hard-offset-stack",
+        "components/display/flywheel/hard-shadow-card"
+      ],
+      "preview": "/preview/blocks/marketing/flywheel/scroll-pinned-spine",
+      "usedBy": [
+        "styles/marketing-brand/memphis-scrolly-doc",
+        "pages/landing/flywheel/scrolly-explainer-doc"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/marketing/flywheel/scroll-pinned-spine.md"
     },
     {
       "id": "blocks/marketing/sage/auth-emerald-card",
@@ -2921,6 +3028,40 @@
       "usedBy": [],
       "hasPreviewFile": true,
       "skillPath": "blocks/nav/chameleon/domain-tab-topbar-account.md"
+    },
+    {
+      "id": "blocks/nav/flywheel/toc-scroll-rail",
+      "type": "block",
+      "name": "右侧悬浮 TOC 导航",
+      "description": "右侧悬浮硬阴影卡的章节目录，全标签常显 + scroll-spy 高亮当前节 + 首页隐藏，点击平滑跳转",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "brutalist",
+          "minimal"
+        ],
+        "mood": [
+          "confident"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/flywheel/memphis-collision",
+        "tokens/shadow/flywheel/hard-offset-stack",
+        "tokens/motion/flywheel/reveal-pin-scroll"
+      ],
+      "preview": "/preview/blocks/nav/flywheel/toc-scroll-rail",
+      "usedBy": [
+        "styles/marketing-brand/memphis-scrolly-doc",
+        "pages/landing/flywheel/scrolly-explainer-doc"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/flywheel/toc-scroll-rail.md"
     },
     {
       "id": "blocks/nav/quiver/glass-topbar-hud",
@@ -3205,12 +3346,12 @@
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/practice-post-detail",
-        "pages/dashboard/skillhub/admin-overview",
         "pages/detail/skillhub/user-public-profile",
-        "pages/landing/skillhub/skill-community-home",
+        "pages/dashboard/skillhub/admin-overview",
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console",
         "pages/list-table/skillhub/practice-plaza"
       ],
@@ -4262,6 +4403,40 @@
       "skillPath": "components/display/chameleon/stat-tile-delta.md"
     },
     {
+      "id": "components/display/flywheel/hard-shadow-card",
+      "type": "component",
+      "name": "硬阴影卡",
+      "description": "2.5px 粗黑描边 + 6px/3px 硬位移阴影 + 米白底的孟菲斯基础卡，全站最常复用的承载件",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "brutalist"
+        ],
+        "mood": [
+          "confident",
+          "playful"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/flywheel/memphis-collision",
+        "tokens/shadow/flywheel/hard-offset-stack"
+      ],
+      "preview": "/preview/components/display/flywheel/hard-shadow-card",
+      "usedBy": [
+        "blocks/display/flywheel/layered-atlas-grid",
+        "blocks/marketing/flywheel/scroll-pinned-spine",
+        "styles/marketing-brand/memphis-scrolly-doc"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/display/flywheel/hard-shadow-card.md"
+    },
+    {
       "id": "components/feedback/chameleon/amber-nav-progress",
       "type": "component",
       "name": "琥珀爬升导航进度条",
@@ -4476,6 +4651,39 @@
       "usedBy": [],
       "hasPreviewFile": true,
       "skillPath": "components/indicators/chameleon/status-pill-ping-dot.md"
+    },
+    {
+      "id": "components/indicators/flywheel/scroll-progress-bar",
+      "type": "component",
+      "name": "顶部滚动进度条",
+      "description": "固定顶栏的薄荷青 scaleX 阅读进度条，useScroll + useSpring 平滑跟随",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "brutalist",
+          "minimal"
+        ],
+        "mood": [
+          "confident"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/flywheel/memphis-collision",
+        "tokens/motion/flywheel/reveal-pin-scroll"
+      ],
+      "preview": "/preview/components/indicators/flywheel/scroll-progress-bar",
+      "usedBy": [
+        "styles/marketing-brand/memphis-scrolly-doc",
+        "pages/landing/flywheel/scrolly-explainer-doc"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/indicators/flywheel/scroll-progress-bar.md"
     },
     {
       "id": "components/indicators/mission-ops/coded-kpi-card",
@@ -5145,9 +5353,9 @@
         "blocks/form/waveflow/dialog-vertical-form",
         "components/inputs/chameleon/inline-edit-cell",
         "components/inputs/chameleon/themeable-text-fields",
-        "components/selects/waveflow/multi-select-popover",
         "components/selects/chameleon/agent-picker-popover",
         "components/selects/chameleon/model-picker-popover",
+        "components/selects/waveflow/multi-select-popover",
         "styles/admin-console/waveflow-warm-engineer"
       ],
       "hasPreviewFile": true,
@@ -5457,8 +5665,8 @@
         "styles/community-social/skillhub-soft-modernist",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/landing/skillhub/skill-community-home",
         "pages/form-flow/skillhub/practice-compose",
+        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/practice-plaza"
       ],
       "hasPreviewFile": true,
@@ -5686,6 +5894,40 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "components/toggles/waveflow/emerald-switch.md"
+    },
+    {
+      "id": "components/typography-atoms/flywheel/kicker-collision-mark",
+      "type": "component",
+      "name": "等宽 kicker + 撞色高亮 mark",
+      "description": "每节的 mono uppercase 小标签 + 词级撞色块高亮（薄荷青/活力黄托字）两个排版原子",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "brutalist",
+          "editorial"
+        ],
+        "mood": [
+          "confident",
+          "energetic"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/flywheel/memphis-collision",
+        "tokens/typography/pairs/flywheel/han-black-grotesk"
+      ],
+      "preview": "/preview/components/typography-atoms/flywheel/kicker-collision-mark",
+      "usedBy": [
+        "blocks/layout/flywheel/numbered-section-shell",
+        "styles/marketing-brand/memphis-scrolly-doc"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/typography-atoms/flywheel/kicker-collision-mark.md"
     },
     {
       "id": "components/typography-atoms/waveflow/kbd-key-cap",
@@ -7177,6 +7419,45 @@
       "skillPath": "pages/landing/acme/saas-landing/README.md"
     },
     {
+      "id": "pages/landing/flywheel/scrolly-explainer-doc",
+      "type": "page",
+      "name": "滚动叙事单页文档站",
+      "description": "一页到底的图文并茂讲解站 —— Memphis hero + N 个序号 section + 钉滚 signature + 右侧 TOC + 进度条，docsify 的替代",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "brutalist",
+          "editorial"
+        ],
+        "mood": [
+          "confident",
+          "energetic",
+          "playful"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/flywheel/memphis-collision",
+        "tokens/typography/pairs/flywheel/han-black-grotesk",
+        "tokens/shadow/flywheel/hard-offset-stack",
+        "tokens/motion/flywheel/reveal-pin-scroll",
+        "components/indicators/flywheel/scroll-progress-bar",
+        "blocks/layout/flywheel/numbered-section-shell",
+        "blocks/nav/flywheel/toc-scroll-rail",
+        "blocks/marketing/flywheel/scroll-pinned-spine",
+        "blocks/display/flywheel/layered-atlas-grid"
+      ],
+      "preview": "/preview/pages/landing/flywheel/scrolly-explainer-doc",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "pages/landing/flywheel/scrolly-explainer-doc/README.md"
+    },
+    {
       "id": "pages/landing/skillhub/skill-community-home",
       "type": "page",
       "name": "技能社区首页",
@@ -7974,6 +8255,39 @@
       "skillPath": "products/chameleon/README.md"
     },
     {
+      "id": "products/flywheel-inside",
+      "type": "product",
+      "name": "飞轮的内部",
+      "description": "media-studio 制片流水线的可视化讲解站 —— 一页滚到底讲清「一句灵感→一条成片」，孟菲斯滚动叙事脸",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "category": "content",
+      "tags": {
+        "aesthetic": [
+          "brutalist",
+          "editorial"
+        ],
+        "mood": [
+          "confident",
+          "energetic",
+          "playful"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "refs": {
+        "style": "styles/marketing-brand/memphis-scrolly-doc"
+      },
+      "preview": "/preview/products/flywheel-inside",
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "products/flywheel-inside/README.md"
+    },
+    {
       "id": "products/quiver",
       "type": "product",
       "name": "Quiver · 像素办公室 agent 监管台",
@@ -8667,6 +8981,51 @@
       "skillPath": "styles/experimental/quiver-night-studio/README.md"
     },
     {
+      "id": "styles/marketing-brand/memphis-scrolly-doc",
+      "type": "style",
+      "name": "孟菲斯滚动叙事文档站",
+      "description": "把图文并茂的讲解做成滚动叙事单页的 brutalist/Memphis 风格 —— 撞色硬卡 + 超粗黑大字 + 一个钉滚 signature，docsify 替代",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "brutalist",
+          "editorial"
+        ],
+        "mood": [
+          "confident",
+          "energetic",
+          "playful"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "blocks/layout/flywheel/numbered-section-shell",
+        "blocks/nav/flywheel/toc-scroll-rail",
+        "blocks/marketing/flywheel/scroll-pinned-spine",
+        "blocks/display/flywheel/layered-atlas-grid",
+        "components/display/flywheel/hard-shadow-card",
+        "components/typography-atoms/flywheel/kicker-collision-mark",
+        "components/indicators/flywheel/scroll-progress-bar"
+      ],
+      "refs": {
+        "tokens": {
+          "palette": "tokens/palettes/flywheel/memphis-collision",
+          "typography": "tokens/typography/pairs/flywheel/han-black-grotesk",
+          "shadow": "tokens/shadow/flywheel/hard-offset-stack",
+          "motion": "tokens/motion/flywheel/reveal-pin-scroll"
+        }
+      },
+      "preview": "/preview/styles/marketing-brand/memphis-scrolly-doc",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "styles/marketing-brand/memphis-scrolly-doc/README.md"
+    },
+    {
       "id": "styles/portfolio-studio/style-vault-cool-editorial",
       "type": "style",
       "name": "冷感 Editorial 设计目录站",
@@ -8855,8 +9214,8 @@
       "preview": "/preview/tokens/border/waveflow/translucent-stone-system",
       "usedBy": [
         "blocks/display/chameleon/responsive-overlay-data-table",
-        "blocks/layout/chameleon/domain-tab-app-shell",
         "blocks/display/waveflow/data-table-leftbar-shimmer",
+        "blocks/layout/chameleon/domain-tab-app-shell",
         "blocks/nav/chameleon/domain-tab-topbar-account",
         "components/display/chameleon/recharts-time-series",
         "styles/admin-console/chameleon-ai-orchestration",
@@ -9225,6 +9584,40 @@
       "skillPath": "tokens/motion/chameleon/neon-ai-suite.md"
     },
     {
+      "id": "tokens/motion/flywheel/reveal-pin-scroll",
+      "type": "token",
+      "name": "进场揭示 + 钉滚动效体系",
+      "description": "framer-motion 一套 —— whileInView 进场揭示 + 钉滚脊梁穿行 + scroll-spy + 顶部进度，克制不堆",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "brutalist",
+          "editorial"
+        ],
+        "mood": [
+          "energetic",
+          "confident"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "preview": "/preview/tokens/motion/flywheel/reveal-pin-scroll",
+      "uses": [],
+      "usedBy": [
+        "blocks/layout/flywheel/numbered-section-shell",
+        "blocks/marketing/flywheel/scroll-pinned-spine",
+        "blocks/nav/flywheel/toc-scroll-rail",
+        "components/indicators/flywheel/scroll-progress-bar",
+        "pages/landing/flywheel/scrolly-explainer-doc"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/motion/flywheel/reveal-pin-scroll.md"
+    },
+    {
       "id": "tokens/motion/quiver/pixel-steps",
       "type": "token",
       "name": "像素步进动效",
@@ -9350,8 +9743,8 @@
         "blocks/marketing/skillhub/gradient-hero",
         "components/buttons/skillhub/border-trace-cta",
         "styles/community-social/skillhub-soft-modernist",
-        "pages/landing/skillhub/skill-community-home",
-        "pages/form-flow/skillhub/skill-publish-wizard"
+        "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/skillhub/gentle-flow.md"
@@ -9494,8 +9887,8 @@
         "blocks/nav/acme/saas-cold-topbar",
         "components/buttons/acme/cyan-cta",
         "components/buttons/acme/ghost-button",
-        "components/indicators/acme/status-pulse",
         "components/inputs/acme/mono-input",
+        "components/indicators/acme/status-pulse",
         "styles/saas-tool/cold-industrial-saas",
         "pages/auth/acme/auth-cold-split",
         "pages/pricing/acme/saas-cold-pricing"
@@ -9571,13 +9964,51 @@
       "preview": "/preview/tokens/palettes/chameleon/themeable-8x4-system",
       "usedBy": [
         "components/buttons/chameleon/themeable-cva-button",
+        "components/toggles/chameleon/sliding-thumb-segmented",
         "components/display/chameleon/stat-tile-delta",
         "components/tags-badges/chameleon/cva-semantic-badge",
-        "components/toggles/chameleon/sliding-thumb-segmented",
         "styles/admin-console/chameleon-ai-orchestration"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/chameleon/themeable-8x4-system.md"
+    },
+    {
+      "id": "tokens/palettes/flywheel/memphis-collision",
+      "type": "token",
+      "name": "孟菲斯撞色板",
+      "description": "米白纸底 + 黑墨主色 + 黄/蓝/红三撞色 + 薄荷青 signature accent —— 鲜艳潮 IP 脸，可整组换脸",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "brutalist",
+          "maximal"
+        ],
+        "mood": [
+          "playful",
+          "energetic",
+          "confident"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "preview": "/preview/tokens/palettes/flywheel/memphis-collision",
+      "uses": [],
+      "usedBy": [
+        "blocks/display/flywheel/layered-atlas-grid",
+        "blocks/layout/flywheel/numbered-section-shell",
+        "blocks/marketing/flywheel/scroll-pinned-spine",
+        "blocks/nav/flywheel/toc-scroll-rail",
+        "components/indicators/flywheel/scroll-progress-bar",
+        "components/display/flywheel/hard-shadow-card",
+        "components/typography-atoms/flywheel/kicker-collision-mark",
+        "pages/landing/flywheel/scrolly-explainer-doc"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/palettes/flywheel/memphis-collision.md"
     },
     {
       "id": "tokens/palettes/mission-ops/deep-space-amber",
@@ -9712,7 +10143,6 @@
         "blocks/feedback/sage/spin-fullscreen-loader",
         "blocks/layout/sage/management-layout-header",
         "blocks/layout/sage/sidebar-detail-split",
-        "blocks/form/sage/chat-composer",
         "blocks/nav/sage/command-palette",
         "blocks/nav/sage/revolver-menu-fab",
         "blocks/nav/sage/sidebar-session-row",
@@ -9720,9 +10150,10 @@
         "blocks/nav/sage/themed-sidebar-shell",
         "components/buttons/sage/stop-pulse-button",
         "components/buttons/sage/theme-bg-cta",
+        "blocks/form/sage/chat-composer",
+        "components/inputs/sage/glow-border-textarea",
         "components/avatars-icons/sage/themed-circle-avatar",
         "components/indicators/sage/crystal-progress-bar",
-        "components/inputs/sage/glow-border-textarea",
         "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
@@ -9759,25 +10190,25 @@
         "blocks/feedback/skillhub/empty-state",
         "blocks/feedback/skillhub/skeleton-card",
         "blocks/marketing/skillhub/gradient-hero",
-        "blocks/form/skillhub/auth-split-form",
-        "blocks/form/skillhub/profile-edit-form",
         "blocks/nav/skillhub/glass-pill-navbar",
         "components/buttons/skillhub/border-trace-cta",
         "components/buttons/skillhub/dark-primary-cta",
+        "blocks/form/skillhub/auth-split-form",
+        "blocks/form/skillhub/profile-edit-form",
+        "components/inputs/skillhub/soft-form-input",
         "components/avatars-icons/skillhub/letter-avatar",
         "components/indicators/skillhub/pulse-dot",
-        "components/inputs/skillhub/soft-form-input",
         "components/tags-badges/skillhub/teal-pill",
         "styles/community-social/skillhub-soft-modernist",
         "pages/auth/skillhub/auth-split",
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
         "pages/detail/skillhub/skill-article-detail",
-        "pages/dashboard/skillhub/admin-overview",
         "pages/detail/skillhub/user-public-profile",
-        "pages/landing/skillhub/skill-community-home",
+        "pages/dashboard/skillhub/admin-overview",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
+        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console",
         "pages/list-table/skillhub/practice-plaza"
       ],
@@ -9821,9 +10252,9 @@
         "blocks/search/style-vault/cmd-k-search-panel",
         "components/buttons/style-vault/dark-pill-cta",
         "components/buttons/style-vault/ghost-bordered-cta",
-        "components/overlays/style-vault/spring-toast",
-        "components/tags-badges/style-vault/cyan-dot-meta-pill",
         "components/toggles/style-vault/editorial-underline-tab",
+        "components/tags-badges/style-vault/cyan-dot-meta-pill",
+        "components/overlays/style-vault/spring-toast",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
@@ -9901,31 +10332,31 @@
         "blocks/display/chameleon/responsive-overlay-data-table",
         "blocks/display/chameleon/trace-observation-tree-gantt",
         "blocks/feedback/chameleon/flair-glow-empty-state",
+        "blocks/display/waveflow/article-gauge-monitor",
+        "blocks/display/waveflow/canonical-table-shell",
         "blocks/filters/chameleon/table-toolbar-refresh-leading",
         "blocks/layout/chameleon/domain-tab-app-shell",
         "blocks/layout/chameleon/run-master-detail-rail-overlay",
-        "blocks/display/waveflow/article-gauge-monitor",
-        "blocks/display/waveflow/canonical-table-shell",
-        "blocks/form/chameleon/generation-panel",
-        "blocks/form/chameleon/json-schema-dynamic-form",
-        "blocks/form/chameleon/select-summary-cron-builder",
         "blocks/nav/waveflow/tree-line-sidebar",
         "blocks/nav/chameleon/borderless-bookmark-rail",
         "blocks/nav/chameleon/cmdk-grouped-palette",
         "blocks/nav/chameleon/detail-left-tab-rail",
         "blocks/nav/chameleon/domain-tab-topbar-account",
-        "components/buttons/waveflow/cva-engineer-button",
-        "components/avatars-icons/chameleon/provider-bot-avatar",
+        "blocks/form/chameleon/generation-panel",
+        "blocks/form/chameleon/json-schema-dynamic-form",
+        "blocks/form/chameleon/select-summary-cron-builder",
+        "components/feedback/chameleon/amber-nav-progress",
+        "components/feedback/chameleon/loading-skeleton-kit",
         "components/inputs/chameleon/inline-edit-cell",
+        "components/buttons/waveflow/cva-engineer-button",
+        "components/inputs/waveflow/blue-focus-input",
+        "components/avatars-icons/chameleon/provider-bot-avatar",
+        "components/selects/chameleon/agent-picker-popover",
+        "components/selects/chameleon/model-picker-popover",
         "components/display/chameleon/distribution-score-bars",
         "components/display/chameleon/json-viewer-cell",
         "components/display/chameleon/stat-tile-delta",
         "components/tags-badges/chameleon/orchestration-kind-badge",
-        "components/inputs/waveflow/blue-focus-input",
-        "components/selects/chameleon/agent-picker-popover",
-        "components/selects/chameleon/model-picker-popover",
-        "components/feedback/chameleon/amber-nav-progress",
-        "components/feedback/chameleon/loading-skeleton-kit",
         "tokens/palettes/chameleon/node-type-hue-system",
         "styles/admin-console/chameleon-ai-orchestration",
         "styles/admin-console/waveflow-warm-engineer",
@@ -9934,6 +10365,39 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/waveflow/warm-paper-ink-blue.md"
+    },
+    {
+      "id": "tokens/shadow/flywheel/hard-offset-stack",
+      "type": "token",
+      "name": "硬位移阴影体系",
+      "description": "0 模糊的硬位移阴影（6/3px）+ 2.5px 粗描边 —— 孟菲斯/新粗野的去塑料感签名",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "brutalist"
+        ],
+        "mood": [
+          "confident",
+          "playful"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "preview": "/preview/tokens/shadow/flywheel/hard-offset-stack",
+      "uses": [],
+      "usedBy": [
+        "blocks/display/flywheel/layered-atlas-grid",
+        "blocks/marketing/flywheel/scroll-pinned-spine",
+        "blocks/nav/flywheel/toc-scroll-rail",
+        "components/display/flywheel/hard-shadow-card",
+        "pages/landing/flywheel/scrolly-explainer-doc"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/shadow/flywheel/hard-offset-stack.md"
     },
     {
       "id": "tokens/shadow/skillhub/ambient-float",
@@ -9997,15 +10461,15 @@
         "blocks/canvas/chameleon/config-panel-inspector",
         "blocks/canvas/chameleon/graph-node-card",
         "blocks/display/waveflow/canonical-table-shell",
-        "blocks/form/chameleon/graph-run-dialog",
         "blocks/nav/waveflow/cmdk-search-modal",
         "blocks/nav/chameleon/cmdk-grouped-palette",
         "blocks/nav/chameleon/domain-tab-topbar-account",
-        "components/display/chameleon/paper-card-shell",
-        "components/selects/chameleon/radix-single-select",
-        "components/toggles/chameleon/themeable-switch",
+        "blocks/form/chameleon/graph-run-dialog",
         "components/feedback/chameleon/modal-sheet-confirm",
         "components/feedback/chameleon/radix-overlay-primitives",
+        "components/selects/chameleon/radix-single-select",
+        "components/toggles/chameleon/themeable-switch",
+        "components/display/chameleon/paper-card-shell",
         "styles/admin-console/chameleon-ai-orchestration",
         "styles/admin-console/waveflow-warm-engineer"
       ],
@@ -10113,6 +10577,38 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/acme/ibm-plex-duo.md"
+    },
+    {
+      "id": "tokens/typography/pairs/flywheel/han-black-grotesk",
+      "type": "token",
+      "name": "思源黑 Black × Grotesk 字体栈",
+      "description": "中文思源黑 900 超粗大字 + 西文 Space Grotesk + 等宽 JetBrains Mono —— 黑大字主导的冲击型排版",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "brutalist",
+          "editorial"
+        ],
+        "mood": [
+          "confident",
+          "energetic"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "preview": "/preview/tokens/typography/pairs/flywheel/han-black-grotesk",
+      "uses": [],
+      "usedBy": [
+        "blocks/layout/flywheel/numbered-section-shell",
+        "components/typography-atoms/flywheel/kicker-collision-mark",
+        "pages/landing/flywheel/scrolly-explainer-doc"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "tokens/typography/pairs/flywheel/han-black-grotesk.md"
     },
     {
       "id": "tokens/typography/pairs/mission-ops/plex-mono-inter-duo",
@@ -10240,8 +10736,8 @@
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/skill-article-detail",
         "pages/dashboard/skillhub/admin-overview",
-        "pages/landing/skillhub/skill-community-home",
         "pages/form-flow/skillhub/practice-compose",
+        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console"
       ],
       "hasPreviewFile": true,
@@ -10281,8 +10777,8 @@
         "blocks/marketing/style-vault/cool-blob-hero",
         "blocks/nav/style-vault/sticky-platform-topbar",
         "blocks/search/style-vault/cmd-k-search-panel",
-        "components/overlays/style-vault/spring-toast",
         "components/tags-badges/style-vault/cyan-dot-meta-pill",
+        "components/overlays/style-vault/spring-toast",
         "styles/portfolio-studio/style-vault-cool-editorial"
       ],
       "hasPreviewFile": true,
