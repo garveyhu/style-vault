@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-24T02:50:13.194Z",
+  "version": "2026-07-09T09:58:03.541Z",
   "items": [
     {
       "id": "blocks/canvas/chameleon/ai-copilot-panel",
@@ -132,8 +132,8 @@
       "preview": "/preview/blocks/canvas/chameleon/config-panel-inspector",
       "usedBy": [
         "blocks/canvas/chameleon/subflow-group-editor",
-        "styles/admin-console/chameleon-ai-orchestration",
-        "pages/editor/chameleon/workflow-graph-editor"
+        "pages/editor/chameleon/workflow-graph-editor",
+        "styles/admin-console/chameleon-ai-orchestration"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/canvas/chameleon/config-panel-inspector.md"
@@ -168,8 +168,8 @@
       "preview": "/preview/blocks/canvas/chameleon/graph-node-card",
       "usedBy": [
         "blocks/canvas/chameleon/subflow-group-editor",
-        "styles/admin-console/chameleon-ai-orchestration",
-        "pages/editor/chameleon/workflow-graph-editor"
+        "pages/editor/chameleon/workflow-graph-editor",
+        "styles/admin-console/chameleon-ai-orchestration"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/canvas/chameleon/graph-node-card.md"
@@ -204,8 +204,8 @@
       "usedBy": [
         "blocks/canvas/chameleon/bezier-edge-add",
         "blocks/canvas/chameleon/subflow-group-editor",
-        "styles/admin-console/chameleon-ai-orchestration",
-        "pages/editor/chameleon/workflow-graph-editor"
+        "pages/editor/chameleon/workflow-graph-editor",
+        "styles/admin-console/chameleon-ai-orchestration"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/canvas/chameleon/node-palette.md"
@@ -433,8 +433,8 @@
       ],
       "preview": "/preview/blocks/chat/chameleon/message-list-bubble-thread",
       "usedBy": [
-        "styles/admin-console/chameleon-ai-orchestration",
-        "pages/playground/chameleon/model-compare-chat-lab"
+        "pages/playground/chameleon/model-compare-chat-lab",
+        "styles/admin-console/chameleon-ai-orchestration"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/chat/chameleon/message-list-bubble-thread.md"
@@ -571,8 +571,8 @@
       ],
       "preview": "/preview/blocks/display/chameleon/eval-spreadsheet-airtable",
       "usedBy": [
-        "styles/admin-console/chameleon-ai-orchestration",
-        "pages/detail/chameleon/eval-dataset-detail-spreadsheet"
+        "pages/detail/chameleon/eval-dataset-detail-spreadsheet",
+        "styles/admin-console/chameleon-ai-orchestration"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/chameleon/eval-spreadsheet-airtable.md"
@@ -765,8 +765,8 @@
       ],
       "preview": "/preview/blocks/display/chameleon/trace-observation-tree-gantt",
       "usedBy": [
-        "styles/admin-console/chameleon-ai-orchestration",
-        "pages/detail/chameleon/trace-detail-tree-gantt"
+        "pages/detail/chameleon/trace-detail-tree-gantt",
+        "styles/admin-console/chameleon-ai-orchestration"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/chameleon/trace-observation-tree-gantt.md"
@@ -999,8 +999,8 @@
       "preview": "/preview/blocks/display/skillhub/leaderboard-row",
       "usedBy": [
         "styles/community-social/skillhub-soft-modernist",
-        "pages/landing/skillhub/skill-community-home",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/skillhub/leaderboard-row.md"
@@ -1072,6 +1072,41 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/display/skillhub/table.md"
+    },
+    {
+      "id": "blocks/display/studio-board/publish-hero",
+      "type": "block",
+      "name": "发布成片 Hero",
+      "description": "详情页 signature 带——成片封面 16:9 + 封面自身色泼光晕 + kicker + 大标题 + 三交付统计(tabular-nums)；一屏一个记忆点",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "glass"
+        ],
+        "mood": [
+          "warm",
+          "confident"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/studio-board/warm-sand-ink",
+        "tokens/typography/pairs/studio-board/grotesk-han-plex",
+        "tokens/radius/studio-board/soft-sand-scale"
+      ],
+      "preview": "/preview/blocks/display/studio-board/publish-hero",
+      "usedBy": [
+        "styles/content-media/warm-sand-workbench",
+        "pages/dashboard/studio-board/workstation-detail"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/display/studio-board/publish-hero.md"
     },
     {
       "id": "blocks/display/style-vault/floating-cover-row",
@@ -1352,8 +1387,8 @@
       "preview": "/preview/blocks/display/waveflow/metric-card-quartet",
       "usedBy": [
         "blocks/layout/waveflow/master-detail-list-aside",
-        "styles/admin-console/waveflow-warm-engineer",
         "pages/chat/chameleon/embed-fullscreen-chat",
+        "styles/admin-console/waveflow-warm-engineer",
         "pages/detail/waveflow/jobset-master-detail"
       ],
       "hasPreviewFile": true,
@@ -2576,10 +2611,10 @@
       "preview": "/preview/blocks/layout/sage/management-layout-header",
       "usedBy": [
         "styles/saas-tool/sage-multitheme-data-platform",
-        "pages/dashboard/sage/analytics-feedback",
         "pages/dashboard/sage/analytics-usage",
-        "pages/form-flow/sage/rule-set-stepper-modal",
-        "pages/list-table/sage/admin-table-management"
+        "pages/dashboard/sage/analytics-feedback",
+        "pages/list-table/sage/admin-table-management",
+        "pages/form-flow/sage/rule-set-stepper-modal"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/layout/sage/management-layout-header.md"
@@ -2862,6 +2897,40 @@
       "skillPath": "blocks/marketing/style-vault/cool-blob-hero.md"
     },
     {
+      "id": "blocks/media/studio-board/work-card",
+      "type": "block",
+      "name": "频道作品卡",
+      "description": "首页作品网格卡——纸感封面 + 右上发布状态点(绿/灰) + hover 浮起「预览」眼睛 pill + 标题 line-clamp + 播放量·日期 mono meta",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "minimal"
+        ],
+        "mood": [
+          "warm",
+          "calm"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/studio-board/warm-sand-ink",
+        "tokens/motion/studio-board/liquid-ease"
+      ],
+      "preview": "/preview/blocks/media/studio-board/work-card",
+      "usedBy": [
+        "styles/content-media/warm-sand-workbench",
+        "pages/landing/studio-board/channel-board-home"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/media/studio-board/work-card.md"
+    },
+    {
       "id": "blocks/nav/acme/saas-cold-topbar",
       "type": "block",
       "name": "冷感 SaaS 顶栏",
@@ -2990,8 +3059,8 @@
       ],
       "preview": "/preview/blocks/nav/chameleon/detail-left-tab-rail",
       "usedBy": [
-        "pages/detail/chameleon/kb-detail-tabbed-workbench",
-        "pages/editor/chameleon/workflow-graph-editor"
+        "pages/editor/chameleon/workflow-graph-editor",
+        "pages/detail/chameleon/kb-detail-tabbed-workbench"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/nav/chameleon/detail-left-tab-rail.md"
@@ -3351,12 +3420,48 @@
         "pages/form-flow/skillhub/practice-compose",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
-        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "blocks/nav/skillhub/glass-pill-navbar.md"
+    },
+    {
+      "id": "blocks/nav/studio-board/pipeline-rail",
+      "type": "block",
+      "name": "生产管线脊柱轨",
+      "description": "左栏白玻璃管线导航——创意/制作分组 + 串珠竖线轨 + 步骤行(当前步近黑竖条+序号圆+柔光环·完成绿灯) + done/total 计数",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "glass",
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "components/display/studio-board/warm-glass-card",
+        "components/indicators/studio-board/pipeline-status-light",
+        "tokens/palettes/studio-board/warm-sand-ink",
+        "tokens/motion/studio-board/liquid-ease"
+      ],
+      "preview": "/preview/blocks/nav/studio-board/pipeline-rail",
+      "usedBy": [
+        "styles/content-media/warm-sand-workbench",
+        "pages/dashboard/studio-board/workstation-detail"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "blocks/nav/studio-board/pipeline-rail.md"
     },
     {
       "id": "blocks/nav/style-vault/sticky-platform-topbar",
@@ -3727,8 +3832,8 @@
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/skill-article-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/landing/skillhub/skill-community-home",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/avatars-icons/skillhub/letter-avatar.md"
@@ -3799,8 +3904,8 @@
       "usedBy": [
         "blocks/display/acme/saas-data-table",
         "styles/saas-tool/cold-industrial-saas",
-        "pages/dashboard/acme/saas-monitor-overview",
         "pages/auth/acme/auth-cold-split",
+        "pages/dashboard/acme/saas-monitor-overview",
         "pages/list-table/acme/saas-incident-list",
         "pages/pricing/acme/saas-cold-pricing"
       ],
@@ -4076,6 +4181,39 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "components/buttons/skillhub/dark-primary-cta.md"
+    },
+    {
+      "id": "components/buttons/studio-board/ink-cta",
+      "type": "component",
+      "name": "暖墨主操作按钮",
+      "description": "暖近黑实底 + 暖奶白字的主 CTA(打开成片/自动填充) + 描边次级 + 陶土危险三态；焦点环走暖近黑",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "confident",
+          "serious"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/studio-board/warm-sand-ink",
+        "tokens/radius/studio-board/soft-sand-scale"
+      ],
+      "preview": "/preview/components/buttons/studio-board/ink-cta",
+      "usedBy": [
+        "styles/content-media/warm-sand-workbench"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/buttons/studio-board/ink-cta.md"
     },
     {
       "id": "components/buttons/style-vault/dark-pill-cta",
@@ -4437,6 +4575,41 @@
       "skillPath": "components/display/flywheel/hard-shadow-card.md"
     },
     {
+      "id": "components/display/studio-board/warm-glass-card",
+      "type": "component",
+      "name": "暖白磨砂玻璃卡",
+      "description": "真半透 + 强模糊 + 亮边 + 顶部 light-leak 高光 + 玻璃内高光 + 柔暖投影的白玻璃卡；暗态自动转不透明深面",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "glass",
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "warm"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/studio-board/warm-sand-ink",
+        "tokens/radius/studio-board/soft-sand-scale"
+      ],
+      "preview": "/preview/components/display/studio-board/warm-glass-card",
+      "usedBy": [
+        "blocks/nav/studio-board/pipeline-rail",
+        "styles/content-media/warm-sand-workbench",
+        "pages/dashboard/studio-board/workstation-detail"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/display/studio-board/warm-glass-card.md"
+    },
+    {
       "id": "components/feedback/chameleon/amber-nav-progress",
       "type": "component",
       "name": "琥珀爬升导航进度条",
@@ -4552,8 +4725,8 @@
       "usedBy": [
         "blocks/chat/chameleon/message-list-bubble-thread",
         "blocks/display/chameleon/run-compare-heatmap-matrix",
-        "styles/admin-console/chameleon-ai-orchestration",
-        "pages/detail/chameleon/eval-dataset-detail-spreadsheet"
+        "pages/detail/chameleon/eval-dataset-detail-spreadsheet",
+        "styles/admin-console/chameleon-ai-orchestration"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/feedback/chameleon/neon-loader.md"
@@ -4850,6 +5023,39 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "components/indicators/skillhub/pulse-dot.md"
+    },
+    {
+      "id": "components/indicators/studio-board/pipeline-status-light",
+      "type": "component",
+      "name": "管线节点状态灯",
+      "description": "圆形状态节点——完成=实心苔绿+白勾+柔光·进行=琥珀软圈脉冲·需处理=柔红·未开始=中性空·跳过=虚线；语义清晰不刺",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/studio-board/warm-sand-ink",
+        "tokens/motion/studio-board/liquid-ease"
+      ],
+      "preview": "/preview/components/indicators/studio-board/pipeline-status-light",
+      "usedBy": [
+        "blocks/nav/studio-board/pipeline-rail",
+        "styles/content-media/warm-sand-workbench"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/indicators/studio-board/pipeline-status-light.md"
     },
     {
       "id": "components/indicators/tactical-hud/arc-ring-kpi",
@@ -5345,11 +5551,11 @@
       ],
       "preview": "/preview/components/inputs/waveflow/blue-focus-input",
       "usedBy": [
-        "components/selects/chameleon/agent-picker-popover",
-        "components/selects/chameleon/model-picker-popover",
-        "components/selects/waveflow/multi-select-popover",
         "components/inputs/chameleon/inline-edit-cell",
         "components/inputs/chameleon/themeable-text-fields",
+        "components/selects/waveflow/multi-select-popover",
+        "components/selects/chameleon/agent-picker-popover",
+        "components/selects/chameleon/model-picker-popover",
         "blocks/chat/chameleon/composer-attach-send",
         "blocks/display/chameleon/eval-spreadsheet-airtable",
         "blocks/filters/waveflow/table-toolbar-tri",
@@ -5666,11 +5872,42 @@
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/user-public-profile",
         "pages/form-flow/skillhub/practice-compose",
-        "pages/landing/skillhub/skill-community-home",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "components/tags-badges/skillhub/teal-pill.md"
+    },
+    {
+      "id": "components/tags-badges/studio-board/status-badge",
+      "type": "component",
+      "name": "语义状态徽标",
+      "description": "描边 + surface 底 + 同色 mono 字的胶囊徽标(已完成/已发布=苔绿·待发布=金·错误=陶土·中性)；克制不喧宾",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/studio-board/warm-sand-ink"
+      ],
+      "preview": "/preview/components/tags-badges/studio-board/status-badge",
+      "usedBy": [
+        "styles/content-media/warm-sand-workbench"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/tags-badges/studio-board/status-badge.md"
     },
     {
       "id": "components/tags-badges/style-vault/cyan-dot-meta-pill",
@@ -5827,6 +6064,38 @@
       "usedBy": [],
       "hasPreviewFile": true,
       "skillPath": "components/toggles/chameleon/themeable-switch.md"
+    },
+    {
+      "id": "components/toggles/studio-board/platform-pills",
+      "type": "component",
+      "name": "平台切换胶囊组",
+      "description": "四平台切换 pill——激活=该平台品牌色实底白字·未激活=淡墨填充中性字；logo 带品牌色、文字中性，克制不花",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "minimal"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/studio-board/warm-sand-ink"
+      ],
+      "preview": "/preview/components/toggles/studio-board/platform-pills",
+      "usedBy": [
+        "styles/content-media/warm-sand-workbench",
+        "pages/landing/studio-board/channel-board-home"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "components/toggles/studio-board/platform-pills.md"
     },
     {
       "id": "components/toggles/style-vault/editorial-underline-tab",
@@ -6517,6 +6786,44 @@
       "skillPath": "pages/dashboard/skillhub/user-home/README.md"
     },
     {
+      "id": "pages/dashboard/studio-board/workstation-detail",
+      "type": "page",
+      "name": "详情页三栏工作台",
+      "description": "视口定高三栏白玻璃工作台——浮动玻璃顶栏 + 260px 生产管线轨 + 主玻璃卡(步头+块内滚内容) + 360px 发布备料玻璃卡；4 玻璃块各自块内滚、壳不滚",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "glass",
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "warm",
+          "calm",
+          "serious"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "components/display/studio-board/warm-glass-card",
+        "blocks/nav/studio-board/pipeline-rail",
+        "blocks/display/studio-board/publish-hero",
+        "tokens/palettes/studio-board/warm-sand-ink",
+        "tokens/texture/studio-board/warm-paper-grain"
+      ],
+      "preview": "/preview/pages/dashboard/studio-board/workstation-detail",
+      "usedBy": [
+        "styles/content-media/warm-sand-workbench"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/dashboard/studio-board/workstation-detail/README.md"
+    },
+    {
       "id": "pages/dashboard/style-vault/profile-collections",
       "type": "page",
       "name": "个人中心收藏页",
@@ -7158,8 +7465,8 @@
       "uses": [],
       "preview": "/preview/pages/empty-error/sage/crt-tv-404",
       "usedBy": [
-        "styles/saas-tool/sage-multitheme-data-platform",
-        "styles/admin-console/waveflow-warm-engineer"
+        "styles/admin-console/waveflow-warm-engineer",
+        "styles/saas-tool/sage-multitheme-data-platform"
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/empty-error/sage/crt-tv-404/README.md"
@@ -7496,6 +7803,42 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "pages/landing/skillhub/skill-community-home/README.md"
+    },
+    {
+      "id": "pages/landing/studio-board/channel-board-home",
+      "type": "page",
+      "name": "频道 Board 首页",
+      "description": "奶油纸底 + 细网格上的频道主页——sticky 顶栏(logo+频道+搜索+平台pills) + banner + 头像左下叠 + 关注/粉丝/获赞 + 投稿 tabs + 2~6 列作品网格",
+      "platforms": [
+        "web"
+      ],
+      "theme": "light",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "minimal"
+        ],
+        "mood": [
+          "warm",
+          "calm"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "components/toggles/studio-board/platform-pills",
+        "blocks/media/studio-board/work-card",
+        "tokens/palettes/studio-board/warm-sand-ink",
+        "tokens/typography/pairs/studio-board/grotesk-han-plex",
+        "tokens/texture/studio-board/warm-paper-grain"
+      ],
+      "preview": "/preview/pages/landing/studio-board/channel-board-home",
+      "usedBy": [
+        "styles/content-media/warm-sand-workbench"
+      ],
+      "hasPreviewFile": true,
+      "skillPath": "pages/landing/studio-board/channel-board-home/README.md"
     },
     {
       "id": "pages/landing/style-vault/editorial-cool-landing",
@@ -8521,6 +8864,61 @@
       "skillPath": "products/skillhub/README.md"
     },
     {
+      "id": "products/studio-board",
+      "type": "product",
+      "name": "Media Studio · 暖砂工作台看板",
+      "description": "自媒体创作流水线的可视化工作台——首页频道 board(多平台作品流) + 详情页工作台(生产管线/主台/发布备料)，两屏一体的暖砂白玻璃产品",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "category": "productivity",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "glass"
+        ],
+        "mood": [
+          "warm",
+          "calm"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "refs": {
+        "style": "styles/content-media/warm-sand-workbench",
+        "pages": [
+          "pages/dashboard/studio-board/workstation-detail",
+          "pages/landing/studio-board/channel-board-home"
+        ],
+        "blocks": [
+          "blocks/nav/studio-board/pipeline-rail",
+          "blocks/display/studio-board/publish-hero",
+          "blocks/media/studio-board/work-card"
+        ],
+        "components": [
+          "components/display/studio-board/warm-glass-card",
+          "components/buttons/studio-board/ink-cta",
+          "components/tags-badges/studio-board/status-badge",
+          "components/indicators/studio-board/pipeline-status-light",
+          "components/toggles/studio-board/platform-pills"
+        ],
+        "tokens": {
+          "palette": "tokens/palettes/studio-board/warm-sand-ink",
+          "typography": "tokens/typography/pairs/studio-board/grotesk-han-plex",
+          "texture": "tokens/texture/studio-board/warm-paper-grain",
+          "motion": "tokens/motion/studio-board/liquid-ease",
+          "radius": "tokens/radius/studio-board/soft-sand-scale"
+        }
+      },
+      "preview": "/preview/pages/dashboard/studio-board/workstation-detail",
+      "uses": [],
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "products/studio-board/README.md"
+    },
+    {
       "id": "products/style-vault",
       "type": "product",
       "name": "Style Vault · 风格库",
@@ -8955,6 +9353,52 @@
       "usedBy": [],
       "hasPreviewFile": true,
       "skillPath": "styles/community-social/skillhub-soft-modernist/README.md"
+    },
+    {
+      "id": "styles/content-media/warm-sand-workbench",
+      "type": "style",
+      "name": "暖砂白玻璃工作台",
+      "description": "暖纸 editorial 底 × 产品级白玻璃 × 苔绿判成 × 暖近黑 CTA × 金陶土点睛 × feTurbulence 颗粒 × 大软圆角 × Grotesk×苹方 × liquid easeOut —— 亮暖砂 / 暗冷 slate 双态",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "glass",
+          "minimal"
+        ],
+        "mood": [
+          "warm",
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [
+        "tokens/palettes/studio-board/warm-sand-ink",
+        "tokens/typography/pairs/studio-board/grotesk-han-plex",
+        "tokens/texture/studio-board/warm-paper-grain",
+        "tokens/motion/studio-board/liquid-ease",
+        "tokens/radius/studio-board/soft-sand-scale",
+        "components/display/studio-board/warm-glass-card",
+        "components/buttons/studio-board/ink-cta",
+        "components/tags-badges/studio-board/status-badge",
+        "components/indicators/studio-board/pipeline-status-light",
+        "components/toggles/studio-board/platform-pills",
+        "blocks/nav/studio-board/pipeline-rail",
+        "blocks/display/studio-board/publish-hero",
+        "blocks/media/studio-board/work-card",
+        "pages/dashboard/studio-board/workstation-detail",
+        "pages/landing/studio-board/channel-board-home"
+      ],
+      "preview": "/preview/styles/content-media/warm-sand-workbench",
+      "usedBy": [],
+      "hasPreviewFile": true,
+      "skillPath": "styles/content-media/warm-sand-workbench/README.md"
     },
     {
       "id": "styles/experimental/quiver-night-studio",
@@ -9468,9 +9912,9 @@
       "uses": [],
       "preview": "/preview/tokens/layout/waveflow/data-console-shell",
       "usedBy": [
+        "pages/playground/chameleon/model-compare-chat-lab",
         "styles/admin-console/chameleon-ai-orchestration",
         "styles/admin-console/waveflow-warm-engineer",
-        "pages/playground/chameleon/model-compare-chat-lab",
         "pages/dashboard/waveflow/admin-runtime-report"
       ],
       "hasPreviewFile": true,
@@ -9502,8 +9946,8 @@
       "preview": "/preview/tokens/motion/acme/instant-snap",
       "uses": [],
       "usedBy": [
-        "components/indicators/acme/status-pulse",
         "components/buttons/acme/cyan-cta",
+        "components/indicators/acme/status-pulse",
         "styles/saas-tool/cold-industrial-saas"
       ],
       "hasPreviewFile": true,
@@ -9538,8 +9982,8 @@
         "blocks/canvas/chameleon/bezier-edge-add",
         "blocks/canvas/chameleon/graph-node-card",
         "blocks/canvas/chameleon/node-palette",
-        "styles/admin-console/chameleon-ai-orchestration",
-        "pages/editor/chameleon/workflow-graph-editor"
+        "pages/editor/chameleon/workflow-graph-editor",
+        "styles/admin-console/chameleon-ai-orchestration"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/motion/chameleon/canvas-edge-dash-flow.md"
@@ -9770,6 +10214,38 @@
       "skillPath": "tokens/motion/skillhub/gentle-flow.md"
     },
     {
+      "id": "tokens/motion/studio-board/liquid-ease",
+      "type": "token",
+      "name": "Liquid easeOut 动效栈",
+      "description": "cubic-bezier(0.16,1,0.3,1) 阻尼缓动 + 140/240ms 双时长 + 进场/抽屉/运行灯/卡片悬浮 keyframes —— 有物理阻尼的产品级动效",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "confident"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [],
+      "usedBy": [
+        "components/indicators/studio-board/pipeline-status-light",
+        "blocks/media/studio-board/work-card",
+        "blocks/nav/studio-board/pipeline-rail",
+        "styles/content-media/warm-sand-workbench"
+      ],
+      "hasPreviewFile": false,
+      "skillPath": "tokens/motion/studio-board/liquid-ease.md"
+    },
+    {
       "id": "tokens/motion/style-vault/editorial-flow",
       "type": "token",
       "name": "Editorial Flow Motion",
@@ -9901,9 +10377,9 @@
       "preview": "/preview/tokens/palettes/acme/slate-cyan-ice",
       "uses": [],
       "usedBy": [
-        "components/indicators/acme/status-pulse",
         "components/buttons/acme/cyan-cta",
         "components/buttons/acme/ghost-button",
+        "components/indicators/acme/status-pulse",
         "components/inputs/acme/mono-input",
         "blocks/display/acme/saas-data-table",
         "blocks/display/acme/saas-metric-grid",
@@ -9951,8 +10427,8 @@
         "blocks/canvas/chameleon/graph-node-card",
         "blocks/canvas/chameleon/node-palette",
         "blocks/nav/chameleon/detail-left-tab-rail",
-        "styles/admin-console/chameleon-ai-orchestration",
-        "pages/editor/chameleon/workflow-graph-editor"
+        "pages/editor/chameleon/workflow-graph-editor",
+        "styles/admin-console/chameleon-ai-orchestration"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/chameleon/node-type-hue-system.md"
@@ -9983,10 +10459,10 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/chameleon/themeable-8x4-system",
       "usedBy": [
-        "components/display/chameleon/stat-tile-delta",
         "components/buttons/chameleon/themeable-cva-button",
-        "components/toggles/chameleon/sliding-thumb-segmented",
+        "components/display/chameleon/stat-tile-delta",
         "components/tags-badges/chameleon/cva-semantic-badge",
+        "components/toggles/chameleon/sliding-thumb-segmented",
         "styles/admin-console/chameleon-ai-orchestration"
       ],
       "hasPreviewFile": true,
@@ -10090,9 +10566,9 @@
       "uses": [],
       "usedBy": [
         "components/avatars-icons/quiver/pixel-worker-sprite",
-        "components/indicators/quiver/autonomy-pill-badge",
         "components/buttons/quiver/glass-chrome-button",
         "components/buttons/quiver/lime-go-button",
+        "components/indicators/quiver/autonomy-pill-badge",
         "blocks/display/quiver/glass-panel-modal",
         "blocks/feedback/quiver/world-ambience",
         "blocks/layout/quiver/iso-office-world",
@@ -10126,8 +10602,8 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/sage/neutral-rgb-ladder",
       "usedBy": [
-        "components/indicators/sage/hairline-scrollbar",
         "components/buttons/sage/icon-circle-ghost",
+        "components/indicators/sage/hairline-scrollbar",
         "blocks/nav/sage/sidebar-session-row",
         "blocks/nav/sage/themed-sidebar-shell",
         "styles/saas-tool/sage-multitheme-data-platform"
@@ -10160,9 +10636,9 @@
       "preview": "/preview/tokens/palettes/sage/twelve-theme-spectrum",
       "usedBy": [
         "components/avatars-icons/sage/themed-circle-avatar",
-        "components/indicators/sage/crystal-progress-bar",
         "components/buttons/sage/stop-pulse-button",
         "components/buttons/sage/theme-bg-cta",
+        "components/indicators/sage/crystal-progress-bar",
         "components/inputs/sage/glow-border-textarea",
         "blocks/display/sage/datasource-card",
         "blocks/feedback/sage/spin-fullscreen-loader",
@@ -10205,9 +10681,9 @@
       "preview": "/preview/tokens/palettes/skillhub/skillhub-teal-mist",
       "usedBy": [
         "components/avatars-icons/skillhub/letter-avatar",
-        "components/indicators/skillhub/pulse-dot",
         "components/buttons/skillhub/border-trace-cta",
         "components/buttons/skillhub/dark-primary-cta",
+        "components/indicators/skillhub/pulse-dot",
         "components/inputs/skillhub/soft-form-input",
         "components/tags-badges/skillhub/teal-pill",
         "blocks/display/skillhub/gradient-stat-card",
@@ -10220,20 +10696,59 @@
         "blocks/marketing/skillhub/gradient-hero",
         "blocks/nav/skillhub/glass-pill-navbar",
         "styles/community-social/skillhub-soft-modernist",
+        "pages/auth/skillhub/auth-split",
         "pages/content-reader/skillhub/im-conversation",
         "pages/dashboard/skillhub/user-home",
         "pages/dashboard/skillhub/admin-overview",
         "pages/detail/skillhub/skill-article-detail",
         "pages/detail/skillhub/user-public-profile",
-        "pages/auth/skillhub/auth-split",
         "pages/form-flow/skillhub/profile-edit",
         "pages/form-flow/skillhub/skill-publish-wizard",
-        "pages/landing/skillhub/skill-community-home",
         "pages/list-table/skillhub/admin-console",
-        "pages/list-table/skillhub/practice-plaza"
+        "pages/list-table/skillhub/practice-plaza",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/skillhub/skillhub-teal-mist.md"
+    },
+    {
+      "id": "tokens/palettes/studio-board/warm-sand-ink",
+      "type": "token",
+      "name": "暖砂暖墨调色板",
+      "description": "暖砂/奶油双纸底 + 暖墨近黑 + 苔橄榄绿判成 + 暖近黑主 CTA + 金/陶土副色点睛 —— 亮暖砂 / 暗冷 slate 双主题",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "minimal"
+        ],
+        "mood": [
+          "warm",
+          "calm"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [],
+      "usedBy": [
+        "components/buttons/studio-board/ink-cta",
+        "components/display/studio-board/warm-glass-card",
+        "components/indicators/studio-board/pipeline-status-light",
+        "components/tags-badges/studio-board/status-badge",
+        "components/toggles/studio-board/platform-pills",
+        "blocks/display/studio-board/publish-hero",
+        "blocks/media/studio-board/work-card",
+        "blocks/nav/studio-board/pipeline-rail",
+        "styles/content-media/warm-sand-workbench",
+        "pages/dashboard/studio-board/workstation-detail",
+        "pages/landing/studio-board/channel-board-home"
+      ],
+      "hasPreviewFile": false,
+      "skillPath": "tokens/palettes/studio-board/warm-sand-ink.md"
     },
     {
       "id": "tokens/palettes/style-vault/slate-cyan-cool",
@@ -10264,9 +10779,9 @@
       "usedBy": [
         "components/buttons/style-vault/dark-pill-cta",
         "components/buttons/style-vault/ghost-bordered-cta",
-        "components/toggles/style-vault/editorial-underline-tab",
         "components/overlays/style-vault/spring-toast",
         "components/tags-badges/style-vault/cyan-dot-meta-pill",
+        "components/toggles/style-vault/editorial-underline-tab",
         "blocks/display/style-vault/floating-cover-row",
         "blocks/display/style-vault/preview-thumb-card",
         "blocks/feedback/style-vault/full-screen-loader",
@@ -10339,17 +10854,17 @@
       "uses": [],
       "preview": "/preview/tokens/palettes/waveflow/warm-paper-ink-blue",
       "usedBy": [
+        "components/avatars-icons/chameleon/provider-bot-avatar",
+        "components/buttons/waveflow/cva-engineer-button",
         "components/display/chameleon/distribution-score-bars",
         "components/display/chameleon/json-viewer-cell",
         "components/display/chameleon/stat-tile-delta",
         "components/feedback/chameleon/amber-nav-progress",
         "components/feedback/chameleon/loading-skeleton-kit",
-        "components/avatars-icons/chameleon/provider-bot-avatar",
-        "components/buttons/waveflow/cva-engineer-button",
-        "components/selects/chameleon/agent-picker-popover",
-        "components/selects/chameleon/model-picker-popover",
         "components/inputs/chameleon/inline-edit-cell",
         "components/inputs/waveflow/blue-focus-input",
+        "components/selects/chameleon/agent-picker-popover",
+        "components/selects/chameleon/model-picker-popover",
         "components/tags-badges/chameleon/orchestration-kind-badge",
         "blocks/chat/chameleon/composer-attach-send",
         "blocks/chat/chameleon/hitl-human-input-prompt",
@@ -10377,14 +10892,46 @@
         "blocks/nav/chameleon/detail-left-tab-rail",
         "blocks/nav/chameleon/domain-tab-topbar-account",
         "blocks/nav/waveflow/tree-line-sidebar",
-        "styles/admin-console/chameleon-ai-orchestration",
-        "styles/admin-console/waveflow-warm-engineer",
         "pages/chat/chameleon/embed-fullscreen-chat",
         "pages/playground/chameleon/model-compare-chat-lab",
+        "styles/admin-console/chameleon-ai-orchestration",
+        "styles/admin-console/waveflow-warm-engineer",
         "tokens/palettes/chameleon/node-type-hue-system"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/palettes/waveflow/warm-paper-ink-blue.md"
+    },
+    {
+      "id": "tokens/radius/studio-board/soft-sand-scale",
+      "type": "token",
+      "name": "暖砂大软圆角阶",
+      "description": "7/10/12/16(基)/20/22 六档大软圆角 —— 详情页卡/抽屉走大圆角，柔而沉，配白玻璃有「软件产品」手感",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "minimal",
+          "editorial"
+        ],
+        "mood": [
+          "calm",
+          "warm"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [],
+      "usedBy": [
+        "components/buttons/studio-board/ink-cta",
+        "components/display/studio-board/warm-glass-card",
+        "blocks/display/studio-board/publish-hero",
+        "styles/content-media/warm-sand-workbench"
+      ],
+      "hasPreviewFile": false,
+      "skillPath": "tokens/radius/studio-board/soft-sand-scale.md"
     },
     {
       "id": "tokens/shadow/flywheel/hard-offset-stack",
@@ -10495,6 +11042,37 @@
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/shadow/waveflow/soft-card-pop-trio.md"
+    },
+    {
+      "id": "tokens/texture/studio-board/warm-paper-grain",
+      "type": "token",
+      "name": "暖纸颗粒 + 弥散氛围底",
+      "description": "全幅 feTurbulence 细颗粒(opacity .05·overlay 混合)去塑料 + 金光弥散 ambient + 48px 细网格 —— 让暖砂白玻璃有纸感纵深",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "organic"
+        ],
+        "mood": [
+          "warm",
+          "calm"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [],
+      "usedBy": [
+        "styles/content-media/warm-sand-workbench",
+        "pages/dashboard/studio-board/workstation-detail",
+        "pages/landing/studio-board/channel-board-home"
+      ],
+      "hasPreviewFile": false,
+      "skillPath": "tokens/texture/studio-board/warm-paper-grain.md"
     },
     {
       "id": "tokens/texture/waveflow/login-dot-grid-mask",
@@ -10752,16 +11330,47 @@
         "blocks/form/skillhub/auth-split-form",
         "blocks/marketing/skillhub/gradient-hero",
         "styles/community-social/skillhub-soft-modernist",
+        "pages/auth/skillhub/auth-split",
         "pages/dashboard/skillhub/admin-overview",
         "pages/detail/skillhub/practice-post-detail",
         "pages/detail/skillhub/skill-article-detail",
-        "pages/auth/skillhub/auth-split",
         "pages/form-flow/skillhub/practice-compose",
-        "pages/landing/skillhub/skill-community-home",
-        "pages/list-table/skillhub/admin-console"
+        "pages/list-table/skillhub/admin-console",
+        "pages/landing/skillhub/skill-community-home"
       ],
       "hasPreviewFile": true,
       "skillPath": "tokens/typography/pairs/skillhub/inter-jetbrains-duo.md"
+    },
+    {
+      "id": "tokens/typography/pairs/studio-board/grotesk-han-plex",
+      "type": "token",
+      "name": "Grotesk × 苹方 × Plex 字体栈",
+      "description": "Space Grotesk / IBM Plex Condensed 展示 + 苹方·Plex 正文 + JetBrains Mono 元信息 —— 几何 grotesk 配中文黑体的产品级排版",
+      "platforms": [
+        "web"
+      ],
+      "theme": "both",
+      "tags": {
+        "aesthetic": [
+          "editorial",
+          "minimal"
+        ],
+        "mood": [
+          "warm",
+          "confident"
+        ],
+        "stack": [
+          "react-tailwind"
+        ]
+      },
+      "uses": [],
+      "usedBy": [
+        "blocks/display/studio-board/publish-hero",
+        "styles/content-media/warm-sand-workbench",
+        "pages/landing/studio-board/channel-board-home"
+      ],
+      "hasPreviewFile": false,
+      "skillPath": "tokens/typography/pairs/studio-board/grotesk-han-plex.md"
     },
     {
       "id": "tokens/typography/pairs/style-vault/inter-editorial-display",
